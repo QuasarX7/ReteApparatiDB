@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1088.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.difesa.esercito.b_garibaldi.rcst.cp_trasmissioni.controllo.FinestraPrincipaleController">
+    <stylesheets>        
+        <URL value="@stile.css" />    
+    </stylesheets>
+    <children>
+        <BorderPane layoutX="-207.0" layoutY="-226.0" prefHeight="626.0" prefWidth="798.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <top>
+                <VBox prefHeight="30.0" prefWidth="886.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <HBox prefHeight="200.0" prefWidth="100.0">
+<children>
+                        <MenuBar prefHeight="29.0" prefWidth="1054.0" BorderPane.alignment="CENTER">
+                            <menus><Menu mnemonicParsing="false" text="File">
+  <items>
+    <MenuItem mnemonicParsing="false" onAction="#caricaFile" text="Importa file XLS" />
+<MenuItem mnemonicParsing="false" onAction="#salvaFile" text="Esporta file XLS" />
+  </items>
+</Menu>
+                                <Menu mnemonicParsing="false" text="Apparato">
+                                    <items>
+                                        <MenuItem mnemonicParsing="false" onAction="#creaNuovoApparato" text="Nuovo apparato" />
+                                        <MenuItem mnemonicParsing="false" onAction="#apriListaApparati" text="Lista apparati" /><Menu mnemonicParsing="false" text="Rete">
+  <items>
+    <MenuItem mnemonicParsing="false" onAction="#aggiungiNuovaRete" text="Aggiungi nuova rete" /><MenuItem mnemonicParsing="false" onAction="#apriListaReti" text="Lista rete" />
+  </items>
+</Menu><Menu mnemonicParsing="false" text="Sito">
+  <items><Menu mnemonicParsing="false" text="Responsabile">
+<items>
+    <MenuItem mnemonicParsing="false" onAction="#creaNuovoResponsabile" text="Aggiungi responsabile sito" /><MenuItem mnemonicParsing="false" onAction="#apriListaResponsabile" text="Lista Responsabili dei siti" />
+</items>
+</Menu><Menu mnemonicParsing="false" text="Posizione">
+  <items><MenuItem mnemonicParsing="false" onAction="#creaNuovaPosizione" text="Aggiungi posizione" />
+    <MenuItem mnemonicParsing="false" onAction="#apriListaPosizione" text="Lista posizione" />
+  </items>
+</Menu>
+  </items>
+</Menu><MenuItem mnemonicParsing="false" onAction="#apriListaTipoApparato" text="Lista tipo di apparato" />
+                                    </items>
+                                </Menu>
+                                <Menu mnemonicParsing="false" text="Utilizzatore">
+                                    <items>
+                                        <MenuItem mnemonicParsing="false" onAction="#creaNuovoUtilizzatore" text="Nuovo utente" />
+                                        <MenuItem mnemonicParsing="false" onAction="#apriListaUtilizzatori" text="Lista utenti" />
+                                        <Menu mnemonicParsing="false" text="Qualifica">
+                                            <items>
+                                                <MenuItem mnemonicParsing="false" onAction="#listaRuoli" text="Ruolo" />
+                                                <MenuItem mnemonicParsing="false" onAction="#listaGradi" text="Gradi" />
+                                            </items>
+                                        </Menu>
+                                    </items>
+                                </Menu>
+                                <Menu mnemonicParsing="false" text="Hardware">
+                                    <items>
+                                        <MenuItem mnemonicParsing="false" onAction="#creaNuovoHardware" text="Nuovo hardware" /><MenuItem mnemonicParsing="false" onAction="#apriListaHardware" text="Lista hardware" /><MenuItem mnemonicParsing="false" onAction="#listaCaseProdutriciHW" text="Case produtrici di hardware" /><MenuItem mnemonicParsing="false" onAction="#listaTipoHardware" text="Tipo di hardware" />
+                                    </items>
+                                </Menu>
+                                <Menu mnemonicParsing="false" text="Software">
+                                    <items>
+                                        <MenuItem mnemonicParsing="false" onAction="#creaNuovoSoftware" text="Nuovo software" /><MenuItem mnemonicParsing="false" onAction="#apriListaSoftware" text="Lista software" /><MenuItem mnemonicParsing="false" onAction="#listaCaseProdutriciSW" text="Case produtrici del software" /><MenuItem mnemonicParsing="false" onAction="#listaTipoSoftware" text="Tipo di software" />
+                                    </items>
+                                </Menu><Menu mnemonicParsing="false" text="Switch">
+<items>
+<MenuItem mnemonicParsing="false" onAction="#creaNuovaConnessioneSwitch" text="Nuova connessione switch" />
+<MenuItem mnemonicParsing="false" onAction="#apriListaSwitch" text="Lista switch" /><MenuItem mnemonicParsing="false" onAction="#apriListaConnessioniSwitch" text="Lista connessioni switch" />
+</items>
+</Menu>
+                                <Menu mnemonicParsing="false" text="Accesso">
+                                    <items>
+                                        <MenuItem mnemonicParsing="false" onAction="#modificaPassword" text="Cambia password" />
+                                        <MenuItem mnemonicParsing="false" onAction="#apriGestioneUtenti" text="Gestione utenti" />
+                                    </items>
+                                </Menu>
+                            </menus>
+                        </MenuBar>
+                        <Button layoutX="700.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#chiusuraSenzaSalvare" prefHeight="28.0" prefWidth="35.0" style="-fx-background-color: red; -fx-border-color: red;" text="X" textFill="WHITE" BorderPane.alignment="CENTER">
+                            <font>
+                                <Font name="Arial Black" size="12.0" />
+                            </font>
+                        </Button>
+</children></HBox>
+                        <Label fx:id="titolo" alignment="CENTER_RIGHT" layoutX="136.5" layoutY="54.5" prefHeight="38.0" prefWidth="1055.0" text="Utente">
+<font>
+<Font name="Arial Black" size="25.0" />
+</font></Label>
+                    </children>
+                </VBox>
+            </top>
+<left><Accordion fx:id="pannelloLaterale" BorderPane.alignment="CENTER">
+<panes>
+    <TitledPane fx:id="pannelloListaHost" text="Lista Host" BorderPane.alignment="CENTER">
+<content><TreeView fx:id="listaApparati" onMouseClicked="#cliccaPanelloListaApparati" prefHeight="633.0" prefWidth="420.0" BorderPane.alignment="CENTER">
+<contextMenu><ContextMenu fx:id="menuPannello">
+  <items>
+    <MenuItem mnemonicParsing="false" onAction="#menuAggiungi" text="Aggiungi">
+<graphic><ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+<image>
+<Image url="@../Risorse/aggiungi2.png" />
+</image></ImageView>
+</graphic></MenuItem><MenuItem mnemonicParsing="false" onAction="#menuModifica" text="Modifica">
+<graphic>
+<ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+<image>
+<Image url="@../Risorse/modifica.png" />
+</image>
+</ImageView>
+</graphic>
+</MenuItem><MenuItem mnemonicParsing="false" onAction="#menuElimina" text="Elimina">
+<graphic>
+<ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+<image>
+<Image url="@../Risorse/cancella.png" />
+</image>
+</ImageView>
+</graphic>
+</MenuItem>
+  </items>
+</ContextMenu>
+</contextMenu></TreeView>
+</content>
+<font>
+<Font name="Arial Black" size="13.0" />
+</font>
+    </TitledPane>
+</panes></Accordion>
+</left>
+<center><VBox prefHeight="633.0" prefWidth="603.0" BorderPane.alignment="CENTER">
+<children><HBox prefHeight="56.0" prefWidth="537.0">
+<children><ChoiceBox fx:id="menuTipoRicerca" prefHeight="27.0" prefWidth="206.0">
+<HBox.margin>
+<Insets left="5.0" right="5.0" top="22.0" />
+</HBox.margin></ChoiceBox><TextField fx:id="compoRicerca" onMousePressed="#aggiornaCampoRicerca" prefHeight="32.0" prefWidth="372.0">
+<font>
+<Font name="Arial Black" size="13.0" />
+</font>
+<HBox.margin>
+<Insets top="20.0" />
+</HBox.margin></TextField><Button mnemonicParsing="false" onAction="#cercaApparato" text="Cerca">
+<font>
+<Font name="Arial Black" size="14.0" />
+</font>
+<HBox.margin>
+<Insets top="20.0" />
+</HBox.margin></Button>
+</children></HBox><HBox prefHeight="536.0" prefWidth="667.0">
+<children><ListView fx:id="elencoInfo" prefHeight="536.0" prefWidth="381.0">
+<VBox.margin>
+<Insets left="5.0" right="5.0" top="20.0" />
+</VBox.margin></ListView><TreeView fx:id="listaRicercaInfo" onMouseClicked="#cliccaPanelloRicercaListaApparati" prefHeight="536.0" prefWidth="271.0">
+<HBox.margin>
+<Insets left="5.0" />
+</HBox.margin></TreeView>
+</children></HBox>
+</children></VBox>
+</center>
+        </BorderPane>
+    </children>
+</AnchorPane>

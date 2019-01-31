@@ -1,0 +1,59 @@
+
+.root { 
+    -fx-background-color: rgba(20, 20, 20, 0.7);
+}
+
+/*
+ * etichette generiche
+ */
+.label{
+    -fx-text-fill: greenyellow;
+}
+
+
+/*
+ * lista menu (principale)
+ */
+.menu-bar .label {
+    -fx-text-fill: black;
+}
+
+
+/*
+ * lista menu (mouse)
+ */
+.context-menu .label{
+     -fx-text-fill: black;
+}
+
+/* 
+ * colora tutti i campi selezionati dei munu
+ */
+.menu-item:focused {
+     -fx-background-color: greenyellow;
+}
+
+
+/*
+ * lista menu campo a tendina
+ */
+.choice-box .label{
+    -fx-text-fill: -fx-text-background-color;
+}
+
+/*
+* titolo colonne tabelle
+*/
+.table-view .column-header-background .label{
+    -fx-text-fill: black;
+}
+
+.accordion .titled-pane > *.content {
+   -fx-background-color: white;
+}
+
+
+.accordion .titled-pane .label {
+   -fx-text-fill: #444;
+}
+

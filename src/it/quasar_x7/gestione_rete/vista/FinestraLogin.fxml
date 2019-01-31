@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="344.0" prefWidth="486.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.quasar_x7.gestione_rete.controllo.FinestraLoginController">
+    <stylesheets>        
+        <URL value="@stile.css" />    
+    </stylesheets>
+    <children>
+        <ImageView fitHeight="572.0" fitWidth="486.0" layoutX="64.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+<image>
+<Image url="@../Risorse/rete.png" />
+</image></ImageView>
+        <GridPane layoutX="27.0" layoutY="138.0" prefHeight="199.0" prefWidth="476.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="148.0">
+            <children>
+                <Label text="Utente">
+<font>
+<Font name="Arial Black" size="20.0" />
+</font></Label>
+                <ChoiceBox fx:id="menuUtenti" prefHeight="29.0" prefWidth="306.0" GridPane.columnIndex="1">
+<GridPane.margin>
+<Insets right="5.0" />
+</GridPane.margin></ChoiceBox>
+                <Button defaultButton="true" mnemonicParsing="false" onAction="#accedi" prefHeight="30.0" prefWidth="302.0" text="Accedi" textFill="#030303" GridPane.columnIndex="1" GridPane.rowIndex="3">
+<font>
+<Font name="Arial Black" size="13.0" />
+</font>
+<GridPane.margin>
+<Insets left="100.0" right="10.0" />
+</GridPane.margin></Button>
+                <PasswordField fx:id="campoPassword" prefColumnCount="40" prefHeight="27.0" prefWidth="265.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+<GridPane.margin>
+<Insets right="10.0" />
+</GridPane.margin></PasswordField><Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+<children>
+                <Label layoutY="10.0" text="Password" GridPane.rowIndex="1">
+<font>
+<Font name="Arial Black" size="20.0" />
+</font></Label>
+                <Button layoutX="107.0" layoutY="7.0" mnemonicParsing="false" onAction="#modifica" prefHeight="30.0" prefWidth="37.0" GridPane.rowIndex="2">
+<font>
+<Font name="Arial Black" size="13.0" />
+</font>
+<graphic><ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+<image>
+<Image url="@../Risorse/modifica.png" />
+</image></ImageView>
+</graphic></Button>
+</children></Pane>
+            </children>
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="206.0" minWidth="10.0" prefWidth="110.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="321.0" minWidth="10.0" prefWidth="269.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="120.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="119.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="111.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="111.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+        </GridPane>
+        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="44.0" prefWidth="356.0" text="Gestione RETE" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <font>
+                <Font name="Arial Black" size="25.0" />
+            </font>
+        </Label>
+        <Button layoutX="360.0" layoutY="6.0" mnemonicParsing="false" onAction="#chiusuraSenzaSalvare" prefHeight="20.0" prefWidth="31.0" text="X" textFill="#ff0101" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <font>
+                <Font name="Arial Black" size="14.0" />
+            </font>
+        </Button>
+    </children>
+    <cursor>
+        <Cursor fx:constant="DEFAULT" />
+    </cursor>
+</AnchorPane>
