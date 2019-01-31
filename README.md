@@ -1,2 +1,2 @@
 # ReteApparatiDB
-Programma di interfaccia JavaFX di una base di dati SQLite per la gestione degli apparati di una rete locale.
+Programma di interfaccia <b>JavaFX</b> di una base di dati <b>SQLite</b> per la gestione degli apparati di una rete locale.
