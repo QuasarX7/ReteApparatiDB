@@ -1117,7 +1117,7 @@ public class Programma extends Application {
                                             
                                         } else{
                                             stampa(10, "[3] aggiunci nuovo record: OK!\n", true);
-                                            
+                                            aggiungi= true;
                                         }
                                     }
                                 }else{
@@ -1141,7 +1141,7 @@ public class Programma extends Application {
                             visualizzaTabella.accept(event,null);
                             Programma.aggiornaListaApparati();
                         }else{
-                            Finestra.finestraAvviso(controller, String.format(R.Messaggi.ERRORE_MODIFICHE,DatiDB.stampaChiave(db, vecchiValori),DatiDB.stampa(nuoviValori))); 
+                            Finestra.finestraAvviso(controller, String.format(R.Messaggi.ERRORE_SALVATAGGIO,DatiDB.stampaChiave(db, vecchiValori),DatiDB.stampa(nuoviValori))); 
                                                 
                         }
                         if(erroreModifica)

@@ -55,7 +55,7 @@ import javafx.scene.text.TextFlow;
 import javafx.util.Callback;
 
 /**
- * FXML Controller class
+ * Classe che implementa il comportamento della 'FinestraPrincipale,fxml' .
  *
  * @author Dr Domenico della Peruta
  */

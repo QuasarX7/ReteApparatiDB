@@ -118,7 +118,7 @@ public abstract class DatiDB implements Dati {
             db.aggiungiTupla(tabella, record);
             db.chiudi();
         } catch (EccezioneBaseDati ex) {
-            Logger.getLogger(DatiDB.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(DatiDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
         return true;
@@ -136,7 +136,7 @@ public abstract class DatiDB implements Dati {
             } catch (EccezioneBaseDati ex1) {
                 Logger.getLogger(DatiDB.class.getName()).log(Level.SEVERE, null, ex1);
             }
-            Logger.getLogger(DatiDB.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(DatiDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
         return true;
@@ -203,12 +203,13 @@ public abstract class DatiDB implements Dati {
     public static Object[] chiave(DatiDB dati,Object[] record){
         ArrayList<Object> lista = new ArrayList<>();
         int i=0;
-        for(Object voce: record){
-            if(i < dati.tabella.vediTuttiAttributi().size())
-                if(dati.tabella.vediAttributo(i).chiave())
-                    lista.add(voce);
-            i++;
-        }
+        if(record != null)
+		    for(Object voce: record){
+		        if(i < dati.tabella.vediTuttiAttributi().size())
+		            if(dati.tabella.vediAttributo(i).chiave())
+		                lista.add(voce);
+		        i++;
+		    }
         return lista.toArray();
     }
      
