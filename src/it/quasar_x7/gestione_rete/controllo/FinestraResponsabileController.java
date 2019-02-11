@@ -1,7 +1,9 @@
 package it.quasar_x7.gestione_rete.controllo;
 
+import it.quasar_x7.gestione_rete.Dati.DatiApparato;
 import it.quasar_x7.gestione_rete.Dati.DatiDB;
 import it.quasar_x7.gestione_rete.Dati.DatiGrado;
+import it.quasar_x7.gestione_rete.Dati.DatiPosizione;
 import it.quasar_x7.gestione_rete.Dati.DatiResponsabileSito;
 import it.quasar_x7.gestione_rete.programma.Programma;
 import static it.quasar_x7.gestione_rete.programma.Programma.dati;
@@ -73,48 +75,7 @@ public class FinestraResponsabileController implements Initializable {
     @FXML
     void salva(ActionEvent event) {
         if(event.getEventType().equals(ActionEvent.ACTION)){
-        /*
-        if(!responsabile.getText().isEmpty()){
-            Object[] record = new Object[]{
-                responsabile.getText(),
-                grado.getValue(),
-                cognome.getText(),
-                nome.getText()
-            };
-            if(input != null){ // modalità modifica
-                
-                if(input[0] != null){
-                    Object[] chiave = new Object[]{//chiave vecchi dati
-                        input[0]
-                    };
-
-                    if(datiResponsabileSito.modifica(chiave,record)){
-                        visualizzaTabella(event, input[0]);
-                    }else{
-                        Finestra.finestraAvviso(
-                                this, 
-                                String.format(R.Messaggi.ERRORE_DUPLICAZIONE,input[0])
-                        ); 
-                    }
-                }
-            }else{// modalità aggiunta
-                if(!datiResponsabileSito.aggiungi(record)){
-                    Finestra.finestraAvviso(
-                            this, 
-                            String.format(
-                                    R.Messaggi.ERRORE_SALVATAGGIO,
-                                    responsabile.getText(),
-                                    DatiResponsabileSito.stampa(record)
-                            )
-                    );
-                } else{
-                    visualizzaTabella(event);
-                }
-            }
-        }else{
-            Finestra.finestraAvviso(this,R.Messaggi.ERRORE_CAMPI_FONDAMENTALI);
-        }
-        */
+        
             Programma.salva(
                     this, 
                     !responsabile.getText().isEmpty(), 
@@ -129,24 +90,33 @@ public class FinestraResponsabileController implements Initializable {
                     event, 
                     (ActionEvent evento,String chiave)->{
                         if(tabella != null){
-                                ArrayList<String> riga = new ArrayList<>();
-                                riga.add(responsabile.getText());
-                                riga.add(
-                                        DatiResponsabileSito.nominativo(
-                                        new Object[]{
-                                            responsabile.getText(),
-                                            grado.getValue(),
-                                            cognome.getText(),
-                                            nome.getText()
-                                        }
-                                    )
-                                );
+                            ArrayList<String> riga = new ArrayList<>();
+                            riga.add(responsabile.getText());
+                            riga.add(
+                                    DatiResponsabileSito.nominativo(
+                                    new Object[]{
+                                        responsabile.getText(),
+                                        grado.getValue(),
+                                        cognome.getText(),
+                                        nome.getText()
+                                    }
+                                )
+                            );
 
-                                if(chiave != null)
-                                    tabella.modificaRiga(chiave,riga);
-                                else
-                                    tabella.aggiungiRiga(riga);
-                            }
+                            if(chiave != null)
+                                tabella.modificaRiga(chiave,riga);
+                            else
+                                tabella.aggiungiRiga(riga);
+                        }
+                     // aggiorna tutti gli apparati 
+                        
+                        boolean procedi = Programma.salvaModifichePosizione(
+                                this, 
+                                DatiPosizione.VOCE_TABELLA_RESPONSABILE, 
+                                input, 0, 
+                                responsabile
+                        );
+                        if(procedi)
                             chiusuraSenzaSalvare(evento);
                     }
             );
@@ -170,45 +140,5 @@ public class FinestraResponsabileController implements Initializable {
         input = null;
         tabella= null;
     }
-    
-    private void visualizzaTabella(ActionEvent event){
-        if(tabella != null){
-            ArrayList<String> riga = new ArrayList<>();
-            riga.add(responsabile.getText());
-            riga.add(
-                    DatiResponsabileSito.nominativo(
-                    new Object[]{
-                        responsabile.getText(),
-                        grado.getValue(),
-                        cognome.getText(),
-                        nome.getText()
-                    }
-                )
-            );
-            tabella.aggiungiRiga(riga);
-        }
-        chiusuraSenzaSalvare(event);
-    }
-    
-    
-    private void visualizzaTabella(ActionEvent event, String chiave){
-        if(tabella != null){
-            ArrayList<String> riga = new ArrayList<>();
-            riga.add(responsabile.getText());
-            riga.add(
-                    DatiResponsabileSito.nominativo(
-                    new Object[]{
-                        responsabile.getText(),
-                        grado.getValue(),
-                        cognome.getText(),
-                        nome.getText()
-                    }
-                )
-            );
-            tabella.modificaRiga(chiave, riga);
-            
-        }
-        chiusuraSenzaSalvare(event);
-    }
-    
+ 
 }

@@ -82,7 +82,7 @@ import javafx.stage.WindowEvent;
 
 /**
  *
- * @author Dr. Domenico della PERUTA
+ * @author Dott. Domenico della PERUTA
  */
 public class Programma extends Application {
 
@@ -1048,9 +1048,9 @@ public class Programma extends Application {
                     boolean erroreCampi = false;        
                     
                     @Override
-                    public Task creaTask() {
+                    public Task<Object> creaTask() {
 
-                        return new Task() {
+                        return new Task<Object>() {
                             
                             String info = "";
                             final long maxEventi = 10;
@@ -1170,23 +1170,49 @@ public class Programma extends Application {
         Programma.creaListaApparato(rete,datiApparato.listaApparati());
     }
     
-    
+    /**
+     * Metodo statico che sostituisce determinati valori (modificati) di una colonna della tabella Apparato.
+     * 
+     * @param controller
+     * @param colonnaDB
+     * @param input
+     * @param indice
+     * @param campo
+     * @return
+     */
     public static boolean salvaModificheApparato(Object controller,String colonnaDB, String[] input, int indice, TextField campo){
+        return Programma.salvaModificheTabella(controller, DatiApparato.NOME_TABELLA, colonnaDB, input, indice, campo, R.Messaggi.IMMOSSIBILE_AGGIORNARE_APPARATI);    
+    }
+    /**
+     * Metodo statico che sostituisce determinati valori (modificati) di una colonna della tabella Posizione.
+     * 
+     * @param controller
+     * @param colonnaDB
+     * @param input
+     * @param indice
+     * @param campo
+     * @return
+     */
+    public static boolean salvaModifichePosizione(Object controller,String colonnaDB, String[] input, int indice, TextField campo){
+        return Programma.salvaModificheTabella(controller, DatiPosizione.NOME_TABELLA, colonnaDB, input, indice, campo, R.Messaggi.IMMOSSIBILE_AGGIORNARE_POSIZIONE);    
+    }
+    
+    private static boolean salvaModificheTabella(Object controller,String tabellaDB, String colonnaDB, String[] input, int indice, TextField campo,String messaggio){
         boolean procedi = true;
         if(input != null)
             if(input[indice] != null)
                 if(! input[indice].equals(campo.getText())){
-                    procedi = ((DatiApparato)dati.get(DatiApparato.NOME_TABELLA)).aggiorna(colonnaDB,input[indice], campo.getText());
+                    procedi = dati.get(tabellaDB).aggiorna(tabellaDB,colonnaDB,input[indice], campo.getText());
                 }
         if(procedi)
             return true;
         else{
             Finestra.finestraAvviso(controller, 
-                String.format(R.Messaggi.IMMOSSIBILE_AGGIORNARE_APPARATI
-                        ,input[indice],campo.getText()
-                )
+                String.format(messaggio,input[indice],campo.getText())
             );
             return false;
         }
     }
+    
+    
 }

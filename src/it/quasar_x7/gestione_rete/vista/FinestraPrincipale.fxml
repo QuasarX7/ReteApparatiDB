@@ -29,24 +29,27 @@
                                 <Menu mnemonicParsing="false" text="Apparato">
                                     <items>
                                         <MenuItem mnemonicParsing="false" onAction="#creaNuovoApparato" text="Nuovo apparato" />
-                                        <MenuItem mnemonicParsing="false" onAction="#apriListaApparati" text="Lista apparati" /><Menu mnemonicParsing="false" text="Rete">
-  <items>
-    <MenuItem mnemonicParsing="false" onAction="#aggiungiNuovaRete" text="Aggiungi nuova rete" /><MenuItem mnemonicParsing="false" onAction="#apriListaReti" text="Lista rete" />
-  </items>
-</Menu><Menu mnemonicParsing="false" text="Sito">
-  <items><Menu mnemonicParsing="false" text="Responsabile">
-<items>
-    <MenuItem mnemonicParsing="false" onAction="#creaNuovoResponsabile" text="Aggiungi responsabile sito" /><MenuItem mnemonicParsing="false" onAction="#apriListaResponsabile" text="Lista Responsabili dei siti" />
-</items>
-</Menu><Menu mnemonicParsing="false" text="Posizione">
-  <items><MenuItem mnemonicParsing="false" onAction="#creaNuovaPosizione" text="Aggiungi posizione" />
-    <MenuItem mnemonicParsing="false" onAction="#apriListaPosizione" text="Lista posizione" />
-  </items>
-</Menu>
-  </items>
-</Menu><MenuItem mnemonicParsing="false" onAction="#apriListaTipoApparato" text="Lista tipo di apparato" />
+                                        <MenuItem mnemonicParsing="false" onAction="#apriListaApparati" text="Lista apparati" /><MenuItem mnemonicParsing="false" onAction="#apriListaTipoApparato" text="Lista tipo di apparato" />
                                     </items>
                                 </Menu>
+                              <Menu mnemonicParsing="false" text="Rete">
+<items>
+<MenuItem mnemonicParsing="false" onAction="#aggiungiNuovaRete" text="Aggiungi nuova rete" />
+                                    <MenuItem mnemonicParsing="false" onAction="#apriListaReti" text="Lista rete" />
+</items>
+</Menu>
+                              <Menu mnemonicParsing="false" text="Responsabile">
+<items>
+<MenuItem mnemonicParsing="false" onAction="#creaNuovoResponsabile" text="Aggiungi responsabile sito" />
+                                    <MenuItem mnemonicParsing="false" onAction="#apriListaResponsabile" text="Lista Responsabili dei siti" />
+</items>
+</Menu>
+                              <Menu mnemonicParsing="false" text="Posizione">
+<items>
+                                    <MenuItem mnemonicParsing="false" onAction="#creaNuovaPosizione" text="Aggiungi posizione" />
+<MenuItem mnemonicParsing="false" onAction="#apriListaPosizione" text="Lista posizione" />
+</items>
+</Menu>
                                 <Menu mnemonicParsing="false" text="Utilizzatore">
                                     <items>
                                         <MenuItem mnemonicParsing="false" onAction="#creaNuovoUtilizzatore" text="Nuovo utente" />

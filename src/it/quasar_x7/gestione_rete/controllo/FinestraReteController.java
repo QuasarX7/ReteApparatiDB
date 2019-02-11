@@ -150,7 +150,7 @@ public class FinestraReteController implements Initializable {
                                 tabella.aggiungiRiga(riga);
                         }
                         
-                        // aggiorna tutti gli apparati
+                        // aggiorna tutti gli apparati della rete modificata
                         boolean procedi = Programma.salvaModificheApparato(
                                 this, 
                                 DatiApparato.VOCE_TABELLA_WG, 

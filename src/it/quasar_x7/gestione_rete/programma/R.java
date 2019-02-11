@@ -175,6 +175,7 @@ public class R {
         public static final String ERRORE_DUPLICAZIONE = "Impossibile salvare «%s», dato già essistente...";
         public static final String ERRORE_CAMPI_FONDAMENTALI = "Errore, i campi con etichetta di color ARANCIONE sono fondamentali e non possono essere vuoti!";
         public static final String IMMOSSIBILE_AGGIORNARE_APPARATI = "ERRORE:\n Non è stato possiblile sostituire la voce «%s» con «%s» nella tabella apparato !";
+		public static final String IMMOSSIBILE_AGGIORNARE_POSIZIONE = "ERRORE:\\n Non è stato possiblile sostituire la voce «%s» con «%s» nella tabella posizione !";
     
     }
     

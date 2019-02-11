@@ -4,6 +4,7 @@ import it.quasar_x7.gestione_rete.Dati.DatiApparato;
 import it.quasar_x7.gestione_rete.Dati.DatiCasaHardware;
 import it.quasar_x7.gestione_rete.Dati.DatiCasaSoftware;
 import it.quasar_x7.gestione_rete.Dati.DatiLogin;
+import it.quasar_x7.gestione_rete.Dati.DatiResponsabileSito;
 import it.quasar_x7.gestione_rete.Dati.DatiRuolo;
 import it.quasar_x7.gestione_rete.Dati.DatiStato;
 import it.quasar_x7.gestione_rete.Dati.DatiSwitch;
@@ -512,6 +513,8 @@ public class FinestraPrincipaleController implements Initializable {
                     creaNuovaPosizione(event);
                 }else if(nodo.getValue() instanceof Rete){
                     aggiungiNuovaRete(event);
+                }else if(nodo.getValue() instanceof Responsabile) {
+                	creaNuovoResponsabile(event);
                 }
             } 
         }
@@ -562,6 +565,28 @@ public class FinestraPrincipaleController implements Initializable {
                         };
                         aggiungiNuovaRete(event);
                     }
+                }else if(nodo.getValue() instanceof Responsabile) {
+                	Responsabile responsabile = (Responsabile) nodo.getValue();
+                	
+                	FinestraResponsabileController.input = new String[] {
+                			responsabile.getNome(),//responsabile (nome incarico)
+                			responsabile.getNominativo()
+                	};
+                	/*
+                	 if(input != null){
+				        if(input[1] != null){
+				            String[] lista = DatiResponsabileSito.nominativo(input[1]);
+				            if(lista.length == 3){
+				                grado.setValue(lista[0]);
+				                cognome.setText(lista[1]);
+				                nome.setText(lista[2]);
+				            }
+				        }
+				        if(input[0] != null)
+				            responsabile.setText(input[0]);
+				    }
+                	 */
+                	creaNuovoResponsabile(event);
                 }
             } 
         }

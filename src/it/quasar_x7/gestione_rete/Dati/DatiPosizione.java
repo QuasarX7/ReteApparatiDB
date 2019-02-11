@@ -16,7 +16,7 @@ public class DatiPosizione extends DatiDB {
     public static final String NOME_TABELLA          = "posizione";
     
     protected static final String VOCE_TABELLA_SITO               = "sito";
-    protected static final String VOCE_TABELLA_RESPONSABILE       = "responsabile";
+    public static final String VOCE_TABELLA_RESPONSABILE       = "responsabile";
 
     
 
@@ -73,4 +73,16 @@ public class DatiPosizione extends DatiDB {
         return super.lista(0);
     }
     
+    
+    /**
+     * Effettua la modivica dei valori di una colonna.
+     * 
+     * @param colonna
+     * @param vecchia
+     * @param nuova
+     * @return 
+     */
+    public boolean aggiorna(String colonna, String vecchia, String nuova){
+        return super.aggiorna(NOME_TABELLA, colonna, vecchia, nuova);
+    }
 }
