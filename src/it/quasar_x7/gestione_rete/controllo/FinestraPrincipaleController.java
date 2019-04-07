@@ -527,6 +527,7 @@ public class FinestraPrincipaleController implements Initializable {
             listaRicercaInfo.getRoot().getChildren().clear();
             TreeItem<Nodo> nodo = listaApparati.getSelectionModel().getSelectedItem();
             if(nodo != null){
+            	/*MODIFICA APPARATO*/
                 if(nodo.getValue() instanceof Apparato){
                     Apparato apparato = (Apparato) nodo.getValue();
                     
@@ -545,6 +546,8 @@ public class FinestraPrincipaleController implements Initializable {
                         apparato.getStato()
                     };
                     creaNuovoApparato(event);
+                    
+                    /*MODIFICA POSIZIONE (UFFICIO / LOCALE) */
                 }else if(nodo.getValue() instanceof Ufficio){
                     Ufficio ufficio = (Ufficio) nodo.getValue();
                     
@@ -553,6 +556,8 @@ public class FinestraPrincipaleController implements Initializable {
                         ufficio.getResponsabile()
                     };
                     creaNuovaPosizione(event);
+                    
+                    /* MODIFICA RETE */
                 }else if(nodo.getValue() instanceof Rete){
                     Rete workgroup = (Rete) nodo.getValue();
                     if(!workgroup.equals(Rete.STANDALONE)){
@@ -565,6 +570,8 @@ public class FinestraPrincipaleController implements Initializable {
                         };
                         aggiungiNuovaRete(event);
                     }
+                    
+                    /* MODIFICA RESPONSABILE */
                 }else if(nodo.getValue() instanceof Responsabile) {
                 	Responsabile responsabile = (Responsabile) nodo.getValue();
                 	
