@@ -14,14 +14,14 @@ public class DatiHardware extends DatiDB {
     
     public static final String NOME_TABELLA        = "hardware";
     
-    protected static final String VOCE_TABELLA_TIPO      = "tipo";
-    protected static final String VOCE_TABELLA_MODELLO   = "modello";
-    protected static final String VOCE_TABELLA_MATRICOLA = "matricola";
+    public static final String VOCE_TABELLA_TIPO      = "tipo";
+    public static final String VOCE_TABELLA_MODELLO   = "modello";
+    public static final String VOCE_TABELLA_MATRICOLA = "matricola";
    
-    protected static final String VOCE_TABELLA_CASA      = "casa";
-    protected static final String VOCE_TABELLA_NUC       = "NUC";
-    protected static final String VOCE_TABELLA_STATO     = "stato";
-    protected static final String VOCE_TABELLA_NOTE      = "note";
+    public static final String VOCE_TABELLA_CASA      = "casa";
+    public static final String VOCE_TABELLA_NUC       = "NUC";
+    public static final String VOCE_TABELLA_STATO     = "stato";
+    public static final String VOCE_TABELLA_NOTE      = "note";
 
     
 

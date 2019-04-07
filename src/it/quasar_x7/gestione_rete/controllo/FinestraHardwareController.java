@@ -8,7 +8,6 @@ import it.quasar_x7.gestione_rete.Dati.DatiTipoHardware;
 import it.quasar_x7.gestione_rete.programma.Programma;
 import static it.quasar_x7.gestione_rete.programma.Programma.dati;
 import it.quasar_x7.gestione_rete.programma.R;
-import it.quasar_x7.java.BaseDati.EccezioneBaseDati;
 import it.quasar_x7.javafx.Finestra;
 import it.quasar_x7.javafx.finestre.controllo.TabellaController;
 

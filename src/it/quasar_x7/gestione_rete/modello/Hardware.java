@@ -26,7 +26,12 @@ public class Hardware extends Nodo{
         this.note = new SimpleStringProperty(note);
     }
 
-    public String getModello() {
+    public Hardware(Object[] record) {
+		this((String)record[0],(String)record[1],(String)record[2],(String)record[3],(String)record[4],(String)record[5],(String)record[6]);
+	}
+    
+
+	public String getModello() {
         return modello.get();
     }
 

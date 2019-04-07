@@ -8,6 +8,7 @@ import it.quasar_x7.gestione_rete.Dati.DatiConnessioneSwitch;
 import it.quasar_x7.gestione_rete.Dati.DatiDB;
 import it.quasar_x7.gestione_rete.Dati.DatiGrado;
 import it.quasar_x7.gestione_rete.Dati.DatiHardware;
+import it.quasar_x7.gestione_rete.Dati.DatiHardwareApparato;
 import it.quasar_x7.gestione_rete.Dati.DatiLista;
 import it.quasar_x7.gestione_rete.Dati.DatiLogin;
 import it.quasar_x7.gestione_rete.Dati.DatiPosizione;
@@ -109,6 +110,7 @@ public class Programma extends Application {
         dati.put(DatiStato.NOME_TABELLA, new DatiStato());
         dati.put(DatiSwitch.NOME_TABELLA, new DatiSwitch());
         dati.put(DatiSoftwareApparato.NOME_TABELLA, new DatiSoftwareApparato());
+        dati.put(DatiHardwareApparato.NOME_TABELLA, new DatiHardwareApparato());
         dati.put(DatiConnessioneSwitch.NOME_TABELLA, new DatiConnessioneSwitch());
     }
 
