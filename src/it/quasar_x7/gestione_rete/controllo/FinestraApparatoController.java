@@ -156,6 +156,8 @@ public class FinestraApparatoController implements Initializable {
         
         
         if(input != null){
+        	/* modalita MODIFICA */
+        	
             if(input[0] != null)
                 nome.setText(input[0]);
             
@@ -194,19 +196,25 @@ public class FinestraApparatoController implements Initializable {
             
             if(input[11] != null)
                 stato.setValue(input[11]);
-        }
-        
-        nome.focusedProperty().addListener(
-                (ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-                    if (newValue) {//acquisisci focus
-                        listaSW.clear();
-                        listaHW.clear();
-                    } else { //perde focus
-                        aggiornaTabellaSW();
-                        aggiornaTabellaHW();
+            
+            aggiornaTabellaSW();
+            aggiornaTabellaHW();
+        }else {
+        	/* modalita AGGIUNGI */
+        	
+        	//caricamento eventuale software/ hardware associato....
+        	nome.focusedProperty().addListener(
+                    (ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+                        if (newValue) {//acquisisci focus
+                            listaSW.clear();
+                            listaHW.clear();
+                        } else { //perde focus
+                            aggiornaTabellaSW();
+                            aggiornaTabellaHW();
+                        }
                     }
-                }
-        );
+            );
+        }
     }  
     
     private void crezioneTabellaSW(){
@@ -216,6 +224,8 @@ public class FinestraApparatoController implements Initializable {
         colonnaCasaSW.setCellValueFactory(new PropertyValueFactory<>(R.Modello.SW.CASA));
         tabellaSoftware.setItems(listaSW);
     }
+    
+   
 
     @FXML
     private void chiusuraSenzaSalvare(ActionEvent event) {
@@ -244,6 +254,8 @@ public class FinestraApparatoController implements Initializable {
             };
             
             if(input != null){ // modalità modifica
+            	modificaSW();
+            	modificaHW();
                 if(datiApparato.modifica(new Object[]{input[0]},record)){
                     if(FinestraPrincipaleController.rete != null){
                         Programma.creaListaApparato(FinestraPrincipaleController.rete,datiApparato.listaApparati());
@@ -277,6 +289,25 @@ public class FinestraApparatoController implements Initializable {
         }else{
             Finestra.finestraAvviso(this,R.Messaggi.ERRORE_CAMPI_FONDAMENTALI);
         }
+    }
+    
+    private void modificaSW(){
+    	if(!input[0].equals(nome.getText())) {
+    		ArrayList<Software> listaSW = datiSoftwareApparato.listaSW(input[0]);
+    		for(Software sw:listaSW) {
+    			datiSoftwareApparato.modifica(
+    					new Object[]{input[0],		sw.getNome(),sw.getLicenza()}, 
+    					new Object[]{nome.getText(),sw.getNome(),sw.getLicenza()}
+    			);
+    		}
+    		
+    	}
+    }
+    
+    private void modificaHW(){
+    	if(!input[0].equals(nome.getText())) {
+    		// TODO..............
+    	}
     }
 
     @FXML

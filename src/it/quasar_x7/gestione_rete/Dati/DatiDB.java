@@ -136,7 +136,6 @@ public abstract class DatiDB implements Dati {
             } catch (EccezioneBaseDati ex1) {
                 Logger.getLogger(DatiDB.class.getName()).log(Level.SEVERE, null, ex1);
             }
-            //Logger.getLogger(DatiDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
         return true;
