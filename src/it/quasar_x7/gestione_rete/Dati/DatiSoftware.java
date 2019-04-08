@@ -47,7 +47,7 @@ public class DatiSoftware extends DatiDB {
     /**
      * <pre>
      * +-----------------+---------+---------+-------------+---------------+
-     * | Nome/versione - Licenza   |  Tipo   |   Casa      |      Note     |
+     * | Nome/versione ˙ Licenza   |  Tipo   |   Casa      |      Note     |
      * +-----------------+---------+---------+-------------+---------------+
      * |                           |         |             |               |
      * </pre>

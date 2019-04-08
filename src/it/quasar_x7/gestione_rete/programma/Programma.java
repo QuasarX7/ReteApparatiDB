@@ -360,8 +360,7 @@ public class Programma extends Application {
         
         DatiDB datiHardware = dati.get(DatiHardware.NOME_TABELLA);
         ArrayList<Integer> dim = new ArrayList<>();
-        dim.add(350);// marca matricola
-        dim.add(200);// tipo
+        dim.add(550);// marca matricola
         dim.add(150);// casa
         dim.add(100); // NUC
         dim.add(90);// stato
@@ -369,7 +368,6 @@ public class Programma extends Application {
         
         ArrayList<String> colonne = new ArrayList<>();
         colonne.add(R.Etichette.MARCA_MATRICOLA);
-        colonne.add(R.Etichette.TIPO);
         colonne.add(R.Etichette.CASA);
         colonne.add(R.Etichette.NUC);
         colonne.add(R.Etichette.STATO);
@@ -1033,11 +1031,12 @@ public class Programma extends Application {
      * @param controller
      * @param condizione
      * @param db
-     * @param vecchiValori      NB.: l'ordine dei valori deve corrispondere all'ordine 'nuoviValori' 
+     * @param vecchiValori       Vecchio record dati. 
+     * 							 NB.: l'ordine dei valori deve corrispondere all'ordine 'nuoviValori'
      * @param nuoviValori
      * @param event
-     * @param visualizzaTabella  metodo che gestisce la chiusura della finestra e il caricamento della
-     *                           finestra a tabella
+     * @param visualizzaTabella  Metodo che gestisce la chiusura della finestra e il caricamento della
+     *                           finestra a tabella. Ha due argomenti: l'evento e la stringa chiave della tabella.
      */
     public static void salva(Object controller, boolean condizione, DatiDB db, String[] vecchiValori,Object[] nuoviValori, ActionEvent event, BiConsumer<ActionEvent, String> visualizzaTabella) {
         Finestra.finestraBarraProgressi(

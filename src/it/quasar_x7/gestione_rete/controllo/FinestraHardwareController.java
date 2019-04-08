@@ -8,7 +8,6 @@ import it.quasar_x7.gestione_rete.Dati.DatiTipoHardware;
 import it.quasar_x7.gestione_rete.programma.Programma;
 import static it.quasar_x7.gestione_rete.programma.Programma.dati;
 import it.quasar_x7.gestione_rete.programma.R;
-import it.quasar_x7.javafx.Finestra;
 import it.quasar_x7.javafx.finestre.controllo.TabellaController;
 
 import java.net.URL;
@@ -74,25 +73,24 @@ public class FinestraHardwareController implements Initializable {
         if(input != null){
             if(input[0] != null){
                 String[] lista = DatiHardware.marcaMatricola(input[0]);
-                if(lista.length == 2){
-                    modello.setText(lista[0]);
-                    matricola.setText(lista[1]);
+                if(lista.length == 3){
+                	menuTipo.setValue(lista[0]);
+                    modello.setText(lista[1]);
+                    matricola.setText(lista[2]);
                 }
             }
+            
             if(input[1] != null)
-                menuTipo.setValue(input[1]);
-           
+                menuCasa.setValue(input[1]);
+             
             if(input[2] != null)
-                menuCasa.setValue(input[2]);
+                NUC.setText(input[2]);
              
             if(input[3] != null)
-                NUC.setText(input[3]);
-             
-            if(input[4] != null)
-                menuStato.setValue(input[4]);
+                menuStato.setValue(input[3]);
             
-            if(input[5] != null)
-                note.setText(input[5]);
+            if(input[4] != null)
+                note.setText(input[4]);
         }
         menuStato.getItems().addAll(R.Stato);
         
@@ -178,8 +176,8 @@ public class FinestraHardwareController implements Initializable {
     @FXML
     protected void salva(ActionEvent event) {
         
-        if(!modello.getText().isEmpty() && !matricola.getText().isEmpty()){
-            Object[] record = new Object[]{
+		if(event.getEventType().equals(ActionEvent.ACTION)) {
+			Object[] record = new Object[]{ // nuovi valori da salvare
                 menuTipo.getValue(),
                 menuCasa.getValue(),
                 modello.getText(),
@@ -188,74 +186,52 @@ public class FinestraHardwareController implements Initializable {
                 menuStato.getValue(),
                 note.getText()
             };
-            if(input != null){ // modalità di modifica
-                String[] lista = DatiHardware.marcaMatricola(input[0]);
-                if(lista.length == 2){
-                    Object[] chiave = new Object[]{//chiave vecchi dati
-                        lista[0],
-                        lista[1]
-                    };
+    		Programma.salva(
+                    this, 
+                    // condizione
+                    menuTipo.getValue().isEmpty() && !modello.getText().isEmpty() && !matricola.getText().isEmpty(), 
+                    datiHardware, 
+                    input(), // contiene i vecchi valori chiave modificare
+                    record, // nvalori da salvare 
+                    event, 
+                    (ActionEvent evento, String chiave) -> {
+                         if(tabella != null){
+                            ArrayList<String> riga = new ArrayList<>();
+                            riga.add(DatiHardware.marcaMatricola(record));
+                            riga.add((String) record[1]);
+                            riga.add((String) record[4]);
+                            riga.add((String) record[5]);
+                            riga.add((String) record[6]);
+                            
 
-                    if(datiHardware.modifica(chiave,record)){
-                        visualizzaTabella(event,input[0],record);
-                    }else{
-                        Finestra.finestraAvviso(
-                                this, 
-                                String.format(R.Messaggi.ERRORE_DUPLICAZIONE,
-                                        modello.getText()+" "+matricola.getText()
-                                )
-                        ); 
+                            if(chiave != null)
+                                tabella.modificaRiga(chiave,riga);
+                            else
+                                tabella.aggiungiRiga(riga);
+                        }
+                        chiusuraSenzaSalvare(evento);
                     }
-                }
-
-            }else{ // modalità aggiungi
-                if(!datiHardware.aggiungi(record)){
-                    Finestra.finestraAvviso(
-                            this, 
-                            String.format(
-                                    R.Messaggi.ERRORE_SALVATAGGIO,
-                                    modello.getText()+" "+matricola.getText(),
-                                    DatiDB.stampa(record)
-                            )
-                    );
-                }else{
-                    visualizzaTabella(event,record);
-                }
-            }  
-            
-        }else{
-            Finestra.finestraAvviso(this,R.Messaggi.ERRORE_CAMPI_FONDAMENTALI);
-        }
+            );
+		}
+    }
+    /**
+     * Contiene solo gli degli elementi chiave dell'input in ordine con il record SQL della tabbella hardware
+     * @return
+     */
+    private String[] input() {
+    	if(input != null) {
+    		String[] chiave = DatiHardware.marcaMatricola(input[0]);
+    		return new String[] {
+				chiave[0],
+                null,
+                chiave[1],
+                chiave[2],
+                null,
+                null,
+                null	
+    		};
+    	}
+    	return null;
     }
 
-    private void visualizzaTabella(ActionEvent event, Object[] record) {
-        if(tabella != null){
-            ArrayList<String> riga = new ArrayList<>();
-            riga.add(DatiHardware.marcaMatricola(record));
-            riga.add((String) record[0]);
-            riga.add((String) record[1]);
-            riga.add((String) record[4]);
-            riga.add((String) record[5]);
-            riga.add((String) record[6]);
-            tabella.aggiungiRiga(riga);
-        }
-        chiusuraSenzaSalvare(event);
-    }
-
-    private void visualizzaTabella(ActionEvent event, String chiave, Object[] record){
-        if(tabella != null){
-            ArrayList<String> riga = new ArrayList<>();
-            riga.add(DatiHardware.marcaMatricola(record));
-            riga.add((String) record[0]);
-            riga.add((String) record[1]);
-            riga.add((String) record[4]);
-            riga.add((String) record[5]);
-            riga.add((String) record[6]);
-            
-            tabella.modificaRiga(chiave, riga);
-            
-        }
-        chiusuraSenzaSalvare(event);
-    }
-    
 }

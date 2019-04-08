@@ -76,9 +76,44 @@
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
 <children><TableView fx:id="tabellaHardware" layoutX="7.0" layoutY="4.0" onMouseClicked="#visualizzaMenuHW" prefHeight="200.0" prefWidth="950.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
   <columns>
-    <TableColumn prefWidth="146.0" text="C1" />
-    <TableColumn minWidth="0.0" prefWidth="139.0" text="C2" />
+    <TableColumn fx:id="colonnaNomeHW" prefWidth="430.0" text="nome" />
+    <TableColumn fx:id="colonnaCasaHW" minWidth="0.0" prefWidth="236.0" text="casa" />
+                              <TableColumn fx:id="colonnaNucHW" minWidth="0.0" prefWidth="148.0" text="NUC" />
+                              <TableColumn fx:id="colonnaStatoHW" minWidth="0.0" prefWidth="125.0" text="stato" />
   </columns>
+                           <contextMenu>
+                              <ContextMenu fx:id="menuHW">
+                                <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#menuEliminaHW" text="Elimina">
+                                       <graphic>
+                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../Risorse/cancella.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </MenuItem>
+                                    <MenuItem mnemonicParsing="false" onAction="#menuModificaHW" text="Modifica">
+                                       <graphic>
+                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../Risorse/modifica.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </MenuItem>
+                                    <MenuItem mnemonicParsing="false" onAction="#menuAggiungiHW" text="Aggiungi">
+                                       <graphic>
+                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../Risorse/aggiungi2.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </MenuItem>
+                                </items>
+                              </ContextMenu>
+                           </contextMenu>
 </TableView>
 </children></AnchorPane>
                     </content>

@@ -3,6 +3,7 @@ package it.quasar_x7.gestione_rete.Dati;
 import it.quasar_x7.java.BaseDati.EccezioneBaseDati;
 import it.quasar_x7.java.BaseDati.Relazione;
 import java.util.ArrayList;
+import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -45,21 +46,20 @@ public class DatiHardware extends DatiDB {
     
     
     public static String marcaMatricola(Object[] record) {
-        return String.format("%s\t[%s]", (String)record[2],(String)record[3]);
+        return String.format("%s ˙ %s ˙ %s",(String)record[0],(String)record[2],(String)record[3]);
     }
     
     static public String[] marcaMatricola(String stringa){
-        String[] lista = stringa.split("\t");
-        lista[1] = lista[1].substring(1, lista[1].length()-1);
+        String[] lista = stringa.split(" ˙ ");
         return lista;
     }
     
     /**
      * <pre>
-     * +-----------------+---------+---------+-----+-------+---------------+
-     * | Modello [Matr.] |  Tipo   |   Casa  | NUC | Stato |      Note     |
-     * +-----------------+---------+---------+-----+-------+---------------+
-     * |                 |         |         |     |       |               |
+     * +--------------------------+---------+-----+-------+---------------+
+     * | Tipo ˙ Modello ˙ Matr    |   Casa  | NUC | Stato |      Note     |
+     * +--------------------------+---------+-----+-------+---------------+
+     * |                          |         |     |       |               |
      * </pre>
      * @return 
      */
@@ -74,7 +74,6 @@ public class DatiHardware extends DatiDB {
                     if(record != null){
                        ArrayList<String> riga =  new ArrayList<>();
                        riga.add(marcaMatricola(record));
-                       riga.add((String)record[0]);
                        riga.add((String)record[1]);
                        riga.add((String)record[4]);
                        riga.add((String)record[5]);
@@ -89,5 +88,11 @@ public class DatiHardware extends DatiDB {
         }
         return null;
     }
+
+
+	public TreeSet<String> listaNomi() {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
 }

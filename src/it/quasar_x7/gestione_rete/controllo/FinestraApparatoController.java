@@ -55,10 +55,16 @@ public class FinestraApparatoController implements Initializable {
     private ContextMenu menuSW;
     
     @FXML
+    private ContextMenu menuHW;
+    
+    @FXML
     private TableView<Software> tabellaSoftware;
     
     @FXML
     private TableColumn<Software, String> colonnaNomeSW;
+    
+    @FXML
+    private TableColumn<Software, String> colonnaNomeHW;
     
     @FXML
     private TableColumn<Software, String> colonnaLicenzaSW;
@@ -68,6 +74,15 @@ public class FinestraApparatoController implements Initializable {
     
     @FXML
     private TableColumn<Software, String> colonnaCasaSW;
+    
+    @FXML
+    private TableColumn<Software, String> colonnaCasaHW;
+    
+    @FXML
+    private TableColumn<Software, String> colonnaNucHW;
+    
+    @FXML
+    private TableColumn<Software, String> colonnaStatoHW;
     
     @FXML
     private TableView<Hardware> tabellaHardware;
@@ -412,10 +427,39 @@ public class FinestraApparatoController implements Initializable {
     private void visualizzaMenuHW(MouseEvent event){
         if((event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) || event.getButton().equals(MouseButton.SECONDARY) ){
             if(event.getSource() instanceof TableView){
-                //TODO
+            	TableView pannello = (TableView) event.getSource();
+                menuHW.show(pannello, event.getScreenX(), event.getScreenY());
             }
         }
         event.consume();
+    }
+    
+    @FXML
+    private void menuAggiungiHW(ActionEvent event) {
+        if(event.getEventType().equals(ActionEvent.ACTION)){
+            if(!nome.getText().isEmpty()){
+                 FinestraHardwareApparatoController.scenaCorrente = Finestra.scenaCorrente();
+                 FinestraHardwareApparatoController.nomeApparato = nome.getText();
+                 FinestraHardwareApparatoController.finestraApparato = this;
+                Finestra.caricaFinestra(this, R.FXML.FINESTRA_HW_APPARATO);
+            }else{
+                Finestra.finestraAvviso(this,R.Messaggi.ERRORE_CAMPI_FONDAMENTALI);
+            }
+        }
+    }
+    
+    @FXML
+    private void menuModificaHW(ActionEvent event) {
+        if(event.getEventType().equals(ActionEvent.ACTION)){
+            //TODO
+        }
+    }
+
+    @FXML
+    private void menuEliminaHW(ActionEvent event) {
+        if(event.getEventType().equals(ActionEvent.ACTION)){
+            //TODO
+        }
     }
     
     @FXML
