@@ -37,7 +37,7 @@ public class FinestraHardwareApparatoController implements Initializable {
     private ChoiceBox<String> nomeHardware;
 
     @FXML
-    private ChoiceBox<String> marca;
+    private ChoiceBox<String> modello;
     
     @FXML
     private ChoiceBox<String> matricola;
@@ -57,11 +57,15 @@ public class FinestraHardwareApparatoController implements Initializable {
         if(nomeApparato != null)
             apparato.setText(nomeApparato);
         
-        
-        TreeSet<String> listaHW = datiHW.listaNomi();
+        aggiornaMenuNomeHardware();
+    } 
+    
+    private void aggiornaMenuNomeHardware() {
+    	nomeHardware.getItems().clear();
+    	TreeSet<String> listaHW = datiHW.listaNomi();
         if(listaHW != null)
             nomeHardware.getItems().addAll(listaHW);
-    } 
+    }
 
     @FXML
     private void chiusuraSenzaSalvare(ActionEvent event) {
@@ -75,7 +79,7 @@ public class FinestraHardwareApparatoController implements Initializable {
     @FXML
     private void aggiornaMenuNomeHardware(MouseEvent event) {
         if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
-            System.out.println("aggiorna menu nome hardware");
+        	aggiornaMenuNomeHardware();
         }
     }
 
@@ -89,22 +93,28 @@ public class FinestraHardwareApparatoController implements Initializable {
     @FXML
     private void aggiornaMenuMatricola(MouseEvent event) {
         if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
-        	/*
-            licenzaSoftware.getItems().clear();
-            if(nomeSoftware.getValue() != null){
-                TreeSet<String> licenze = datiSW.listaLicenza(nomeSoftware.getValue());
-                if(licenze != null){
-                    licenzaSoftware.getItems().addAll(licenze);
+        	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+            	matricola.getItems().clear();
+                if(nomeHardware.getValue() != null && modello.getValue() != null){
+                    TreeSet<String> modelli = datiHW.listaMatricola(nomeHardware.getValue(),modello.getValue());
+                    if(modelli != null){
+                        matricola.getItems().addAll(modelli);
+                    }
                 }
             }
-            */
         }
     }
     
     @FXML
-    private void aggiornaMenuMarca(MouseEvent event) {
+    private void aggiornaMenuModello(MouseEvent event) {
         if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
-        	//TODO...
+        	modello.getItems().clear();
+            if(nomeHardware.getValue() != null){
+                TreeSet<String> modelli = datiHW.listaModello(nomeHardware.getValue());
+                if(modelli != null){
+                    modello.getItems().addAll(modelli);
+                }
+            }
         }
     }
 

@@ -87,45 +87,12 @@ public class DatiSoftware extends DatiDB {
     }
     
     public TreeSet<String> listaNomi() {
-        TreeSet<String> lista = new TreeSet<>();
-        try {
-            db.connetti();
-            ArrayList<Object[]> righe = db.vediTutteLeTuple(tabella);
-            if(righe != null)
-                for(Object[] record :righe ){
-                    if(record != null){
-                       if(record[0] != null){
-                           lista.add((String)record[0]);
-                       }
-                    }
-                }
-            db.chiudi();
-        } catch (EccezioneBaseDati ex) {
-            Logger.getLogger(DatiSoftware.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return lista;
+        return listaOrdinata(0);
     }
     
     
     public TreeSet<String> listaLicenza(String nomeSW) {
-        TreeSet<String> lista = new TreeSet<>();
-        try {
-            db.connetti();
-            ArrayList<Object[]> righe = db.vediTutteLeTuple(tabella);
-            if(righe != null)
-                for(Object[] record :righe ){
-                    if(record != null){
-                       if(record[0] != null){
-                            if(record[0].toString().equals(nomeSW))
-                                lista.add((String)record[3]);
-                       }
-                    }
-                }
-            db.chiudi();
-        } catch (EccezioneBaseDati ex) {
-            Logger.getLogger(DatiSoftware.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return lista;
+        return ricercaOrdinata(0, nomeSW, 3);
     }
     
     

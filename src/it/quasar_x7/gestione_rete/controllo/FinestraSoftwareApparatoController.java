@@ -53,10 +53,15 @@ public class FinestraSoftwareApparatoController implements Initializable {
             apparato.setText(nomeApparato);
         
         
-        TreeSet<String> listaSW = datiSW.listaNomi();
+        aggiornaMenuNomeSoftware();
+    } 
+    
+    private void aggiornaMenuNomeSoftware() {
+    	nomeSoftware.getItems().clear();
+    	TreeSet<String> listaSW = datiSW.listaNomi();
         if(listaSW != null)
             nomeSoftware.getItems().addAll(listaSW);
-    } 
+    }
 
     @FXML
     private void chiusuraSenzaSalvare(ActionEvent event) {
@@ -70,7 +75,7 @@ public class FinestraSoftwareApparatoController implements Initializable {
     @FXML
     private void aggiornaMenuNomeSoftware(MouseEvent event) {
         if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
-            System.out.println("aggiorna menu nome software");
+        	aggiornaMenuNomeSoftware();
         }
     }
 

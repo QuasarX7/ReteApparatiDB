@@ -13,6 +13,7 @@ import it.quasar_x7.java.BaseDati.FunzioneSQL;
 import it.quasar_x7.java.BaseDati.Relazione;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -316,6 +317,91 @@ public abstract class DatiDB implements Dati {
         }
         return lista;
     }
+    
+    /**
+     * Restituisce tutti gli elementi di una colonna ordinati e presi una sola volta.
+     * @param indice
+     * @return
+     */
+    public TreeSet<String> listaOrdinata(int indice) {
+		TreeSet<String> lista = new TreeSet<>();
+        try {
+            db.connetti();
+            ArrayList<Object[]> righe = db.vediTutteLeTuple(tabella);
+            if(righe != null)
+                for(Object[] record :righe ){
+                    if(record != null){
+                       if(record[indice] != null){
+                           lista.add((String)record[indice]);
+                       }
+                    }
+                }
+            db.chiudi();
+        } catch (EccezioneBaseDati ex) {
+            Logger.getLogger(DatiDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
+    }
+    
+    /**
+     * Effettua una ricerca ordinata degli elementi presenti in una colonna (collonnaRicerca) 
+     * quando in un'altra colonna (colonnaTrova) viene trovato un dato valore (collonnaRicerca).
+     * 
+     * @param colonnaTrova
+     * @param trova
+     * @param colonnaRicerca
+     * @return
+     */
+    public TreeSet<String> ricercaOrdinata(int colonnaTrova, String trova, int colonnaRicerca) {
+        TreeSet<String> lista = new TreeSet<>();
+        try {
+            db.connetti();
+            ArrayList<Object[]> righe = db.vediTutteLeTuple(tabella);
+            if(righe != null)
+                for(Object[] record :righe ){
+                    if(record != null){
+                       if(record[0] != null){
+                            if(record[colonnaTrova].toString().equals(trova))
+                                lista.add((String)record[colonnaRicerca]);
+                       }
+                    }
+                }
+            db.chiudi();
+        } catch (EccezioneBaseDati ex) {
+            Logger.getLogger(DatiDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
+    }
+    
+    /**
+     * Effettua una ricerca ordinata degli elementi presenti in base a determinati valori assunti da due colonne
+     * @param colonna1
+     * @param valore1
+     * @param colonna2
+     * @param valore2
+     * @param colonnaRicerca
+     * @return
+     */
+    public TreeSet<String> doppiaRicercaOrdinata(int colonna1, String valore1, int colonna2, String valore2, int colonnaRicerca) {
+    	TreeSet<String> lista = new TreeSet<>();
+        try {
+            db.connetti();
+            ArrayList<Object[]> righe = db.vediTutteLeTuple(tabella);
+            if(righe != null)
+                for(Object[] record :righe ){
+                    if(record != null){
+                       if(record[colonna1] != null  && record[colonna2] != null){
+                            if(record[colonna1].toString().equals(valore1) && record[colonna2].toString().equals(valore2) )
+                                lista.add((String)record[colonnaRicerca]);
+                       }
+                    }
+                }
+            db.chiudi();
+        } catch (EccezioneBaseDati ex) {
+            Logger.getLogger(DatiDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
+	}
     
     /**
      * Effettua la modivica dei valori in una colonna di una tabella.

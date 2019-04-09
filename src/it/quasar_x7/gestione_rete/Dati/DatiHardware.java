@@ -91,8 +91,17 @@ public class DatiHardware extends DatiDB {
 
 
 	public TreeSet<String> listaNomi() {
-		// TODO Auto-generated method stub
-		return null;
+        return listaOrdinata(0);
 	}
+	
+	public TreeSet<String> listaModello(String nomeHW) {
+        return ricercaOrdinata(0, nomeHW, 2);
+    }
     
+	public TreeSet<String> listaMatricola(String nomeHW,String modello) {
+        return doppiaRicercaOrdinata(0, nomeHW, 2, modello, 3);
+    }
+
+
+	
 }
