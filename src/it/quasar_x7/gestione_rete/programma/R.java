@@ -108,7 +108,9 @@ public class R {
         
         public static final String NOMINATIVO = "Nominativo";
         public static final String MAIL = "Posta elettronica";
-        public static final String MARCA_MATRICOLA = "Tipo ˙ Marca ˙ Matricola";
+        public static final String MARCA_MATRICOLA = "Tipo ˙ Modello ˙ Matricola";
+        public static final String MATRICOLA = "Matricola";
+        public static final String MODELLO = "Modello";
         public static final String CASA = "Casa";
         public static final String TIPO = "Tipo";
         public static final String NUC = "NUC";

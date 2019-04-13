@@ -120,20 +120,21 @@ public class FinestraHardwareApparatoController implements Initializable {
 
     @FXML
     private void salva(ActionEvent event) {
-    	/*
+    	
         if(event.getEventType().equals(ActionEvent.ACTION)){
-            if(!apparato.getText().isEmpty() && nomeSoftware.getValue() != null){
+            if(!apparato.getText().isEmpty() && nomeHardware.getValue() != null){
                 Object[] record = new Object[]{
                     apparato.getText(),
-                    nomeSoftware.getValue(),
-                    licenzaSoftware.getValue() == null ? "" : licenzaSoftware.getValue()
+                    nomeHardware.getValue(),
+                    modello.getValue() == null ? "" : modello.getValue(),
+                    matricola.getValue() == null ? "" : matricola.getValue()
                 };
-                if(!datiSoftwareApparato.aggiungi(record)){
+                if(!datiHardwareApparato.aggiungi(record)){
                     Finestra.finestraAvviso(
                             this, 
                             String.format(
                                     R.Messaggi.ERRORE_SALVATAGGIO,
-                                    nomeSoftware.getValue()+" di "+apparato.getText(),
+                                    nomeHardware.getValue()+" di "+apparato.getText(),
                                     DatiDB.stampa(record)
                             )
                     );
@@ -147,7 +148,7 @@ public class FinestraHardwareApparatoController implements Initializable {
         }else{
             Finestra.finestraAvviso(this,R.Messaggi.ERRORE_CAMPI_FONDAMENTALI);
         }
-        */
+        
     }
 
     

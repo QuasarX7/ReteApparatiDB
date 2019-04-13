@@ -1,8 +1,10 @@
 package it.quasar_x7.gestione_rete.controllo;
 
 import it.quasar_x7.gestione_rete.Dati.DatiApparato;
+import it.quasar_x7.gestione_rete.Dati.DatiHardwareApparato;
 import it.quasar_x7.gestione_rete.Dati.DatiPosizione;
 import it.quasar_x7.gestione_rete.Dati.DatiRete;
+import it.quasar_x7.gestione_rete.Dati.DatiSoftware;
 import it.quasar_x7.gestione_rete.Dati.DatiSoftwareApparato;
 import it.quasar_x7.gestione_rete.Dati.DatiStato;
 import it.quasar_x7.gestione_rete.Dati.DatiSwitch;
@@ -48,7 +50,7 @@ public class FinestraApparatoController implements Initializable {
     static public String[] input = null;
     
     public static ObservableList<Software> listaSW = FXCollections.observableArrayList();
-    public static ObservableList<Software> listaHW = FXCollections.observableArrayList();
+    public static ObservableList<Hardware> listaHW = FXCollections.observableArrayList();
     
     
     @FXML
@@ -134,6 +136,8 @@ public class FinestraApparatoController implements Initializable {
     protected DatiStato datiStato = (DatiStato)dati.get(DatiStato.NOME_TABELLA);
     protected DatiSwitch datiSwitch = (DatiSwitch)dati.get(DatiSwitch.NOME_TABELLA);
     protected DatiSoftwareApparato datiSoftwareApparato = (DatiSoftwareApparato)dati.get(DatiSoftwareApparato.NOME_TABELLA);
+    protected DatiHardwareApparato datiHardwareApparato = (DatiHardwareApparato)dati.get(DatiHardwareApparato.NOME_TABELLA);
+    
     /**
      * Initializes the controller class.
      */
@@ -168,7 +172,7 @@ public class FinestraApparatoController implements Initializable {
         
         
         crezioneTabellaSW();
-        
+        crezioneTabellaHW();
         
         if(input != null){
         	/* modalita MODIFICA */
@@ -240,6 +244,14 @@ public class FinestraApparatoController implements Initializable {
         tabellaSoftware.setItems(listaSW);
     }
     
+    private void crezioneTabellaHW(){
+        colonnaNomeHW.setCellValueFactory(new PropertyValueFactory<>(R.Modello.HW.NOME));
+        colonnaCasaHW.setCellValueFactory(new PropertyValueFactory<>(R.Modello.HW.CASA));
+        colonnaNucHW.setCellValueFactory(new PropertyValueFactory<>(R.Modello.HW.NUC));
+        colonnaTipoSW.setCellValueFactory(new PropertyValueFactory<>(R.Modello.HW.STATO));
+        
+        tabellaHardware.setItems(listaHW);
+    }
    
 
     @FXML
@@ -467,8 +479,8 @@ public class FinestraApparatoController implements Initializable {
         if(event.getEventType().equals(ActionEvent.ACTION)){
             if(!nome.getText().isEmpty()){
                 FinestraSoftwareApparatoController.scenaCorrente = Finestra.scenaCorrente();
-                 FinestraSoftwareApparatoController.nomeApparato = nome.getText();
-                 FinestraSoftwareApparatoController.finestraApparato = this;
+                FinestraSoftwareApparatoController.nomeApparato = nome.getText();
+                FinestraSoftwareApparatoController.finestraApparato = this;
                 Finestra.caricaFinestra(this, R.FXML.FINESTRA_SW_APPARATO);
             }else{
                 Finestra.finestraAvviso(this,R.Messaggi.ERRORE_CAMPI_FONDAMENTALI);
@@ -479,7 +491,20 @@ public class FinestraApparatoController implements Initializable {
     @FXML
     private void menuModificaSW(ActionEvent event) {
         if(event.getEventType().equals(ActionEvent.ACTION)){
-            //TODO
+        	if(!nome.getText().isEmpty()){
+                FinestraSoftwareApparatoController.scenaCorrente = Finestra.scenaCorrente();
+                FinestraSoftwareApparatoController.nomeApparato = nome.getText();
+                FinestraSoftwareApparatoController.finestraApparato = this;
+                Software sw = tabellaSoftware.getSelectionModel().getSelectedItem();
+                if(sw != null) {
+                	DatiSoftware.componiNomeLicenza(sw.getNome(), sw.getLicenza());
+                	FinestraSoftwareApparatoController.software = sw.getNome();
+                	FinestraSoftwareApparatoController.licenza = sw.getLicenza();
+                }
+                Finestra.caricaFinestra(this, R.FXML.FINESTRA_SW_APPARATO);
+            }else{
+                Finestra.finestraAvviso(this,R.Messaggi.ERRORE_CAMPI_FONDAMENTALI);
+            }
         }
     }
 
@@ -500,6 +525,9 @@ public class FinestraApparatoController implements Initializable {
 
     private void aggiornaTabellaHW() {
         listaHW.clear();
-        //TODO...
+        ArrayList<Hardware> lista = datiHardwareApparato.listaHW(nome.getText());
+        if(lista != null)
+            for(Hardware hw:lista)
+                listaHW.add(hw);
     }
 }

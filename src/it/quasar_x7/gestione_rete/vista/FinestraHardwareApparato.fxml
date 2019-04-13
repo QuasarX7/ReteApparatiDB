@@ -21,7 +21,7 @@
             <Font name="Arial Black" size="24.0" />
          </font>
       </Label>
-      <GridPane layoutX="191.5" layoutY="-50.0" prefHeight="135.0" prefWidth="666.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="65.0">
+      <GridPane layoutX="191.5" layoutY="-50.0" prefHeight="148.0" prefWidth="666.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="65.0">
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
@@ -58,7 +58,7 @@
                   <Font name="Arial Black" size="14.0" />
                </font>
             </Label>
-            <Label focusTraversable="false" layoutX="206.0" layoutY="131.0" style="-fx-text-fill: orange;" text="Modello" GridPane.rowIndex="2">
+            <Label focusTraversable="false" layoutX="206.0" layoutY="131.0" text="Modello" GridPane.rowIndex="2">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>
@@ -76,12 +76,12 @@
                   <Insets right="50.0" />
                </GridPane.margin>
             </TextField>
-            <Label focusTraversable="false" style="-fx-text-fill: orange;" text="Matricola" GridPane.rowIndex="3">
+            <ChoiceBox fx:id="matricola" onMousePressed="#aggiornaMenuMatricola" prefHeight="27.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label focusTraversable="false" text="Matricola" GridPane.rowIndex="3">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>
             </Label>
-            <ChoiceBox fx:id="matricola" onMousePressed="#aggiornaMenuMatricola" prefHeight="27.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.0" minWidth="10.0" prefWidth="136.0" />

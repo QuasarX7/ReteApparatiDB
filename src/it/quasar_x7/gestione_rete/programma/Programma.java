@@ -35,6 +35,7 @@ import it.quasar_x7.gestione_rete.controllo.FinestraSoftwareController;
 import it.quasar_x7.gestione_rete.controllo.FinestraSwitchController;
 import it.quasar_x7.gestione_rete.controllo.FinestraUtilizzatoreController;
 import it.quasar_x7.gestione_rete.modello.Apparato;
+import it.quasar_x7.gestione_rete.modello.Hardware;
 import it.quasar_x7.gestione_rete.modello.Nodo;
 import it.quasar_x7.gestione_rete.modello.Responsabile;
 import it.quasar_x7.gestione_rete.modello.Rete;
@@ -956,10 +957,19 @@ public class Programma extends Application {
                                         nodoSwitch.getChildren().add(new TreeItem<>(new Voce(R.Etichette.PORTA,_switch.getPorta())));
                                     }
 
-                                    Node immagineHW = new ImageView(new Image(R.Icona.HW,20,20,true,true));
-                                    TreeItem<Nodo> nodoHW = new TreeItem<>(new Nodo(R.Etichette.HW),immagineHW);
-                                    pc.getChildren().add(nodoHW);
-
+                                    ArrayList<Hardware> hwApp = ((DatiHardwareApparato)dati.get(DatiHardwareApparato.NOME_TABELLA)).listaHW(apparato.getNome());
+                                    if(hwApp != null)
+                                    	if(hwApp.size() > 0){
+                                    	
+		                                    Node immagineHW = new ImageView(new Image(R.Icona.HW,20,20,true,true));
+		                                    TreeItem<Nodo> nodoHW = new TreeItem<>(new Nodo(R.Etichette.HW),immagineHW);
+		                                    pc.getChildren().add(nodoHW);
+		                                    
+		                                    for(Hardware hw : hwApp){
+                                                TreeItem<Nodo> componente = new TreeItem<>(hw);
+                                                nodoHW.getChildren().add(componente);
+                                            }
+                                    	}
 
                                     ArrayList<Software> swApp = ((DatiSoftwareApparato)dati.get(DatiSoftwareApparato.NOME_TABELLA)).listaSW(apparato.getNome());
                                     if(swApp != null)

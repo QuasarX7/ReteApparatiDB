@@ -28,6 +28,8 @@ public class FinestraSoftwareApparatoController implements Initializable {
     public static Scene scenaCorrente = null;
 
     public static String nomeApparato = null;
+    public static String software = null;
+    public static String licenza = null;
     public static FinestraApparatoController finestraApparato = null;
      
     
@@ -52,8 +54,14 @@ public class FinestraSoftwareApparatoController implements Initializable {
         if(nomeApparato != null)
             apparato.setText(nomeApparato);
         
+        if(software != null)
+            nomeSoftware.setValue(software);
+        
+        if(licenza != null)
+            licenzaSoftware.setValue(licenza);
         
         aggiornaMenuNomeSoftware();
+        aggiornaMenuLicenza();
     } 
     
     private void aggiornaMenuNomeSoftware() {
@@ -61,6 +69,18 @@ public class FinestraSoftwareApparatoController implements Initializable {
     	TreeSet<String> listaSW = datiSW.listaNomi();
         if(listaSW != null)
             nomeSoftware.getItems().addAll(listaSW);
+    }
+    
+   
+    private void aggiornaMenuLicenza() {
+            licenzaSoftware.getItems().clear();
+            if(nomeSoftware.getValue() != null){
+                TreeSet<String> licenze = datiSW.listaLicenza(nomeSoftware.getValue());
+                if(licenze != null){
+                    licenzaSoftware.getItems().addAll(licenze);
+                }
+            }
+        
     }
 
     @FXML
@@ -89,13 +109,7 @@ public class FinestraSoftwareApparatoController implements Initializable {
     @FXML
     private void aggiornaMenuLicenza(MouseEvent event) {
         if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
-            licenzaSoftware.getItems().clear();
-            if(nomeSoftware.getValue() != null){
-                TreeSet<String> licenze = datiSW.listaLicenza(nomeSoftware.getValue());
-                if(licenze != null){
-                    licenzaSoftware.getItems().addAll(licenze);
-                }
-            }
+            aggiornaMenuLicenza();
         }
     }
 

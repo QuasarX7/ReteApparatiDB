@@ -1,7 +1,11 @@
 package it.quasar_x7.gestione_rete.modello;
 
+import java.util.ArrayList;
+
+import it.quasar_x7.gestione_rete.programma.R;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.text.TextFlow;
 
 /**
  *
@@ -55,6 +59,23 @@ public class Hardware extends Nodo{
         return note.get();
     }
     
-    
+    @Override
+    public ArrayList<TextFlow> info(){
+        
+        if(modello == null && matricola == null && nome == null){
+            return super.info();
+        }else{
+            ArrayList<TextFlow> lista = new ArrayList<>();
+        
+            lista.add(voceInfo(R.Etichette.NOME,getNome()));
+            lista.add(voceInfo(R.Etichette.CASA,getCasa()));
+            lista.add(voceInfo(R.Etichette.MODELLO,getModello()));
+            lista.add(voceInfo(R.Etichette.MATRICOLA,getMatricola()));
+            lista.add(voceInfo(R.Etichette.STATO,getStato()));
+            lista.add(voceInfo(R.Etichette.NOTE,getNote()));
+            return lista;
+        }
+        
+    }
     
 }
