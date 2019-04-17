@@ -1,5 +1,6 @@
 package it.quasar_x7.gestione_rete.controllo;
 
+import it.quasar_x7.gestione_rete.Dati.DatiApparato;
 import it.quasar_x7.gestione_rete.Dati.DatiDB;
 import it.quasar_x7.gestione_rete.Dati.DatiSoftware;
 import it.quasar_x7.gestione_rete.Dati.DatiSoftwareApparato;
@@ -27,7 +28,7 @@ public class FinestraSoftwareApparatoController implements Initializable {
 
     public static Scene scenaCorrente = null;
 
-    public static String nomeApparato = null;
+    public static String apparato = null;
     public static String software = null;
     public static String licenza = null;
     public static FinestraApparatoController finestraApparato = null;
@@ -40,10 +41,11 @@ public class FinestraSoftwareApparatoController implements Initializable {
     private ChoiceBox<String> licenzaSoftware;
 
     @FXML
-    private TextField apparato;
+    private ChoiceBox<String> nomeApparato;
     
     private final DatiSoftware datiSW = (DatiSoftware)dati.get(DatiSoftware.NOME_TABELLA);
     private final DatiSoftwareApparato datiSoftwareApparato = (DatiSoftwareApparato)dati.get(DatiSoftwareApparato.NOME_TABELLA);
+    private final DatiApparato datiApparato = (DatiApparato)dati.get(DatiApparato.NOME_TABELLA);
         
     
     /**
@@ -51,18 +53,27 @@ public class FinestraSoftwareApparatoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        if(nomeApparato != null)
-            apparato.setText(nomeApparato);
+        
+        aggiornaMenuNomeSoftware();
+        aggiornaMenuLicenza();
+        aggiornaApparato();
+        
+        if(apparato != null)
+            nomeApparato.setValue(apparato);
         
         if(software != null)
             nomeSoftware.setValue(software);
         
         if(licenza != null)
             licenzaSoftware.setValue(licenza);
-        
-        aggiornaMenuNomeSoftware();
-        aggiornaMenuLicenza();
     } 
+    
+    private void aggiornaApparato() {
+    	nomeApparato.getItems().clear();
+    	TreeSet<String> listaApparati = datiApparato.listaOrdinata(0);
+        if(listaApparati != null)
+            nomeApparato.getItems().addAll(listaApparati);
+    }
     
     private void aggiornaMenuNomeSoftware() {
     	nomeSoftware.getItems().clear();
@@ -88,7 +99,9 @@ public class FinestraSoftwareApparatoController implements Initializable {
         if(event.getEventType().equals(ActionEvent.ACTION)){
             Programma.chiusuraFinestra(this, scenaCorrente);
             finestraApparato = null;
-            nomeApparato = null;
+            apparato = null;
+            software = null;
+            licenza = null;
         }
     }
 
@@ -116,9 +129,9 @@ public class FinestraSoftwareApparatoController implements Initializable {
     @FXML
     private void salva(ActionEvent event) {
         if(event.getEventType().equals(ActionEvent.ACTION)){
-            if(!apparato.getText().isEmpty() && nomeSoftware.getValue() != null){
+            if(nomeApparato.getValue() != null && nomeSoftware.getValue() != null){
                 Object[] record = new Object[]{
-                    apparato.getText(),
+                    nomeApparato.getValue(),
                     nomeSoftware.getValue(),
                     licenzaSoftware.getValue() == null ? "" : licenzaSoftware.getValue()
                 };
@@ -127,7 +140,7 @@ public class FinestraSoftwareApparatoController implements Initializable {
                             this, 
                             String.format(
                                     R.Messaggi.ERRORE_SALVATAGGIO,
-                                    nomeSoftware.getValue()+" di "+apparato.getText(),
+                                    nomeSoftware.getValue()+" di "+nomeApparato.getValue(),
                                     DatiDB.stampa(record)
                             )
                     );

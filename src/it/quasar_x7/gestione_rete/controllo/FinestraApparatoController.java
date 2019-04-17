@@ -87,6 +87,13 @@ public class FinestraApparatoController implements Initializable {
     private TableColumn<Software, String> colonnaStatoHW;
     
     @FXML
+    private TableColumn<Software, String> colonnaModelloHW;
+    
+    @FXML
+    private TableColumn<Software, String> colonnaMatricolaHW;
+    
+    
+    @FXML
     private TableView<Hardware> tabellaHardware;
         
     @FXML
@@ -239,13 +246,18 @@ public class FinestraApparatoController implements Initializable {
     private void crezioneTabellaSW(){
         colonnaNomeSW.setCellValueFactory(new PropertyValueFactory<>(R.Modello.SW.NOME));
         colonnaLicenzaSW.setCellValueFactory(new PropertyValueFactory<>(R.Modello.SW.LICENZA));
+        
         colonnaTipoSW.setCellValueFactory(new PropertyValueFactory<>(R.Modello.SW.TIPO));
         colonnaCasaSW.setCellValueFactory(new PropertyValueFactory<>(R.Modello.SW.CASA));
+        
         tabellaSoftware.setItems(listaSW);
     }
     
     private void crezioneTabellaHW(){
         colonnaNomeHW.setCellValueFactory(new PropertyValueFactory<>(R.Modello.HW.NOME));
+        colonnaModelloHW.setCellValueFactory(new PropertyValueFactory<>(R.Modello.HW.MODELLO));
+        colonnaMatricolaHW.setCellValueFactory(new PropertyValueFactory<>(R.Modello.HW.MATRICOLA));
+        
         colonnaCasaHW.setCellValueFactory(new PropertyValueFactory<>(R.Modello.HW.CASA));
         colonnaNucHW.setCellValueFactory(new PropertyValueFactory<>(R.Modello.HW.NUC));
         colonnaTipoSW.setCellValueFactory(new PropertyValueFactory<>(R.Modello.HW.STATO));
@@ -318,6 +330,9 @@ public class FinestraApparatoController implements Initializable {
         }
     }
     
+    /**
+     * Aggiarna il cambiamento del nome dell'apparato anche ai suoi componenti software associati.
+     */
     private void modificaSW(){
     	if(!input[0].equals(nome.getText())) {
     		ArrayList<Software> listaSW = datiSoftwareApparato.listaSW(input[0]);
@@ -331,9 +346,18 @@ public class FinestraApparatoController implements Initializable {
     	}
     }
     
+    /**
+     * Aggiarna il cambiamento del nome dell'apparato anche ai suoi componenti hardware associati.
+     */
     private void modificaHW(){
     	if(!input[0].equals(nome.getText())) {
-    		// TODO..............
+    		ArrayList<Hardware> listaHW = datiHardwareApparato.listaHW(input[0]);
+    		for(Hardware hw:listaHW) {
+    			datiHardwareApparato.modifica(
+    					new Object[]{input[0],		hw.getNome(),hw.getModello(),hw.getMatricola()}, 
+    					new Object[]{nome.getText(),hw.getNome(),hw.getModello(),hw.getMatricola()}
+    			);
+    		}
     	}
     }
 
@@ -451,7 +475,7 @@ public class FinestraApparatoController implements Initializable {
         if(event.getEventType().equals(ActionEvent.ACTION)){
             if(!nome.getText().isEmpty()){
                  FinestraHardwareApparatoController.scenaCorrente = Finestra.scenaCorrente();
-                 FinestraHardwareApparatoController.nomeApparato = nome.getText();
+                 FinestraHardwareApparatoController.apparato = nome.getText();
                  FinestraHardwareApparatoController.finestraApparato = this;
                 Finestra.caricaFinestra(this, R.FXML.FINESTRA_HW_APPARATO);
             }else{
@@ -463,14 +487,27 @@ public class FinestraApparatoController implements Initializable {
     @FXML
     private void menuModificaHW(ActionEvent event) {
         if(event.getEventType().equals(ActionEvent.ACTION)){
-            //TODO
+        	if(!nome.getText().isEmpty()){
+                FinestraHardwareApparatoController.scenaCorrente = Finestra.scenaCorrente();
+                FinestraHardwareApparatoController.apparato = nome.getText();
+                FinestraHardwareApparatoController.finestraApparato = this;
+                Hardware hw = tabellaHardware.getSelectionModel().getSelectedItem();
+                if(hw != null) {
+                	FinestraHardwareApparatoController.hardware = hw.getNome();
+                	FinestraHardwareApparatoController.modello = hw.getModello();
+                	FinestraHardwareApparatoController.matricola = hw.getMatricola();
+                }
+                Finestra.caricaFinestra(this, R.FXML.FINESTRA_HW_APPARATO);
+            }else{
+                Finestra.finestraAvviso(this,R.Messaggi.ERRORE_CAMPI_FONDAMENTALI);
+            }
         }
     }
 
     @FXML
     private void menuEliminaHW(ActionEvent event) {
         if(event.getEventType().equals(ActionEvent.ACTION)){
-            //TODO
+            //TODO.....
         }
     }
     
@@ -479,7 +516,7 @@ public class FinestraApparatoController implements Initializable {
         if(event.getEventType().equals(ActionEvent.ACTION)){
             if(!nome.getText().isEmpty()){
                 FinestraSoftwareApparatoController.scenaCorrente = Finestra.scenaCorrente();
-                FinestraSoftwareApparatoController.nomeApparato = nome.getText();
+                FinestraSoftwareApparatoController.apparato = nome.getText();
                 FinestraSoftwareApparatoController.finestraApparato = this;
                 Finestra.caricaFinestra(this, R.FXML.FINESTRA_SW_APPARATO);
             }else{
@@ -493,11 +530,10 @@ public class FinestraApparatoController implements Initializable {
         if(event.getEventType().equals(ActionEvent.ACTION)){
         	if(!nome.getText().isEmpty()){
                 FinestraSoftwareApparatoController.scenaCorrente = Finestra.scenaCorrente();
-                FinestraSoftwareApparatoController.nomeApparato = nome.getText();
+                FinestraSoftwareApparatoController.apparato = nome.getText();
                 FinestraSoftwareApparatoController.finestraApparato = this;
                 Software sw = tabellaSoftware.getSelectionModel().getSelectedItem();
                 if(sw != null) {
-                	DatiSoftware.componiNomeLicenza(sw.getNome(), sw.getLicenza());
                 	FinestraSoftwareApparatoController.software = sw.getNome();
                 	FinestraSoftwareApparatoController.licenza = sw.getLicenza();
                 }
@@ -511,7 +547,7 @@ public class FinestraApparatoController implements Initializable {
     @FXML
     private void menuEliminaSW(ActionEvent event) {
         if(event.getEventType().equals(ActionEvent.ACTION)){
-            //TODO
+            //TODO......
         }
     }
     

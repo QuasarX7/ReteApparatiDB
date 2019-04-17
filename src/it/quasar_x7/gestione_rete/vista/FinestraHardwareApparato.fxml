@@ -21,67 +21,48 @@
             <Font name="Arial Black" size="24.0" />
          </font>
       </Label>
-      <GridPane layoutX="191.5" layoutY="-50.0" prefHeight="148.0" prefWidth="666.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="65.0">
+      <GridPane layoutX="191.5" layoutY="-50.0" prefHeight="172.0" prefWidth="562.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="104.0" AnchorPane.topAnchor="65.0">
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
                   <ChoiceBox fx:id="nomeHardware" onMousePressed="#aggiornaMenuNomeHardware" prefHeight="27.0" prefWidth="400.0">
                      <HBox.margin>
                         <Insets top="7.0" />
                      </HBox.margin>
                   </ChoiceBox>
-                  <Button mnemonicParsing="false" onAction="#aggiungiNuovoHardware" prefHeight="20.0" prefWidth="43.0">
-                     <graphic>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Risorse/aggiungi.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <HBox.margin>
-                        <Insets left="7.0" top="3.0" />
-                     </HBox.margin>
-                  </Button>
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
-                  <ChoiceBox fx:id="modello" onMousePressed="#aggiornaMenuModello" prefHeight="27.0" prefWidth="400.0">
+                  <ChoiceBox fx:id="nomeModello" onMousePressed="#aggiornaMenuModello" prefHeight="27.0" prefWidth="400.0">
                      <HBox.margin>
                         <Insets top="7.0" />
                      </HBox.margin>
                   </ChoiceBox>
                </children>
             </HBox>
-            <Label focusTraversable="false" layoutX="206.0" layoutY="131.0" style="-fx-text-fill: orange;" text="Tipo" GridPane.rowIndex="1">
+            <Label focusTraversable="false" layoutX="206.0" layoutY="131.0" style="-fx-text-fill: orange;" text="Tipo" GridPane.rowIndex="2">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>
             </Label>
-            <Label focusTraversable="false" layoutX="206.0" layoutY="131.0" text="Modello" GridPane.rowIndex="2">
+            <Label focusTraversable="false" layoutX="206.0" layoutY="131.0" text="Modello" GridPane.rowIndex="3">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>
             </Label>
-            <Label focusTraversable="false" layoutX="206.0" layoutY="131.0" style="-fx-text-fill: gray;" text="Apparato">
+            <Label focusTraversable="false" layoutX="206.0" layoutY="131.0" style="-fx-text-fill: orange;" text="Apparato">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="apparato" editable="false" layoutX="310.0" layoutY="128.0" prefHeight="27.0" prefWidth="84.0" GridPane.columnIndex="1">
-               <font>
-                  <Font name="Arial Black" size="13.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets right="50.0" />
-               </GridPane.margin>
-            </TextField>
-            <ChoiceBox fx:id="matricola" onMousePressed="#aggiornaMenuMatricola" prefHeight="27.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label focusTraversable="false" text="Matricola" GridPane.rowIndex="3">
+            <ChoiceBox fx:id="nomeMatricola" onMousePressed="#aggiornaMenuMatricola" prefHeight="27.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label focusTraversable="false" text="Matricola" GridPane.rowIndex="4">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>
             </Label>
+            <ChoiceBox fx:id="nomeApparato" onMousePressed="#aggiornaNomeApparato" prefHeight="27.0" prefWidth="400.0" GridPane.columnIndex="1" />
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.0" minWidth="10.0" prefWidth="136.0" />
@@ -92,12 +73,22 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
       <Button layoutX="399.0" layoutY="215.0" mnemonicParsing="false" onAction="#salva" prefHeight="39.0" prefWidth="206.0" text="Ok" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="30.0">
          <font>
             <Font name="Arial Black" size="18.0" />
          </font>
+      </Button>
+      <Button layoutX="577.0" layoutY="141.0" mnemonicParsing="false" onAction="#aggiungiNuovoHardware" prefHeight="28.0" prefWidth="58.0">
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Risorse/hardware.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Button>
    </children>
    <stylesheets>

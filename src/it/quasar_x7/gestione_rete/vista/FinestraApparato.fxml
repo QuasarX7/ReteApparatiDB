@@ -76,10 +76,12 @@
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
 <children><TableView fx:id="tabellaHardware" layoutX="7.0" layoutY="4.0" onMouseClicked="#visualizzaMenuHW" prefHeight="200.0" prefWidth="950.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
   <columns>
-    <TableColumn fx:id="colonnaNomeHW" prefWidth="430.0" text="nome" />
-    <TableColumn fx:id="colonnaCasaHW" minWidth="0.0" prefWidth="236.0" text="casa" />
-                              <TableColumn fx:id="colonnaNucHW" minWidth="0.0" prefWidth="148.0" text="NUC" />
-                              <TableColumn fx:id="colonnaStatoHW" minWidth="0.0" prefWidth="125.0" text="stato" />
+    <TableColumn fx:id="colonnaNomeHW" prefWidth="224.0" text="nome" />
+                              <TableColumn fx:id="colonnaModelloHW" prefWidth="209.0" text="modello" />
+                              <TableColumn fx:id="colonnaMatricolaHW" prefWidth="101.0" text="matricola" />
+    <TableColumn fx:id="colonnaCasaHW" minWidth="0.0" prefWidth="154.0" text="casa" />
+                              <TableColumn fx:id="colonnaNucHW" minWidth="0.0" prefWidth="121.0" text="NUC" />
+                              <TableColumn fx:id="colonnaStatoHW" minWidth="0.0" prefWidth="145.0" text="stato" />
   </columns>
                            <contextMenu>
                               <ContextMenu fx:id="menuHW">

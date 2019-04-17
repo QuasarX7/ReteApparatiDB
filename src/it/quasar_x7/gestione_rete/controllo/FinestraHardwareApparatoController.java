@@ -1,5 +1,6 @@
 package it.quasar_x7.gestione_rete.controllo;
 
+import it.quasar_x7.gestione_rete.Dati.DatiApparato;
 import it.quasar_x7.gestione_rete.Dati.DatiDB;
 import it.quasar_x7.gestione_rete.Dati.DatiHardware;
 import it.quasar_x7.gestione_rete.Dati.DatiHardwareApparato;
@@ -29,7 +30,11 @@ public class FinestraHardwareApparatoController implements Initializable {
 
     public static Scene scenaCorrente = null;
 
-    public static String nomeApparato = null;
+    public static String apparato = null;
+    public static String hardware = null;
+    public static String modello = null;
+    public static String matricola = null;
+    
     public static FinestraApparatoController finestraApparato = null;
      
     
@@ -37,28 +42,47 @@ public class FinestraHardwareApparatoController implements Initializable {
     private ChoiceBox<String> nomeHardware;
 
     @FXML
-    private ChoiceBox<String> modello;
+    private ChoiceBox<String> nomeModello;
     
     @FXML
-    private ChoiceBox<String> matricola;
+    private ChoiceBox<String> nomeMatricola;
 
     @FXML
-    private TextField apparato;
+    private ChoiceBox<String> nomeApparato;
     
     private final DatiHardware datiHW = (DatiHardware)dati.get(DatiHardware.NOME_TABELLA);
     private final DatiHardwareApparato datiHardwareApparato = (DatiHardwareApparato)dati.get(DatiHardwareApparato.NOME_TABELLA);
-        
+    private final DatiApparato datiApparato = (DatiApparato)dati.get(DatiApparato.NOME_TABELLA);
+    
     
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        if(nomeApparato != null)
-            apparato.setText(nomeApparato);
         
         aggiornaMenuNomeHardware();
+        aggiornaMenuModello();
+        aggiornaMenuMatricola();
+        aggiornaApparato();
+        if(apparato != null)
+            nomeApparato.setValue(apparato);
+        if(hardware != null)
+        	nomeHardware.setValue(hardware);
+        if(matricola != null)
+        	nomeMatricola.setValue(matricola);
+        
+        
     } 
+    
+    private void aggiornaApparato() {
+    	nomeApparato.getItems().clear();
+    	TreeSet<String> listaApparati = datiApparato.listaOrdinata(0);
+        if(listaApparati != null)
+            nomeApparato.getItems().addAll(listaApparati);
+    }
+    
+    
     
     private void aggiornaMenuNomeHardware() {
     	nomeHardware.getItems().clear();
@@ -72,10 +96,17 @@ public class FinestraHardwareApparatoController implements Initializable {
         if(event.getEventType().equals(ActionEvent.ACTION)){
             Programma.chiusuraFinestra(this, scenaCorrente);
             finestraApparato = null;
-            nomeApparato = null;
+            apparato = null;
         }
     }
 
+    @FXML
+    private void aggiornaNomeApparato(MouseEvent event) {
+        if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+        	aggiornaApparato();
+        }
+    }
+    
     @FXML
     private void aggiornaMenuNomeHardware(MouseEvent event) {
         if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
@@ -93,27 +124,35 @@ public class FinestraHardwareApparatoController implements Initializable {
     @FXML
     private void aggiornaMenuMatricola(MouseEvent event) {
         if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
-        	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
-            	matricola.getItems().clear();
-                if(nomeHardware.getValue() != null && modello.getValue() != null){
-                    TreeSet<String> modelli = datiHW.listaMatricola(nomeHardware.getValue(),modello.getValue());
-                    if(modelli != null){
-                        matricola.getItems().addAll(modelli);
-                    }
-                }
+        	aggiornaMenuMatricola();
+        }
+    }
+    
+    private void aggiornaMenuMatricola() {
+		nomeMatricola.getItems().clear();
+        if(nomeHardware.getValue() != null && nomeModello.getValue() != null){
+            TreeSet<String> modelli = datiHW.listaMatricola(nomeHardware.getValue(),nomeModello.getValue());
+            if(modelli != null){
+                nomeMatricola.getItems().addAll(modelli);
             }
         }
+            
+        
     }
     
     @FXML
     private void aggiornaMenuModello(MouseEvent event) {
         if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
-        	modello.getItems().clear();
-            if(nomeHardware.getValue() != null){
-                TreeSet<String> modelli = datiHW.listaModello(nomeHardware.getValue());
-                if(modelli != null){
-                    modello.getItems().addAll(modelli);
-                }
+        	aggiornaMenuModello();
+        }
+    }
+    
+    private void aggiornaMenuModello() {
+    	nomeModello.getItems().clear();
+        if(nomeHardware.getValue() != null){
+            TreeSet<String> modelli = datiHW.listaModello(nomeHardware.getValue());
+            if(modelli != null){
+                nomeModello.getItems().addAll(modelli);
             }
         }
     }
@@ -122,19 +161,19 @@ public class FinestraHardwareApparatoController implements Initializable {
     private void salva(ActionEvent event) {
     	
         if(event.getEventType().equals(ActionEvent.ACTION)){
-            if(!apparato.getText().isEmpty() && nomeHardware.getValue() != null){
+            if(nomeApparato.getValue() != null && nomeHardware.getValue() != null){
                 Object[] record = new Object[]{
-                    apparato.getText(),
+                    nomeApparato.getValue(),
                     nomeHardware.getValue(),
-                    modello.getValue() == null ? "" : modello.getValue(),
-                    matricola.getValue() == null ? "" : matricola.getValue()
+                    nomeModello.getValue() == null ? "" : nomeModello.getValue(),
+                    nomeMatricola.getValue() == null ? "" : nomeMatricola.getValue()
                 };
                 if(!datiHardwareApparato.aggiungi(record)){
                     Finestra.finestraAvviso(
                             this, 
                             String.format(
                                     R.Messaggi.ERRORE_SALVATAGGIO,
-                                    nomeHardware.getValue()+" di "+apparato.getText(),
+                                    nomeHardware.getValue()+" di "+nomeApparato.getValue(),
                                     DatiDB.stampa(record)
                             )
                     );
