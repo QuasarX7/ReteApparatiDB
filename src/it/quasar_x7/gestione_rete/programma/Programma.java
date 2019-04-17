@@ -46,6 +46,7 @@ import it.quasar_x7.gestione_rete.modello.Utilizzatore;
 import it.quasar_x7.gestione_rete.modello.Voce;
 import it.quasar_x7.controllo.FinestraGestioneUtentiController;
 import it.quasar_x7.java.BaseDati.EccezioneBaseDati;
+import it.quasar_x7.java.utile.FilePDF;
 import it.quasar_x7.javafx.Finestra;
 import it.quasar_x7.javafx.finestre.controllo.BarraProgressiController;
 import it.quasar_x7.javafx.finestre.controllo.ConfermaController;
@@ -1225,5 +1226,11 @@ public class Programma extends Application {
         }
     }
     
+    
+    public static void creaSchedaApparatoPDF(String nomeFile) {
+    	FilePDF file = new FilePDF(nomeFile);
+    	file.aggiungi("ciao mondo :P",FilePDF.TIMES,12,FilePDF.GROSSETTO,FilePDF.ALLINEAMENTO_CENTRO,FilePDF.NERO);
+    	file.chiudi();
+    }
     
 }

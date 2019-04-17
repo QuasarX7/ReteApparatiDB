@@ -439,6 +439,31 @@ public class FinestraPrincipaleController implements Initializable {
         }
     }
     
+    /**
+     * Apre la finestra che associa un apparato ad un dato software precedentemente inserito.
+     * 
+     * @param event Voce del menu principale
+     */
+    @FXML
+    private void associaSoftwareApparato(ActionEvent event) {
+        if (event.getEventType().equals(ActionEvent.ACTION)) {
+        	FinestraSoftwareApparatoController.scenaCorrente = Finestra.scenaCorrente();
+            Finestra.caricaFinestra(this, R.FXML.FINESTRA_SW_APPARATO);
+        }
+    }
+    /**
+     * Apre la finestra che associa un apparato ad un dato hardware precedentemente inserito.
+     * 
+     * @param event Voce del menu principale 
+     */
+    @FXML
+    private void associaHardwareApparato(ActionEvent event) {
+        if (event.getEventType().equals(ActionEvent.ACTION)) {
+        	FinestraHardwareApparatoController.scenaCorrente = Finestra.scenaCorrente();
+            Finestra.caricaFinestra(this, R.FXML.FINESTRA_HW_APPARATO);
+        }
+    }
+    
     
     @FXML
     private void cliccaPanelloListaApparati(MouseEvent event){
@@ -809,6 +834,46 @@ public class FinestraPrincipaleController implements Initializable {
                     
                 }
             }
+        }
+    }
+    
+    
+    /**
+     * 
+     * @param event	clic sul menu principale (File > Scheda Apparato in PDF)
+     */
+    @FXML
+    private void creaFileSchedaApparato(ActionEvent event) {
+        if(event.getEventType().equals(ActionEvent.ACTION)){
+        	//TODO...
+        	Finestra.finestraSalvaFile(
+                    this, 
+                    "ciao_mondo", 
+                    TipoFile.PDF,
+                    (Path path) -> {
+                        
+                        return new Task() {
+                            @Override
+                            protected  Object call() throws Exception {
+                                String info = "Inizio salvataggio...";
+                                updateMessage(info);
+                                updateProgress(0, 2);
+                                File file = path.toFile();
+                                if(file != null){
+                                    info = "file: "+file.getAbsolutePath() + "\n"+ info;
+                                    updateMessage(info);
+                                    Programma.creaSchedaApparatoPDF(file.getAbsolutePath());
+                                    info = "file creato";
+                                    updateMessage(info);
+                                    updateProgress(1, 2);
+                                    
+                                }
+                                return true;
+                            }
+                        };
+                    }
+            );
+        	
         }
     }
 }

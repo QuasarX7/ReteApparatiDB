@@ -24,6 +24,7 @@
   <items>
     <MenuItem mnemonicParsing="false" onAction="#caricaFile" text="Importa file XLS" />
 <MenuItem mnemonicParsing="false" onAction="#salvaFile" text="Esporta file XLS" />
+                                    <MenuItem mnemonicParsing="false" onAction="#creaFileSchedaApparato" text="Scheda Apparato in PDF" />
   </items>
 </Menu>
                                 <Menu mnemonicParsing="false" text="Apparato">
@@ -65,11 +66,13 @@
                                 <Menu mnemonicParsing="false" text="Hardware">
                                     <items>
                                         <MenuItem mnemonicParsing="false" onAction="#creaNuovoHardware" text="Nuovo hardware" /><MenuItem mnemonicParsing="false" onAction="#apriListaHardware" text="Lista hardware" /><MenuItem mnemonicParsing="false" onAction="#listaCaseProdutriciHW" text="Case produtrici di hardware" /><MenuItem mnemonicParsing="false" onAction="#listaTipoHardware" text="Tipo di hardware" />
+                                    <MenuItem mnemonicParsing="false" onAction="#associaHardwareApparato" text="Hardware dell'apparato" />
                                     </items>
                                 </Menu>
                                 <Menu mnemonicParsing="false" text="Software">
                                     <items>
                                         <MenuItem mnemonicParsing="false" onAction="#creaNuovoSoftware" text="Nuovo software" /><MenuItem mnemonicParsing="false" onAction="#apriListaSoftware" text="Lista software" /><MenuItem mnemonicParsing="false" onAction="#listaCaseProdutriciSW" text="Case produtrici del software" /><MenuItem mnemonicParsing="false" onAction="#listaTipoSoftware" text="Tipo di software" />
+                                    <MenuItem mnemonicParsing="false" onAction="#associaSoftwareApparato" text="Software dell'apparato" />
                                     </items>
                                 </Menu><Menu mnemonicParsing="false" text="Switch">
 <items>
