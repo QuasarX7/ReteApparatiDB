@@ -98,13 +98,19 @@ public class DatiUtilizzatore extends DatiDB{
      * @return 
      */
     public String trovaNominativo(String account){
-        Utilizzatore utilizzatore = crea(account);
+        Utilizzatore utilizzatore = trova(account);
         if(utilizzatore != null)
             return utilizzatore.getNome();
         return "";
     }
     
-    public Utilizzatore crea(String account){
+    /**
+     * Trova l'utilizzatore associato ad un account.
+     * 
+     * @param account
+     * @return Utilizzatore
+     */
+    public Utilizzatore trova(String account){
         try {
             db.connetti();
             Object[] record = db.vediTupla(tabella, new Object[]{account});

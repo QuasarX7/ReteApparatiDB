@@ -28,7 +28,12 @@ import it.quasar_x7.java.utile.DataOraria;
 import it.quasar_x7.javafx.CampoTesto;
 import it.quasar_x7.javafx.Finestra;
 import it.quasar_x7.javafx.TipoFile;
+import it.quasar_x7.javafx.finestre.controllo.InputController;
+import it.quasar_x7.javafx.finestre.controllo.InputController.Codice;
+
+import java.awt.Desktop;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -846,33 +851,79 @@ public class FinestraPrincipaleController implements Initializable {
     private void creaFileSchedaApparato(ActionEvent event) {
         if(event.getEventType().equals(ActionEvent.ACTION)){
         	//TODO...
-        	Finestra.finestraSalvaFile(
-                    this, 
-                    "ciao_mondo", 
-                    TipoFile.PDF,
-                    (Path path) -> {
-                        
-                        return new Task() {
-                            @Override
-                            protected  Object call() throws Exception {
-                                String info = "Inizio salvataggio...";
-                                updateMessage(info);
-                                updateProgress(0, 2);
-                                File file = path.toFile();
-                                if(file != null){
-                                    info = "file: "+file.getAbsolutePath() + "\n"+ info;
-                                    updateMessage(info);
-                                    Programma.creaSchedaApparatoPDF(file.getAbsolutePath());
-                                    info = "file creato";
-                                    updateMessage(info);
-                                    updateProgress(1, 2);
-                                    
-                                }
-                                return true;
-                            }
-                        };
-                    }
-            );
+        	Object finestraPrincipale = this;
+        	Finestra.finestraInput(
+					this, 
+        			R.Etichette.APPARATO, 
+        			datiApparato.nomiApparati(), 
+        			new Codice() {
+						@Override
+						public boolean esegui(String risposta) {
+							boolean esisteApparato = false;
+							for(String apparato : datiApparato.nomiApparati())
+								if(apparato.equals(risposta)) {
+                            		esisteApparato = true;
+                            		break;
+                            	}
+							if(!esisteApparato)
+								return false; // chiusura con verifica dell'input
+							
+							
+							// [*] 
+							// impostazioni per effettuare la successione due finestre dialogo
+							Finestra.vistaCorrente.setScene(InputController.scenaCorrente);
+							InputController.verificaInput = false;
+							// [*]
+							
+							
+							Finestra.finestraSalvaFile(
+									finestraPrincipale, 
+				                    risposta + " " + DataOraria.creaDataOggi().stampaGiorno()+ TipoFile.PDF , 
+				                    TipoFile.PDF,
+				                    (Path path) -> {
+				                        
+				                        return new Task() {
+				                            @Override
+				                            protected  Object call() throws Exception {
+				                                String info = "Inizio creazione file....";
+				                                updateMessage(info);
+				                                updateProgress(0, 2);
+				                                File file = path.toFile();
+				                                if(file != null){
+				                                    info = "file: "+file.getAbsolutePath() + "\n"+ info;
+				                                    updateMessage(info);
+				                                    Programma.creaSchedaApparatoPDF(file.getAbsolutePath(),risposta);
+				                                    info = "File creato!"+ "\n"+ info;
+				                                    updateMessage(info);
+				                                    updateProgress(1, 2);
+				                                    
+				                                    if (Desktop.isDesktopSupported()) {
+				                                        try {
+				                                            Desktop.getDesktop().open(file);
+				                                            info = "Apertura file..."+ "\n"+ info;
+				                                        } catch (IOException ex) {
+				                                        	info = "Errire aprire il file..."+ "\n"+ info;
+				                                        }
+				                                    }
+				                                    updateMessage(info);
+				                                    updateProgress(2, 2);
+				                                    
+				                                }
+				                                return true;
+				                            }
+				                        };
+				                    }
+				            );
+										  // evita la chiusura anticipata della seconda finestra dialogo
+							return false; // N.B.: 
+										  // [*]
+										  // InputController.verificaInput = false;
+										  // Finestra.vistaCorrente.setScene(InputController.scenaCorrente);
+						}
+        				
+        			}
+        			);
+        	
         	
         }
     }

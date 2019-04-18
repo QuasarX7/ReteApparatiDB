@@ -207,7 +207,7 @@ public class FinestraApparatoController implements Initializable {
             
             
             if(input[7] != null){
-                utilizzatore.setValue(datiUtilizzatore.crea(input[7]));
+                utilizzatore.setValue(datiUtilizzatore.trova(input[7]));
             }
             
             if(input[8] != null)

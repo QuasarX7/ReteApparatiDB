@@ -1,6 +1,7 @@
 package it.quasar_x7.gestione_rete.Dati;
 
 import it.quasar_x7.gestione_rete.modello.Apparato;
+import it.quasar_x7.gestione_rete.modello.Utilizzatore;
 import it.quasar_x7.gestione_rete.programma.R;
 import it.quasar_x7.java.BaseDati.EccezioneBaseDati;
 import it.quasar_x7.java.BaseDati.Relazione;
@@ -145,7 +146,32 @@ public class DatiApparato extends DatiDB{
     }
     
     
-    
+    public Apparato trova(String nome){
+        try {
+            db.connetti();
+            Object[] record = db.vediTupla(tabella, new Object[]{nome});
+            db.chiudi();
+            
+            if(record != null)
+                return new Apparato(
+                        nome,
+                        (String)record[1],  // tipo
+                        (String)record[2],  // gruppo (dominio rete)
+                        (String)record[3],  // IP
+                        (String)record[4],  // MAC rete
+                        (String)record[5],  // MAC VOIP
+                        (String)record[6],  // posizione
+                        (String)record[7],  // utilizzatore
+                        (Boolean)record[8], // internet
+                        (Integer)record[9], // sigillo
+                        (String)record[10], // password
+                        (String)record[11]  // stato
+                );
+        } catch (EccezioneBaseDati ex) {
+            Logger.getLogger(DatiApparato.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
     
     
 }
