@@ -100,7 +100,7 @@ public class DatiApparato extends DatiDB{
                             :  R.ChiaviDati.NESSUN_GRUPPO; 
                     
                     DatiPosizione posizione = new DatiPosizione();
-                    String responsabile = posizione.crea(ufficio).getResponsabile();
+                    String responsabile = posizione.info(ufficio).getResponsabile();
                     
                     
                     if(!lista.containsKey(workgroup)){
@@ -145,8 +145,13 @@ public class DatiApparato extends DatiDB{
         return super.aggiorna(NOME_TABELLA, colonna, vecchia, nuova);
     }
     
-    
-    public Apparato trova(String nome){
+    /**
+     * Trova tutte le informazioni su un apparato.
+     * 
+     * @param nome
+     * @return Apparato
+     */
+    public Apparato info(String nome){
         try {
             db.connetti();
             Object[] record = db.vediTupla(tabella, new Object[]{nome});

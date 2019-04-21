@@ -54,7 +54,13 @@ public class DatiRete extends DatiDB{
         return reti;
     }
     
-    public Rete crea(String workgroup){
+    /**
+     * Trova tutti i dati relativi a una data rete.
+     * 
+     * @param workgroup
+     * @return
+     */
+    public Rete info(String workgroup){
         try {
             db.connetti();
             Object[] record = db.vediTupla(tabella, new Object[]{workgroup});

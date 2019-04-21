@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Ninja
+ * @author Dott. Domenico dellaPeruta
  */
 public class DatiConnessioneSwitch extends DatiDB{
     

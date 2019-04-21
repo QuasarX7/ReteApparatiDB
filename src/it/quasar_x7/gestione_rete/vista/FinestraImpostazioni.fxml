@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="408.0" prefWidth="596.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.quasar_x7.gestione_rete.controllo.FinestraImpostazioniController">
+   <children>
+      <Button layoutX="700.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#chiusuraSenzaSalvare" prefHeight="28.0" prefWidth="35.0" style="-fx-background-color: red; -fx-border-color: red;" text="X" textFill="WHITE" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font name="Arial Black" size="12.0" />
+         </font>
+      </Button>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="65.0" prefHeight="37.0" prefWidth="481.0" text="Impostazioni Report">
+         <font>
+            <Font name="Arial Black" size="24.0" />
+         </font>
+      </Label>
+      <Button layoutX="368.0" layoutY="348.0" mnemonicParsing="false" onAction="#salva" prefHeight="39.0" prefWidth="206.0" text="Ok">
+         <font>
+            <Font name="Arial Black" size="18.0" />
+         </font>
+      </Button>
+   </children>
+   <stylesheets>
+      <URL value="@stile.css" />
+   </stylesheets>
+</AnchorPane>

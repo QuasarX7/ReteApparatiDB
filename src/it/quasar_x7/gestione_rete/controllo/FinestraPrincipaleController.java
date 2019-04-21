@@ -927,4 +927,18 @@ public class FinestraPrincipaleController implements Initializable {
         	
         }
     }
+    
+    
+    /**
+     * Apertura finestra delle impostazioni di stampa PDF.
+     * 
+     * @param event click sul menu principale (voce File)
+     */
+    @FXML
+    private void apriImpostazioniReportPDF(ActionEvent event) {
+        if(event.getEventType().equals(ActionEvent.ACTION)){
+        	FinestraImpostazioniController.scenaCorrente = Finestra.scenaCorrente();
+            Finestra.caricaFinestra(this, R.FXML.FINESTRA_IMPOSTAZIONI);
+        }
+    }
 }

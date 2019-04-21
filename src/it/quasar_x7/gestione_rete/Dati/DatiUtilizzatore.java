@@ -98,7 +98,7 @@ public class DatiUtilizzatore extends DatiDB{
      * @return 
      */
     public String trovaNominativo(String account){
-        Utilizzatore utilizzatore = trova(account);
+        Utilizzatore utilizzatore = info(account);
         if(utilizzatore != null)
             return utilizzatore.getNome();
         return "";
@@ -110,7 +110,7 @@ public class DatiUtilizzatore extends DatiDB{
      * @param account
      * @return Utilizzatore
      */
-    public Utilizzatore trova(String account){
+    public Utilizzatore info(String account){
         try {
             db.connetti();
             Object[] record = db.vediTupla(tabella, new Object[]{account});

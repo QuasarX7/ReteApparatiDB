@@ -9,6 +9,7 @@ import it.quasar_x7.gestione_rete.Dati.DatiDB;
 import it.quasar_x7.gestione_rete.Dati.DatiGrado;
 import it.quasar_x7.gestione_rete.Dati.DatiHardware;
 import it.quasar_x7.gestione_rete.Dati.DatiHardwareApparato;
+import it.quasar_x7.gestione_rete.Dati.DatiImpostazioni;
 import it.quasar_x7.gestione_rete.Dati.DatiLista;
 import it.quasar_x7.gestione_rete.Dati.DatiLogin;
 import it.quasar_x7.gestione_rete.Dati.DatiPosizione;
@@ -118,6 +119,7 @@ public class Programma extends Application {
         dati.put(DatiSoftwareApparato.NOME_TABELLA, new DatiSoftwareApparato());
         dati.put(DatiHardwareApparato.NOME_TABELLA, new DatiHardwareApparato());
         dati.put(DatiConnessioneSwitch.NOME_TABELLA, new DatiConnessioneSwitch());
+        dati.put(DatiImpostazioni.NOME_TABELLA, new DatiImpostazioni());
     }
 
     
@@ -899,7 +901,7 @@ public class Programma extends Application {
                 
                 Node immagineRete = new ImageView(new Image(R.Icona.RETE,80,80,true,true));
                 DatiRete datiRete = (DatiRete)dati.get(DatiRete.NOME_TABELLA);
-                TreeItem<Nodo> gruppoDominio = new TreeItem<>(datiRete.crea(nomeDominio),immagineRete);
+                TreeItem<Nodo> gruppoDominio = new TreeItem<>(datiRete.info(nomeDominio),immagineRete);
                 rete.getChildren().add(gruppoDominio);
                 gruppoDominio.setExpanded(true);
                 
@@ -917,7 +919,7 @@ public class Programma extends Application {
                             ArrayList<Apparato> ufficio = responsabile.get(nomeUfficio);
                             Node immaginePosizione = new ImageView(new Image(R.Icona.POSIZIONE,20,20,true,true));
                             DatiPosizione datiPosizione = (DatiPosizione)dati.get(DatiPosizione.NOME_TABELLA);
-                            TreeItem<Nodo> gruppoUfficio = new TreeItem<>(datiPosizione.crea(nomeUfficio),immaginePosizione);
+                            TreeItem<Nodo> gruppoUfficio = new TreeItem<>(datiPosizione.info(nomeUfficio),immaginePosizione);
                             nodoResponsabile.getChildren().add(gruppoUfficio);
                             gruppoUfficio.setExpanded(true);
                             if(ufficio != null){
@@ -943,7 +945,7 @@ public class Programma extends Application {
 
                                     Node immagineAccount = new ImageView(new Image(R.Icona.UTILIZZATORE,20,20,true,true));
                                     DatiUtilizzatore datiUtilizzatore = (DatiUtilizzatore) dati.get(DatiUtilizzatore.NOME_TABELLA);
-                                    Utilizzatore utente = datiUtilizzatore.trova(apparato.getUtente());
+                                    Utilizzatore utente = datiUtilizzatore.info(apparato.getUtente());
                                     if(utente != null){
                                         TreeItem<Nodo> nodoUtilizzatore = new TreeItem<>(utente,immagineAccount);
                                         pc.getChildren().add(nodoUtilizzatore);
@@ -1233,7 +1235,7 @@ public class Programma extends Application {
     
     public static void creaSchedaApparatoPDF(String nomeFile,String apparato) {
     	
-    	Apparato datiApparato = ((DatiApparato)dati.get(DatiApparato.NOME_TABELLA)).trova(apparato);
+    	Apparato datiApparato = ((DatiApparato)dati.get(DatiApparato.NOME_TABELLA)).info(apparato);
     	
     	if(datiApparato == null)
     		return ; // chiudi 
@@ -1245,51 +1247,128 @@ public class Programma extends Application {
     	
     	file.aggiungi(String.format("Caserta, %s", DataOraria.creaDataOggi().stampaGiorno('/')),FilePDF.TIMES_CORSIVO,12,FilePDF.CORSIVO,FilePDF.ALLINEAMENTO_DESTRA,FilePDF.NERO);
     	
-    	file.aggiungi("\nSCHEDA APPARATO N° 123",FilePDF.HELVETICA_GROSSETTO,12,FilePDF.CORSIVO,FilePDF.ALLINEAMENTO_SINISTRA,FilePDF.NERO);
-    	file.aggiungi("SIGILLO N° 345\n",FilePDF.HELVETICA,12,FilePDF.CORSIVO,FilePDF.ALLINEAMENTO_SINISTRA,FilePDF.NERO);
+    	file.aggiungi(String.format("\nSCHEDA APPARATO N° %d",888),FilePDF.HELVETICA_GROSSETTO,12,FilePDF.CORSIVO,FilePDF.ALLINEAMENTO_SINISTRA,FilePDF.NERO);
+    	file.aggiungi(String.format("SIGILLO N° %d\n",datiApparato.getSigillo()),FilePDF.HELVETICA,12,FilePDF.CORSIVO,FilePDF.ALLINEAMENTO_SINISTRA,FilePDF.NERO);
     	
     	file.aggiungi(BARRA,FilePDF.HELVETICA,12,FilePDF.CORSIVO,FilePDF.ALLINEAMENTO_SINISTRA,FilePDF.NERO);
     	
-    	float[] colonne = new float[] {14,54,12,20};
-		ArrayList<CellaPDF> tabella = new ArrayList<CellaPDF>();
+    	
+		ArrayList<CellaPDF> tabellaInfo = new ArrayList<CellaPDF>();
 		
-		tabella.add(new CellaPDF("Posizione:",FilePDF.GROSSETTO));
-		tabella.add(new CellaPDF(datiApparato.getPosizione()));
+		tabellaInfo.add(new CellaPDF("Posizione:",FilePDF.GROSSETTO));
+		tabellaInfo.add(new CellaPDF(datiApparato.getPosizione()));
 		
-		tabella.add(new CellaPDF("Nome PC:",FilePDF.GROSSETTO));
-		tabella.add(new CellaPDF(apparato));
+		tabellaInfo.add(new CellaPDF("Nome PC:",FilePDF.GROSSETTO));
+		tabellaInfo.add(new CellaPDF(apparato));
 		
-		tabella.add(new CellaPDF("Responsabile Sito:",FilePDF.GROSSETTO));
-		tabella.add(new CellaPDF("Capo Sez. O.A.I.\nMagg.Pinco PALLINO"));//TODO....
+		DatiPosizione datiPosizione  = ((DatiPosizione)dati.get(DatiPosizione.NOME_TABELLA));
+		Ufficio posizione = datiPosizione.info(datiApparato.getPosizione());
 		
-		tabella.add(new CellaPDF("WorkGroup:",FilePDF.GROSSETTO));
-		tabella.add(new CellaPDF(datiApparato.getGruppo()));
+		tabellaInfo.add(new CellaPDF("Responsabile Sito:",FilePDF.GROSSETTO));
+		tabellaInfo.add(new CellaPDF(posizione != null ? posizione.getResponsabile() : " "));
+		
+		tabellaInfo.add(new CellaPDF("WorkGroup:",FilePDF.GROSSETTO));
+		tabellaInfo.add(new CellaPDF(datiApparato.getGruppo()));
 		
 		DatiUtilizzatore datiUtilizzatore  = ((DatiUtilizzatore)dati.get(DatiUtilizzatore.NOME_TABELLA));
-		Utilizzatore utilizzatore = datiUtilizzatore.trova(datiApparato.getUtente());
+		Utilizzatore utilizzatore = datiUtilizzatore.info(datiApparato.getUtente());
 		
-		tabella.add(new CellaPDF("Utilizzatore:",FilePDF.GROSSETTO));
-		tabella.add(new CellaPDF( utilizzatore != null ? utilizzatore.getNome() : "" ));
+		tabellaInfo.add(new CellaPDF("Utilizzatore:",FilePDF.GROSSETTO));
+		tabellaInfo.add(new CellaPDF( utilizzatore != null ? utilizzatore.getNome() : "" ));
 		
-		tabella.add(new CellaPDF("Dominio Internet:",FilePDF.GROSSETTO));
-		tabella.add(new CellaPDF("microsoft.com"));//TODO....
+		DatiRete datiRete  = ((DatiRete)dati.get(DatiRete.NOME_TABELLA));
+		Rete rete = datiRete.info(datiApparato.getGruppo());
 		
-		
-		tabella.add(new CellaPDF("Posta Elettronica:",FilePDF.GROSSETTO));
-		tabella.add(new CellaPDF( utilizzatore != null ? utilizzatore.getMail() : "" ));
-		
-		tabella.add(new CellaPDF("Tipo Rete:",FilePDF.GROSSETTO));
-		tabella.add(new CellaPDF("1 Gigabit"));
-		
-		tabella.add(new CellaPDF(" ",FilePDF.GROSSETTO));
-		tabella.add(new CellaPDF(" "));
-		
-		tabella.add(new CellaPDF("Indirizzo IP:",FilePDF.GROSSETTO));
-		tabella.add(new CellaPDF(datiApparato.getIp()));
+		tabellaInfo.add(new CellaPDF("Dominio Internet:",FilePDF.GROSSETTO));
+		tabellaInfo.add(new CellaPDF(rete != null ? rete.getDominio() : " "));
 		
 		
+		tabellaInfo.add(new CellaPDF("Posta Elettronica:",FilePDF.GROSSETTO));
+		tabellaInfo.add(new CellaPDF( utilizzatore != null ? utilizzatore.getMail() : "" ));
 		
-		file.aggiungiTabella(tabella, colonne);
+		tabellaInfo.add(new CellaPDF("Tipo Rete:",FilePDF.GROSSETTO));
+		tabellaInfo.add(new CellaPDF(rete != null ? rete.getTipo() : " "));
+		
+		tabellaInfo.add(new CellaPDF(" ",FilePDF.GROSSETTO));
+		tabellaInfo.add(new CellaPDF(" "));
+		
+		tabellaInfo.add(new CellaPDF("Indirizzo IP:",FilePDF.GROSSETTO));
+		tabellaInfo.add(new CellaPDF(datiApparato.getIp()));
+		
+		file.aggiungiTabella(tabellaInfo, new float[]{14,54,12,20});
+		
+		file.aggiungi(BARRA,FilePDF.HELVETICA,12,FilePDF.CORSIVO,FilePDF.ALLINEAMENTO_SINISTRA,FilePDF.NERO);
+    	file.aggiungi("Configurazione Hardware dell'Apparato",FilePDF.HELVETICA,14,FilePDF.GROSSETTO_CORSIVO,FilePDF.ALLINEAMENTO_CENTRO,FilePDF.NERO);
+		
+		ArrayList<CellaPDF> tabellaHW = new ArrayList<CellaPDF>();
+		
+		tabellaHW.add(new CellaPDF("Tipo",FilePDF.GROSSETTO));
+		tabellaHW.add(new CellaPDF("Casa",FilePDF.GROSSETTO));
+		tabellaHW.add(new CellaPDF("Modello",FilePDF.GROSSETTO));
+		tabellaHW.add(new CellaPDF("Matricola",FilePDF.GROSSETTO));
+		tabellaHW.add(new CellaPDF("NUC",FilePDF.GROSSETTO));
+		tabellaHW.add(new CellaPDF("Note",FilePDF.GROSSETTO));
+		
+		DatiHardwareApparato datiHW  = ((DatiHardwareApparato)dati.get(DatiHardwareApparato.NOME_TABELLA));
+		ArrayList<Hardware> listaHW = datiHW.listaHW(apparato);
+		for(Hardware hw:listaHW) {
+			tabellaHW.add(new CellaPDF(hw.getNome(),FilePDF.NORMALE,8));
+			tabellaHW.add(new CellaPDF(hw.getCasa(),FilePDF.NORMALE,8));
+			tabellaHW.add(new CellaPDF(hw.getModello(),FilePDF.NORMALE,8));
+			tabellaHW.add(new CellaPDF(hw.getMatricola(),FilePDF.NORMALE,8));
+			tabellaHW.add(new CellaPDF(hw.getNUC(),FilePDF.NORMALE,8));//NUC
+			tabellaHW.add(new CellaPDF(hw.getNote(),FilePDF.NORMALE,8));//note
+		}
+		
+		file.aggiungiTabella(tabellaHW, new float[]{10,10,10,10,10,10});
+		
+		file.aggiungi(BARRA,FilePDF.HELVETICA,12,FilePDF.CORSIVO,FilePDF.ALLINEAMENTO_SINISTRA,FilePDF.NERO);
+    	file.aggiungi("Software Installato",FilePDF.HELVETICA,14,FilePDF.GROSSETTO_CORSIVO,FilePDF.ALLINEAMENTO_CENTRO,FilePDF.NERO);
+		
+		ArrayList<CellaPDF> tabellaSW = new ArrayList<CellaPDF>();
+		
+		tabellaSW.add(new CellaPDF("Tipo",FilePDF.GROSSETTO));
+		tabellaSW.add(new CellaPDF("Casa",FilePDF.GROSSETTO));
+		tabellaSW.add(new CellaPDF("Versione",FilePDF.GROSSETTO));
+		tabellaSW.add(new CellaPDF("Licenza",FilePDF.GROSSETTO));
+		tabellaSW.add(new CellaPDF("Note",FilePDF.GROSSETTO));
+		
+		DatiSoftwareApparato datiSW  = ((DatiSoftwareApparato)dati.get(DatiSoftwareApparato.NOME_TABELLA));
+		ArrayList<Software> listaSW = datiSW.listaSW(apparato);
+		for(Software sw:listaSW) {
+			tabellaSW.add(new CellaPDF(sw.getTipo(),FilePDF.NORMALE,8));
+			tabellaSW.add(new CellaPDF(sw.getCasa(),FilePDF.NORMALE,8));
+			tabellaSW.add(new CellaPDF(sw.getNome(),FilePDF.NORMALE,8));
+			tabellaSW.add(new CellaPDF(sw.getLicenza(),FilePDF.NORMALE,8));
+			tabellaSW.add(new CellaPDF(sw.getNote(),FilePDF.NORMALE,8));
+		}
+		
+		file.aggiungiTabella(tabellaSW, new float[]{10,10,10,40,10});
+		
+		file.aggiungi(BARRA,FilePDF.HELVETICA,12,FilePDF.CORSIVO,FilePDF.ALLINEAMENTO_SINISTRA,FilePDF.NERO);
+		
+		file.aggiungi("\n\n\n ");
+		
+		ArrayList<CellaPDF> areaFirme = new ArrayList<CellaPDF>();
+		
+		areaFirme.add(new CellaPDF(" "));areaFirme.add(new CellaPDF(" "));
+		areaFirme.add(new CellaPDF(" "));areaFirme.add(new CellaPDF(" "));
+		areaFirme.add(new CellaPDF("IL CONTABILE NUCLEO TELEMATICO",10,FilePDF.TIMES, FilePDF.GROSSETTO,false,FilePDF.ALLINEAMENTO_CENTRO));
+		areaFirme.add(new CellaPDF("L'UTILIZZATORE",10,FilePDF.TIMES, FilePDF.GROSSETTO,false,FilePDF.ALLINEAMENTO_CENTRO));
+		areaFirme.add(new CellaPDF("Serg. Magg. Pino QUERCIA",10,FilePDF.TIMES, FilePDF.CORSIVO,false,FilePDF.ALLINEAMENTO_CENTRO));
+		areaFirme.add(new CellaPDF(utilizzatore != null ? utilizzatore.getNome() : "" ,10,FilePDF.TIMES, FilePDF.CORSIVO,false,FilePDF.ALLINEAMENTO_CENTRO));
+		areaFirme.add(new CellaPDF(" "));areaFirme.add(new CellaPDF(" "));
+		areaFirme.add(new CellaPDF(" "));areaFirme.add(new CellaPDF(" "));
+		areaFirme.add(new CellaPDF("IL RESPONSABILE ALLA SICUREZZA ICT",10,FilePDF.TIMES, FilePDF.GROSSETTO,false,FilePDF.ALLINEAMENTO_CENTRO));
+		areaFirme.add(new CellaPDF(" "));
+		areaFirme.add(new CellaPDF("Serg. Magg. Pino QUERCIA",10,FilePDF.TIMES, FilePDF.CORSIVO,false,FilePDF.ALLINEAMENTO_CENTRO));
+		areaFirme.add(new CellaPDF(" "));
+		
+		file.aggiungiTabella(areaFirme, new float[]{60,40});
+		
+		
+		tabellaInfo.add(new CellaPDF("Posizione:",FilePDF.GROSSETTO));
+		
     	file.chiudi();
     }
     

@@ -25,6 +25,7 @@
     <MenuItem mnemonicParsing="false" onAction="#caricaFile" text="Importa file XLS" />
 <MenuItem mnemonicParsing="false" onAction="#salvaFile" text="Esporta file XLS" />
                                     <MenuItem mnemonicParsing="false" onAction="#creaFileSchedaApparato" text="Scheda Apparato in PDF" />
+                                    <MenuItem mnemonicParsing="false" onAction="#apriImpostazioniReportPDF" text="Impostazioni Report in PDF" />
   </items>
 </Menu>
                                 <Menu mnemonicParsing="false" text="Apparato">

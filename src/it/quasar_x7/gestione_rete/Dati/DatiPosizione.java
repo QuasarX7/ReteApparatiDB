@@ -50,8 +50,13 @@ public class DatiPosizione extends DatiDB {
         return posizioni;
     }
     
-    
-    public Ufficio crea(String posizione){
+    /**
+     * Trova i dati relativi al locale/ufficio: come il nome del responsabile.
+     * 
+     * @param posizione		nome del locale o dell'ufficio
+     * @return	Ufficio
+     */
+    public Ufficio info(String posizione){
         try {
             db.connetti();
             Object[] record = db.vediTupla(tabella, new Object[]{posizione});
