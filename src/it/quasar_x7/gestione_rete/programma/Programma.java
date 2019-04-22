@@ -1240,10 +1240,12 @@ public class Programma extends Application {
     	if(datiApparato == null)
     		return ; // chiudi 
     	
+    	DatiImpostazioni datiImpostazioni  = ((DatiImpostazioni)dati.get(DatiImpostazioni.NOME_TABELLA));
+		
     	final String BARRA = "______________________________________________________________________________";
     	FilePDF file = new FilePDF(nomeFile);
-    	file.aggiungi("Reparto Comando e Supporti Tattici \"GARIBALDI\"",FilePDF.TIMES,18,FilePDF.GROSSETTO,FilePDF.ALLINEAMENTO_CENTRO,FilePDF.NERO);
-    	file.aggiungi("COMPAGNIA TRASMISSIONI\nSezione Telematica",FilePDF.TIMES,12,FilePDF.CORSIVO,FilePDF.ALLINEAMENTO_CENTRO,FilePDF.NERO);
+    	file.aggiungi(datiImpostazioni.valore(DatiImpostazioni.INTESTAZIONE_ENTE),FilePDF.TIMES,18,FilePDF.GROSSETTO,FilePDF.ALLINEAMENTO_CENTRO,FilePDF.NERO);
+    	file.aggiungi(datiImpostazioni.valore(DatiImpostazioni.INTESTAZIONE_UFFICIO),FilePDF.TIMES,12,FilePDF.CORSIVO,FilePDF.ALLINEAMENTO_CENTRO,FilePDF.NERO);
     	
     	file.aggiungi(String.format("Caserta, %s", DataOraria.creaDataOggi().stampaGiorno('/')),FilePDF.TIMES_CORSIVO,12,FilePDF.CORSIVO,FilePDF.ALLINEAMENTO_DESTRA,FilePDF.NERO);
     	

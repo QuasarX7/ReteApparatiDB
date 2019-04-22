@@ -19,8 +19,17 @@ public static final String NOME_TABELLA    = "impostazioni";
     protected static final String VOCE_TABELLA_CHIAVE    = "chiave";
     protected static final String VOCE_TABELLA_VALORE    = "valore";
     
-    
-    
+    /* CHIAVI */
+    public static final String INTESTAZIONE_ENTE = "Intestazione Ente/Reparto";
+    public static final String INTESTAZIONE_UFFICIO = "Intestazione Ufficio/Sezione";
+    public static final String FIRMA1_QUALIFICA1 = "Firma1 Qualifica1";
+    public static final String FIRMA1_NOME1 = "Firma1 Nome1";
+    public static final String FIRMA1_QUALIFICA2 = "Firma1 Qualifica2";
+    public static final String FIRMA1_NOME2 = "Firma1 Nome2";
+    public static final String FIRMA2_QUALIFICA1 = "Firma2 Qualifica1";
+    public static final String FIRMA2_NOME1 = "Firma2 Nome1";
+    public static final String FIRMA2_QUALIFICA2 = "Firma2 Qualifica2";
+    public static final String FIRMA2_NOME2 = "Firma2 Nome2";
     public DatiImpostazioni() {
         try {
             tabella = new Relazione(NOME_TABELLA);
