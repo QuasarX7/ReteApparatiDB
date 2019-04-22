@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -91,6 +92,19 @@ public class FinestraImpostazioniController  implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+    	
+    	ToggleGroup firma1 = new ToggleGroup();
+
+    	selezionaFirma1Riga1.setToggleGroup(firma1);
+    	selezionaFirma1Riga2.setToggleGroup(firma1);
+    	
+    	ToggleGroup firma2 = new ToggleGroup();
+
+    	selezionaFirma2Riga1.setToggleGroup(firma2);
+    	selezionaFirma2Riga2.setToggleGroup(firma2);
+    	
+    	
+    	
     	String ente = datiImpostazioni.valore(DatiImpostazioni.INTESTAZIONE_ENTE);
     	campoEnte.setText(ente);
     	String ufficio = datiImpostazioni.valore(DatiImpostazioni.INTESTAZIONE_UFFICIO);
