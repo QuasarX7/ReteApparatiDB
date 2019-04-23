@@ -179,7 +179,7 @@ public class FinestraHardwareApparatoController implements Initializable {
                     );
                 }else{
                     if(finestraApparato != null){
-                        finestraApparato.aggiornaTabellaSW();
+                        finestraApparato.aggiornaTabellaHW();
                     }
                     chiusuraSenzaSalvare(event);
                 }

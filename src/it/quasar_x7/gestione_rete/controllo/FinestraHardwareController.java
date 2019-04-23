@@ -189,7 +189,7 @@ public class FinestraHardwareController implements Initializable {
     		Programma.salva(
                     this, 
                     // condizione
-                    !menuTipo.getValue().isEmpty() && !modello.getText().isEmpty() && !matricola.getText().isEmpty(), 
+                    !menuTipo.getValue().isEmpty(), 
                     datiHardware, 
                     input(), // contiene i vecchi valori chiave modificare
                     record, // nvalori da salvare 

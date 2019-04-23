@@ -507,7 +507,11 @@ public class FinestraApparatoController implements Initializable {
     @FXML
     private void menuEliminaHW(ActionEvent event) {
         if(event.getEventType().equals(ActionEvent.ACTION)){
-            //TODO.....
+        	Hardware hw = tabellaHardware.getSelectionModel().getSelectedItem();
+            if(hw != null) {
+            	datiHardwareApparato.elimina(new Object[]{nome.getText(),hw.getNome(),hw.getModello(),hw.getMatricola()});
+            }
+            aggiornaTabellaHW();
         }
     }
     
@@ -547,7 +551,11 @@ public class FinestraApparatoController implements Initializable {
     @FXML
     private void menuEliminaSW(ActionEvent event) {
         if(event.getEventType().equals(ActionEvent.ACTION)){
-            //TODO......
+        	Software sw = tabellaSoftware.getSelectionModel().getSelectedItem();
+            if(sw != null) {
+            	datiSoftwareApparato.elimina(new Object[]{nome.getText(),sw.getNome(),sw.getLicenza()});
+            }
+            aggiornaTabellaSW();
         }
     }
     
@@ -559,7 +567,7 @@ public class FinestraApparatoController implements Initializable {
                 listaSW.add(sw);
     }
 
-    private void aggiornaTabellaHW() {
+    public void aggiornaTabellaHW() {
         listaHW.clear();
         ArrayList<Hardware> lista = datiHardwareApparato.listaHW(nome.getText());
         if(lista != null)
