@@ -1,26 +1,17 @@
 package it.quasar_x7.gestione_rete.controllo;
 
-import it.quasar_x7.gestione_rete.Dati.DatiDB;
-import it.quasar_x7.gestione_rete.Dati.DatiGrado;
 import it.quasar_x7.gestione_rete.Dati.DatiImpostazioni;
-import it.quasar_x7.gestione_rete.Dati.DatiRuolo;
 import it.quasar_x7.gestione_rete.programma.Programma;
 import static it.quasar_x7.gestione_rete.programma.Programma.dati;
-import it.quasar_x7.gestione_rete.programma.R;
-import it.quasar_x7.javafx.CampoTesto;
-import it.quasar_x7.javafx.finestre.controllo.TabellaController;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -28,7 +19,6 @@ import javafx.scene.input.MouseEvent;
  * @author Dr. Domenico della Peruta
  */
 public class FinestraImpostazioniController  implements Initializable {
-
 
     @FXML
     private TextField campoEnte;
@@ -44,7 +34,6 @@ public class FinestraImpostazioniController  implements Initializable {
 
     @FXML
     private RadioButton selezionaFirma2Riga1;
-
     
     @FXML
     private TextField campoFirma1Nominativo2;
@@ -57,7 +46,6 @@ public class FinestraImpostazioniController  implements Initializable {
 
     @FXML
     private TextField campoFirma2Responsabile2;
-
     
     @FXML
     private TextField campoFirma1Responsabile2;
@@ -77,12 +65,8 @@ public class FinestraImpostazioniController  implements Initializable {
     @FXML
     private RadioButton selezionaFirma1Riga1;
     
-    
-    
     public static Scene scenaCorrente = null;
     public static String[] input = null;
-   
-    
     
     protected DatiImpostazioni datiImpostazioni = (DatiImpostazioni) dati.get(DatiImpostazioni.NOME_TABELLA);
     
@@ -94,15 +78,15 @@ public class FinestraImpostazioniController  implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     	
     	ToggleGroup firma1 = new ToggleGroup();
-
     	selezionaFirma1Riga1.setToggleGroup(firma1);
     	selezionaFirma1Riga2.setToggleGroup(firma1);
     	
     	ToggleGroup firma2 = new ToggleGroup();
-
     	selezionaFirma2Riga1.setToggleGroup(firma2);
     	selezionaFirma2Riga2.setToggleGroup(firma2);
-    	
+    
+    	inizializzaSelettori(selezionaFirma1Riga1, selezionaFirma1Riga2);
+    	inizializzaSelettori(selezionaFirma2Riga1, selezionaFirma2Riga2);
     	
     	
     	String ente = datiImpostazioni.valore(DatiImpostazioni.INTESTAZIONE_ENTE);
@@ -128,6 +112,22 @@ public class FinestraImpostazioniController  implements Initializable {
     	String firma2Nome2 = datiImpostazioni.valore(DatiImpostazioni.FIRMA2_NOME2);
     	campoFirma2Nominativo2.setText(firma2Nome2);
     } 
+    
+    
+    private void inizializzaSelettori(RadioButton selettore1,RadioButton selettore2) {
+
+    	String rigaFirma1 = datiImpostazioni.valore(DatiImpostazioni.FIRMA1);
+    	if(rigaFirma1.equals(DatiImpostazioni.FIRMA_RIGA1)){
+    		selettore1.setSelected(true);
+    		selettore2.setSelected(false);
+    	}else if(rigaFirma1.equals(DatiImpostazioni.FIRMA_RIGA2)){
+    		selettore2.setSelected(true);
+    		selettore1.setSelected(false);
+    	}else {
+    		selettore1.setSelected(false);
+    		selettore2.setSelected(false);
+    	}
+    }
    
 
     @FXML
@@ -139,22 +139,29 @@ public class FinestraImpostazioniController  implements Initializable {
 
     @FXML
     protected void salva(ActionEvent event) {
-        //if(!campoEnte.getText().isEmpty() && !campoUfficio.getText().isEmpty()) {
-	    	datiImpostazioni.valore(DatiImpostazioni.INTESTAZIONE_ENTE,campoEnte.getText());
-	    	datiImpostazioni.valore(DatiImpostazioni.INTESTAZIONE_UFFICIO,campoUfficio.getText());
-	    	
-	    	datiImpostazioni.valore(DatiImpostazioni.FIRMA1_QUALIFICA1,campoFirma1Responsabile1.getText());
-	    	datiImpostazioni.valore(DatiImpostazioni.FIRMA1_NOME1,campoFirma1Nominativo1.getText());
-	    	datiImpostazioni.valore(DatiImpostazioni.FIRMA1_QUALIFICA2,campoFirma1Responsabile2.getText());
-	    	datiImpostazioni.valore(DatiImpostazioni.FIRMA1_NOME2,campoFirma1Nominativo2.getText());
-	    	
-	    	datiImpostazioni.valore(DatiImpostazioni.FIRMA2_QUALIFICA1,campoFirma2Responsabile1.getText());
-	    	datiImpostazioni.valore(DatiImpostazioni.FIRMA2_NOME1,campoFirma2Nominativo1.getText());
-	    	datiImpostazioni.valore(DatiImpostazioni.FIRMA2_QUALIFICA2,campoFirma2Responsabile2.getText());
-	    	datiImpostazioni.valore(DatiImpostazioni.FIRMA2_NOME2,campoFirma2Nominativo2.getText());
-	    	
-	    	chiusuraSenzaSalvare(event);
-        //}
+        
+    	if(selezionaFirma2Riga1.isSelected()) {
+    		datiImpostazioni.valore(DatiImpostazioni.FIRMA2,DatiImpostazioni.FIRMA_RIGA1);
+    	}else if(selezionaFirma2Riga2.isSelected()) { 
+    		datiImpostazioni.valore(DatiImpostazioni.FIRMA2,DatiImpostazioni.FIRMA_RIGA2);
+    	}else {
+    		datiImpostazioni.valore(DatiImpostazioni.FIRMA2,"");
+    	}
+    	datiImpostazioni.valore(DatiImpostazioni.INTESTAZIONE_ENTE,campoEnte.getText());
+    	datiImpostazioni.valore(DatiImpostazioni.INTESTAZIONE_UFFICIO,campoUfficio.getText());
+    	
+    	datiImpostazioni.valore(DatiImpostazioni.FIRMA1_QUALIFICA1,campoFirma1Responsabile1.getText());
+    	datiImpostazioni.valore(DatiImpostazioni.FIRMA1_NOME1,campoFirma1Nominativo1.getText());
+    	datiImpostazioni.valore(DatiImpostazioni.FIRMA1_QUALIFICA2,campoFirma1Responsabile2.getText());
+    	datiImpostazioni.valore(DatiImpostazioni.FIRMA1_NOME2,campoFirma1Nominativo2.getText());
+    	
+    	datiImpostazioni.valore(DatiImpostazioni.FIRMA2_QUALIFICA1,campoFirma2Responsabile1.getText());
+    	datiImpostazioni.valore(DatiImpostazioni.FIRMA2_NOME1,campoFirma2Nominativo1.getText());
+    	datiImpostazioni.valore(DatiImpostazioni.FIRMA2_QUALIFICA2,campoFirma2Responsabile2.getText());
+    	datiImpostazioni.valore(DatiImpostazioni.FIRMA2_NOME2,campoFirma2Nominativo2.getText());
+    	
+    	chiusuraSenzaSalvare(event);
+    	
     }
     
     

@@ -30,6 +30,13 @@ public static final String NOME_TABELLA    = "impostazioni";
     public static final String FIRMA2_NOME1 = "Firma2 Nome1";
     public static final String FIRMA2_QUALIFICA2 = "Firma2 Qualifica2";
     public static final String FIRMA2_NOME2 = "Firma2 Nome2";
+    
+    public static final String FIRMA1 = "Firma1";
+    public static final String FIRMA2 = "Firma2";
+    public static final String FIRMA_RIGA1 = "RIGA 1";
+    public static final String FIRMA_RIGA2 = "RIGA 2";
+    
+    
     public DatiImpostazioni() {
         try {
             tabella = new Relazione(NOME_TABELLA);
