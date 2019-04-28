@@ -87,14 +87,14 @@ public class FinestraPosizioneController implements Initializable {
                                     tabella.aggiungiRiga(riga);
                         }
                         // aggiorna tutti gli apparati
-                            boolean procedi = Programma.salvaModificheApparato(
-                                    this, 
-                                    DatiApparato.VOCE_TABELLA_POSIZIONE, 
-                                    input, 0, 
-                                    posizione
-                            );
-                            if(procedi)
-                                chiusuraSenzaSalvare(evento);
+                        boolean procedi = Programma.salvaModificheApparato(
+                                this, 
+                                DatiApparato.VOCE_TABELLA_POSIZIONE, 
+                                input, 0, 
+                                posizione
+                        );
+                        if(procedi)
+                            chiusuraSenzaSalvare(evento);
                     }
 
             );

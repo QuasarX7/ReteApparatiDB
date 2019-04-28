@@ -192,7 +192,9 @@ public class R {
         static public final String CREAZIONE_DB      = "Non esiste nessuna Base di Dati, vuoi crearne una nuova?\n\nSe [Sì] Il programma si chiuderà dopo l'inizializzazione della nuova base di dati.\nAlla successiva apertura, verrà chiesta la creazione dell'utente amministratore....";
         static public final String CREAZIONE_TABELLA      = "La tabella «%s» non esiste oppure è danneggiata, vuoi crearne una nuova?";
         static public final String SOSTITUISCI      = "E' già presente un record simile a «%s», vuoi modificarlo?";
-    
+        static public final String CONFERMA_ELIMINAZIONE_APPARATO    = "Sei sicuro di voler eliminare l'apparato `%s`?";
+        static public final String CONFERMA_ELIMINAZIONE_UFFICIO    = "Sei sicuro di voler eliminare l'apparato `%s`?";
+        
     }
     
     

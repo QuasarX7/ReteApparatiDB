@@ -28,6 +28,7 @@ import it.quasar_x7.java.utile.DataOraria;
 import it.quasar_x7.javafx.CampoTesto;
 import it.quasar_x7.javafx.Finestra;
 import it.quasar_x7.javafx.TipoFile;
+import it.quasar_x7.javafx.finestre.controllo.ConfermaController;
 import it.quasar_x7.javafx.finestre.controllo.InputController;
 import it.quasar_x7.javafx.finestre.controllo.InputController.Codice;
 
@@ -638,15 +639,69 @@ public class FinestraPrincipaleController implements Initializable {
             TreeItem<Nodo> nodo = listaApparati.getSelectionModel().getSelectedItem();
             if(nodo != null){
                 if(nodo.getValue() instanceof Apparato){
-                    System.out.println("apparato");
-                    //TODO....
+					Finestra.finestraConferma(
+							this, 
+							String.format(R.Domanda.CONFERMA_ELIMINAZIONE_APPARATO,((Apparato) nodo.getValue()).getNome()), 
+							new ConfermaController.Codice() {
+								@Override
+								public void esegui() {
+									Apparato apparato = (Apparato) nodo.getValue();
+				                	datiApparato.elimina(new Object[] {apparato.getNome()});
+				                	Programma.aggiornaListaApparati();
+								}
+							}
+					);
+					
                 }else if(nodo.getValue() instanceof Ufficio){
-                    //TODO...
-                    System.out.println("ufficio");
+                	Finestra.finestraConferma(
+							this, 
+							String.format(R.Domanda.CONFERMA_ELIMINAZIONE_APPARATO,((Ufficio) nodo.getValue()).getNome()), 
+							new ConfermaController.Codice() {
+								@Override
+								public void esegui() {
+									Ufficio ufficio = (Ufficio) nodo.getValue();
+				                	datiApparato.elimina(new Object[] {ufficio.getNome()});
+				                	Programma.salvaModificheApparato(
+				                			this, 
+				                			DatiApparato.VOCE_TABELLA_POSIZIONE, 
+				                			new String[]{
+			                                    ufficio.getNome(),
+			                                    ufficio.getResponsabile()
+			                                }, 
+				                			0, 
+				                			new TextField()// ""
+				                	);
+				                	Programma.aggiornaListaApparati();// aggiorna lista laterale ad albero
+								}
+					});
+                	
                 }else if(nodo.getValue() instanceof Rete){
-                    //TODO...
-                    System.out.println("rete");
+                	Finestra.finestraConferma(
+							this, 
+							String.format(R.Domanda.CONFERMA_ELIMINAZIONE_APPARATO,((Rete) nodo.getValue()).getNome()), 
+							new ConfermaController.Codice() {
+								@Override
+								public void esegui() {
+									Rete rete = (Rete) nodo.getValue();
+				                	datiApparato.elimina(new Object[] {rete.getNome()});
+				                	Programma.salvaModificheApparato(
+				                			this, 
+				                			DatiApparato.VOCE_TABELLA_WG, 
+				                			new String[]{
+			                					rete.getNome(),
+			                                    rete.getDominio(),
+			                                    rete.getTipo(),
+			                                    rete.getGateway(),
+			                                    rete.getNetmask()
+			                                }, 
+				                			0, 
+				                			new TextField()// ""
+				                	);
+				                	Programma.aggiornaListaApparati();// aggiorna lista laterale ad albero
+								}
+					});
                 }
+                
             } 
         }
     }
@@ -727,8 +782,6 @@ public class FinestraPrincipaleController implements Initializable {
                                 return true;
                             }
                         };
-                        
-                        
                     }
             );
         }
