@@ -32,7 +32,7 @@ public abstract class DatiLista extends DatiDB {
      */
     public ArrayList<String> lista() {
         try {
-            ArrayList<String> utenti = new ArrayList<>();
+            ArrayList<String> voci = new ArrayList<>();
             db.connetti();
             String sql = String.format(
                     "SELECT `%s` " +
@@ -48,13 +48,13 @@ public abstract class DatiLista extends DatiDB {
                 for (Object[] voce : record) {
                     if (voce != null) {
                         if (voce[0] != null) {
-                            utenti.add(voce[0].toString());
+                            voci.add(voce[0].toString());
                         }
                     }
                 }
             }
             db.chiudi();
-            return utenti;
+            return voci;
         } catch (EccezioneBaseDati ex) {
             return null;
         }

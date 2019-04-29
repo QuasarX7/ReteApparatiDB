@@ -78,6 +78,7 @@ public class R {
     }
     
     public class Etichette{
+    	static public final String FINESTRA_LISTA_APPARATI      = "Apparati";
         static public final String FINESTRA_LISTA_CASA_SW      = "Case Software";
         static public final String FINESTRA_LISTA_CASA_HW      = "Case Hardware";
         static public final String FINESTRA_LISTA_TIPO_HW      = "Tipo Hardware";

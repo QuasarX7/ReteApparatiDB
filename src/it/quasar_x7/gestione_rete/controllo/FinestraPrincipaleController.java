@@ -193,7 +193,9 @@ public class FinestraPrincipaleController implements Initializable {
 
     @FXML
     private void apriListaApparati(ActionEvent event) {
-    	// TODO....
+    	if (event.getEventType().equals(ActionEvent.ACTION)) {
+    		Programma.apriListaApparati(this);
+    	}
     }
     
     @FXML

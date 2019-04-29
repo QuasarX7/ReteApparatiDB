@@ -19,6 +19,8 @@ import it.quasar_x7.gestione_rete.programma.R;
 import it.quasar_x7.javafx.CampoTesto;
 import it.quasar_x7.javafx.Finestra;
 import it.quasar_x7.javafx.Maschera;
+import it.quasar_x7.javafx.finestre.controllo.TabellaController;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -46,6 +48,7 @@ import javafx.scene.input.MouseEvent;
  */
 public class FinestraApparatoController implements Initializable {
 
+	public static TabellaController tabella = null;
     static public Scene scenaCorrente = null;
     static public String[] input = null;
     
@@ -270,6 +273,7 @@ public class FinestraApparatoController implements Initializable {
     private void chiusuraSenzaSalvare(ActionEvent event) {
         Programma.chiusuraFinestra(this, scenaCorrente);
         input = null;
+        tabella = null;
     }
 
     @FXML
@@ -296,9 +300,8 @@ public class FinestraApparatoController implements Initializable {
             	modificaSW();
             	modificaHW();
                 if(datiApparato.modifica(new Object[]{input[0]},record)){
-                    if(FinestraPrincipaleController.rete != null){
-                        Programma.creaListaApparato(FinestraPrincipaleController.rete,datiApparato.listaApparati());
-                    }
+                	aggiornaTabella(record);
+                	aggiornaPannelloAlbero();
                     chiusuraSenzaSalvare(event);
                 }else{
                     Finestra.finestraAvviso(
@@ -317,17 +320,50 @@ public class FinestraApparatoController implements Initializable {
                             )
                     );
                 }else{
-                    if(FinestraPrincipaleController.rete != null){
-                        Programma.creaListaApparato(FinestraPrincipaleController.rete,datiApparato.listaApparati());
-                    }
+                	aggiornaTabella(record);
+                	aggiornaPannelloAlbero();
                     chiusuraSenzaSalvare(event);
                 }
                 
             }
             
+            
         }else{
             Finestra.finestraAvviso(this,R.Messaggi.ERRORE_CAMPI_FONDAMENTALI);
         }
+    }
+    
+    /**
+     * aggiorna eventuale finestra a tabella
+     * @param record 
+     */
+    private void aggiornaTabella(Object[] record) {
+    	if(tabella != null){
+            if(input[0] != null)
+                tabella.modificaRiga(input[0],converti(record));
+            else
+                tabella.aggiungiRiga(converti(record));
+        }
+    }
+    
+    /**
+     * Aggiorna pannello sinistro ad albero degli apparati di rete
+     */
+    private void aggiornaPannelloAlbero() {
+    	if(FinestraPrincipaleController.rete != null){
+            Programma.creaListaApparato(FinestraPrincipaleController.rete,datiApparato.listaApparati());
+        }
+    }
+    
+    private ArrayList<String> converti(Object[] record){
+        ArrayList<String> nuovaRiga = new ArrayList<>();
+        for(Object voce:record){
+            if(voce != null)
+                nuovaRiga.add(voce.toString());
+            else
+                nuovaRiga.add("");
+        }
+        return nuovaRiga;
     }
     
     /**

@@ -26,6 +26,7 @@ import it.quasar_x7.gestione_rete.Dati.DatiTipoRete;
 import it.quasar_x7.gestione_rete.Dati.DatiTipoSoftware;
 import it.quasar_x7.gestione_rete.Dati.DatiUtilizzatore;
 import it.quasar_x7.gestione_rete.controllo.FinestraLoginController;
+import it.quasar_x7.gestione_rete.controllo.FinestraApparatoController;
 import it.quasar_x7.gestione_rete.controllo.FinestraGradoController;
 import it.quasar_x7.gestione_rete.controllo.FinestraHardwareController;
 import it.quasar_x7.gestione_rete.controllo.FinestraPosizioneController;
@@ -357,6 +358,117 @@ public class Programma extends Application {
                         FinestraSoftwareController.scenaCorrente = Finestra.scenaCorrente();
                         FinestraSoftwareController.tabella = delega;
                         Finestra.caricaFinestra(this, R.FXML.FINESTRA_SW);
+                    }
+
+                }
+        );
+    }
+    
+    
+    public static void apriListaApparati(Object controller) {
+        
+        DatiDB datiApparati = dati.get(DatiApparato.NOME_TABELLA);
+        ArrayList<Integer> dim = new ArrayList<>();
+        dim.add(100);// nome
+        dim.add(100);// tipo
+        dim.add(100);// rete
+        dim.add(100);// ip
+        dim.add(150);// mac
+        dim.add(150);// mac voip
+        dim.add(100);// posizione
+        dim.add(250);// utilizzatore
+        dim.add(70);// internet
+        dim.add(70);// sigillo
+        dim.add(100);// pasword
+        dim.add(70);// stato
+        
+        /*
+         * 
+            if(input[0] != null)
+                nome.setText(input[0]);
+            
+            if(input[1] != null)
+                tipo.setValue(input[1]);
+            
+            if(input[2] != null)
+                rete.setValue(input[2]);
+            
+            if(input[3] != null)
+                ip.setText(input[3]);
+            
+            if(input[4] != null)
+                macPC.setText(input[4]);
+            
+            if(input[5] != null)
+                macVOIP.setText(input[5]);
+            
+            if(input[6] != null)
+                posizione.setValue(input[6]);
+            
+            
+            if(input[7] != null){
+                utilizzatore.setValue(datiUtilizzatore.info(input[7]));
+            }
+            
+            if(input[8] != null)
+                internet.setSelected(input[8].equals(R.Conferma.SI));
+            
+            
+            if(input[9] != null)
+                sigillo.setText(input[9]);
+            
+            if(input[10] != null)
+                password.setText(input[10]);
+            
+            if(input[11] != null)
+                stato.setValue(input[11]);
+                
+         */
+        
+        ArrayList<String> colonne = new ArrayList<>();
+        colonne.add(R.Etichette.APPARATO);
+        colonne.add(R.Etichette.TIPO);
+        colonne.add(R.Etichette.DOMINIO);
+        colonne.add(R.Etichette.IP);
+        colonne.add(R.Etichette.MAC_PC);
+        colonne.add(R.Etichette.MAC_VOIP);
+        colonne.add(R.Etichette.POSIZIONE);
+        colonne.add(R.Etichette.UTILIZZATORE);
+        colonne.add(R.Etichette.INTERNET);
+        colonne.add(R.Etichette.SIGILLO);
+        colonne.add(R.Etichette.PASSWORD);
+        colonne.add(R.Etichette.STATO);
+        
+        Finestra.finestraTabella(
+                controller, 
+                R.Etichette.FINESTRA_LISTA_APPARATI, 
+                colonne, 
+                dim, 
+                datiApparati.tabella(), 
+                false, 
+                new TabellaController.Codice(){
+                    @Override
+                    public void aggiungi(TabellaController delega) {
+                        FinestraApparatoController.scenaCorrente = Finestra.scenaCorrente();
+                        FinestraApparatoController.tabella = delega;
+                        Finestra.caricaFinestra(this, R.FXML.FINESTRA_APPARATO);
+                    }
+
+                    @Override
+                    public boolean elimina(TabellaController delega, String primaCella) {
+                        return eliminaRiga(datiApparati,this,delega);
+                    }
+
+                    @Override
+                    public void modifica(TabellaController delega, String primaCella) {
+                        String[] inputTab = delega.rigaSelezionata();
+                        if(inputTab != null){
+                            FinestraApparatoController.input = inputTab;
+                        }
+                       
+                        FinestraApparatoController.scenaCorrente = Finestra.scenaCorrente();
+                        FinestraApparatoController.tabella = delega;
+                        Finestra.caricaFinestra(this, R.FXML.FINESTRA_APPARATO);
                     }
 
                 }
