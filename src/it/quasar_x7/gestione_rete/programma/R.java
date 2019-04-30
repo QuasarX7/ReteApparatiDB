@@ -56,6 +56,7 @@ public class R {
         public static final String FINESTRA_SW_APPARATO = PATH + "FinestraSoftwareApparato.fxml";
         public static final String FINESTRA_HW_APPARATO = PATH + "FinestraHardwareApparato.fxml";
         public static final String FINESTRA_IMPOSTAZIONI = PATH + "FinestraImpostazioni.fxml";
+        public static final String FINESTRA_PASSWORD = PATH + "FinestraPassword.fxml";
         
     }
     
@@ -160,6 +161,7 @@ public class R {
     }
     
     public class Messaggi{
+    	static public final String SELEZIONA_UTENTE = "Seleziona utente!";
         static public final String FILE_INESISTENTE = "Il file «"+File.DB+"» non esiste, ne verrà creato uno nuovo!";
         static public final String TABELLA_LOGIN_INESISTENTE = "La tabella «utente» nella base di dati «dati.db» non esiste, ne verrà creata una nuova!";
         static public final String SOSTITUZIONE_CASA_HW = "Inserisci il nome della casa produttrice di hardware che sostituirà «%s».";
@@ -175,6 +177,7 @@ public class R {
         public static final String ERRORE_SALVATAGGIO_GRADO = "Errore nel salvataggio della nuova Qualifica/Grado !";
         public static final String ERRORE_ELIMINAZIONE_RIGA = "Impossibile eliminare «%s»";
         public static final String ERRORE_SALVATAGGIO = "Impossibile salvare «%s» %s";
+        public static final String ERRORE_PASSWORD = "Password errata!!!";
         public static final String ERRORE_MODIFICHE = "Impossibile modificare «%s» %s";
         public static final String ERRORE_DUPLICAZIONE = "Impossibile salvare «%s», dato già essistente...";
         public static final String ERRORE_CAMPI_FONDAMENTALI = "Errore, i campi con etichetta di color ARANCIONE sono fondamentali e non possono essere vuoti!";

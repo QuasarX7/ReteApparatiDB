@@ -5,9 +5,16 @@ import it.quasar_x7.java.BaseDati.EccezioneBaseDati;
 import it.quasar_x7.java.BaseDati.Relazione;
 import it.quasar_x7.modello.DatiUtente;
 import it.quasar_x7.modello.LivelloAccesso;
+
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.xml.bind.DatatypeConverter;
 
 /**
  *
@@ -133,11 +140,57 @@ public class DatiLogin extends DatiDB implements DatiUtente{
         if(tuttiUtenti() != null)
             if(tuttiUtenti().isEmpty())
                 livello = LivelloAccesso.AMMINISTRATORE;
-        aggiungi(new Object[]{nome,password,livello});
+        aggiungi(new Object[]{nome,codifica(password),livello});
     }
 
-    
 
+
+	@Override
+	public void modificaPassword(String utente, String password) {
+		try {
+            db.connetti();
+            Object[] record = db.vediTupla(tabella, new Object[]{utente});
+            record[1] = codifica(password);
+            db.modificaTupla(tabella, new Object[]{utente}, record);
+            db.chiudi();
+        } catch (EccezioneBaseDati ex) {
+            Logger.getLogger(DatiLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+	}
+
+	/**
+	 * Codifica in Base64.
+	 * 
+	 * @param password
+	 * @return
+	 */
+	private String codifica(String password) {
+		return Base64.getEncoder().encodeToString(password.getBytes());
+	}
+    
+	/**
+	 * Decodifica in Base64.
+	 * 
+	 * @param password
+	 * @return
+	 */
+	private String decodifica(String password) {
+		return new String(Base64.getDecoder().decode(password));
+	}
+
+	@Override
+    public Object[] accedi(Object[] chiave) {
+        Object[] record = null;
+        try {
+            db.connetti();
+            record = db.vediTupla(tabella, chiave);
+            if(record[1] != null)
+            	record[1] = decodifica((String) record[1]);
+            db.chiudi();
+        } catch (EccezioneBaseDati ex) {
+        }
+        return record;
+    }
     
     
 }

@@ -21,7 +21,7 @@ import javafx.scene.control.PasswordField;
 /**
  * FXML Controller class
  *
- * @author Ninja
+ * @author Dott. Domenico dellla Peruta
  */
 public class FinestraLoginController implements Initializable {
 
@@ -62,15 +62,18 @@ public class FinestraLoginController implements Initializable {
      */
     @FXML
     public void accedi(ActionEvent event){
-        String utente = menuUtenti.getValue();
-        if(utente != null){
-            if(controlloPassword(campoPassword.getText(),utente)){
-                FinestraGestioneUtentiController.utente = utente;
-                Finestra.caricaFinestra(this, R.FXML.FINESTRA_PRINCIPALE);
-            }
-            
-        }
-        campoPassword.setText("");
+    	if(event.getEventType().equals(ActionEvent.ACTION)){
+	        String utente = menuUtenti.getValue();
+	        if(utente != null){
+	            if(controlloPassword(campoPassword.getText(),utente)){
+	                FinestraGestioneUtentiController.utente = utente;
+	                Finestra.caricaFinestra(this, R.FXML.FINESTRA_PRINCIPALE);
+	            }else{
+	            	Finestra.finestraAvviso(this, R.Messaggi.ERRORE_PASSWORD);
+	            }
+	        }
+	        campoPassword.setText("");
+    	}
     }
     
 
@@ -104,15 +107,14 @@ public class FinestraLoginController implements Initializable {
      */
     @FXML
     public void modifica(ActionEvent event){
-            Finestra.finestraAvviso(this, "In fase di sviluppo.... \n :P ");
-        
-        /*
-        Object utente = menuUtenti.getValue();
-                
-        if(utente != null){
-            
-        }
-        */
+    	if(event.getEventType().equals(ActionEvent.ACTION)){
+    		if(menuUtenti.getValue() != null) {
+		    	FinestraGestioneUtentiController.utente = menuUtenti.getValue();
+		    	Finestra.caricaFinestra(this, R.FXML.FINESTRA_PASSWORD);
+    		}else{
+    			Finestra.finestraAvviso(this, R.Messaggi.SELEZIONA_UTENTE);
+    		}
+    	}
     }
     
     
@@ -125,8 +127,10 @@ public class FinestraLoginController implements Initializable {
      */
     @FXML
     void chiusuraSenzaSalvare(ActionEvent event) {
+    	if(event.getEventType().equals(ActionEvent.ACTION)){
             Platform.exit();
             System.exit(0);
+    	}
     }
     
 }

@@ -24,7 +24,7 @@ import javafx.scene.input.MouseEvent;
 /**
  * FXML Controller class
  *
- * @author Ninja
+ * @author Dott. Domenico della Peruta
  */
 public class FinestraPosizioneController implements Initializable {
 
