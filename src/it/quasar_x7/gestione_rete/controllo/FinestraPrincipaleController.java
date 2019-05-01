@@ -248,7 +248,7 @@ public class FinestraPrincipaleController implements Initializable {
     @FXML
     private void modificaPassword(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
-            //todo
+    		Finestra.caricaFinestra(this, R.FXML.FINESTRA_PASSWORD);
         }
     }
 
