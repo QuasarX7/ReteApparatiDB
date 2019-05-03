@@ -510,10 +510,24 @@ public class FinestraApparatoController implements Initializable {
     private void menuAggiungiHW(ActionEvent event) {
         if(event.getEventType().equals(ActionEvent.ACTION)){
             if(!nome.getText().isEmpty()){
-                 FinestraHardwareApparatoController.scenaCorrente = Finestra.scenaCorrente();
-                 FinestraHardwareApparatoController.apparato = nome.getText();
-                 FinestraHardwareApparatoController.finestraApparato = this;
-                Finestra.caricaFinestra(this, R.FXML.FINESTRA_HW_APPARATO);
+		         FinestraHardwareApparatoController.scenaCorrente = Finestra.scenaCorrente();
+		         FinestraHardwareApparatoController.apparato = nome.getText();
+		         FinestraHardwareApparatoController.finestraApparato = this;
+		         Finestra.caricaFinestra(this, R.FXML.FINESTRA_HW_APPARATO);
+            }else{
+            	Finestra.finestraAvviso(this,R.Messaggi.ERRORE_CAMPI_FONDAMENTALI);
+            }
+        }
+    }
+    
+    @FXML
+    private void menuWizardHW(ActionEvent event) {
+        if(event.getEventType().equals(ActionEvent.ACTION)){
+            if(!nome.getText().isEmpty()){
+            	
+                FinestraWizardHWController.scenaCorrente = Finestra.scenaCorrente();
+                Finestra.caricaFinestra(this, R.FXML.FINESTRA_WIZARD_HW_APPARATO);
+                
             }else{
                 Finestra.finestraAvviso(this,R.Messaggi.ERRORE_CAMPI_FONDAMENTALI);
             }

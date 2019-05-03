@@ -86,11 +86,20 @@
                            <contextMenu>
                               <ContextMenu fx:id="menuHW">
                                 <items>
-                                    <MenuItem mnemonicParsing="false" onAction="#menuEliminaHW" text="Elimina">
+                                    <MenuItem mnemonicParsing="false" onAction="#menuAggiungiHW" text="Aggiungi">
                                        <graphic>
                                           <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../Risorse/cancella.png" />
+                                                <Image url="@../Risorse/aggiungi2.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </MenuItem>
+                                    <MenuItem mnemonicParsing="false" onAction="#menuWizardHW" text="Wizard">
+                                       <graphic>
+                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../Risorse/aggiungi2.png" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -104,11 +113,11 @@
                                           </ImageView>
                                        </graphic>
                                     </MenuItem>
-                                    <MenuItem mnemonicParsing="false" onAction="#menuAggiungiHW" text="Aggiungi">
+                                    <MenuItem mnemonicParsing="false" onAction="#menuEliminaHW" text="Elimina">
                                        <graphic>
                                           <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../Risorse/aggiungi2.png" />
+                                                <Image url="@../Risorse/cancella.png" />
                                              </image>
                                           </ImageView>
                                        </graphic>

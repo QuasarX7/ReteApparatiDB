@@ -57,7 +57,7 @@ public class R {
         public static final String FINESTRA_HW_APPARATO = PATH + "FinestraHardwareApparato.fxml";
         public static final String FINESTRA_IMPOSTAZIONI = PATH + "FinestraImpostazioni.fxml";
         public static final String FINESTRA_PASSWORD = PATH + "FinestraPassword.fxml";
-        
+        public static final String FINESTRA_WIZARD_HW_APPARATO = PATH + "FinestraWizardHW.fxml";
     }
     
     public class File{
