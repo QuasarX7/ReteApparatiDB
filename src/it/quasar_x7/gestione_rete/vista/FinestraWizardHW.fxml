@@ -8,10 +8,9 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="455.0" prefWidth="660.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="it.quasar_x7.gestione_rete.controllo.FinestraWizardHWController">
+<AnchorPane prefHeight="526.0" prefWidth="790.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.quasar_x7.gestione_rete.controllo.FinestraWizardHWController">
    <children>
-      <Button focusTraversable="false" layoutX="611.0" layoutY="16.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#chiusuraSenzaSalvare" prefHeight="28.0" prefWidth="35.0" style="-fx-background-color: red; -fx-border-color: red;" text="X" textFill="WHITE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+      <Button focusTraversable="false" layoutX="611.0" layoutY="16.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#chiusuraSenzaSalvare" prefHeight="28.0" prefWidth="35.0" style="-fx-background-color: red; -fx-border-color: red;" text="X" textFill="WHITE" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
          <font>
             <Font name="Arial Black" size="12.0" />
          </font>
@@ -21,73 +20,244 @@
             <Font name="Arial Black" size="24.0" />
          </font>
       </Label>
-      <GridPane layoutX="19.0" layoutY="39.0" prefHeight="345.0" prefWidth="625.0">
+      <GridPane layoutX="16.0" layoutY="51.0" prefHeight="399.0" prefWidth="766.0">
          <children>
-            <Label focusTraversable="false" layoutX="206.0" layoutY="131.0" text="Mouse" GridPane.rowIndex="8">
+            <Label focusTraversable="false" layoutX="206.0" layoutY="131.0" text="Mouse" GridPane.rowIndex="9">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>
             </Label>
-            <Label focusTraversable="false" layoutX="206.0" layoutY="131.0" text="Unità Centrale">
+            <Label focusTraversable="false" layoutX="206.0" layoutY="131.0" text="Unità Centrale" GridPane.rowIndex="1">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>
             </Label>
-            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label focusTraversable="false" text="Monitor" GridPane.rowIndex="7">
+            <Label focusTraversable="false" text="Monitor" GridPane.rowIndex="8">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>
             </Label>
-            <Label focusTraversable="false" text="Tastiera" GridPane.rowIndex="9">
+            <Label focusTraversable="false" text="Tastiera" GridPane.rowIndex="10">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>
             </Label>
-            <Label focusTraversable="false" text="Processore" GridPane.rowIndex="2">
+            <Label focusTraversable="false" text="Processore" GridPane.rowIndex="3">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>
             </Label>
-            <Label focusTraversable="false" text="RAM" GridPane.rowIndex="3">
+            <Label focusTraversable="false" text="RAM" GridPane.rowIndex="4">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>
             </Label>
-            <Label focusTraversable="false" text="HDD" GridPane.rowIndex="4">
+            <Label focusTraversable="false" text="HDD" GridPane.rowIndex="5">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>
             </Label>
-            <Label focusTraversable="false" text="Scheda Madre" GridPane.rowIndex="1">
+            <Label focusTraversable="false" text="Scheda Madre" GridPane.rowIndex="2">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>
             </Label>
-            <Label focusTraversable="false" text="Scheda Video" GridPane.rowIndex="5">
+            <Label focusTraversable="false" text="Scheda Video" GridPane.rowIndex="6">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>
             </Label>
-            <Label focusTraversable="false" text="Scheda di Rete" GridPane.rowIndex="6">
+            <Label focusTraversable="false" text="Scheda di Rete" GridPane.rowIndex="7">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>
             </Label>
-            <Label focusTraversable="false" text="Stampante" GridPane.rowIndex="11">
+            <Label focusTraversable="false" text="Stampante" GridPane.rowIndex="12">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>
             </Label>
-            <Label focusTraversable="false" text="UPS" GridPane.rowIndex="10">
+            <Label focusTraversable="false" text="UPS" GridPane.rowIndex="11">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>
             </Label>
+            <Label focusTraversable="false" text="HARDWARE" textFill="#0083ff">
+               <font>
+                  <Font name="Arial Black" size="14.0" />
+               </font>
+            </Label>
+            <Label focusTraversable="false" text="Presente" textFill="#0083ff" GridPane.columnIndex="1">
+               <font>
+                  <Font name="Arial Black" size="14.0" />
+               </font>
+            </Label>
+            <CheckBox fx:id="selezionaUnitaCentrale" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+            <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+            <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label focusTraversable="false" text="MODELLO" textFill="#0083ff" GridPane.columnIndex="2">
+               <font>
+                  <Font name="Arial Black" size="14.0" />
+               </font>
+            </Label>
+            <Label focusTraversable="false" text="Matricola" textFill="#0083ff" GridPane.columnIndex="3">
+               <font>
+                  <Font name="Arial Black" size="14.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="30.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
+               <image>
+                  <Image url="@../Risorse/aggiungi.png" />
+               </image>
+            </ImageView>
+            <Button mnemonicParsing="false" onAction="#pulsanteUnitaCentrale" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+               <graphic>
+                  <ImageView fitHeight="18.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Risorse/hardware.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#aggiungiNuovoHardware" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+               <graphic>
+                  <ImageView fitHeight="18.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Risorse/hardware.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#aggiungiNuovoHardware" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
+               <graphic>
+                  <ImageView fitHeight="18.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Risorse/hardware.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#aggiungiNuovoHardware" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
+               <graphic>
+                  <ImageView fitHeight="18.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Risorse/hardware.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#aggiungiNuovoHardware" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="5">
+               <graphic>
+                  <ImageView fitHeight="18.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Risorse/hardware.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#aggiungiNuovoHardware" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="6">
+               <graphic>
+                  <ImageView fitHeight="18.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Risorse/hardware.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#aggiungiNuovoHardware" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="7">
+               <graphic>
+                  <ImageView fitHeight="18.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Risorse/hardware.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#aggiungiNuovoHardware" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="8">
+               <graphic>
+                  <ImageView fitHeight="18.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Risorse/hardware.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#aggiungiNuovoHardware" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="9">
+               <graphic>
+                  <ImageView fitHeight="18.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Risorse/hardware.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#aggiungiNuovoHardware" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="10">
+               <graphic>
+                  <ImageView fitHeight="18.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Risorse/hardware.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#aggiungiNuovoHardware" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="11">
+               <graphic>
+                  <ImageView fitHeight="18.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Risorse/hardware.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#aggiungiNuovoHardware" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="12">
+               <graphic>
+                  <ImageView fitHeight="18.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Risorse/hardware.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <ChoiceBox fx:id="menuModelloUnitaCentrale" onMousePressed="#aggiornaMenuModelloUnitaCentrale" prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <ChoiceBox fx:id="menuMatricolaUnitaCentrale" onMousePressed="#aggiornaMenuMatricolaUnitaCentrale" prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <ChoiceBox prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <ChoiceBox prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <ChoiceBox prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <ChoiceBox prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <ChoiceBox prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <ChoiceBox prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+            <ChoiceBox prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+            <ChoiceBox prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+            <ChoiceBox prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+            <ChoiceBox prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+            <ChoiceBox prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="12" />
+            <ChoiceBox prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <ChoiceBox prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <ChoiceBox prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <ChoiceBox prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+            <ChoiceBox prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+            <ChoiceBox prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+            <ChoiceBox prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+            <ChoiceBox prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="9" />
+            <ChoiceBox prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="10" />
+            <ChoiceBox prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="11" />
+            <ChoiceBox prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="12" />
          </children>
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="211.0" minWidth="10.0" prefWidth="196.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="436.0" minWidth="-Infinity" prefWidth="406.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="421.0" minWidth="10.0" prefWidth="119.0" />
+            <ColumnConstraints halignment="CENTER" maxWidth="480.0" minWidth="-Infinity" prefWidth="69.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="480.0" minWidth="10.0" prefWidth="298.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="480.0" minWidth="10.0" prefWidth="231.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="480.0" minWidth="10.0" prefWidth="48.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -102,9 +272,10 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <Button layoutX="437.0" layoutY="395.0" mnemonicParsing="false" onAction="#salva" prefHeight="39.0" prefWidth="206.0" text="Ok">
+      <Button layoutX="572.0" layoutY="473.0" mnemonicParsing="false" onAction="#salva" prefHeight="39.0" prefWidth="206.0" text="Ok">
          <font>
             <Font name="Arial Black" size="18.0" />
          </font>

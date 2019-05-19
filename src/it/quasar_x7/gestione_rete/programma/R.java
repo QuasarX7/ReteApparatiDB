@@ -155,6 +155,22 @@ public class R {
         
     }
     
+    public class TipoStandardHW{
+        public static final String UNITA_CENTALE = "Unità Centrale";
+        public static final String SCHEDA_MADRE = "Scheda Madre";
+        public static final String PROCESSORE = "Processore";
+        public static final String RAM = "RAM";
+        public static final String HDD = "HDD";
+        public static final String SCHEDA_VIDEO = "Scheda Video";
+        public static final String SCHEDA_RETE = "Scheda Rete";
+        public static final String MONITOR = "Monitor";
+        public static final String MOUSE = "Mouse";
+        public static final String TASTIERA = "Tastiera";
+        public static final String UPS = "UPS";
+        public static final String STAMPANTE = "Stampante";
+        
+    }
+    
     public class Conferma{
         public static final String SI = "Sì";
         public static final String NO = "No";

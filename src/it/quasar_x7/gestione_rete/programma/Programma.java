@@ -28,9 +28,12 @@ import it.quasar_x7.gestione_rete.Dati.DatiUtilizzatore;
 import it.quasar_x7.gestione_rete.controllo.FinestraLoginController;
 import it.quasar_x7.gestione_rete.controllo.FinestraApparatoController;
 import it.quasar_x7.gestione_rete.controllo.FinestraGradoController;
+import it.quasar_x7.gestione_rete.controllo.FinestraHardwareApparatoController;
 import it.quasar_x7.gestione_rete.controllo.FinestraHardwareController;
 import it.quasar_x7.gestione_rete.controllo.FinestraPosizioneController;
 import static it.quasar_x7.gestione_rete.controllo.FinestraPrincipaleController.rete;
+import static it.quasar_x7.gestione_rete.programma.Programma.dati;
+
 import it.quasar_x7.gestione_rete.controllo.FinestraResponsabileController;
 import it.quasar_x7.gestione_rete.controllo.FinestraReteController;
 import it.quasar_x7.gestione_rete.controllo.FinestraSoftwareController;
@@ -68,6 +71,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.TreeSet;
 import java.util.function.BiConsumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -80,6 +84,7 @@ import javafx.event.EventType;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
@@ -1485,5 +1490,55 @@ public class Programma extends Application {
 		
     	file.chiudi();
     }
+
+
+
+
+
+    /**
+     * Metodo statico che inizializza un campo a menu con l'elenco dei modello relativi a un dato hardware.
+     * 
+     * @param nomeHardware
+     * @param nomeModello
+     */
+	public static void aggiornaMenuModelloHW(String nomeHardware, ChoiceBox<String> nomeModello) {
+		nomeModello.getItems().clear();
+        if(nomeHardware != null){
+            TreeSet<String> modelli = ((DatiHardware)dati.get(DatiHardware.NOME_TABELLA)).listaModello(nomeHardware);
+            if(modelli != null){
+                nomeModello.getItems().addAll(modelli);
+            }
+        }
+		
+	}
+
+
+
+
+
+
+
+	public static void aggiornaMenuMatricolaHW(String nomeHardware, String nomeModello,ChoiceBox<String> listaMatricole) {
+		listaMatricole.getItems().clear();
+        if(nomeHardware != null && nomeModello != null){
+            TreeSet<String> modelli = ((DatiHardware)dati.get(DatiHardware.NOME_TABELLA)).listaMatricola(nomeHardware,nomeModello);
+            if(modelli != null){
+            	listaMatricole.getItems().addAll(modelli);
+            }
+        }
+		
+	}
+
+
+
+
+
+
+
+	public static void apriFinestraNuovoHardware(Object finestra, String[] input) {
+		FinestraHardwareController.scenaCorrente = Finestra.scenaCorrente();
+        FinestraHardwareController.input = input;
+        Finestra.caricaFinestra(finestra, R.FXML.FINESTRA_HW);
+	}
     
 }

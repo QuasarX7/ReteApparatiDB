@@ -6,15 +6,11 @@ import it.quasar_x7.java.BaseDati.Relazione;
 import it.quasar_x7.modello.DatiUtente;
 import it.quasar_x7.modello.LivelloAccesso;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.xml.bind.DatatypeConverter;
 
 /**
  *

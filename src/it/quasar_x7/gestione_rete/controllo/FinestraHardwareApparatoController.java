@@ -117,7 +117,7 @@ public class FinestraHardwareApparatoController implements Initializable {
     @FXML
     private void aggiungiNuovoHardware(ActionEvent event) {
         if(event.getEventType().equals(ActionEvent.ACTION)){
-            Programma.apriListaHardware(this);
+        	Programma.apriFinestraNuovoHardware(this,null);
         }
     }
 
@@ -129,15 +129,7 @@ public class FinestraHardwareApparatoController implements Initializable {
     }
     
     private void aggiornaMenuMatricola() {
-		nomeMatricola.getItems().clear();
-        if(nomeHardware.getValue() != null && nomeModello.getValue() != null){
-            TreeSet<String> modelli = datiHW.listaMatricola(nomeHardware.getValue(),nomeModello.getValue());
-            if(modelli != null){
-                nomeMatricola.getItems().addAll(modelli);
-            }
-        }
-            
-        
+    	Programma.aggiornaMenuMatricolaHW(nomeHardware.getValue(), nomeModello.getValue(),nomeMatricola);
     }
     
     @FXML
@@ -148,13 +140,7 @@ public class FinestraHardwareApparatoController implements Initializable {
     }
     
     private void aggiornaMenuModello() {
-    	nomeModello.getItems().clear();
-        if(nomeHardware.getValue() != null){
-            TreeSet<String> modelli = datiHW.listaModello(nomeHardware.getValue());
-            if(modelli != null){
-                nomeModello.getItems().addAll(modelli);
-            }
-        }
+    	Programma.aggiornaMenuModelloHW(nomeHardware.getValue(),nomeModello);
     }
 
     @FXML
