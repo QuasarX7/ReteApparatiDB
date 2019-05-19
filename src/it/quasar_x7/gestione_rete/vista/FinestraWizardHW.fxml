@@ -93,7 +93,7 @@
                </font>
             </Label>
             <CheckBox fx:id="selezionaUnitaCentrale" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <CheckBox fx:id="selezionaSchedaMadre" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
@@ -119,7 +119,7 @@
                   <Image url="@../Risorse/aggiungi.png" />
                </image>
             </ImageView>
-            <Button mnemonicParsing="false" onAction="#pulsanteUnitaCentrale" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+            <Button fx:id="pulsanteUnitaCentrale" mnemonicParsing="false" onAction="#aggiungiHWUnitaCentrale" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
                <graphic>
                   <ImageView fitHeight="18.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -128,7 +128,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button mnemonicParsing="false" onAction="#aggiungiNuovoHardware" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+            <Button fx:id="pulsanteSchedaMadre" mnemonicParsing="false" onAction="#aggiungiHWSchedaMadre" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
                <graphic>
                   <ImageView fitHeight="18.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -137,7 +137,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button mnemonicParsing="false" onAction="#aggiungiNuovoHardware" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
+            <Button fx:id="pulsanteProcessore" mnemonicParsing="false" onAction="#aggiungiHWProcessore" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
                <graphic>
                   <ImageView fitHeight="18.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -146,7 +146,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button mnemonicParsing="false" onAction="#aggiungiNuovoHardware" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
+            <Button fx:id="pulsanteRAM" mnemonicParsing="false" onAction="#aggiungiHWRAM" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
                <graphic>
                   <ImageView fitHeight="18.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -155,7 +155,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button mnemonicParsing="false" onAction="#aggiungiNuovoHardware" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="5">
+            <Button fx:id="pulsanteHDD" mnemonicParsing="false" onAction="#aggiungiHWHDD" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="5">
                <graphic>
                   <ImageView fitHeight="18.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -164,7 +164,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button mnemonicParsing="false" onAction="#aggiungiNuovoHardware" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="6">
+            <Button fx:id="pulsanteSchedaVideo" mnemonicParsing="false" onAction="#aggiungiHWSchedaVideo" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="6">
                <graphic>
                   <ImageView fitHeight="18.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -173,7 +173,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button mnemonicParsing="false" onAction="#aggiungiNuovoHardware" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="7">
+            <Button fx:id="pulsanteSchedaRete" mnemonicParsing="false" onAction="#aggiungiHWSchedaRete" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="7">
                <graphic>
                   <ImageView fitHeight="18.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -182,7 +182,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button mnemonicParsing="false" onAction="#aggiungiNuovoHardware" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="8">
+            <Button fx:id="pulsanteMonitor" mnemonicParsing="false" onAction="#aggiungiHWMonitor" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="8">
                <graphic>
                   <ImageView fitHeight="18.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -191,7 +191,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button mnemonicParsing="false" onAction="#aggiungiNuovoHardware" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="9">
+            <Button fx:id="pulsanteMouse" mnemonicParsing="false" onAction="#aggiungiHWMouse" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="9">
                <graphic>
                   <ImageView fitHeight="18.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -200,7 +200,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button mnemonicParsing="false" onAction="#aggiungiNuovoHardware" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="10">
+            <Button fx:id="pulsanteTastiera" mnemonicParsing="false" onAction="#aggiungiHWTastiera" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="10">
                <graphic>
                   <ImageView fitHeight="18.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -209,7 +209,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button mnemonicParsing="false" onAction="#aggiungiNuovoHardware" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="11">
+            <Button fx:id="pulsanteUPS" mnemonicParsing="false" onAction="#aggiungiHWUPS" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="11">
                <graphic>
                   <ImageView fitHeight="18.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -218,7 +218,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button mnemonicParsing="false" onAction="#aggiungiNuovoHardware" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="12">
+            <Button fx:id="pulsanteStampante" mnemonicParsing="false" onAction="#aggiungiHWStampante" prefHeight="28.0" prefWidth="46.0" GridPane.columnIndex="4" GridPane.rowIndex="12">
                <graphic>
                   <ImageView fitHeight="18.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -229,28 +229,28 @@
             </Button>
             <ChoiceBox fx:id="menuModelloUnitaCentrale" onMousePressed="#aggiornaMenuModelloUnitaCentrale" prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <ChoiceBox fx:id="menuMatricolaUnitaCentrale" onMousePressed="#aggiornaMenuMatricolaUnitaCentrale" prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <ChoiceBox prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <ChoiceBox prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <ChoiceBox prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <ChoiceBox prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <ChoiceBox prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-            <ChoiceBox prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-            <ChoiceBox prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-            <ChoiceBox prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
-            <ChoiceBox prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="10" />
-            <ChoiceBox prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="11" />
-            <ChoiceBox prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="12" />
-            <ChoiceBox prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <ChoiceBox prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <ChoiceBox prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-            <ChoiceBox prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-            <ChoiceBox prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-            <ChoiceBox prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-            <ChoiceBox prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="8" />
-            <ChoiceBox prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="9" />
-            <ChoiceBox prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="10" />
-            <ChoiceBox prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="11" />
-            <ChoiceBox prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="12" />
+            <ChoiceBox fx:id="menuModelloSchedaMadre" onMousePressed="#aggiornaMenuModelloSchedaMadre" prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <ChoiceBox fx:id="menuModelloProcessore" onMousePressed="#aggiornaMenuModelloProcessore" prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <ChoiceBox fx:id="menuModelloRAM" onMousePressed="#aggiornaMenuModelloRAM" prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <ChoiceBox fx:id="menuModelloHDD" onMousePressed="#aggiornaMenuModelloHDD" prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <ChoiceBox fx:id="menuModelloSchedaVideo" onMousePressed="#aggiornaMenuModelloSchedaVideo" prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <ChoiceBox fx:id="menuModelloSchedaRete" onMousePressed="#aggiornaMenuModelloSchedaRete" prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+            <ChoiceBox fx:id="menuModelloMonitor" onMousePressed="#aggiornaMenuModelloMonitor" prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+            <ChoiceBox fx:id="menuModelloMouse" onMousePressed="#aggiornaMenuModelloMouse" prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+            <ChoiceBox fx:id="menuModelloTastiera" onMousePressed="#aggiornaMenuModelloTastiera" prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+            <ChoiceBox fx:id="menuModelloUPS" onMousePressed="#aggiornaMenuModelloUPS" prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+            <ChoiceBox fx:id="menuModelloStampante" onMousePressed="#aggiornaMenuModelloStampante" prefHeight="25.0" prefWidth="296.0" GridPane.columnIndex="2" GridPane.rowIndex="12" />
+            <ChoiceBox fx:id="menuMatricolaSchedaMadre" onMousePressed="#aggiornaMenuMatricolaSchedaMadre" prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <ChoiceBox fx:id="menuMatricolaProcessore" onMousePressed="#aggiornaMenuMatricolaProcessore" prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <ChoiceBox fx:id="menuMatricolaRAM" onMousePressed="#aggiornaMenuMatricolaRAM" prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <ChoiceBox fx:id="menuMatricolaHDD" onMousePressed="#aggiornaMenuMatricolaHDD" prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+            <ChoiceBox fx:id="menuMatricolaSchedaVideo" onMousePressed="#aggiornaMenuMatricolaSchedaVideo" prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+            <ChoiceBox fx:id="menuMatricolaSchedaRete" onMousePressed="#aggiornaMenuMatricolaSchedaRete" prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+            <ChoiceBox fx:id="menuMatricolaMonitor" onMousePressed="#aggiornaMenuMatricolaMonitor" prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+            <ChoiceBox fx:id="menuMatricolaMouse" onMousePressed="#aggiornaMenuMatricolaMouse" prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="9" />
+            <ChoiceBox fx:id="menuMatricolaTastiera" onMousePressed="#aggiornaMenuMatricolaTastiera" prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="10" />
+            <ChoiceBox fx:id="menuMatricolaUPS" onMousePressed="#aggiornaMenuMatricolaUPS" prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="11" />
+            <ChoiceBox fx:id="menuMatricolaStampante" onMousePressed="#aggiornaMenuMatricolaStampante" prefHeight="25.0" prefWidth="209.0" GridPane.columnIndex="3" GridPane.rowIndex="12" />
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="421.0" minWidth="10.0" prefWidth="119.0" />
@@ -278,6 +278,18 @@
       <Button layoutX="572.0" layoutY="473.0" mnemonicParsing="false" onAction="#salva" prefHeight="39.0" prefWidth="206.0" text="Ok">
          <font>
             <Font name="Arial Black" size="18.0" />
+         </font>
+      </Button>
+      <Button alignment="CENTER" contentDisplay="RIGHT" layoutX="14.0" layoutY="459.0" mnemonicParsing="false" onAction="#aggiungiNuovoHardware" prefHeight="45.0" prefWidth="116.0" text="altro...">
+         <graphic>
+            <ImageView fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Risorse/hardware.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font name="Arial Black" size="13.0" />
          </font>
       </Button>
    </children>
