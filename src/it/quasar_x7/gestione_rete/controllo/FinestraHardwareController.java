@@ -74,6 +74,9 @@ public class FinestraHardwareController implements Initializable {
             if(input[0] != null){
                 String[] lista = DatiHardware.marcaMatricola(input[0]);
                 if(lista.length == 3){
+                	if(lista[0] != null) {
+                		datiTipoHardware.aggiungi(new Object[]{lista[0]});
+                	}
                 	menuTipo.setValue(lista[0]);
                     modello.setText(lista[1]);
                     matricola.setText(lista[2]);

@@ -94,16 +94,16 @@
             </Label>
             <CheckBox fx:id="selezionaUnitaCentrale" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <CheckBox fx:id="selezionaSchedaMadre" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-            <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-            <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="12" />
-            <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <CheckBox fx:id="selezionaProcessore" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <CheckBox fx:id="selezionaRAM" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <CheckBox fx:id="selezionaSchedaVideo" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <CheckBox fx:id="selezionaSchedaRete" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <CheckBox fx:id="selezionaMonitor" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <CheckBox fx:id="selezionaMouse" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <CheckBox fx:id="selezionaTastiera" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <CheckBox fx:id="selezionaUPS" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+            <CheckBox fx:id="selezionaStampante" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+            <CheckBox fx:id="selezionaHDD" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Label focusTraversable="false" text="MODELLO" textFill="#0083ff" GridPane.columnIndex="2">
                <font>
                   <Font name="Arial Black" size="14.0" />

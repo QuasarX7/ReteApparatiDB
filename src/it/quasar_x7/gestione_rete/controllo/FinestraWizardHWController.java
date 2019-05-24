@@ -62,11 +62,11 @@ import javafx.scene.input.MouseEvent;
 	    private Button pulsanteUnitaCentrale;
 	    
 	    @FXML
-	    private ChoiceBox<?> menuMatricolaUPS;
+	    private ChoiceBox<String> menuMatricolaUPS;
 
 	    
 	    @FXML
-	    private ChoiceBox<?> menuModelloTastiera;
+	    private ChoiceBox<String> menuModelloTastiera;
 
 	    @FXML
 	    private Button pulsanteProcessore;
@@ -75,73 +75,73 @@ import javafx.scene.input.MouseEvent;
 	    private Button pulsanteUPS;
 
 	    @FXML
-	    private ChoiceBox<?> menuModelloMouse;
+	    private ChoiceBox<String> menuModelloMouse;
 
 	    @FXML
 	    private Button pulsanteStampante;
 
 	    @FXML
-	    private ChoiceBox<?> menuModelloProcessore;
+	    private ChoiceBox<String> menuModelloProcessore;
 
 	    @FXML
-	    private ChoiceBox<?> menuMatricolaMonitor;
+	    private ChoiceBox<String> menuMatricolaMonitor;
 
 	    @FXML
-	    private ChoiceBox<?> menuMatricolaStampante;
+	    private ChoiceBox<String> menuMatricolaStampante;
 
 	    @FXML
 	    private Button pulsanteSchedaRete;
 
 	    @FXML
-	    private ChoiceBox<?> menuModelloStampante;
+	    private ChoiceBox<String> menuModelloStampante;
 
 	    @FXML
-	    private ChoiceBox<?> menuMatricolaTastiera;
+	    private ChoiceBox<String> menuMatricolaTastiera;
 
 	    @FXML
-	    private ChoiceBox<?> menuMatricolaHDD;
+	    private ChoiceBox<String> menuMatricolaHDD;
 
 	    @FXML
-	    private ChoiceBox<?> menuModelloUPS;
+	    private ChoiceBox<String> menuModelloUPS;
 
 	    @FXML
 	    private Button pulsanteMouse;
 
 	    @FXML
-	    private ChoiceBox<?> menuMatricolaMouse;
+	    private ChoiceBox<String> menuMatricolaMouse;
 
 	    
 	    @FXML
 	    private Button pulsanteSchedaVideo;
 
 	    @FXML
-	    private ChoiceBox<?> menuMatricolaRAM;
+	    private ChoiceBox<String> menuMatricolaRAM;
 
 	    @FXML
-	    private ChoiceBox<?> menuModelloHDD;
+	    private ChoiceBox<String> menuModelloHDD;
 
 	    @FXML
-	    private ChoiceBox<?> menuMatricolaProcessore;
+	    private ChoiceBox<String> menuMatricolaProcessore;
 
 	    @FXML
-	    private ChoiceBox<?> menuModelloRAM;
+	    private ChoiceBox<String> menuModelloRAM;
 
 	    @FXML
-	    private ChoiceBox<?> menuModelloMonitor;
+	    private ChoiceBox<String> menuModelloMonitor;
 
 	    @FXML
-	    private ChoiceBox<?> menuMatricolaSchedaRete;
+	    private ChoiceBox<String> menuMatricolaSchedaRete;
 
 	   
 
 	    @FXML
-	    private ChoiceBox<?> menuMatricolaSchedaVideo;
+	    private ChoiceBox<String> menuMatricolaSchedaVideo;
 
 	    @FXML
 	    private Button pulsanteTastiera;
 
 	    @FXML
-	    private ChoiceBox<?> menuModelloSchedaVideo;
+	    private ChoiceBox<String> menuModelloSchedaVideo;
 
 	    @FXML
 	    private Button pulsanteHDD;
@@ -155,9 +155,38 @@ import javafx.scene.input.MouseEvent;
 	    private Button pulsanteRAM;
 
 	    @FXML
-	    private ChoiceBox<?> menuModelloSchedaRete;
-	    
-	    
+	    private ChoiceBox<String> menuModelloSchedaRete;
+
+	    @FXML
+	    private CheckBox selezionaProcessore;
+
+	    @FXML
+	    private CheckBox selezionaMouse;
+
+    @FXML
+	    private CheckBox selezionaHDD;
+
+	    @FXML
+	    private CheckBox selezionaSchedaRete;
+
+
+	    @FXML
+	    private CheckBox selezionaUPS;
+
+	    @FXML
+	    private CheckBox selezionaMonitor;
+
+	    @FXML
+	    private CheckBox selezionaStampante;
+
+	    @FXML
+	    private CheckBox selezionaSchedaVideo;
+
+	    @FXML
+	    private CheckBox selezionaRAM;
+
+	    @FXML
+	    private CheckBox selezionaTastiera;
 
 	    /**
 	     * Initializes the controller class.
@@ -167,6 +196,16 @@ import javafx.scene.input.MouseEvent;
 	    	
 			inizializzaRigaTabella(selezionaUnitaCentrale, true, menuModelloUnitaCentrale, menuMatricolaUnitaCentrale,pulsanteUnitaCentrale);
 			inizializzaRigaTabella(selezionaSchedaMadre, false, menuModelloSchedaMadre, menuMatricolaSchedaMadre,pulsanteSchedaMadre);
+			inizializzaRigaTabella(selezionaProcessore, true, menuModelloProcessore, menuMatricolaProcessore,pulsanteProcessore);
+			inizializzaRigaTabella(selezionaRAM, true, menuModelloRAM, menuMatricolaRAM,pulsanteRAM);
+			inizializzaRigaTabella(selezionaHDD, true, menuModelloHDD, menuMatricolaHDD,pulsanteHDD);
+			inizializzaRigaTabella(selezionaSchedaVideo, false, menuModelloSchedaVideo, menuMatricolaSchedaVideo,pulsanteSchedaVideo);
+			inizializzaRigaTabella(selezionaSchedaRete, false, menuModelloSchedaRete, menuMatricolaSchedaRete,pulsanteSchedaRete);
+			inizializzaRigaTabella(selezionaMonitor, true, menuModelloMonitor, menuMatricolaMonitor,pulsanteMonitor);
+			inizializzaRigaTabella(selezionaMouse, true, menuModelloMouse, menuMatricolaMouse,pulsanteMouse);
+			inizializzaRigaTabella(selezionaTastiera, true, menuModelloTastiera, menuMatricolaTastiera,pulsanteTastiera);
+			inizializzaRigaTabella(selezionaUPS, true, menuModelloUPS, menuMatricolaUPS,pulsanteUPS);
+			inizializzaRigaTabella(selezionaStampante, false, menuModelloStampante, menuMatricolaStampante,pulsanteStampante);
 	    	
 	    }  
 	    
@@ -298,164 +337,229 @@ import javafx.scene.input.MouseEvent;
 	    private void aggiungiHWSchedaMadre(ActionEvent event) {
 	        if(event.getEventType().equals(ActionEvent.ACTION)){
 	        	aggiungiHW(R.TipoStandardHW.SCHEDA_MADRE,menuModelloSchedaMadre,menuMatricolaSchedaMadre);
-	        	
 	        }
 	    }
-		
-		
+
+	    @FXML
+	    private void aggiungiHWProcessore(ActionEvent event) {
+	    	if(event.getEventType().equals(ActionEvent.ACTION)){
+	        	aggiungiHW(R.TipoStandardHW.PROCESSORE,menuModelloProcessore,menuMatricolaProcessore);
+	        }
+	    }
+	    
+	    @FXML
+	    private void aggiornaMenuModelloProcessore(MouseEvent event) {
+	    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        	aggiornaMenuModello(R.TipoStandardHW.PROCESSORE, menuModelloProcessore);
+	        }
+	    }
+	    
+	    @FXML
+	    private void aggiornaMenuMatricolaProcessore(MouseEvent event) {
+	    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        	aggiornaMenuMatricola(R.TipoStandardHW.PROCESSORE,menuMatricolaProcessore, menuModelloProcessore);
+	        }
+	    }
+
+	    @FXML
+	    private void aggiungiHWRAM(ActionEvent event) {
+	    	if(event.getEventType().equals(ActionEvent.ACTION)){
+	        	aggiungiHW(R.TipoStandardHW.RAM,menuModelloRAM,menuMatricolaRAM);
+	        }
+	    }
+	    
+	    @FXML
+	    private void aggiornaMenuMatricolaRAM(MouseEvent event) {
+	    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        	aggiornaMenuMatricola(R.TipoStandardHW.RAM,menuMatricolaRAM, menuModelloRAM);
+	        }
+	    }
+	    
+	    @FXML
+	    private void aggiornaMenuModelloRAM(MouseEvent event) {
+	    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        	aggiornaMenuModello(R.TipoStandardHW.RAM, menuModelloRAM);
+	        }
+	    }
+
+	    @FXML
+	    private void aggiungiHWHDD(ActionEvent event) {
+	    	if(event.getEventType().equals(ActionEvent.ACTION)){
+	        	aggiungiHW(R.TipoStandardHW.HDD,menuModelloHDD,menuMatricolaHDD);
+	        }
+	    }
+	    
+	    @FXML
+	    private void aggiornaMenuModelloHDD(MouseEvent event) {
+	    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        	aggiornaMenuModello(R.TipoStandardHW.HDD, menuModelloHDD);
+	        }
+	    }
+
+	    @FXML
+	    private void aggiornaMenuMatricolaHDD(MouseEvent event) {
+	    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        	aggiornaMenuMatricola(R.TipoStandardHW.HDD,menuMatricolaHDD, menuModelloHDD);
+	        }
+	    }
+
+	    
+	    
+	    @FXML
+	    private void aggiornaMenuModelloSchedaVideo(MouseEvent event) {
+	    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        	aggiornaMenuModello(R.TipoStandardHW.SCHEDA_VIDEO, menuModelloSchedaVideo);
+	        }
+	    }
+	    
+	    @FXML
+	    private void aggiungiHWSchedaVideo(ActionEvent event) {
+	    	if(event.getEventType().equals(ActionEvent.ACTION)){
+	        	aggiungiHW(R.TipoStandardHW.SCHEDA_VIDEO,menuModelloSchedaVideo,menuMatricolaSchedaVideo);
+	        }
+	    }
+
+	    @FXML
+	    private void aggiornaMenuMatricolaSchedaVideo(MouseEvent event) {
+	    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        	aggiornaMenuMatricola(R.TipoStandardHW.SCHEDA_VIDEO,menuMatricolaSchedaVideo, menuModelloSchedaVideo);
+	        }
+	    }
+
+	    @FXML
+	    private void aggiungiHWSchedaRete(ActionEvent event) {
+	    	if(event.getEventType().equals(ActionEvent.ACTION)){
+	        	aggiungiHW(R.TipoStandardHW.SCHEDA_RETE,menuModelloSchedaRete,menuMatricolaSchedaRete);
+	        }
+	    }
+	    
+	    @FXML
+	    private void aggiornaMenuModelloSchedaRete(MouseEvent event) {
+	    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        	aggiornaMenuModello(R.TipoStandardHW.SCHEDA_RETE, menuModelloSchedaRete);
+	        }
+	    }
+	    
+	    
+	    @FXML
+	    private void aggiornaMenuMatricolaSchedaRete(MouseEvent event) {
+	    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        	aggiornaMenuMatricola(R.TipoStandardHW.SCHEDA_RETE,menuMatricolaSchedaRete, menuModelloSchedaRete);
+	        }
+	    }
+
+
+	    @FXML
+	    private void aggiungiHWMonitor(ActionEvent event) {
+	    	if(event.getEventType().equals(ActionEvent.ACTION)){
+	        	aggiungiHW(R.TipoStandardHW.MONITOR,menuModelloMonitor,menuMatricolaMonitor);
+	        }
+	    }
+	    
+	    @FXML
+	    private void aggiornaMenuModelloMonitor(MouseEvent event) {
+	    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        	aggiornaMenuModello(R.TipoStandardHW.MONITOR, menuModelloMonitor);
+	        }
+	    }
+
+	    @FXML
+	    private void aggiornaMenuMatricolaMonitor(MouseEvent event) {
+	    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        	aggiornaMenuMatricola(R.TipoStandardHW.MONITOR,menuMatricolaMonitor, menuModelloMonitor);
+	        }
+	    }
 
 	    
 
 	    @FXML
-	    void aggiungiHWProcessore(ActionEvent event) {
-
+	    private void aggiungiHWMouse(ActionEvent event) {
+	    	if(event.getEventType().equals(ActionEvent.ACTION)){
+	        	aggiungiHW(R.TipoStandardHW.MOUSE,menuModelloMouse,menuMatricolaMouse);
+	        }
 	    }
 
 	    @FXML
-	    void aggiungiHWRAM(ActionEvent event) {
+	    private void aggiornaMenuModelloMouse(MouseEvent event) {
+	    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        	aggiornaMenuModello(R.TipoStandardHW.MOUSE, menuModelloMouse);
+	        }
+	    }
+	    
 
+	    @FXML
+	    private void aggiornaMenuMatricolaMouse(MouseEvent event) {
+	    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        	aggiornaMenuMatricola(R.TipoStandardHW.MOUSE,menuMatricolaMouse, menuModelloMouse);
+	        }
+	    }
+	    
+	    
+	    
+	    @FXML
+	    private void aggiungiHWTastiera(ActionEvent event) {
+	    	if(event.getEventType().equals(ActionEvent.ACTION)){
+	        	aggiungiHW(R.TipoStandardHW.TASTIERA,menuModelloTastiera,menuMatricolaTastiera);
+	        }
+	    }
+	    
+	    @FXML
+	    private void aggiornaMenuModelloTastiera(MouseEvent event) {
+	    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        	aggiornaMenuModello(R.TipoStandardHW.TASTIERA, menuModelloTastiera);
+	        }
+	    }
+	    
+	    @FXML
+	    private void aggiornaMenuMatricolaTastiera(MouseEvent event) {
+	    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        	aggiornaMenuMatricola(R.TipoStandardHW.TASTIERA,menuMatricolaTastiera, menuModelloTastiera);
+	        }
+	    }
+	    
+
+	    @FXML
+	    private void aggiungiHWUPS(ActionEvent event) {
+	    	if(event.getEventType().equals(ActionEvent.ACTION)){
+	        	aggiungiHW(R.TipoStandardHW.UPS,menuModelloUPS,menuMatricolaUPS);
+	        }
+	    }
+	    
+	    @FXML
+	    private void aggiornaMenuModelloUPS(MouseEvent event) {
+	    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        	aggiornaMenuModello(R.TipoStandardHW.UPS, menuModelloUPS);
+	        }
+	    }
+	    
+
+	    @FXML
+	    private void aggiornaMenuMatricolaUPS(MouseEvent event) {
+	    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        	aggiornaMenuMatricola(R.TipoStandardHW.UPS,menuMatricolaUPS, menuModelloUPS);
+	        }
+	    }
+	    
+
+	    @FXML
+	    private void aggiungiHWStampante(ActionEvent event) {
+	    	if(event.getEventType().equals(ActionEvent.ACTION)){
+	        	aggiungiHW(R.TipoStandardHW.STAMPANTE,menuModelloStampante,menuMatricolaStampante);
+	        }
 	    }
 
 	    @FXML
-	    void aggiungiHWHDD(ActionEvent event) {
-
+	    private void aggiornaMenuModelloStampante(MouseEvent event) {
+	    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        	aggiornaMenuModello(R.TipoStandardHW.STAMPANTE, menuModelloStampante);
+	        }
 	    }
 
 	    @FXML
-	    void aggiungiHWSchedaVideo(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void aggiungiHWSchedaRete(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void aggiungiHWMonitor(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void aggiungiHWMouse(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void aggiungiHWTastiera(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void aggiungiHWUPS(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void aggiungiHWStampante(ActionEvent event) {
-
-	    }
-
-	   
-	    @FXML
-	    void aggiornaMenuModelloProcessore(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void aggiornaMenuModelloRAM(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void aggiornaMenuModelloHDD(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void aggiornaMenuModelloSchedaVideo(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void aggiornaMenuModelloSchedaRete(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void aggiornaMenuModelloMonitor(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void aggiornaMenuModelloMouse(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void aggiornaMenuModelloTastiera(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void aggiornaMenuModelloUPS(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void aggiornaMenuModelloStampante(ActionEvent event) {
-
-	    }
-
-
-	    @FXML
-	    void aggiornaMenuMatricolaProcessore(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void aggiornaMenuMatricolaRAM(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void aggiornaMenuMatricolaHDD(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void aggiornaMenuMatricolaSchedaVideo(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void aggiornaMenuMatricolaSchedaRete(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void aggiornaMenuMatricolaMonitor(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void aggiornaMenuMatricolaMouse(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void aggiornaMenuMatricolaTastiera(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void aggiornaMenuMatricolaUPS(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void aggiornaMenuMatricolaStampante(ActionEvent event) {
-
+	    private void aggiornaMenuMatricolaStampante(MouseEvent event) {
+	    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        	aggiornaMenuMatricola(R.TipoStandardHW.STAMPANTE,menuMatricolaStampante, menuModelloStampante);
+	        }
 	    }
 
 	    
