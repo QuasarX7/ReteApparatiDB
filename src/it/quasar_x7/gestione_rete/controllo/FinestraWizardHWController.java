@@ -5,10 +5,12 @@ import static it.quasar_x7.gestione_rete.programma.Programma.dati;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import it.quasar_x7.gestione_rete.Dati.DatiDB;
 import it.quasar_x7.gestione_rete.Dati.DatiHardware;
 import it.quasar_x7.gestione_rete.Dati.DatiHardwareApparato;
 import it.quasar_x7.gestione_rete.programma.Programma;
 import it.quasar_x7.gestione_rete.programma.R;
+import it.quasar_x7.javafx.Finestra;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -31,6 +33,10 @@ import javafx.scene.input.MouseEvent;
 	public class FinestraWizardHWController implements Initializable {
 
 	    static public Scene scenaCorrente = null;
+
+		public static String apparato = null;
+
+		public static FinestraApparatoController finestraApparato = null;
 	    
 	    protected DatiHardwareApparato datiHardwareApparato = (DatiHardwareApparato) dati.get(DatiHardwareApparato.NOME_TABELLA);
 	    
@@ -237,20 +243,63 @@ import javafx.scene.input.MouseEvent;
 	    
 	    @FXML
 	    private void salva(ActionEvent event) {
-	        if(event.getEventType().equals(ActionEvent.ACTION)) {
-	        	
-	        }
+	        if(event.getEventType().equals(ActionEvent.ACTION)){
+	        
+	        	boolean ok = true;
+	        	if(apparato != null) {
+	        		if(verificaHW(R.TipoStandardHW.HDD,selezionaHDD))
+	        			ok &= Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.HDD,menuModelloHDD,menuMatricolaHDD);
+	        		if(verificaHW(R.TipoStandardHW.MONITOR,selezionaMonitor))
+	        			ok &= Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.MONITOR,menuModelloMonitor,menuMatricolaMonitor);
+	        		if(verificaHW(R.TipoStandardHW.MOUSE,selezionaMouse))
+	        			ok &= Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.MOUSE,menuModelloMouse,menuMatricolaMouse);
+	        		if(verificaHW(R.TipoStandardHW.PROCESSORE,selezionaProcessore))
+	        			ok &= Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.PROCESSORE,menuModelloProcessore,menuMatricolaProcessore);
+	        		if(verificaHW(R.TipoStandardHW.RAM,selezionaRAM))
+	        			ok &= Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.RAM,menuModelloRAM,menuMatricolaRAM);
+	        		if(verificaHW(R.TipoStandardHW.SCHEDA_MADRE,selezionaSchedaMadre))
+	        			ok &= Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.SCHEDA_MADRE,menuModelloSchedaMadre,menuMatricolaSchedaMadre);
+	        		if(verificaHW(R.TipoStandardHW.SCHEDA_RETE,selezionaSchedaRete))
+	        			ok &= Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.SCHEDA_RETE,menuModelloSchedaRete,menuMatricolaSchedaRete);
+	        		if(verificaHW(R.TipoStandardHW.SCHEDA_VIDEO,selezionaSchedaVideo))
+	        			ok &= Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.SCHEDA_VIDEO,menuModelloSchedaVideo,menuMatricolaSchedaVideo);
+	        		if(verificaHW(R.TipoStandardHW.STAMPANTE,selezionaStampante))
+	        			ok &= Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.STAMPANTE,menuModelloStampante,menuMatricolaStampante);
+	        		if(verificaHW(R.TipoStandardHW.TASTIERA,selezionaTastiera))
+	        			ok &= Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.TASTIERA,menuModelloTastiera,menuMatricolaTastiera);
+	        		if(verificaHW(R.TipoStandardHW.UNITA_CENTALE,selezionaUnitaCentrale))
+	        			ok &= Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.UNITA_CENTALE,menuModelloUnitaCentrale,menuMatricolaUnitaCentrale);
+	        		if(verificaHW(R.TipoStandardHW.UPS,selezionaUPS))
+	        			ok &= Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.UPS,menuModelloUPS,menuMatricolaUPS);
+		                
+		        	if(ok) {
+	                    if(finestraApparato != null){
+	                        finestraApparato.aggiornaTabellaHW();
+	                    }
+	                    chiusuraSenzaSalvare(event);
+		        	}
+	        	}
 	            
+	        }
+	        
 	    }
 
-	    
+	    private boolean verificaHW(String tipo, CheckBox seleziona) {
+	    	if(seleziona.isSelected()) {
+	    		datiHardwareApparato.elimina(tipo);
+	    		return true;
+	    	}
+	    	return false;
+	    	
+	    }
 	    
 
 	    @FXML
 	    private void chiusuraSenzaSalvare(ActionEvent event) {
 	        if(event.getEventType().equals(ActionEvent.ACTION)){
 	            Programma.chiusuraFinestra(this, scenaCorrente);
-	            
+	            finestraApparato = null;
+	            apparato = null;
 	        }
 	    }
 	    

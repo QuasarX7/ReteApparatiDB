@@ -147,31 +147,18 @@ public class FinestraHardwareApparatoController implements Initializable {
     private void salva(ActionEvent event) {
     	
         if(event.getEventType().equals(ActionEvent.ACTION)){
-            if(nomeApparato.getValue() != null && nomeHardware.getValue() != null){
-                Object[] record = new Object[]{
-                    nomeApparato.getValue(),
-                    nomeHardware.getValue(),
-                    nomeModello.getValue() == null ? "" : nomeModello.getValue(),
-                    nomeMatricola.getValue() == null ? "" : nomeMatricola.getValue()
-                };
-                if(!datiHardwareApparato.aggiungi(record)){
-                    Finestra.finestraAvviso(
-                            this, 
-                            String.format(
-                                    R.Messaggi.ERRORE_SALVATAGGIO,
-                                    nomeHardware.getValue()+" di "+nomeApparato.getValue(),
-                                    DatiDB.stampa(record)
-                            )
-                    );
-                }else{
+        	if(nomeApparato.getValue() != null && nomeHardware.getValue() != null){
+        		
+                if(Programma.aggiungiNuovoHardware(this,nomeApparato.getValue(),nomeHardware.getValue(),nomeModello,nomeMatricola)){
+                
                     if(finestraApparato != null){
                         finestraApparato.aggiornaTabellaHW();
                     }
                     chiusuraSenzaSalvare(event);
                 }
+            }else{
+                Finestra.finestraAvviso(this,R.Messaggi.ERRORE_CAMPI_FONDAMENTALI);
             }
-        }else{
-            Finestra.finestraAvviso(this,R.Messaggi.ERRORE_CAMPI_FONDAMENTALI);
         }
         
     }

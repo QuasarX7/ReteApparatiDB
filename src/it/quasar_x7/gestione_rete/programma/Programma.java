@@ -1540,5 +1540,44 @@ public class Programma extends Application {
         FinestraHardwareController.input = input;
         Finestra.caricaFinestra(finestra, R.FXML.FINESTRA_HW);
 	}
+
+
+
+
+
+
+	/**
+	 * Permette di salvare un nuovo componente hw di un apparato.
+	 * 
+	 * @param controller		se null non compare la finestra di avviso errore
+	 * @param nomeApparato
+	 * @param nomeHardware
+	 * @param nomeModello
+	 * @param nomeMatricola
+	 * @return
+	 */
+	public static boolean aggiungiNuovoHardware(Object controller, String nomeApparato, String nomeHardware,ChoiceBox<String> nomeModello, ChoiceBox<String> nomeMatricola) {
+		
+        Object[] record = new Object[]{
+            nomeApparato,
+            nomeHardware,
+            nomeModello.getValue() == null ? "" : nomeModello.getValue(),
+            nomeMatricola.getValue() == null ? "" : nomeMatricola.getValue()
+        };
+        if(!((DatiHardwareApparato)dati.get(DatiHardwareApparato.NOME_TABELLA)).aggiungi(record)){
+            if(controller != null)
+            	Finestra.finestraAvviso(
+            		controller, 
+                    String.format(
+                            R.Messaggi.ERRORE_SALVATAGGIO,
+                            nomeHardware+" di "+nomeApparato,
+                            DatiDB.stampa(record)
+                    )
+                );
+            return false;
+            
+        }
+        return true;
+	}
     
 }

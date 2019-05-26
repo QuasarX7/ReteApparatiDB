@@ -524,8 +524,9 @@ public class FinestraApparatoController implements Initializable {
     private void menuWizardHW(ActionEvent event) {
         if(event.getEventType().equals(ActionEvent.ACTION)){
             if(!nome.getText().isEmpty()){
-            	
                 FinestraWizardHWController.scenaCorrente = Finestra.scenaCorrente();
+                FinestraWizardHWController.apparato = nome.getText();
+		        FinestraWizardHWController.finestraApparato = this;
                 Finestra.caricaFinestra(this, R.FXML.FINESTRA_WIZARD_HW_APPARATO);
                 
             }else{

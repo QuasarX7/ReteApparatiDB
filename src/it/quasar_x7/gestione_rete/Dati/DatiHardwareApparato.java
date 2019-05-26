@@ -97,5 +97,9 @@ public class DatiHardwareApparato extends DatiDB {
         return lista;
     }
 
+	public void elimina(String tipo) {
+		elimataAlcuniRecord(String.format(" `%s` = '%s' ", DatiHardware.VOCE_TABELLA_TIPO,tipo));
+	}
+
     
 }

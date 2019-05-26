@@ -282,6 +282,18 @@ public abstract class DatiDB implements Dati {
         return true;
     }
 
+    public boolean elimataAlcuniRecord(String condizione) {
+        try {
+            db.connetti();
+            db.eliminaTutteLeTuple(tabella,condizione);
+            db.chiudi();
+        } catch (EccezioneBaseDati ex) {
+            Logger.getLogger(DatiDB.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
+    }
+    
     public boolean elimataTuttiRecord() {
         try {
             db.connetti();
