@@ -3,6 +3,7 @@ package it.quasar_x7.gestione_rete.controllo;
 import static it.quasar_x7.gestione_rete.programma.Programma.dati;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import it.quasar_x7.gestione_rete.Dati.DatiDB;
@@ -245,39 +246,73 @@ import javafx.scene.input.MouseEvent;
 	    private void salva(ActionEvent event) {
 	        if(event.getEventType().equals(ActionEvent.ACTION)){
 	        
-	        	boolean ok = true;
+	        	
+	        	ArrayList<String> errori = new ArrayList<>();
+	        	
 	        	if(apparato != null) {
 	        		if(verificaHW(R.TipoStandardHW.HDD,selezionaHDD))
-	        			ok &= Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.HDD,menuModelloHDD,menuMatricolaHDD);
+	        			if(!Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.HDD,menuModelloHDD,menuMatricolaHDD))
+	        				errori.add(R.TipoStandardHW.HDD);
+	        		
 	        		if(verificaHW(R.TipoStandardHW.MONITOR,selezionaMonitor))
-	        			ok &= Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.MONITOR,menuModelloMonitor,menuMatricolaMonitor);
+	        			if(!Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.MONITOR,menuModelloMonitor,menuMatricolaMonitor))
+	        				errori.add(R.TipoStandardHW.MONITOR);
+	        		
 	        		if(verificaHW(R.TipoStandardHW.MOUSE,selezionaMouse))
-	        			ok &= Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.MOUSE,menuModelloMouse,menuMatricolaMouse);
+	        			if(!Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.MOUSE,menuModelloMouse,menuMatricolaMouse))
+	        				errori.add(R.TipoStandardHW.MOUSE);
+	        		
 	        		if(verificaHW(R.TipoStandardHW.PROCESSORE,selezionaProcessore))
-	        			ok &= Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.PROCESSORE,menuModelloProcessore,menuMatricolaProcessore);
+	        			if(!Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.PROCESSORE,menuModelloProcessore,menuMatricolaProcessore))
+	        				errori.add(R.TipoStandardHW.PROCESSORE);
+		        		
 	        		if(verificaHW(R.TipoStandardHW.RAM,selezionaRAM))
-	        			ok &= Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.RAM,menuModelloRAM,menuMatricolaRAM);
+	        			if(!Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.RAM,menuModelloRAM,menuMatricolaRAM))
+	        				errori.add(R.TipoStandardHW.RAM);
+		        		
 	        		if(verificaHW(R.TipoStandardHW.SCHEDA_MADRE,selezionaSchedaMadre))
-	        			ok &= Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.SCHEDA_MADRE,menuModelloSchedaMadre,menuMatricolaSchedaMadre);
+	        			if(!Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.SCHEDA_MADRE,menuModelloSchedaMadre,menuMatricolaSchedaMadre))
+	        				errori.add(R.TipoStandardHW.SCHEDA_MADRE);
+		        		
 	        		if(verificaHW(R.TipoStandardHW.SCHEDA_RETE,selezionaSchedaRete))
-	        			ok &= Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.SCHEDA_RETE,menuModelloSchedaRete,menuMatricolaSchedaRete);
+	        			if(!Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.SCHEDA_RETE,menuModelloSchedaRete,menuMatricolaSchedaRete))
+	        				errori.add(R.TipoStandardHW.SCHEDA_RETE);
+		        		
 	        		if(verificaHW(R.TipoStandardHW.SCHEDA_VIDEO,selezionaSchedaVideo))
-	        			ok &= Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.SCHEDA_VIDEO,menuModelloSchedaVideo,menuMatricolaSchedaVideo);
+	        			if(!Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.SCHEDA_VIDEO,menuModelloSchedaVideo,menuMatricolaSchedaVideo))
+	        				errori.add(R.TipoStandardHW.SCHEDA_VIDEO);
+		        		
 	        		if(verificaHW(R.TipoStandardHW.STAMPANTE,selezionaStampante))
-	        			ok &= Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.STAMPANTE,menuModelloStampante,menuMatricolaStampante);
+	        			if(!Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.STAMPANTE,menuModelloStampante,menuMatricolaStampante))
+	        				errori.add(R.TipoStandardHW.STAMPANTE);
+		        		
 	        		if(verificaHW(R.TipoStandardHW.TASTIERA,selezionaTastiera))
-	        			ok &= Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.TASTIERA,menuModelloTastiera,menuMatricolaTastiera);
+	        			if(!Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.TASTIERA,menuModelloTastiera,menuMatricolaTastiera))
+	        				errori.add(R.TipoStandardHW.TASTIERA);
+		        		
 	        		if(verificaHW(R.TipoStandardHW.UNITA_CENTALE,selezionaUnitaCentrale))
-	        			ok &= Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.UNITA_CENTALE,menuModelloUnitaCentrale,menuMatricolaUnitaCentrale);
+	        			if(!Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.UNITA_CENTALE,menuModelloUnitaCentrale,menuMatricolaUnitaCentrale))
+	        				errori.add(R.TipoStandardHW.UNITA_CENTALE);
+		        		
 	        		if(verificaHW(R.TipoStandardHW.UPS,selezionaUPS))
-	        			ok &= Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.UPS,menuModelloUPS,menuMatricolaUPS);
+	        			if(!Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.UPS,menuModelloUPS,menuMatricolaUPS))
+	        				errori.add(R.TipoStandardHW.UPS);
+		        		
 		                
-		        	if(ok) {
+		        	if(errori.size() == 0) {
 	                    if(finestraApparato != null){
 	                        finestraApparato.aggiornaTabellaHW();
 	                    }
 	                    chiusuraSenzaSalvare(event);
+		        	}else {
+		        		String hw = "";
+		        		for(String s: errori) {
+		        			hw += s + "\n";
+		        		}
+		        		Finestra.finestraAvviso(this, String.format(R.Messaggi.IMMOSSIBILE_AGGIORNARE_HW,hw));
 		        	}
+	        	}else {
+	        		Finestra.finestraAvviso(this, R.Messaggi.APPARATO_NON_DEFINITO);
 	        	}
 	            
 	        }
