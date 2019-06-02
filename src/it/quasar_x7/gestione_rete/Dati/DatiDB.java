@@ -33,6 +33,11 @@ public abstract class DatiDB implements Dati {
     protected static Dominio BOOLEANO = new DatoBooleano();
    
    
+    /**
+     * Verifica l'esistenza della tabella.
+     * 
+     * @return
+     */
     public boolean esiste(){
         try {
             db.connetti();
@@ -446,4 +451,15 @@ public abstract class DatiDB implements Dati {
         }
         return true;
     }
+    
+    /**
+     * Cerca il record nella tabella.
+     * 
+     * @param record
+     * @return
+     */
+	public boolean cerca(Object[] record) {
+		return accedi(chiave(this,record)) != null;
+	}
+
 }

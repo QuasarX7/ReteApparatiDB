@@ -1564,20 +1564,29 @@ public class Programma extends Application {
             nomeModello.getValue() == null ? "" : nomeModello.getValue(),
             nomeMatricola.getValue() == null ? "" : nomeMatricola.getValue()
         };
-        if(!((DatiHardwareApparato)dati.get(DatiHardwareApparato.NOME_TABELLA)).aggiungi(record)){
-            if(controller != null)
-            	Finestra.finestraAvviso(
-            		controller, 
-                    String.format(
-                            R.Messaggi.ERRORE_SALVATAGGIO,
-                            nomeHardware+" di "+nomeApparato,
-                            DatiDB.stampa(record)
-                    )
-                );
-            return false;
-            
+        
+        Object[] hw = new Object[]{
+            nomeHardware,
+            null,
+            nomeModello.getValue() == null ? "" : nomeModello.getValue(),
+            nomeMatricola.getValue() == null ? "" : nomeMatricola.getValue()
+        };
+
+        if(((DatiHardware)dati.get(DatiHardware.NOME_TABELLA)).cerca(hw)) {
+	        if(((DatiHardwareApparato)dati.get(DatiHardwareApparato.NOME_TABELLA)).aggiungi(record)){
+	            return true;
+	        }
         }
-        return true;
+        if(controller != null)
+        	Finestra.finestraAvviso(
+        		controller, 
+                String.format(
+                        R.Messaggi.ERRORE_SALVATAGGIO,
+                        nomeHardware+" di "+nomeApparato,
+                        DatiDB.stampa(record)
+                )
+            );
+        return false;
 	}
     
 }

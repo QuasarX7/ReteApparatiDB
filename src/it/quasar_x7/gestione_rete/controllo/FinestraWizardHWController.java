@@ -242,6 +242,9 @@ import javafx.scene.input.MouseEvent;
 		    );
 	    }
 	    
+	    
+	    
+	    
 	    @FXML
 	    private void salva(ActionEvent event) {
 	        if(event.getEventType().equals(ActionEvent.ACTION)){
@@ -250,55 +253,19 @@ import javafx.scene.input.MouseEvent;
 	        	ArrayList<String> errori = new ArrayList<>();
 	        	
 	        	if(apparato != null) {
-	        		if(verificaHW(R.TipoStandardHW.HDD,selezionaHDD))
-	        			if(!Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.HDD,menuModelloHDD,menuMatricolaHDD))
-	        				errori.add(R.TipoStandardHW.HDD);
+	        		aggiungiNuovoHardware(R.TipoStandardHW.HDD,selezionaHDD,menuModelloHDD,menuMatricolaHDD,errori);
+	        		aggiungiNuovoHardware(R.TipoStandardHW.MONITOR,selezionaMonitor,menuModelloMonitor,menuMatricolaMonitor,errori);
+	        		aggiungiNuovoHardware(R.TipoStandardHW.MOUSE,selezionaMouse,menuModelloMouse,menuMatricolaMouse,errori);
+	        		aggiungiNuovoHardware(R.TipoStandardHW.PROCESSORE,selezionaProcessore,menuModelloProcessore,menuMatricolaProcessore,errori);
+	        		aggiungiNuovoHardware(R.TipoStandardHW.RAM,selezionaRAM,menuModelloRAM,menuMatricolaRAM,errori);
+	        		aggiungiNuovoHardware(R.TipoStandardHW.SCHEDA_MADRE,selezionaSchedaMadre,menuModelloSchedaMadre,menuMatricolaSchedaMadre,errori);
+	        		aggiungiNuovoHardware(R.TipoStandardHW.SCHEDA_RETE,selezionaSchedaRete,menuModelloSchedaRete,menuMatricolaSchedaRete,errori);
+	        		aggiungiNuovoHardware(R.TipoStandardHW.SCHEDA_VIDEO,selezionaSchedaVideo,menuModelloSchedaVideo,menuMatricolaSchedaVideo,errori);
+	        		aggiungiNuovoHardware(R.TipoStandardHW.STAMPANTE,selezionaStampante,menuModelloStampante,menuMatricolaStampante,errori);
+	        		aggiungiNuovoHardware(R.TipoStandardHW.TASTIERA,selezionaTastiera,menuModelloTastiera,menuMatricolaTastiera,errori);
+	        		aggiungiNuovoHardware(R.TipoStandardHW.UNITA_CENTALE,selezionaUnitaCentrale,menuModelloUnitaCentrale,menuMatricolaUnitaCentrale,errori);
+	        		aggiungiNuovoHardware(R.TipoStandardHW.UPS,selezionaUPS,menuModelloUPS,menuMatricolaUPS,errori);
 	        		
-	        		if(verificaHW(R.TipoStandardHW.MONITOR,selezionaMonitor))
-	        			if(!Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.MONITOR,menuModelloMonitor,menuMatricolaMonitor))
-	        				errori.add(R.TipoStandardHW.MONITOR);
-	        		
-	        		if(verificaHW(R.TipoStandardHW.MOUSE,selezionaMouse))
-	        			if(!Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.MOUSE,menuModelloMouse,menuMatricolaMouse))
-	        				errori.add(R.TipoStandardHW.MOUSE);
-	        		
-	        		if(verificaHW(R.TipoStandardHW.PROCESSORE,selezionaProcessore))
-	        			if(!Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.PROCESSORE,menuModelloProcessore,menuMatricolaProcessore))
-	        				errori.add(R.TipoStandardHW.PROCESSORE);
-		        		
-	        		if(verificaHW(R.TipoStandardHW.RAM,selezionaRAM))
-	        			if(!Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.RAM,menuModelloRAM,menuMatricolaRAM))
-	        				errori.add(R.TipoStandardHW.RAM);
-		        		
-	        		if(verificaHW(R.TipoStandardHW.SCHEDA_MADRE,selezionaSchedaMadre))
-	        			if(!Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.SCHEDA_MADRE,menuModelloSchedaMadre,menuMatricolaSchedaMadre))
-	        				errori.add(R.TipoStandardHW.SCHEDA_MADRE);
-		        		
-	        		if(verificaHW(R.TipoStandardHW.SCHEDA_RETE,selezionaSchedaRete))
-	        			if(!Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.SCHEDA_RETE,menuModelloSchedaRete,menuMatricolaSchedaRete))
-	        				errori.add(R.TipoStandardHW.SCHEDA_RETE);
-		        		
-	        		if(verificaHW(R.TipoStandardHW.SCHEDA_VIDEO,selezionaSchedaVideo))
-	        			if(!Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.SCHEDA_VIDEO,menuModelloSchedaVideo,menuMatricolaSchedaVideo))
-	        				errori.add(R.TipoStandardHW.SCHEDA_VIDEO);
-		        		
-	        		if(verificaHW(R.TipoStandardHW.STAMPANTE,selezionaStampante))
-	        			if(!Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.STAMPANTE,menuModelloStampante,menuMatricolaStampante))
-	        				errori.add(R.TipoStandardHW.STAMPANTE);
-		        		
-	        		if(verificaHW(R.TipoStandardHW.TASTIERA,selezionaTastiera))
-	        			if(!Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.TASTIERA,menuModelloTastiera,menuMatricolaTastiera))
-	        				errori.add(R.TipoStandardHW.TASTIERA);
-		        		
-	        		if(verificaHW(R.TipoStandardHW.UNITA_CENTALE,selezionaUnitaCentrale))
-	        			if(!Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.UNITA_CENTALE,menuModelloUnitaCentrale,menuMatricolaUnitaCentrale))
-	        				errori.add(R.TipoStandardHW.UNITA_CENTALE);
-		        		
-	        		if(verificaHW(R.TipoStandardHW.UPS,selezionaUPS))
-	        			if(!Programma.aggiungiNuovoHardware(null,apparato,R.TipoStandardHW.UPS,menuModelloUPS,menuMatricolaUPS))
-	        				errori.add(R.TipoStandardHW.UPS);
-		        		
-		                
 		        	if(errori.size() == 0) {
 	                    if(finestraApparato != null){
 	                        finestraApparato.aggiornaTabellaHW();
@@ -319,7 +286,28 @@ import javafx.scene.input.MouseEvent;
 	        
 	    }
 
-	    private boolean verificaHW(String tipo, CheckBox seleziona) {
+	    private void aggiungiNuovoHardware(String hardware, CheckBox seleziona,ChoiceBox<String> menuModello, ChoiceBox<String> menuMatricola,ArrayList<String> errori) {
+	    	if(verificaHW(hardware,seleziona)){
+	    		if(menuModello.getValue() == null && menuMatricola.getValue() == null) {
+					Object[] hardwareIndefinito = new Object[]{ 
+		                hardware,
+		                "",
+		                "",
+		                "",
+		                "",
+		                "",
+		                ""
+		            };
+					((DatiHardware)dati.get(DatiHardware.NOME_TABELLA)).aggiungi(hardwareIndefinito);
+				}
+    			if(!Programma.aggiungiNuovoHardware(null,apparato,hardware,menuModello,menuMatricola)) {
+    				errori.add(hardware);
+    			}
+	    	}
+			
+		}
+
+		private boolean verificaHW(String tipo, CheckBox seleziona) {
 	    	if(seleziona.isSelected()) {
 	    		datiHardwareApparato.elimina(tipo);
 	    		return true;
