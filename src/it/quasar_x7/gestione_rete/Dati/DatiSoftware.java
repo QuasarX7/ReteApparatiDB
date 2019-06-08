@@ -21,7 +21,8 @@ public class DatiSoftware extends DatiDB {
    
     static final String VOCE_TABELLA_CASA               = "casa";
     static final String VOCE_TABELLA_NOTE               = "note";
-
+    
+    static final String VOCE_TABELLA_PREDEFINITO        = "predefinito";
     
 
     public DatiSoftware() {
@@ -36,6 +37,9 @@ public class DatiSoftware extends DatiDB {
             tabella.creaAttributo(VOCE_TABELLA_LICENZA, TESTO, "", Relazione.CHIAVE);
             
             tabella.creaAttributo(VOCE_TABELLA_NOTE,  TESTO, "", Relazione.NO_CHIAVE);
+            
+            tabella.creaAttributo(VOCE_TABELLA_PREDEFINITO,  BOOLEANO, "false", Relazione.NO_CHIAVE);
+        
         } catch (EccezioneBaseDati ex) {
             Logger.getLogger(DatiSoftware.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -67,6 +71,7 @@ public class DatiSoftware extends DatiDB {
                        riga.add(record[1].toString());
                        riga.add(record[2].toString());
                        riga.add(record[4].toString());
+                       riga.add(record[5].toString());
                        tab.add(riga);
                     }
                 }

@@ -135,6 +135,11 @@
 <Font name="Arial Black" size="18.0" />
 </font>
 </Button>
+            <CheckBox fx:id="selezionaPredefinito" alignment="CENTER_RIGHT" contentDisplay="TOP" layoutX="14.0" layoutY="375.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="27.0" prefWidth="186.0" text="Predefinito" textFill="#f20202">
+               <font>
+                  <Font name="Arial Black" size="13.0" />
+               </font>
+            </CheckBox>
 </children>
 <stylesheets>
 <URL value="@stile.css" />

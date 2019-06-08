@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -49,6 +50,10 @@ public class FinestraSoftwareController implements Initializable {
     @FXML
     private TextField licenza;
     
+    @FXML
+    private CheckBox selezionaPredefinito;
+    
+    
     protected DatiCasaSoftware datiCasaSoftware = (DatiCasaSoftware)dati.get(DatiCasaSoftware.NOME_TABELLA);
     protected DatiSoftware datiSoftware = (DatiSoftware) dati.get(DatiSoftware.NOME_TABELLA);
     protected DatiTipoSoftware datiTipoSoftware =  (DatiTipoSoftware) dati.get(DatiTipoSoftware.NOME_TABELLA);
@@ -57,7 +62,8 @@ public class FinestraSoftwareController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        if(input != null){
+    	
+    	if(input != null){
             if(input[0] != null){
                 versione.setText(input[0]);
             }
@@ -72,6 +78,12 @@ public class FinestraSoftwareController implements Initializable {
             
             if(input[4] != null)
                 note.setText(input[4]);
+            
+            if(input[5] != null) {
+            	if(input[5].equals(R.Conferma.SI) || input[5].equals("true") )
+            		selezionaPredefinito.setSelected(true);
+            }
+            
         }
         ArrayList<String> caseSoftware = datiCasaSoftware.lista();
         if(caseSoftware != null)
@@ -125,7 +137,8 @@ public class FinestraSoftwareController implements Initializable {
 
     @FXML
     protected void salva(ActionEvent event) {
-        if(event.getEventType().equals(ActionEvent.ACTION))
+        if(event.getEventType().equals(ActionEvent.ACTION)) {
+        	final boolean predefinito = selezionaPredefinito.isSelected();
             Programma.salva(
                     this, 
                     !versione.getText().isEmpty(), 
@@ -136,7 +149,8 @@ public class FinestraSoftwareController implements Initializable {
                         menuTipo.getValue(),
                         menuCasa.getValue(),
                         licenza.getText(),
-                        note.getText()
+                        note.getText(),
+                        predefinito
                     }, 
                     event, 
                     (ActionEvent evento, String chiave) -> {
@@ -150,7 +164,7 @@ public class FinestraSoftwareController implements Initializable {
                             riga.add(menuTipo.getValue());
                             riga.add(menuCasa.getValue());
                             riga.add(note.getText());
-
+                            riga.add(selezionaPredefinito.isSelected() ? R.Conferma.SI : R.Conferma.NO);
                             if(chiave != null)
                                 tabella.modificaRiga(chiave,riga);
                             else
@@ -159,6 +173,7 @@ public class FinestraSoftwareController implements Initializable {
                         chiusuraSenzaSalvare(evento);
                     }
             );
+        }
     }
     
 }

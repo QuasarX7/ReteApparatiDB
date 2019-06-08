@@ -318,13 +318,14 @@ public class Programma extends Application {
         dim.add(150);// casa
         //dim.add(400);// licenza
         dim.add(400);// note
+        dim.add(200);// predefinita
         
         ArrayList<String> colonne = new ArrayList<>();
         colonne.add(R.Etichette.NOME_VERSIONE_LICENZA);
         colonne.add(R.Etichette.TIPO);
         colonne.add(R.Etichette.CASA);
-        //colonne.add(R.Etichette.LICENZA);
         colonne.add(R.Etichette.NOTE);
+        colonne.add(R.Etichette.PREDEFINITO);
         
         Finestra.finestraTabella(
                 controller, 
@@ -351,12 +352,15 @@ public class Programma extends Application {
                         String[] inputTab = delega.rigaSelezionata();
                         if(inputTab != null){
                             String[] nomeLicenza = DatiSoftware.scomponiNomeLicenza(inputTab[0]);
+                            String nome = nomeLicenza[0];
+                            String licenza = nomeLicenza.length == 2 ? nomeLicenza[1] : "";
                             FinestraSoftwareController.input = new String[]{
-                                nomeLicenza[0],
+                                nome,
                                 inputTab[1],
                                 inputTab[2],
-                                nomeLicenza[1],
-                                inputTab[3]
+                                licenza,
+                                inputTab[3],
+                                inputTab[4]
                             };
                     }
                        

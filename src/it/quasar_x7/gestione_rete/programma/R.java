@@ -149,6 +149,7 @@ public class R {
         public static final String GRADO = "Grado/Qualifica";
         public static final String COGNOME = "Cognome";
         public static final String APPARATO = "Apparato";
+		public static final String PREDEFINITO = "Predefinito";
         
         
         
