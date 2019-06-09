@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="526.0" prefWidth="636.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.quasar_x7.gestione_rete.controllo.FinestraWizardSWController">
+   <children>
+      <Button focusTraversable="false" layoutX="611.0" layoutY="16.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#chiusuraSenzaSalvare" prefHeight="28.0" prefWidth="35.0" style="-fx-background-color: red; -fx-border-color: red;" text="X" textFill="WHITE" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font name="Arial Black" size="12.0" />
+         </font>
+      </Button>
+      <Label alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutY="1.0" prefHeight="37.0" prefWidth="592.0" text="Wizard Software">
+         <font>
+            <Font name="Arial Black" size="24.0" />
+         </font>
+      </Label>
+      <Button layoutX="416.0" layoutY="473.0" mnemonicParsing="false" onAction="#salva" prefHeight="39.0" prefWidth="206.0" text="Ok">
+         <font>
+            <Font name="Arial Black" size="18.0" />
+         </font>
+      </Button>
+      <TableView fx:id="tabella" layoutX="14.0" layoutY="38.0" prefHeight="425.0" prefWidth="607.0">
+        <columns>
+          <TableColumn fx:id="colonnaSoftware" prefWidth="237.0" text="Software" />
+          <TableColumn fx:id="colonnaLicenza" prefWidth="351.0" text="Licenza" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

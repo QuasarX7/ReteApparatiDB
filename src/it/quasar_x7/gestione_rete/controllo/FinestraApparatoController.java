@@ -536,6 +536,21 @@ public class FinestraApparatoController implements Initializable {
     }
     
     @FXML
+    private void menuWizardSW(ActionEvent event) {
+        if(event.getEventType().equals(ActionEvent.ACTION)){
+            if(!nome.getText().isEmpty()){
+                FinestraWizardSWController.scenaCorrente = Finestra.scenaCorrente();
+                FinestraWizardSWController.apparato = nome.getText();
+		        FinestraWizardSWController.finestraApparato = this;
+                Finestra.caricaFinestra(this, R.FXML.FINESTRA_WIZARD_SW_APPARATO);
+                
+            }else{
+                Finestra.finestraAvviso(this,R.Messaggi.ERRORE_CAMPI_FONDAMENTALI);
+            }
+        }
+    }
+    
+    @FXML
     private void menuModificaHW(ActionEvent event) {
         if(event.getEventType().equals(ActionEvent.ACTION)){
         	if(!nome.getText().isEmpty()){

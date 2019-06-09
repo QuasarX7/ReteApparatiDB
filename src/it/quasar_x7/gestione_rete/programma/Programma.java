@@ -316,9 +316,8 @@ public class Programma extends Application {
         dim.add(500);// nome + licenza
         dim.add(150);// tipo
         dim.add(150);// casa
-        //dim.add(400);// licenza
         dim.add(400);// note
-        dim.add(200);// predefinita
+        dim.add(100);// predefinita
         
         ArrayList<String> colonne = new ArrayList<>();
         colonne.add(R.Etichette.NOME_VERSIONE_LICENZA);

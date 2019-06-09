@@ -47,7 +47,16 @@
 </image>
 </ImageView>
 </graphic>
-</MenuItem><MenuItem mnemonicParsing="false" onAction="#menuModificaSW" text="Modifica">
+</MenuItem>
+                                    <MenuItem mnemonicParsing="false" onAction="#menuWizardSW" text="Wizard">
+                                       <graphic>
+                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../Risorse/aggiungi2.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </MenuItem><MenuItem mnemonicParsing="false" onAction="#menuModificaSW" text="Modifica">
 <graphic>
 <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
 <image>

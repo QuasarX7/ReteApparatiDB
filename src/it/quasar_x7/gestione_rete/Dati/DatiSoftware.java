@@ -1,5 +1,8 @@
 package it.quasar_x7.gestione_rete.Dati;
 
+import it.quasar_x7.gestione_rete.modello.Software;
+import it.quasar_x7.java.BaseDati.Attributo;
+import it.quasar_x7.java.BaseDati.DatoTesto;
 import it.quasar_x7.java.BaseDati.EccezioneBaseDati;
 import it.quasar_x7.java.BaseDati.Relazione;
 import java.util.ArrayList;
@@ -100,5 +103,53 @@ public class DatiSoftware extends DatiDB {
         return ricercaOrdinata(0, nomeSW, 3);
     }
     
+    
+    /**
+     * Elenco del software predefinito, da installare su tutte le macchine.
+     * 
+     * @return
+     */
+	public ArrayList<Software> listaSoftwarePredefinito() {
+		ArrayList<Software> lista = new ArrayList<>();
+        try {
+            db.connetti();
+            ArrayList<Object[]> query = db.interrogazioneSQL(
+                    String.format(
+                              "SELECT sw.`%s`, sw.`%s`, sw.`%s`, sw.`%s`, sw.`%s` "
+                            + "FROM `%s` AS sw "
+                            + "WHERE sw.`%s` = true ; ", 
+                            //select
+                            DatiSoftware.VOCE_TABELLA_NOME_VERSIONE,
+                            DatiSoftware.VOCE_TABELLA_LICENZA,
+                            DatiSoftware.VOCE_TABELLA_TIPO,
+                            DatiSoftware.VOCE_TABELLA_CASA,
+                            DatiSoftware.VOCE_TABELLA_NOTE,
+                            //from
+                            DatiSoftware.NOME_TABELLA,// sw
+                            //where
+                            DatiSoftware.VOCE_TABELLA_PREDEFINITO
+                            
+                    ), 
+                    new Attributo[]{
+                        new Attributo(DatiSoftware.VOCE_TABELLA_NOME_VERSIONE,new DatoTesto(),false),
+                        new Attributo(DatiSoftware.VOCE_TABELLA_LICENZA,new DatoTesto(),false),
+                        new Attributo(DatiSoftware.VOCE_TABELLA_TIPO,new DatoTesto(),false),
+                        new Attributo(DatiSoftware.VOCE_TABELLA_CASA,new DatoTesto(),false),
+                        new Attributo(DatiSoftware.VOCE_TABELLA_NOTE,new DatoTesto(),false),
+                    }
+            );
+            db.chiudi();
+            if(query != null)
+                for(Object[] record: query){
+                    if(record != null){
+                        lista.add(new Software(record));
+                    }
+                }
+        } catch (EccezioneBaseDati ex) {
+            Logger.getLogger(DatiSoftware.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
+	}
+
     
 }
