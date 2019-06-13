@@ -133,17 +133,7 @@ public class DatiApparato extends DatiDB{
         return super.lista(0);
     }
     
-    /**
-     * Effettua la modivica dei valori di una colonna.
-     * 
-     * @param colonna
-     * @param vecchia
-     * @param nuova
-     * @return 
-     */
-    public boolean aggiorna(String colonna, String vecchia, String nuova){
-        return super.aggiorna(NOME_TABELLA, colonna, vecchia, nuova);
-    }
+
     
     /**
      * Trova tutte le informazioni su un apparato.

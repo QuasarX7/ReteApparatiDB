@@ -423,20 +423,19 @@ public abstract class DatiDB implements Dati {
     /**
      * Effettua la modivica dei valori in una colonna di una tabella.
      * 
-     * @param nomeTebella
      * @param colonna
      * @param vecchia
      * @param nuova
      * @return 
      */
-    public boolean aggiorna(String nomeTebella, String colonna, String vecchia, String nuova){
+    public boolean aggiorna(String colonna, String vecchia, String nuova){
         try {
             db.connetti();
             db.interrogazioneDiModificaSQL(
                     String.format(
                             "UPDATE `%s` SET `%s` = ? WHERE `%s` = ? ;",
                             //UPDATE
-                            nomeTebella,
+                            tabella.nome(),
                             //SET
                             colonna,
                             // WHERE

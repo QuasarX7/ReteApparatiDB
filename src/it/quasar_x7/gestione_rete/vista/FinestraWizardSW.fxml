@@ -26,8 +26,9 @@
       </Button>
       <TableView fx:id="tabella" layoutX="14.0" layoutY="38.0" prefHeight="425.0" prefWidth="607.0">
         <columns>
-          <TableColumn fx:id="colonnaSoftware" prefWidth="237.0" text="Software" />
-          <TableColumn fx:id="colonnaLicenza" prefWidth="351.0" text="Licenza" />
+          <TableColumn fx:id="colonnaSoftware" prefWidth="274.0" text="Software" />
+          <TableColumn fx:id="colonnaLicenza" prefWidth="234.0" text="Licenza" />
+            <TableColumn fx:id="colonnaPredefinito" maxWidth="440.0" minWidth="41.0" prefWidth="98.0" text="Predefinito" />
         </columns>
       </TableView>
    </children>

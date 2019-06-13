@@ -29,6 +29,7 @@ public class R {
             static public final String TIPO = "tipo";
             static public final String CASA = "casa";
             static public final String NOTE = "note";
+			public static final String PREDEFINITO = "predefinito";
         }
         public class HW{
             static public final String NOME = "nome";

@@ -1340,7 +1340,7 @@ public class Programma extends Application {
         if(input != null)
             if(input[indice] != null)
                 if(! input[indice].equals(campo.getText())){
-                    procedi = dati.get(tabellaDB).aggiorna(tabellaDB,colonnaDB,input[indice], campo.getText());
+                    procedi = dati.get(tabellaDB).aggiorna(colonnaDB,input[indice], campo.getText());
                 }
         if(procedi)
             return true;
