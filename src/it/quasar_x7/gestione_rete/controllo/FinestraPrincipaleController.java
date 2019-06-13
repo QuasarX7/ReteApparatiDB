@@ -42,13 +42,16 @@ import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.TreeCell;
@@ -68,6 +71,13 @@ import javafx.util.Callback;
  */
 public class FinestraPrincipaleController implements Initializable {
 
+	interface AzioneMenu{
+		public void apparato(Apparato nodo);
+        public void locale(Ufficio nodo);
+        public void rete(Rete nodo);
+        public void responsabile(Responsabile nodo);
+	}
+	
     static public TreeItem<Nodo> rete = new TreeItem<> (new Nodo("Lista apparati"));
     
     private final TreeItem<Nodo> reteSelezionata = new TreeItem<> (new Nodo("Lista ricerca"));
@@ -524,32 +534,93 @@ public class FinestraPrincipaleController implements Initializable {
     private void visualizzaMenu(MouseEvent event){
         if((event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) || event.getButton().equals(MouseButton.SECONDARY) ){
             if(event.getSource() instanceof TreeView){
-                TreeView pannello = (TreeView) event.getSource();
-                menuPannello.show(pannello, event.getScreenX(), event.getScreenY());
+                
+                selezionaMenuAlbero(event, new AzioneMenu(){
+
+                	private void inizializzaVoci(String tipoNodo,Nodo nodo) {
+                		menuPannello.getItems().get(0).setText(tipoNodo.toUpperCase());
+                		menuPannello.getItems().get(1).setText(String.format("Aggiungi nuovo %s",tipoNodo.toLowerCase()));
+                		if(!nodo.getNome().equals(R.ChiaviDati.NESSUNA_RETE) && !nodo.getNome().equals(R.ChiaviDati.NESSUN_NOME) && !nodo.getNome().equals(R.ChiaviDati.NESSUN_GRUPPO)) {
+                			menuPannello.getItems().get(2).setVisible(true);
+							menuPannello.getItems().get(3).setVisible(true);
+							menuPannello.getItems().get(2).setText(String.format("Modifica «%s»",nodo.getNome()));
+							menuPannello.getItems().get(3).setText(String.format("Elimina «%s»",nodo.getNome()));
+                		}else {
+                			menuPannello.getItems().get(2).setVisible(false);
+							menuPannello.getItems().get(3).setVisible(false);
+                		}
+                	}
+    				@Override
+    				public void apparato(Apparato nodo) {
+    					inizializzaVoci("Apparato", nodo);
+    				}
+
+    				@Override
+    				public void locale(Ufficio nodo) {
+    					inizializzaVoci("Locale", nodo);
+    				}
+
+    				@Override
+    				public void rete(Rete nodo) {
+    					inizializzaVoci("Rete", nodo);
+    				}
+
+    				@Override
+    				public void responsabile(Responsabile nodo) {
+    					inizializzaVoci("Responsabile", nodo);
+    				}
+    				
+                });
+                
+                menuPannello.show((Node) event.getSource(), event.getScreenX(), event.getScreenY());
             }
         }
         event.consume();
     }
     
-    
+    private void selezionaMenuAlbero(Event event,AzioneMenu azione) {
+    	TreeItem<Nodo> nodo = listaApparati.getSelectionModel().getSelectedItem();
+        if(nodo != null){
+            if(nodo.getValue() instanceof Apparato){
+                azione.apparato((Apparato) nodo.getValue());
+            }else if(nodo.getValue() instanceof Ufficio){
+            	azione.locale((Ufficio) nodo.getValue());
+            }else if(nodo.getValue() instanceof Rete){
+            	azione.rete((Rete) nodo.getValue());
+            }else if(nodo.getValue() instanceof Responsabile) {
+            	azione.responsabile((Responsabile) nodo.getValue());
+            }
+        } 
+    }
     
     @FXML
     private void menuAggiungi(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
             elencoInfo.getItems().clear();
             listaRicercaInfo.getRoot().getChildren().clear();
-            TreeItem<Nodo> nodo = listaApparati.getSelectionModel().getSelectedItem();
-            if(nodo != null){
-                if(nodo.getValue() instanceof Apparato){
-                    creaNuovoApparato(event);
-                }else if(nodo.getValue() instanceof Ufficio){
-                    creaNuovaPosizione(event);
-                }else if(nodo.getValue() instanceof Rete){
-                    aggiungiNuovaRete(event);
-                }else if(nodo.getValue() instanceof Responsabile) {
-                	creaNuovoResponsabile(event);
-                }
-            } 
+            
+            selezionaMenuAlbero(event, new AzioneMenu(){
+
+				@Override
+				public void apparato(Apparato nodo) {
+					creaNuovoApparato(event);
+				}
+
+				@Override
+				public void locale(Ufficio nodo) {
+					creaNuovaPosizione(event);
+				}
+
+				@Override
+				public void rete(Rete nodo) {
+					aggiungiNuovaRete(event);
+				}
+
+				@Override
+				public void responsabile(Responsabile nodo) {
+					creaNuovoResponsabile(event);
+				}
+			});
         }
     }
 
@@ -558,77 +629,61 @@ public class FinestraPrincipaleController implements Initializable {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
             elencoInfo.getItems().clear();
             listaRicercaInfo.getRoot().getChildren().clear();
-            TreeItem<Nodo> nodo = listaApparati.getSelectionModel().getSelectedItem();
-            if(nodo != null){
-            	/*MODIFICA APPARATO*/
-                if(nodo.getValue() instanceof Apparato){
-                    Apparato apparato = (Apparato) nodo.getValue();
-                    
-                    FinestraApparatoController.input = new String[]{
-                        apparato.getNome(),
-                        apparato.getTipo(),
-                        apparato.getGruppo(),
-                        apparato.getIp(),
-                        apparato.getMacPC(),
-                        apparato.getMacVOIP(),
-                        apparato.getPosizione(),
-                        apparato.getUtente(),
-                        apparato.getInternet() == null ? null : apparato.getInternet() == true ? R.Conferma.SI : R.Conferma.NO,
-                        String.valueOf(apparato.getSigillo()),
-                        apparato.getPassword(),
-                        apparato.getStato()
+            
+            selezionaMenuAlbero(event, new AzioneMenu(){
+
+				@Override
+				public void apparato(Apparato nodo) {
+					FinestraApparatoController.input = new String[]{
+                        nodo.getNome(),
+                        nodo.getTipo(),
+                        nodo.getGruppo(),
+                        nodo.getIp(),
+                        nodo.getMacPC(),
+                        nodo.getMacVOIP(),
+                        nodo.getPosizione(),
+                        nodo.getUtente(),
+                        nodo.getInternet() == null ? null : nodo.getInternet() == true ? R.Conferma.SI : R.Conferma.NO,
+                        String.valueOf(nodo.getSigillo()),
+                        nodo.getPassword(),
+                        nodo.getStato()
                     };
                     creaNuovoApparato(event);
-                    
-                    /*MODIFICA POSIZIONE (UFFICIO / LOCALE) */
-                }else if(nodo.getValue() instanceof Ufficio){
-                    Ufficio ufficio = (Ufficio) nodo.getValue();
-                    
-                    FinestraPosizioneController.input = new String[]{
-                        ufficio.getNome(),
-                        ufficio.getResponsabile()
+				}
+	
+				@Override
+				public void locale(Ufficio nodo) {
+					FinestraPosizioneController.input = new String[]{
+                        nodo.getNome(),
+                        nodo.getResponsabile()
                     };
                     creaNuovaPosizione(event);
-                    
-                    /* MODIFICA RETE */
-                }else if(nodo.getValue() instanceof Rete){
-                    Rete workgroup = (Rete) nodo.getValue();
-                    if(!workgroup.equals(Rete.STANDALONE)){
+				}
+	
+				@Override
+				public void rete(Rete nodo) {
+					if(!nodo.equals(Rete.STANDALONE)){
                         FinestraReteController.input = new String[]{
-                            workgroup.getNome(),
-                            workgroup.getDominio(),
-                            workgroup.getTipo(),
-                            workgroup.getGateway(),
-                            workgroup.getNetmask()
+                            nodo.getNome(),
+                            nodo.getDominio(),
+                            nodo.getTipo(),
+                            nodo.getGateway(),
+                            nodo.getNetmask()
                         };
                         aggiungiNuovaRete(event);
                     }
-                    
-                    /* MODIFICA RESPONSABILE */
-                }else if(nodo.getValue() instanceof Responsabile) {
-                	Responsabile responsabile = (Responsabile) nodo.getValue();
-                	
-                	FinestraResponsabileController.input = new String[] {
-                			responsabile.getNome(),//responsabile (nome incarico)
-                			responsabile.getNominativo()
+				}
+	
+				@Override
+				public void responsabile(Responsabile nodo) {
+					FinestraResponsabileController.input = new String[] {
+                			nodo.getNome(),//responsabile (nome incarico)
+                			nodo.getNominativo()
                 	};
-                	/*
-                	 if(input != null){
-				        if(input[1] != null){
-				            String[] lista = DatiResponsabileSito.nominativo(input[1]);
-				            if(lista.length == 3){
-				                grado.setValue(lista[0]);
-				                cognome.setText(lista[1]);
-				                nome.setText(lista[2]);
-				            }
-				        }
-				        if(input[0] != null)
-				            responsabile.setText(input[0]);
-				    }
-                	 */
                 	creaNuovoResponsabile(event);
-                }
-            } 
+				}
+			});
+            
         }
     }
 

@@ -212,6 +212,7 @@ public class R {
     public class ChiaviDati{
         static public final String NESSUNA_RETE  = "Stand-alone";
         static public final String NESSUN_GRUPPO = "";
+        static public final String NESSUN_NOME = "";
     }
     
     public class Domanda{
