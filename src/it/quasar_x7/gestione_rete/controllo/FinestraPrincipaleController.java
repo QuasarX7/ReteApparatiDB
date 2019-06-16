@@ -3,9 +3,13 @@ package it.quasar_x7.gestione_rete.controllo;
 import it.quasar_x7.gestione_rete.Dati.DatiApparato;
 import it.quasar_x7.gestione_rete.Dati.DatiCasaHardware;
 import it.quasar_x7.gestione_rete.Dati.DatiCasaSoftware;
+import it.quasar_x7.gestione_rete.Dati.DatiHardwareApparato;
 import it.quasar_x7.gestione_rete.Dati.DatiLogin;
+import it.quasar_x7.gestione_rete.Dati.DatiPosizione;
 import it.quasar_x7.gestione_rete.Dati.DatiResponsabileSito;
+import it.quasar_x7.gestione_rete.Dati.DatiRete;
 import it.quasar_x7.gestione_rete.Dati.DatiRuolo;
+import it.quasar_x7.gestione_rete.Dati.DatiSoftwareApparato;
 import it.quasar_x7.gestione_rete.Dati.DatiStato;
 import it.quasar_x7.gestione_rete.Dati.DatiSwitch;
 import it.quasar_x7.gestione_rete.Dati.DatiTipoApparato;
@@ -14,11 +18,16 @@ import it.quasar_x7.gestione_rete.Dati.DatiTipoSoftware;
 import it.quasar_x7.gestione_rete.Dati.DatiUtilizzatore;
 import it.quasar_x7.gestione_rete.modello.Apparato;
 import it.quasar_x7.gestione_rete.modello.Hardware;
+import it.quasar_x7.gestione_rete.modello.HardwareApparato;
 import it.quasar_x7.gestione_rete.modello.Ufficio;
+import it.quasar_x7.gestione_rete.modello.Utilizzatore;
+import it.quasar_x7.gestione_rete.modello.Voce;
 import it.quasar_x7.gestione_rete.modello.Nodo;
 import it.quasar_x7.gestione_rete.modello.Responsabile;
 import it.quasar_x7.gestione_rete.modello.Rete;
 import it.quasar_x7.gestione_rete.modello.Software;
+import it.quasar_x7.gestione_rete.modello.SoftwareApparato;
+import it.quasar_x7.gestione_rete.modello.Switch;
 import it.quasar_x7.gestione_rete.programma.Programma;
 import static it.quasar_x7.gestione_rete.programma.Programma.dati;
 import it.quasar_x7.gestione_rete.programma.R;
@@ -71,11 +80,18 @@ import javafx.util.Callback;
  */
 public class FinestraPrincipaleController implements Initializable {
 
-	interface AzioneMenu{
-		public void apparato(Apparato nodo);
-        public void locale(Ufficio nodo);
-        public void rete(Rete nodo);
-        public void responsabile(Responsabile nodo);
+	abstract class AzioneMenu{
+		public void apparato(Apparato nodo){}
+        public void locale(Ufficio nodo){}
+        public void rete(Rete nodo){}
+        public void responsabile(Responsabile nodo){}
+        public void info(Voce nodo){}
+        public void listaSoftware(SoftwareApparato nodo){}
+        public void listaHardware(HardwareApparato nodo){}
+        public void software(SoftwareApparato nodoPadre,Software nodo){}
+        public void hardware(HardwareApparato nodoPadre,Hardware nodo){}
+        public void utilizzatore(Apparato nodoPadre,Utilizzatore nodo){}
+        public void switchRete(Apparato nodoPadre,Switch nodo){}
 	}
 	
     static public TreeItem<Nodo> rete = new TreeItem<> (new Nodo("Lista apparati"));
@@ -122,6 +138,11 @@ public class FinestraPrincipaleController implements Initializable {
     private final  DatiApparato datiApparato = (DatiApparato)dati.get(DatiApparato.NOME_TABELLA);
     private final  DatiStato datiStato = (DatiStato)dati.get(DatiStato.NOME_TABELLA);
     private final  DatiSwitch datiSwitch = (DatiSwitch)dati.get(DatiSwitch.NOME_TABELLA);
+    private final  DatiPosizione datiPosizione = (DatiPosizione)dati.get(DatiPosizione.NOME_TABELLA);
+    private final  DatiRete datiRete = (DatiRete)dati.get(DatiRete.NOME_TABELLA);
+    private final  DatiResponsabileSito datiResponsabile = (DatiResponsabileSito)dati.get(DatiResponsabileSito.NOME_TABELLA);
+    private final  DatiSoftwareApparato datiSoftwareApparato = (DatiSoftwareApparato)dati.get(DatiSoftwareApparato.NOME_TABELLA);
+    private final  DatiHardwareApparato datiHardwareApparato = (DatiHardwareApparato)dati.get(DatiHardwareApparato.NOME_TABELLA);
     
     
     /**
@@ -173,11 +194,9 @@ public class FinestraPrincipaleController implements Initializable {
 
                         }else if(item instanceof Rete || item instanceof Ufficio || item instanceof Responsabile){
                             setFont(Font.font("Arial Black", 12));
-                        }else if(item instanceof Software || item instanceof Hardware){
-                            if(item.getNome().equals(R.Etichette.SW) || item.getNome().equals(R.Etichette.HW))
-                                setFont(Font.font("Arial", FontWeight.BOLD, 12));
-                            else
-                                setFont(Font.font("Arial Narrow",12));
+                        }else if(item instanceof Switch || item instanceof Utilizzatore || item instanceof SoftwareApparato || item instanceof HardwareApparato){
+                            setFont(Font.font("Arial", FontWeight.BOLD, 12));
+                            
                         }else{
                             setFont(Font.font("Arial Narrow",12));
                         }
@@ -528,7 +547,36 @@ public class FinestraPrincipaleController implements Initializable {
         }
     }
     
-    /* MENU MOUSE PANNELLO LATERALE LISTA APPARATI */
+    private void selezionaMenuAlbero(Event event,AzioneMenu azione) {
+    	TreeItem<Nodo> nodo = listaApparati.getSelectionModel().getSelectedItem();
+        if(nodo != null){
+            if(nodo.getValue() instanceof Apparato){
+                azione.apparato((Apparato) nodo.getValue());
+            }else if(nodo.getValue() instanceof Ufficio){
+            	azione.locale((Ufficio) nodo.getValue());
+            }else if(nodo.getValue() instanceof Rete){
+            	azione.rete((Rete) nodo.getValue());
+            }else if(nodo.getValue() instanceof Responsabile) {
+            	azione.responsabile((Responsabile) nodo.getValue());
+            }else if(nodo.getValue() instanceof SoftwareApparato) {
+            	azione.listaSoftware((SoftwareApparato) nodo.getValue());
+            }else if(nodo.getValue() instanceof HardwareApparato) {
+            	azione.listaHardware((HardwareApparato) nodo.getValue());
+            }else if(nodo.getValue() instanceof Hardware) {
+            	azione.hardware((HardwareApparato)nodo.getParent().getValue(),(Hardware) nodo.getValue());
+            }else if(nodo.getValue() instanceof Software) {
+            	azione.software((SoftwareApparato)nodo.getParent().getValue(),(Software) nodo.getValue());
+            }else if(nodo.getValue() instanceof Utilizzatore) {
+            	azione.utilizzatore((Apparato)nodo.getParent().getValue(),(Utilizzatore) nodo.getValue());
+            }else if(nodo.getValue() instanceof Switch) {
+            	azione.switchRete((Apparato)nodo.getParent().getValue(),(Switch) nodo.getValue());
+            
+            }else if(nodo.getValue() instanceof Voce) {
+            	azione.info((Voce)nodo.getValue());
+            }
+            
+        }
+    }
     
     
     private void visualizzaMenu(MouseEvent event){
@@ -537,17 +585,45 @@ public class FinestraPrincipaleController implements Initializable {
                 
                 selezionaMenuAlbero(event, new AzioneMenu(){
 
+                	final int TITOLO_MENU = 0;
+                	final int VOCE_AGGIUNGI = 1;
+                	final int VOCE_WIZARD   = 2;
+                	final int VOCE_MODIFICA = 3;
+                	final int VOCE_ELIMINA  = 4;
+                	
                 	private void inizializzaVoci(String tipoNodo,Nodo nodo) {
-                		menuPannello.getItems().get(0).setText(tipoNodo.toUpperCase());
-                		menuPannello.getItems().get(1).setText(String.format("Aggiungi nuovo %s",tipoNodo.toLowerCase()));
+                		
+                		
+                		menuPannello.getItems().get(TITOLO_MENU).setText(tipoNodo.toUpperCase());
+                		
                 		if(!nodo.getNome().equals(R.ChiaviDati.NESSUNA_RETE) && !nodo.getNome().equals(R.ChiaviDati.NESSUN_NOME) && !nodo.getNome().equals(R.ChiaviDati.NESSUN_GRUPPO)) {
-                			menuPannello.getItems().get(2).setVisible(true);
-							menuPannello.getItems().get(3).setVisible(true);
-							menuPannello.getItems().get(2).setText(String.format("Modifica «%s»",nodo.getNome()));
-							menuPannello.getItems().get(3).setText(String.format("Elimina «%s»",nodo.getNome()));
+                			
+                			
+                			if(nodo instanceof Software || nodo instanceof Hardware) {
+                				menuPannello.getItems().get(VOCE_AGGIUNGI).setVisible(false);
+            				}else {
+            					menuPannello.getItems().get(VOCE_AGGIUNGI).setVisible(true);
+                        		menuPannello.getItems().get(VOCE_AGGIUNGI).setText(String.format("Aggiungi nuovo %s",tipoNodo.toLowerCase()));
+            				}
+                			
+                			if(nodo instanceof SoftwareApparato || nodo instanceof HardwareApparato) {
+                				menuPannello.getItems().get(VOCE_WIZARD).setVisible(true);
+                				menuPannello.getItems().get(VOCE_WIZARD).setText(String.format("Wizard di «%s»",nodo.getNome()));
+                				menuPannello.getItems().get(VOCE_MODIFICA).setVisible(false);
+    							menuPannello.getItems().get(VOCE_ELIMINA).setVisible(false);
+                			}else {
+                				
+                				menuPannello.getItems().get(VOCE_WIZARD).setVisible(false);
+                				menuPannello.getItems().get(VOCE_MODIFICA).setVisible(true);
+    							menuPannello.getItems().get(VOCE_ELIMINA).setVisible(true);
+    							menuPannello.getItems().get(VOCE_MODIFICA).setText(String.format("Modifica «%s»",nodo.getNome()));
+    							menuPannello.getItems().get(VOCE_ELIMINA).setText(String.format("Elimina «%s»",nodo.getNome()));
+                			}
+                			
                 		}else {
-                			menuPannello.getItems().get(2).setVisible(false);
-							menuPannello.getItems().get(3).setVisible(false);
+                			menuPannello.getItems().get(VOCE_WIZARD).setVisible(false);
+							menuPannello.getItems().get(VOCE_MODIFICA).setVisible(false);
+							menuPannello.getItems().get(VOCE_ELIMINA).setVisible(false);
                 		}
                 	}
     				@Override
@@ -570,6 +646,39 @@ public class FinestraPrincipaleController implements Initializable {
     					inizializzaVoci("Responsabile", nodo);
     				}
     				
+    				@Override
+    				public void listaSoftware(SoftwareApparato nodo) {
+    					String titolo = String.format("software `%s`",nodo.getNome());
+    					inizializzaVoci(titolo, nodo);
+    				}
+    				
+    				@Override
+    				public void listaHardware(HardwareApparato nodo) {
+    					String titolo = String.format("hardware `%s`",nodo.getNome());
+    					inizializzaVoci(titolo, nodo);
+    				}
+    				
+    				@Override
+    				public void software(SoftwareApparato nodoPadre,Software nodo) {
+    					inizializzaVoci(R.Etichette.SW,nodo);
+    				}
+    				
+    				@Override
+    				public void hardware(HardwareApparato nodoPadre,Hardware nodo) {
+    					inizializzaVoci(R.Etichette.HW,nodo);
+    				}
+    				
+					@Override
+					public void info(Voce nodo) {
+						menuPannello.getItems().get(TITOLO_MENU).setText(nodo.getNome());
+						
+						menuPannello.getItems().get(TITOLO_MENU).setVisible(true);
+						menuPannello.getItems().get(VOCE_AGGIUNGI).setVisible(false);
+						menuPannello.getItems().get(VOCE_WIZARD).setVisible(false);
+						menuPannello.getItems().get(VOCE_MODIFICA).setVisible(false);
+						menuPannello.getItems().get(VOCE_ELIMINA).setVisible(false);
+					}
+    				
                 });
                 
                 menuPannello.show((Node) event.getSource(), event.getScreenX(), event.getScreenY());
@@ -578,20 +687,6 @@ public class FinestraPrincipaleController implements Initializable {
         event.consume();
     }
     
-    private void selezionaMenuAlbero(Event event,AzioneMenu azione) {
-    	TreeItem<Nodo> nodo = listaApparati.getSelectionModel().getSelectedItem();
-        if(nodo != null){
-            if(nodo.getValue() instanceof Apparato){
-                azione.apparato((Apparato) nodo.getValue());
-            }else if(nodo.getValue() instanceof Ufficio){
-            	azione.locale((Ufficio) nodo.getValue());
-            }else if(nodo.getValue() instanceof Rete){
-            	azione.rete((Rete) nodo.getValue());
-            }else if(nodo.getValue() instanceof Responsabile) {
-            	azione.responsabile((Responsabile) nodo.getValue());
-            }
-        } 
-    }
     
     @FXML
     private void menuAggiungi(ActionEvent event) {
@@ -620,9 +715,68 @@ public class FinestraPrincipaleController implements Initializable {
 				public void responsabile(Responsabile nodo) {
 					creaNuovoResponsabile(event);
 				}
+				
+				@Override
+				public void listaSoftware(SoftwareApparato nodo) {
+					ceaNuovoSoftwareApparato(nodo);
+				}
+				
+				@Override
+				public void listaHardware(HardwareApparato nodo) {
+					ceaNuovoHardwareApparato(nodo);
+				}
+
 			});
         }
     }
+    
+    private void ceaNuovoHardwareApparato(HardwareApparato nodo) {
+    	if(nodo != null){
+            FinestraHardwareApparatoController.scenaCorrente = Finestra.scenaCorrente();
+            FinestraHardwareApparatoController.apparato = nodo.getNome();
+            Finestra.caricaFinestra(this, R.FXML.FINESTRA_HW_APPARATO);
+        }
+    }
+    
+    private void ceaNuovoSoftwareApparato(SoftwareApparato nodo) {
+    	if(nodo != null){
+            FinestraSoftwareApparatoController.scenaCorrente = Finestra.scenaCorrente();
+            FinestraSoftwareApparatoController.apparato = nodo.getNome();
+            Finestra.caricaFinestra(this, R.FXML.FINESTRA_SW_APPARATO);
+        }
+    }
+    
+    @FXML
+    private void menuWizard(ActionEvent event) {
+        if (event.getEventType().equals(ActionEvent.ACTION)) {
+        	elencoInfo.getItems().clear();
+            listaRicercaInfo.getRoot().getChildren().clear();
+            selezionaMenuAlbero(event, new AzioneMenu(){
+
+				@Override
+				public void listaSoftware(SoftwareApparato nodo) {
+					if(nodo != null){
+		                FinestraWizardSWController.scenaCorrente = Finestra.scenaCorrente();
+		                FinestraWizardSWController.apparato = nodo.getNome();
+		                Finestra.caricaFinestra(this, R.FXML.FINESTRA_WIZARD_SW_APPARATO);
+		                
+		            }
+				}
+				
+				@Override
+				public void listaHardware(HardwareApparato nodo) {
+					if(nodo != null){
+		                FinestraWizardHWController.scenaCorrente = Finestra.scenaCorrente();
+		                FinestraWizardHWController.apparato = nodo.getNome();
+		                Finestra.caricaFinestra(this, R.FXML.FINESTRA_WIZARD_HW_APPARATO);
+		                
+		            }
+				}
+            });
+        }
+    }
+    
+
 
     @FXML
     private void menuModifica(ActionEvent event) {
@@ -682,6 +836,26 @@ public class FinestraPrincipaleController implements Initializable {
                 	};
                 	creaNuovoResponsabile(event);
 				}
+				
+				@Override
+				public void hardware(HardwareApparato nodoPadre,Hardware nodo) {
+					if(nodo != null && nodoPadre != null) {
+	                	FinestraHardwareApparatoController.hardware = nodo.getNome();
+	                	FinestraHardwareApparatoController.modello = nodo.getModello();
+	                	FinestraHardwareApparatoController.matricola = nodo.getMatricola();
+	                }
+					ceaNuovoHardwareApparato(nodoPadre);
+				}
+				
+				@Override
+				public void software(SoftwareApparato nodoPadre,Software nodo) {
+					if(nodo != null && nodoPadre != null) {
+	                	FinestraSoftwareApparatoController.software = nodo.getNome();
+	                	FinestraSoftwareApparatoController.licenza = nodo.getLicenza();
+	                }
+					ceaNuovoSoftwareApparato(nodoPadre);
+				}
+
 			});
             
         }
@@ -693,73 +867,117 @@ public class FinestraPrincipaleController implements Initializable {
             elencoInfo.getItems().clear();
             listaRicercaInfo.getRoot().getChildren().clear();
             
-            TreeItem<Nodo> nodo = listaApparati.getSelectionModel().getSelectedItem();
-            if(nodo != null){
-                if(nodo.getValue() instanceof Apparato){
+            selezionaMenuAlbero(event, new AzioneMenu(){
+
+				@Override
+				public void apparato(Apparato nodo) {
 					Finestra.finestraConferma(
 							this, 
-							String.format(R.Domanda.CONFERMA_ELIMINAZIONE_APPARATO,((Apparato) nodo.getValue()).getNome()), 
+							String.format(R.Domanda.CONFERMA_ELIMINAZIONE_APPARATO,nodo.getNome()), 
 							new ConfermaController.Codice() {
 								@Override
 								public void esegui() {
-									Apparato apparato = (Apparato) nodo.getValue();
-				                	datiApparato.elimina(new Object[] {apparato.getNome()});
+				                	datiApparato.elimina(new Object[] {nodo.getNome()});
 				                	Programma.aggiornaListaApparati();
 								}
 							}
 					);
-					
-                }else if(nodo.getValue() instanceof Ufficio){
-                	Finestra.finestraConferma(
+				}
+	
+				@Override
+				public void locale(Ufficio nodo) {
+					Finestra.finestraConferma(
 							this, 
-							String.format(R.Domanda.CONFERMA_ELIMINAZIONE_APPARATO,((Ufficio) nodo.getValue()).getNome()), 
+							String.format(R.Domanda.CONFERMA_ELIMINAZIONE_UFFICIO, nodo.getNome()), 
 							new ConfermaController.Codice() {
 								@Override
 								public void esegui() {
-									Ufficio ufficio = (Ufficio) nodo.getValue();
-				                	datiApparato.elimina(new Object[] {ufficio.getNome()});
+									datiPosizione.elimina(new Object[] {nodo.getNome()});
 				                	Programma.salvaModificheApparato(
 				                			this, 
 				                			DatiApparato.VOCE_TABELLA_POSIZIONE, 
-				                			new String[]{
-			                                    ufficio.getNome(),
-			                                    ufficio.getResponsabile()
-			                                }, 
-				                			0, 
-				                			new TextField()// ""
+				                			new String[]{nodo.getNome()}, 0,  // <- nome "Locale/Ufficio" da "eliminare"
+				                			new TextField()                   // ""  <- valore stringa vuota
 				                	);
 				                	Programma.aggiornaListaApparati();// aggiorna lista laterale ad albero
 								}
 					});
-                	
-                }else if(nodo.getValue() instanceof Rete){
-                	Finestra.finestraConferma(
+				}
+	
+				@Override
+				public void rete(Rete nodo) {
+					Finestra.finestraConferma(
 							this, 
-							String.format(R.Domanda.CONFERMA_ELIMINAZIONE_APPARATO,((Rete) nodo.getValue()).getNome()), 
+							String.format(R.Domanda.CONFERMA_ELIMINAZIONE_RETE,nodo.getNome()), 
 							new ConfermaController.Codice() {
 								@Override
 								public void esegui() {
-									Rete rete = (Rete) nodo.getValue();
-				                	datiApparato.elimina(new Object[] {rete.getNome()});
+									datiRete.elimina(new Object[] {nodo.getNome()});
 				                	Programma.salvaModificheApparato(
 				                			this, 
 				                			DatiApparato.VOCE_TABELLA_WG, 
-				                			new String[]{
-			                					rete.getNome(),
-			                                    rete.getDominio(),
-			                                    rete.getTipo(),
-			                                    rete.getGateway(),
-			                                    rete.getNetmask()
-			                                }, 
-				                			0, 
+				                			new String[]{nodo.getNome()},0, // nome rete da eliminare
+				                			new TextField()  // ""
+				                	);
+				                	Programma.aggiornaListaApparati();// aggiorna lista laterale ad albero
+								}
+					});
+				}
+	
+				@Override
+				public void responsabile(Responsabile nodo) {
+					Finestra.finestraConferma(
+							this, 
+							String.format(R.Domanda.CONFERMA_ELIMINAZIONE_RESPONSABILE,nodo.getNome()), 
+							new ConfermaController.Codice() {
+								@Override
+								public void esegui() {
+									datiResponsabile.elimina(new Object[] {nodo.getNome()});
+				                	Programma.salvaModifichePosizione(
+				                			this, 
+				                			DatiPosizione.VOCE_TABELLA_RESPONSABILE, 
+				                			new String[]{nodo.getNome()},0, // nome responsabile sito da eliminare 
 				                			new TextField()// ""
 				                	);
 				                	Programma.aggiornaListaApparati();// aggiorna lista laterale ad albero
 								}
 					});
-                }
-                
-            } 
+				}
+				
+				@Override
+				public void hardware(HardwareApparato nodoPadre,Hardware nodo) {
+					if(nodo != null && nodoPadre != null) {
+						Finestra.finestraConferma(
+								this, 
+								String.format(R.Domanda.CONFERMA_ELIMINAZIONE,nodo.toString()), 
+								new ConfermaController.Codice() {
+									@Override
+									public void esegui() {
+										datiHardwareApparato.elimina(new Object[]{nodoPadre.apparato(),nodo.getNome(),nodo.getModello(),nodo.getMatricola()});
+							            Programma.aggiornaListaApparati();// aggiorna lista laterale ad albero
+									}
+						});
+	                }
+				}
+				
+				@Override
+				public void software(SoftwareApparato nodoPadre,Software nodo) {
+					if(nodo != null && nodoPadre != null) {
+						Finestra.finestraConferma(
+								this, 
+								String.format(R.Domanda.CONFERMA_ELIMINAZIONE,nodo.toString()), 
+								new ConfermaController.Codice() {
+									@Override
+									public void esegui() {
+										datiSoftwareApparato.elimina(new Object[]{nodoPadre.apparato(),nodo.getNome(),nodo.getLicenza()});
+							            Programma.aggiornaListaApparati();// aggiorna lista laterale ad albero
+									}
+						});
+	                }
+				}
+
+				
+			});
         }
     }
 

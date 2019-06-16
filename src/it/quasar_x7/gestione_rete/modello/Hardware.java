@@ -19,6 +19,9 @@ public class Hardware extends Nodo{
     protected StringProperty stato;
     protected StringProperty note;
     
+    public Hardware(String nome){
+        super(nome);
+    }
     public Hardware(String tipo, String modello, String matricola, String casa, String NUC, String stato,String note) {
         super(tipo);
         this.modello = new SimpleStringProperty(modello);
@@ -77,5 +80,18 @@ public class Hardware extends Nodo{
         }
         
     }
+    
+	@Override
+	public String toString() {
+		return String.format(
+				"%s%s", nome.get(), 
+				!modello.get().isEmpty()
+				? String.format(
+						":\t%s%s",modello.get(),
+						!matricola.get().isEmpty() ? String.format(" «%s»",matricola.get()): ""
+				  ) 
+				: ""
+	           );
+	}
     
 }

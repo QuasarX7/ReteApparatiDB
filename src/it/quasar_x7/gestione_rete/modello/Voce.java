@@ -30,7 +30,7 @@ public class Voce extends Nodo{
 
     @Override
     public String toString() {
-        return String.format("%s: \t[%s]",getTipo(),getNome());
+        return String.format("%s: \t«%s»",getTipo(),getNome());
     }
     
     @Override

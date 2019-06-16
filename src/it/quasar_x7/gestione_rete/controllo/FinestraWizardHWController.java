@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import it.quasar_x7.gestione_rete.Dati.DatiDB;
 import it.quasar_x7.gestione_rete.Dati.DatiHardware;
 import it.quasar_x7.gestione_rete.Dati.DatiHardwareApparato;
+import it.quasar_x7.gestione_rete.Dati.DatiSoftwareApparato;
 import it.quasar_x7.gestione_rete.programma.Programma;
 import it.quasar_x7.gestione_rete.programma.R;
 import it.quasar_x7.javafx.Finestra;
@@ -253,6 +254,8 @@ import javafx.scene.input.MouseEvent;
 	        	ArrayList<String> errori = new ArrayList<>();
 	        	
 	        	if(apparato != null) {
+	        		datiHardwareApparato.elimataAlcuniRecord(String.format(" `%s` = '%s' ", DatiHardwareApparato.VOCE_APPARATO,apparato));
+	        		
 	        		aggiungiNuovoHardware(R.TipoStandardHW.HDD,selezionaHDD,menuModelloHDD,menuMatricolaHDD,errori);
 	        		aggiungiNuovoHardware(R.TipoStandardHW.MONITOR,selezionaMonitor,menuModelloMonitor,menuMatricolaMonitor,errori);
 	        		aggiungiNuovoHardware(R.TipoStandardHW.MOUSE,selezionaMouse,menuModelloMouse,menuMatricolaMouse,errori);
@@ -321,6 +324,7 @@ import javafx.scene.input.MouseEvent;
 	    private void chiusuraSenzaSalvare(ActionEvent event) {
 	        if(event.getEventType().equals(ActionEvent.ACTION)){
 	            Programma.chiusuraFinestra(this, scenaCorrente);
+	            Programma.aggiornaListaApparati();
 	            finestraApparato = null;
 	            apparato = null;
 	        }

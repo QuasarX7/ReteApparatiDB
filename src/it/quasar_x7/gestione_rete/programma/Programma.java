@@ -41,10 +41,12 @@ import it.quasar_x7.gestione_rete.controllo.FinestraSwitchController;
 import it.quasar_x7.gestione_rete.controllo.FinestraUtilizzatoreController;
 import it.quasar_x7.gestione_rete.modello.Apparato;
 import it.quasar_x7.gestione_rete.modello.Hardware;
+import it.quasar_x7.gestione_rete.modello.HardwareApparato;
 import it.quasar_x7.gestione_rete.modello.Nodo;
 import it.quasar_x7.gestione_rete.modello.Responsabile;
 import it.quasar_x7.gestione_rete.modello.Rete;
 import it.quasar_x7.gestione_rete.modello.Software;
+import it.quasar_x7.gestione_rete.modello.SoftwareApparato;
 import it.quasar_x7.gestione_rete.modello.Switch;
 import it.quasar_x7.gestione_rete.modello.Ufficio;
 import it.quasar_x7.gestione_rete.modello.Utilizzatore;
@@ -390,48 +392,6 @@ public class Programma extends Application {
         dim.add(100);// pasword
         dim.add(70);// stato
         
-        /*
-         * 
-            if(input[0] != null)
-                nome.setText(input[0]);
-            
-            if(input[1] != null)
-                tipo.setValue(input[1]);
-            
-            if(input[2] != null)
-                rete.setValue(input[2]);
-            
-            if(input[3] != null)
-                ip.setText(input[3]);
-            
-            if(input[4] != null)
-                macPC.setText(input[4]);
-            
-            if(input[5] != null)
-                macVOIP.setText(input[5]);
-            
-            if(input[6] != null)
-                posizione.setValue(input[6]);
-            
-            
-            if(input[7] != null){
-                utilizzatore.setValue(datiUtilizzatore.info(input[7]));
-            }
-            
-            if(input[8] != null)
-                internet.setSelected(input[8].equals(R.Conferma.SI));
-            
-            
-            if(input[9] != null)
-                sigillo.setText(input[9]);
-            
-            if(input[10] != null)
-                password.setText(input[10]);
-            
-            if(input[11] != null)
-                stato.setValue(input[11]);
-                
-         */
         
         ArrayList<String> colonne = new ArrayList<>();
         colonne.add(R.Etichette.APPARATO);
@@ -1084,32 +1044,26 @@ public class Programma extends Application {
                                         nodoSwitch.getChildren().add(new TreeItem<>(new Voce(R.Etichette.PORTA,_switch.getPorta())));
                                     }
 
-                                    ArrayList<Hardware> hwApp = ((DatiHardwareApparato)dati.get(DatiHardwareApparato.NOME_TABELLA)).listaHW(apparato.getNome());
-                                    if(hwApp != null)
-                                    	if(hwApp.size() > 0){
+                                    HardwareApparato hwApp = new HardwareApparato(apparato.getNome(),dati);
+                                    Node immagineHW = new ImageView(new Image(R.Icona.HW,20,20,true,true));
+                                    TreeItem<Nodo> nodoHW = new TreeItem<>(hwApp,immagineHW);
+                                    pc.getChildren().add(nodoHW);
+                                    
+                                    for(Hardware hw : hwApp.getHardware()){
+                                        TreeItem<Nodo> componente = new TreeItem<>(hw);
+                                        nodoHW.getChildren().add(componente);
+                                    }
                                     	
-		                                    Node immagineHW = new ImageView(new Image(R.Icona.HW,20,20,true,true));
-		                                    TreeItem<Nodo> nodoHW = new TreeItem<>(new Nodo(R.Etichette.HW),immagineHW);
-		                                    pc.getChildren().add(nodoHW);
-		                                    
-		                                    for(Hardware hw : hwApp){
-                                                TreeItem<Nodo> componente = new TreeItem<>(hw);
-                                                nodoHW.getChildren().add(componente);
-                                            }
-                                    	}
 
-                                    ArrayList<Software> swApp = ((DatiSoftwareApparato)dati.get(DatiSoftwareApparato.NOME_TABELLA)).listaSW(apparato.getNome());
-                                    if(swApp != null)
-                                        if(swApp.size() > 0){
-                                            Node immagineSW = new ImageView(new Image(R.Icona.SW,20,20,true,true));
-                                            TreeItem<Nodo> nodoSW = new TreeItem<>(new Software(R.Etichette.SW),immagineSW);
-                                            pc.getChildren().add(nodoSW);
+                                    SoftwareApparato swApp = new SoftwareApparato(apparato.getNome(),dati);
+                                    Node immagineSW = new ImageView(new Image(R.Icona.SW,20,20,true,true));
+                                    TreeItem<Nodo> nodoSW = new TreeItem<>(swApp,immagineSW);
+                                    pc.getChildren().add(nodoSW);
 
-                                            for(Software sw : swApp){
-                                                TreeItem<Nodo> applicazione = new TreeItem<>(sw);
-                                                nodoSW.getChildren().add(applicazione);
-                                            }
-                                        }
+                                    for(Software sw : swApp.getSoftware()){
+                                        TreeItem<Nodo> applicazione = new TreeItem<>(sw);
+                                        nodoSW.getChildren().add(applicazione);
+                                    }
 
                                     pc.setExpanded(false);
 

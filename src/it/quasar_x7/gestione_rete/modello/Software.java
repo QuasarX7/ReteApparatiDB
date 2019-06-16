@@ -85,4 +85,8 @@ public class Software extends Nodo{
 		predefinito.setValue(valore);
 	}
     
+	@Override
+	public String toString() {
+		return String.format("%s%s", nome.get(), licenza != null ? String.format(" `%s`", licenza.get()) : "");
+	}
 }

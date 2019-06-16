@@ -221,7 +221,10 @@ public class R {
         static public final String CREAZIONE_TABELLA      = "La tabella «%s» non esiste oppure è danneggiata, vuoi crearne una nuova?";
         static public final String SOSTITUISCI      = "E' già presente un record simile a «%s», vuoi modificarlo?";
         static public final String CONFERMA_ELIMINAZIONE_APPARATO    = "Sei sicuro di voler eliminare l'apparato `%s`?";
-        static public final String CONFERMA_ELIMINAZIONE_UFFICIO    = "Sei sicuro di voler eliminare l'apparato `%s`?";
+        static public final String CONFERMA_ELIMINAZIONE_UFFICIO    = "Sei sicuro di voler eliminare il locale `%s`?";
+		public static final String CONFERMA_ELIMINAZIONE_RESPONSABILE = "Sei sicuro di voler eliminare il responsabile `%s`?";
+		public static final String CONFERMA_ELIMINAZIONE_RETE = "Sei sicuro di voler eliminare la rete `%s`?";
+		public static final String CONFERMA_ELIMINAZIONE = "Sei sicuro di voler eliminare `%s`?";
         
     }
     

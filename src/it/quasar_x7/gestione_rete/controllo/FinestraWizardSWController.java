@@ -178,6 +178,7 @@ import javafx.util.Callback;
 	    private void chiusuraSenzaSalvare(ActionEvent event) {
 	        if(event.getEventType().equals(ActionEvent.ACTION)){
 	            Programma.chiusuraFinestra(this, scenaCorrente);
+                Programma.aggiornaListaApparati();
 	            finestraApparato = null;
 	            apparato = null;
 	        }

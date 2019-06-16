@@ -16,10 +16,10 @@ import java.util.logging.Logger;
 public class DatiHardwareApparato extends DatiDB {
     public static final String NOME_TABELLA              = "hardware_apparato";
     
-    protected static final String VOCE_APPARATO          = "apparato";
-    protected static final String VOCE_HW                = "tipo_hardware";
-    protected static final String VOCE_MODELLO        	 = "modello_hardware";
-    protected static final String VOCE_MATRICOLA         = "matricola_hardware";
+    public static final String VOCE_APPARATO          = "apparato";
+    public static final String VOCE_HW                = "tipo_hardware";
+    public static final String VOCE_MODELLO        	 = "modello_hardware";
+    public static final String VOCE_MATRICOLA         = "matricola_hardware";
     
     public DatiHardwareApparato(){
         try {

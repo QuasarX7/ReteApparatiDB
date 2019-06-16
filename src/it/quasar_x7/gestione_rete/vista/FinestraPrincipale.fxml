@@ -108,13 +108,22 @@
 <content><TreeView fx:id="listaApparati" onMouseClicked="#cliccaPanelloListaApparati" prefHeight="633.0" prefWidth="420.0" BorderPane.alignment="CENTER">
 <contextMenu><ContextMenu fx:id="menuPannello">
   <items>
-                                    <MenuItem mnemonicParsing="false" style="-fx-text-fill: black; -fx-font-family: &quot;Arial Black&quot;;" />
+                                    <MenuItem mnemonicParsing="false" style="-fx-text-fill: black; -fx-font-family: &quot;Arial Black&quot;;" text="NODO" />
     <MenuItem mnemonicParsing="false" onAction="#menuAggiungi" text="Aggiungi">
 <graphic><ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
 <image>
 <Image url="@../Risorse/aggiungi2.png" />
 </image></ImageView>
-</graphic></MenuItem><MenuItem mnemonicParsing="false" onAction="#menuModifica" text="Modifica">
+</graphic></MenuItem>
+                                    <MenuItem mnemonicParsing="false" onAction="#menuWizard" text="Wizard">
+                                       <graphic>
+                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../Risorse/aggiungi2.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </MenuItem><MenuItem mnemonicParsing="false" onAction="#menuModifica" text="Modifica">
 <graphic>
 <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
 <image>

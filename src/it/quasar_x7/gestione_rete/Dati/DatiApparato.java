@@ -15,22 +15,21 @@ import java.util.logging.Logger;
  * @author Dr. Domenico della Peruta
  */
 public class DatiApparato extends DatiDB{
-    public static final String NOME_TABELLA                = "apparato";
+    public static final String NOME_TABELLA                	= "apparato";
     
-    protected static final String VOCE_TABELLA_NOME        = "nome";
-    public static final String VOCE_TABELLA_TIPO        = "tipo";
-    public static final String VOCE_TABELLA_WG          = "workgroup";
-    protected static final String VOCE_TABELLA_IP          = "ip";
-    protected static final String VOCE_TABELLA_MAC_PC      = "mac pc";
-    protected static final String VOCE_TABELLA_MAC_VOIP    = "mac voip";
-    public static final String VOCE_TABELLA_POSIZIONE   = "posizione";
-    public static final String VOCE_TABELLA_UTENTE      = "utente";
-    public static final String VOCE_TABELLA_SWITCH      = "switch";
-    protected static final String VOCE_TABELLA_INTERNET    = "internet";
-    protected static final String VOCE_TABELLA_SIGILLO     = "sigillo";
-    //protected static final String VOCE_TABELLA_SCHEDA      = "scheda";
-    protected static final String VOCE_TABELLA_PASSWORD    = "password";
-    public static final String VOCE_TABELLA_STATO       = "stato";
+    protected static final String VOCE_TABELLA_NOME        	= "nome";
+    public static final String VOCE_TABELLA_TIPO        	= "tipo";
+    public static final String VOCE_TABELLA_WG          	= "workgroup";
+    protected static final String VOCE_TABELLA_IP          	= "ip";
+    protected static final String VOCE_TABELLA_MAC_PC      	= "mac pc";
+    protected static final String VOCE_TABELLA_MAC_VOIP    	= "mac voip";
+    public static final String VOCE_TABELLA_POSIZIONE   	= "posizione";
+    public static final String VOCE_TABELLA_UTENTE      	= "utente";
+    public static final String VOCE_TABELLA_SWITCH      	= "switch";
+    protected static final String VOCE_TABELLA_INTERNET    	= "internet";
+    protected static final String VOCE_TABELLA_SIGILLO     	= "sigillo";
+    protected static final String VOCE_TABELLA_PASSWORD    	= "password";
+    public static final String VOCE_TABELLA_STATO       	= "stato";
 
     public DatiApparato() {
         try {
