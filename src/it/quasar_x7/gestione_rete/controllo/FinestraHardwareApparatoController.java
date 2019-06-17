@@ -62,15 +62,24 @@ public class FinestraHardwareApparatoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         aggiornaMenuNomeHardware();
-        aggiornaMenuModello();
-        aggiornaMenuMatricola();
+        
         aggiornaApparato();
-        if(apparato != null)
+        if(apparato != null) {
             nomeApparato.setValue(apparato);
-        if(hardware != null)
+        }
+        if(hardware != null) {
         	nomeHardware.setValue(hardware);
-        if(matricola != null)
+        }
+        
+        if(modello != null) {
+        	aggiornaMenuModello();
+        	nomeModello.setValue(modello);
+        }
+        
+        if(matricola != null) {
+        	aggiornaMenuMatricola();
         	nomeMatricola.setValue(matricola);
+        }
         
         
     } 
@@ -98,6 +107,7 @@ public class FinestraHardwareApparatoController implements Initializable {
             Programma.aggiornaListaApparati();
             finestraApparato = null;
             apparato = null;
+            hardware = matricola = modello = null;
         }
     }
 
