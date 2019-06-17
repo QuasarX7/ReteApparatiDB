@@ -1,6 +1,7 @@
 package it.quasar_x7.gestione_rete.Dati;
 
 import it.quasar_x7.gestione_rete.modello.Switch;
+import it.quasar_x7.gestione_rete.programma.R;
 import it.quasar_x7.java.BaseDati.EccezioneBaseDati;
 import it.quasar_x7.java.BaseDati.Relazione;
 import java.util.logging.Level;
@@ -31,7 +32,7 @@ public class DatiConnessioneSwitch extends DatiDB{
     }
 
     public Switch creaSwitch(String apparato) {
-        Switch _switch = null;
+        Switch _switch = new Switch(R.ChiaviDati.NESSUN_SWITCH,"");
         try {
             db.connetti();
             Object[] riga = db.vediTupla(tabella, new Object[]{apparato});

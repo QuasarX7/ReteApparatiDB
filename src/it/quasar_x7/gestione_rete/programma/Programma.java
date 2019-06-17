@@ -1037,12 +1037,10 @@ public class Programma extends Application {
                                     DatiConnessioneSwitch datiSw = (DatiConnessioneSwitch)dati.get(DatiConnessioneSwitch.NOME_TABELLA);
                                     Node immagineSw = new ImageView(new Image(R.Icona.SWITCH,20,20,true,true));
                                     Switch _switch = datiSw.creaSwitch(apparato.getNome());
-                                    if(_switch != null){
-                                        TreeItem<Nodo> nodoSwitch = new TreeItem<>(_switch,immagineSw);
-
-                                        pc.getChildren().add(nodoSwitch);
-                                        nodoSwitch.getChildren().add(new TreeItem<>(new Voce(R.Etichette.PORTA,_switch.getPorta())));
-                                    }
+                                    TreeItem<Nodo> nodoSwitch = new TreeItem<>(_switch,immagineSw);
+                                    pc.getChildren().add(nodoSwitch);
+                                    if(!_switch.getNome().equals(R.ChiaviDati.NESSUN_SWITCH))
+                                    	nodoSwitch.getChildren().add(new TreeItem<>(new Voce(R.Etichette.PORTA,_switch.getPorta())));
 
                                     HardwareApparato hwApp = new HardwareApparato(apparato.getNome(),dati);
                                     Node immagineHW = new ImageView(new Image(R.Icona.HW,20,20,true,true));

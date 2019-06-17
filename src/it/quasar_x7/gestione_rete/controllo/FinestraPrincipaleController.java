@@ -3,6 +3,7 @@ package it.quasar_x7.gestione_rete.controllo;
 import it.quasar_x7.gestione_rete.Dati.DatiApparato;
 import it.quasar_x7.gestione_rete.Dati.DatiCasaHardware;
 import it.quasar_x7.gestione_rete.Dati.DatiCasaSoftware;
+import it.quasar_x7.gestione_rete.Dati.DatiConnessioneSwitch;
 import it.quasar_x7.gestione_rete.Dati.DatiHardwareApparato;
 import it.quasar_x7.gestione_rete.Dati.DatiLogin;
 import it.quasar_x7.gestione_rete.Dati.DatiPosizione;
@@ -138,6 +139,7 @@ public class FinestraPrincipaleController implements Initializable {
     private final  DatiApparato datiApparato = (DatiApparato)dati.get(DatiApparato.NOME_TABELLA);
     private final  DatiStato datiStato = (DatiStato)dati.get(DatiStato.NOME_TABELLA);
     private final  DatiSwitch datiSwitch = (DatiSwitch)dati.get(DatiSwitch.NOME_TABELLA);
+    private final  DatiConnessioneSwitch datiSwitchApparato = (DatiConnessioneSwitch)dati.get(DatiConnessioneSwitch.NOME_TABELLA);
     private final  DatiPosizione datiPosizione = (DatiPosizione)dati.get(DatiPosizione.NOME_TABELLA);
     private final  DatiRete datiRete = (DatiRete)dati.get(DatiRete.NOME_TABELLA);
     private final  DatiResponsabileSito datiResponsabile = (DatiResponsabileSito)dati.get(DatiResponsabileSito.NOME_TABELLA);
@@ -597,7 +599,7 @@ public class FinestraPrincipaleController implements Initializable {
                 		
                 		menuPannello.getItems().get(TITOLO_MENU).setText(tipoNodo.toUpperCase());
                 		
-                		if(!nodo.getNome().equals(R.ChiaviDati.NESSUNA_RETE) && !nodo.getNome().equals(R.ChiaviDati.NESSUN_NOME) && !nodo.getNome().equals(R.ChiaviDati.NESSUN_GRUPPO)) {
+                		if(!nodo.getNome().equals(R.ChiaviDati.NESSUNA_RETE) && !nodo.getNome().equals(R.ChiaviDati.NESSUN_NOME) && !nodo.getNome().equals(R.ChiaviDati.NESSUN_GRUPPO) && !nodo.getNome().equals(R.ChiaviDati.NESSUN_SWITCH)) {
                 			
                 			
                 			if(nodo instanceof Software || nodo instanceof Hardware) {
@@ -674,6 +676,11 @@ public class FinestraPrincipaleController implements Initializable {
     					inizializzaVoci(R.Etichette.UTILIZZATORE,nodo);
     				}
     				
+    				@Override
+    				public void switchRete(Apparato nodoPadre,Switch nodo) {
+    					inizializzaVoci(R.Etichette.SWITCH,nodo);
+    				}
+    				
 					@Override
 					public void info(Voce nodo) {
 						menuPannello.getItems().get(TITOLO_MENU).setText(nodo.getNome());
@@ -736,12 +743,23 @@ public class FinestraPrincipaleController implements Initializable {
 				public void utilizzatore(Utilizzatore nodo) {
 					creaNuovoUtilizzatore(event);
 				}
+				
+				@Override
+				public void switchRete(Apparato nodoPadre,Switch nodo) {
+					associaSwitch(nodoPadre,nodo);
+				}
 
 			});
         }
     }
     
-    
+    private void associaSwitch(Apparato nodoPadre,Switch nodo) {
+    	if(nodo != null){
+            FinestraSwitchController.scenaCorrente = Finestra.scenaCorrente();
+            FinestraSwitchController.input = new String[] {nodoPadre.getNome(), nodo.getNome(), nodo.getPorta()};
+            Finestra.caricaFinestra(this, R.FXML.FINESTRA_SWITCH);
+        }
+    }
     
     private void ceaNuovoHardwareApparato(HardwareApparato nodo) {
     	if(nodo != null){
@@ -880,6 +898,11 @@ public class FinestraPrincipaleController implements Initializable {
 	                }
 					creaNuovoUtilizzatore(event);
 				}
+				
+				@Override
+				public void switchRete(Apparato nodoPadre,Switch nodo) {
+					associaSwitch(nodoPadre,nodo);
+				}
 
 			});
             
@@ -950,7 +973,7 @@ public class FinestraPrincipaleController implements Initializable {
 								@Override
 								public void esegui() {
 									datiResponsabile.elimina(new Object[] {nodo.getNome()});
-				                	datiApparato.aggiorna(DatiPosizione.VOCE_TABELLA_RESPONSABILE, nodo.getNome(), "");
+				                	datiPosizione.aggiorna(DatiPosizione.VOCE_TABELLA_RESPONSABILE, nodo.getNome(), "");
 						            
 				                	Programma.aggiornaListaApparati();// aggiorna lista laterale ad albero
 								}
@@ -999,6 +1022,23 @@ public class FinestraPrincipaleController implements Initializable {
 									@Override
 									public void esegui() {
 										datiApparato.aggiorna(DatiApparato.VOCE_TABELLA_UTENTE, nodo.getAccount(), "");
+							            Programma.aggiornaListaApparati();// aggiorna lista laterale ad albero
+									}
+						});
+	                }
+				}
+				
+				@Override
+				public void switchRete(Apparato nodoPadre,Switch nodo) {
+					if(nodo != null && nodoPadre != null) {
+						Finestra.finestraConferma(
+								this, 
+								String.format(R.Domanda.CONFERMA_ELIMINAZIONE,nodo.toString()), 
+								new ConfermaController.Codice() {
+									@Override
+									public void esegui() {
+										datiSwitchApparato.elimina(new Object[] {nodoPadre.getNome()});
+										datiApparato.aggiorna(DatiApparato.VOCE_TABELLA_SWITCH, nodo.getNome(), "");
 							            Programma.aggiornaListaApparati();// aggiorna lista laterale ad albero
 									}
 						});

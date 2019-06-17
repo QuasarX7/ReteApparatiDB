@@ -213,6 +213,7 @@ public class R {
         static public final String NESSUNA_RETE  = "Stand-alone";
         static public final String NESSUN_GRUPPO = "";
         static public final String NESSUN_NOME = "";
+		public static final String NESSUN_SWITCH = "";
     }
     
     public class Domanda{

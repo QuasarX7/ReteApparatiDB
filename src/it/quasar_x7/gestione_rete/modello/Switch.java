@@ -26,6 +26,10 @@ public class Switch extends Nodo{
         return this.porta.get();
     }
 
+    @Override
+    public String toString() {
+    	return String.format("Switch `%s`", getNome());
+    }
     
     @Override
     public ArrayList<TextFlow> info(){
