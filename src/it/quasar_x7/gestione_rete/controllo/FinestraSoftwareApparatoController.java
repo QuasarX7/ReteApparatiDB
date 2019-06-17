@@ -55,17 +55,19 @@ public class FinestraSoftwareApparatoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         aggiornaMenuNomeSoftware();
-        aggiornaMenuLicenza();
         aggiornaApparato();
         
         if(apparato != null)
             nomeApparato.setValue(apparato);
         
-        if(software != null)
+        if(software != null) {
             nomeSoftware.setValue(software);
+        }
         
-        if(licenza != null)
+        if(licenza != null) {
+        	aggiornaMenuLicenza();
             licenzaSoftware.setValue(licenza);
+        }
     } 
     
     private void aggiornaApparato() {
