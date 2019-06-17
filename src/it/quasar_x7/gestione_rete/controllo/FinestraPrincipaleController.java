@@ -90,7 +90,7 @@ public class FinestraPrincipaleController implements Initializable {
         public void listaHardware(HardwareApparato nodo){}
         public void software(SoftwareApparato nodoPadre,Software nodo){}
         public void hardware(HardwareApparato nodoPadre,Hardware nodo){}
-        public void utilizzatore(Apparato nodoPadre,Utilizzatore nodo){}
+        public void utilizzatore(Utilizzatore nodo){}
         public void switchRete(Apparato nodoPadre,Switch nodo){}
 	}
 	
@@ -143,6 +143,7 @@ public class FinestraPrincipaleController implements Initializable {
     private final  DatiResponsabileSito datiResponsabile = (DatiResponsabileSito)dati.get(DatiResponsabileSito.NOME_TABELLA);
     private final  DatiSoftwareApparato datiSoftwareApparato = (DatiSoftwareApparato)dati.get(DatiSoftwareApparato.NOME_TABELLA);
     private final  DatiHardwareApparato datiHardwareApparato = (DatiHardwareApparato)dati.get(DatiHardwareApparato.NOME_TABELLA);
+    private final  DatiUtilizzatore datiUtilizzatore = (DatiUtilizzatore)dati.get(DatiUtilizzatore.NOME_TABELLA);
     
     
     /**
@@ -567,7 +568,7 @@ public class FinestraPrincipaleController implements Initializable {
             }else if(nodo.getValue() instanceof Software) {
             	azione.software((SoftwareApparato)nodo.getParent().getValue(),(Software) nodo.getValue());
             }else if(nodo.getValue() instanceof Utilizzatore) {
-            	azione.utilizzatore((Apparato)nodo.getParent().getValue(),(Utilizzatore) nodo.getValue());
+            	azione.utilizzatore((Utilizzatore) nodo.getValue());
             }else if(nodo.getValue() instanceof Switch) {
             	azione.switchRete((Apparato)nodo.getParent().getValue(),(Switch) nodo.getValue());
             
@@ -668,6 +669,11 @@ public class FinestraPrincipaleController implements Initializable {
     					inizializzaVoci(R.Etichette.HW,nodo);
     				}
     				
+    				@Override
+    				public void utilizzatore(Utilizzatore nodo) {
+    					inizializzaVoci(R.Etichette.UTILIZZATORE,nodo);
+    				}
+    				
 					@Override
 					public void info(Voce nodo) {
 						menuPannello.getItems().get(TITOLO_MENU).setText(nodo.getNome());
@@ -725,10 +731,17 @@ public class FinestraPrincipaleController implements Initializable {
 				public void listaHardware(HardwareApparato nodo) {
 					ceaNuovoHardwareApparato(nodo);
 				}
+				
+				@Override
+				public void utilizzatore(Utilizzatore nodo) {
+					creaNuovoUtilizzatore(event);
+				}
 
 			});
         }
     }
+    
+    
     
     private void ceaNuovoHardwareApparato(HardwareApparato nodo) {
     	if(nodo != null){
@@ -855,6 +868,18 @@ public class FinestraPrincipaleController implements Initializable {
 	                }
 					ceaNuovoSoftwareApparato(nodoPadre);
 				}
+				
+				@Override
+				public void utilizzatore(Utilizzatore nodo) {
+					if(nodo != null) {
+	                	FinestraUtilizzatoreController.input = new String[] {
+	                			nodo.getAccount(),
+	                			nodo.getNome(),
+	                			nodo.getMail()
+	                	};
+	                }
+					creaNuovoUtilizzatore(event);
+				}
 
 			});
             
@@ -893,12 +918,8 @@ public class FinestraPrincipaleController implements Initializable {
 								@Override
 								public void esegui() {
 									datiPosizione.elimina(new Object[] {nodo.getNome()});
-				                	Programma.salvaModificheApparato(
-				                			this, 
-				                			DatiApparato.VOCE_TABELLA_POSIZIONE, 
-				                			new String[]{nodo.getNome()}, 0,  // <- nome "Locale/Ufficio" da "eliminare"
-				                			new TextField()                   // ""  <- valore stringa vuota
-				                	);
+				                	datiApparato.aggiorna(DatiApparato.VOCE_TABELLA_POSIZIONE, nodo.getNome(), "");
+						            
 				                	Programma.aggiornaListaApparati();// aggiorna lista laterale ad albero
 								}
 					});
@@ -913,12 +934,8 @@ public class FinestraPrincipaleController implements Initializable {
 								@Override
 								public void esegui() {
 									datiRete.elimina(new Object[] {nodo.getNome()});
-				                	Programma.salvaModificheApparato(
-				                			this, 
-				                			DatiApparato.VOCE_TABELLA_WG, 
-				                			new String[]{nodo.getNome()},0, // nome rete da eliminare
-				                			new TextField()  // ""
-				                	);
+				                	datiApparato.aggiorna(DatiApparato.VOCE_TABELLA_WG, nodo.getNome(), "");
+						            
 				                	Programma.aggiornaListaApparati();// aggiorna lista laterale ad albero
 								}
 					});
@@ -933,12 +950,8 @@ public class FinestraPrincipaleController implements Initializable {
 								@Override
 								public void esegui() {
 									datiResponsabile.elimina(new Object[] {nodo.getNome()});
-				                	Programma.salvaModifichePosizione(
-				                			this, 
-				                			DatiPosizione.VOCE_TABELLA_RESPONSABILE, 
-				                			new String[]{nodo.getNome()},0, // nome responsabile sito da eliminare 
-				                			new TextField()// ""
-				                	);
+				                	datiApparato.aggiorna(DatiPosizione.VOCE_TABELLA_RESPONSABILE, nodo.getNome(), "");
+						            
 				                	Programma.aggiornaListaApparati();// aggiorna lista laterale ad albero
 								}
 					});
@@ -976,6 +989,21 @@ public class FinestraPrincipaleController implements Initializable {
 	                }
 				}
 
+				@Override
+				public void utilizzatore(Utilizzatore nodo) {
+					if(nodo != null) {
+						Finestra.finestraConferma(
+								this, 
+								String.format(R.Domanda.CONFERMA_ELIMINAZIONE,nodo.toString()), 
+								new ConfermaController.Codice() {
+									@Override
+									public void esegui() {
+										datiApparato.aggiorna(DatiApparato.VOCE_TABELLA_UTENTE, nodo.getAccount(), "");
+							            Programma.aggiornaListaApparati();// aggiorna lista laterale ad albero
+									}
+						});
+	                }
+				}
 				
 			});
         }
