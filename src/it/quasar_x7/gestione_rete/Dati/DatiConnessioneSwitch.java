@@ -1,9 +1,13 @@
 package it.quasar_x7.gestione_rete.Dati;
 
-import it.quasar_x7.gestione_rete.modello.Switch;
+import it.quasar_x7.gestione_rete.modello.Apparato;
+import it.quasar_x7.gestione_rete.modello.ConnessioneSwitch;
 import it.quasar_x7.gestione_rete.programma.R;
 import it.quasar_x7.java.BaseDati.EccezioneBaseDati;
 import it.quasar_x7.java.BaseDati.Relazione;
+
+import java.util.ArrayList;
+import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,13 +35,13 @@ public class DatiConnessioneSwitch extends DatiDB{
         }
     }
 
-    public Switch creaSwitch(String apparato) {
-        Switch _switch = new Switch(R.ChiaviDati.NESSUN_SWITCH,"");
+    public ConnessioneSwitch creaSwitch(String apparato) {
+        ConnessioneSwitch _switch = new ConnessioneSwitch(R.ChiaviDati.NESSUN_SWITCH,"");
         try {
             db.connetti();
             Object[] riga = db.vediTupla(tabella, new Object[]{apparato});
             if(riga != null){
-               _switch = new Switch((String)riga[1],(String)riga[2]); 
+               _switch = new ConnessioneSwitch((String)riga[1],(String)riga[2]); 
             }
             db.chiudi();
         } catch (EccezioneBaseDati ex) {
@@ -45,6 +49,13 @@ public class DatiConnessioneSwitch extends DatiDB{
         }
         return _switch;
     }
+
+	public TreeSet<String> listaNomiApparati(String nomeSwitch) {
+		final int VOCE_SWITCH = 1;
+		final int VOCE_HOST = 0;
+		return ricercaOrdinata(VOCE_SWITCH, nomeSwitch, VOCE_HOST);
+		
+	}
     
     
     

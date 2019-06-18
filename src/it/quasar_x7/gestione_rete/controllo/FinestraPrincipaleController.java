@@ -28,7 +28,7 @@ import it.quasar_x7.gestione_rete.modello.Responsabile;
 import it.quasar_x7.gestione_rete.modello.Rete;
 import it.quasar_x7.gestione_rete.modello.Software;
 import it.quasar_x7.gestione_rete.modello.SoftwareApparato;
-import it.quasar_x7.gestione_rete.modello.Switch;
+import it.quasar_x7.gestione_rete.modello.ConnessioneSwitch;
 import it.quasar_x7.gestione_rete.programma.Programma;
 import static it.quasar_x7.gestione_rete.programma.Programma.dati;
 import it.quasar_x7.gestione_rete.programma.R;
@@ -92,12 +92,14 @@ public class FinestraPrincipaleController implements Initializable {
         public void software(SoftwareApparato nodoPadre,Software nodo){}
         public void hardware(HardwareApparato nodoPadre,Hardware nodo){}
         public void utilizzatore(Utilizzatore nodo){}
-        public void switchRete(Apparato nodoPadre,Switch nodo){}
+        public void switchRete(Apparato nodoPadre,ConnessioneSwitch nodo){}
 	}
 	
     static public TreeItem<Nodo> rete = new TreeItem<> (new Nodo("Lista apparati"));
     
     private final TreeItem<Nodo> reteSelezionata = new TreeItem<> (new Nodo("Lista ricerca"));
+    
+    static public TreeItem<Nodo> reteSwitch = new TreeItem<> (new Nodo("Lista switch"));
     
     @FXML
     private Label titolo;
@@ -108,9 +110,16 @@ public class FinestraPrincipaleController implements Initializable {
     @FXML
     private TreeView<Nodo> listaApparati;
     
+    @FXML
+    private TreeView<Nodo> listaSwitch;
+    
+    
     
     @FXML
     private TitledPane pannelloListaHost;
+    
+    @FXML
+    private TitledPane pannelloListaSwitch;
     
     @FXML
     private Accordion pannelloLaterale;
@@ -161,6 +170,7 @@ public class FinestraPrincipaleController implements Initializable {
         
         pannelloLaterale.setExpandedPane(pannelloListaHost);
         pannelloListaHost.setExpanded(true);
+        pannelloListaSwitch.setExpanded(true);
         titolo.setText(
                 String.format(
                         "Benvenuto %s [%s] ",
@@ -197,7 +207,7 @@ public class FinestraPrincipaleController implements Initializable {
 
                         }else if(item instanceof Rete || item instanceof Ufficio || item instanceof Responsabile){
                             setFont(Font.font("Arial Black", 12));
-                        }else if(item instanceof Switch || item instanceof Utilizzatore || item instanceof SoftwareApparato || item instanceof HardwareApparato){
+                        }else if(item instanceof ConnessioneSwitch || item instanceof Utilizzatore || item instanceof SoftwareApparato || item instanceof HardwareApparato){
                             setFont(Font.font("Arial", FontWeight.BOLD, 12));
                             
                         }else{
@@ -209,6 +219,9 @@ public class FinestraPrincipaleController implements Initializable {
         listaApparati.setCellFactory(costruzioneListaAlbero);
         listaApparati.setRoot(rete);
         Programma.creaListaApparato(rete,datiApparato.listaApparati());
+        
+        listaSwitch.setRoot(reteSwitch);
+        Programma.creaListaSwitch(reteSwitch);
         
         listaRicercaInfo.setRoot(reteSelezionata);
         listaRicercaInfo.setCellFactory(costruzioneListaAlbero);
@@ -571,8 +584,8 @@ public class FinestraPrincipaleController implements Initializable {
             	azione.software((SoftwareApparato)nodo.getParent().getValue(),(Software) nodo.getValue());
             }else if(nodo.getValue() instanceof Utilizzatore) {
             	azione.utilizzatore((Utilizzatore) nodo.getValue());
-            }else if(nodo.getValue() instanceof Switch) {
-            	azione.switchRete((Apparato)nodo.getParent().getValue(),(Switch) nodo.getValue());
+            }else if(nodo.getValue() instanceof ConnessioneSwitch) {
+            	azione.switchRete((Apparato)nodo.getParent().getValue(),(ConnessioneSwitch) nodo.getValue());
             
             }else if(nodo.getValue() instanceof Voce) {
             	azione.info((Voce)nodo.getValue());
@@ -677,7 +690,7 @@ public class FinestraPrincipaleController implements Initializable {
     				}
     				
     				@Override
-    				public void switchRete(Apparato nodoPadre,Switch nodo) {
+    				public void switchRete(Apparato nodoPadre,ConnessioneSwitch nodo) {
     					inizializzaVoci(R.Etichette.SWITCH,nodo);
     				}
     				
@@ -745,7 +758,7 @@ public class FinestraPrincipaleController implements Initializable {
 				}
 				
 				@Override
-				public void switchRete(Apparato nodoPadre,Switch nodo) {
+				public void switchRete(Apparato nodoPadre,ConnessioneSwitch nodo) {
 					associaSwitch(nodoPadre,nodo);
 				}
 
@@ -753,7 +766,7 @@ public class FinestraPrincipaleController implements Initializable {
         }
     }
     
-    private void associaSwitch(Apparato nodoPadre,Switch nodo) {
+    private void associaSwitch(Apparato nodoPadre,ConnessioneSwitch nodo) {
     	if(nodo != null){
             FinestraSwitchController.scenaCorrente = Finestra.scenaCorrente();
             FinestraSwitchController.input = new String[] {nodoPadre.getNome(), nodo.getNome(), nodo.getPorta()};
@@ -900,7 +913,7 @@ public class FinestraPrincipaleController implements Initializable {
 				}
 				
 				@Override
-				public void switchRete(Apparato nodoPadre,Switch nodo) {
+				public void switchRete(Apparato nodoPadre,ConnessioneSwitch nodo) {
 					associaSwitch(nodoPadre,nodo);
 				}
 
@@ -1029,7 +1042,7 @@ public class FinestraPrincipaleController implements Initializable {
 				}
 				
 				@Override
-				public void switchRete(Apparato nodoPadre,Switch nodo) {
+				public void switchRete(Apparato nodoPadre,ConnessioneSwitch nodo) {
 					if(nodo != null && nodoPadre != null) {
 						Finestra.finestraConferma(
 								this, 

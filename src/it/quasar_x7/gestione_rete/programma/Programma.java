@@ -48,6 +48,7 @@ import it.quasar_x7.gestione_rete.modello.Rete;
 import it.quasar_x7.gestione_rete.modello.Software;
 import it.quasar_x7.gestione_rete.modello.SoftwareApparato;
 import it.quasar_x7.gestione_rete.modello.Switch;
+import it.quasar_x7.gestione_rete.modello.ConnessioneSwitch;
 import it.quasar_x7.gestione_rete.modello.Ufficio;
 import it.quasar_x7.gestione_rete.modello.Utilizzatore;
 import it.quasar_x7.gestione_rete.modello.Voce;
@@ -1004,67 +1005,8 @@ public class Programma extends Application {
                             gruppoUfficio.setExpanded(true);
                             if(ufficio != null){
                                 for(Apparato apparato : ufficio){
-                                    Node immaginePC = new ImageView(new Image(R.Icona.PC,20,20,true,true));
-                                    TreeItem<Nodo> pc = new TreeItem<>(apparato,immaginePC);
+                                    TreeItem<Nodo> pc = nodoApparato(apparato);
                                     gruppoUfficio.getChildren().add(pc);
-
-                                    TreeItem<Nodo> tipo = new TreeItem<>(new Voce(R.Etichette.TIPO,apparato.getTipo()));
-                                    pc.getChildren().add(tipo);
-
-                                    TreeItem<Nodo> ip = new TreeItem<>(new Voce(R.Etichette.IP,apparato.getIp()));
-                                    pc.getChildren().add(ip);
-
-                                    TreeItem<Nodo> mac = new TreeItem<>(new Voce(R.Etichette.MAC_PC,apparato.getMacPC()));
-                                    pc.getChildren().add(mac);
-
-                                    TreeItem<Nodo> mac2 = new TreeItem<>(new Voce(R.Etichette.MAC_VOIP,apparato.getMacVOIP()));
-                                    pc.getChildren().add(mac2);
-
-                                    TreeItem<Nodo> password = new TreeItem<>(new Voce(R.Etichette.PASSWORD,apparato.getPassword()));
-                                    pc.getChildren().add(password);
-
-                                    Node immagineAccount = new ImageView(new Image(R.Icona.UTILIZZATORE,20,20,true,true));
-                                    DatiUtilizzatore datiUtilizzatore = (DatiUtilizzatore) dati.get(DatiUtilizzatore.NOME_TABELLA);
-                                    Utilizzatore utente = datiUtilizzatore.info(apparato.getUtente());
-                                    if(utente != null){
-                                        TreeItem<Nodo> nodoUtilizzatore = new TreeItem<>(utente,immagineAccount);
-                                        pc.getChildren().add(nodoUtilizzatore);
-                                        nodoUtilizzatore.getChildren().add(new TreeItem<>(new Voce(R.Etichette.ACCOUNT,utente.getAccount())));
-                                        nodoUtilizzatore.getChildren().add(new TreeItem<>(new Voce(R.Etichette.MAIL,utente.getMail())));
-
-                                    }
-
-                                    DatiConnessioneSwitch datiSw = (DatiConnessioneSwitch)dati.get(DatiConnessioneSwitch.NOME_TABELLA);
-                                    Node immagineSw = new ImageView(new Image(R.Icona.SWITCH,20,20,true,true));
-                                    Switch _switch = datiSw.creaSwitch(apparato.getNome());
-                                    TreeItem<Nodo> nodoSwitch = new TreeItem<>(_switch,immagineSw);
-                                    pc.getChildren().add(nodoSwitch);
-                                    if(!_switch.getNome().equals(R.ChiaviDati.NESSUN_SWITCH))
-                                    	nodoSwitch.getChildren().add(new TreeItem<>(new Voce(R.Etichette.PORTA,_switch.getPorta())));
-
-                                    HardwareApparato hwApp = new HardwareApparato(apparato.getNome(),dati);
-                                    Node immagineHW = new ImageView(new Image(R.Icona.HW,20,20,true,true));
-                                    TreeItem<Nodo> nodoHW = new TreeItem<>(hwApp,immagineHW);
-                                    pc.getChildren().add(nodoHW);
-                                    
-                                    for(Hardware hw : hwApp.getHardware()){
-                                        TreeItem<Nodo> componente = new TreeItem<>(hw);
-                                        nodoHW.getChildren().add(componente);
-                                    }
-                                    	
-
-                                    SoftwareApparato swApp = new SoftwareApparato(apparato.getNome(),dati);
-                                    Node immagineSW = new ImageView(new Image(R.Icona.SW,20,20,true,true));
-                                    TreeItem<Nodo> nodoSW = new TreeItem<>(swApp,immagineSW);
-                                    pc.getChildren().add(nodoSW);
-
-                                    for(Software sw : swApp.getSoftware()){
-                                        TreeItem<Nodo> applicazione = new TreeItem<>(sw);
-                                        nodoSW.getChildren().add(applicazione);
-                                    }
-
-                                    pc.setExpanded(false);
-
                                 }
                             }
                         }
@@ -1542,6 +1484,107 @@ public class Programma extends Application {
                 )
             );
         return false;
+	}
+
+
+
+
+	/**
+	 * Crea un nodo di una lista ad albero che rappresenta un apparato.
+	 * 
+	 * @param apparato
+	 * @return
+	 */
+	private static TreeItem<Nodo> nodoApparato(Apparato apparato){
+		Node immaginePC = new ImageView(new Image(R.Icona.PC,20,20,true,true));
+        TreeItem<Nodo> pc = new TreeItem<>(apparato,immaginePC);
+        
+        TreeItem<Nodo> tipo = new TreeItem<>(new Voce(R.Etichette.TIPO,apparato.getTipo()));
+        pc.getChildren().add(tipo);
+
+        TreeItem<Nodo> ip = new TreeItem<>(new Voce(R.Etichette.IP,apparato.getIp()));
+        pc.getChildren().add(ip);
+
+        TreeItem<Nodo> mac = new TreeItem<>(new Voce(R.Etichette.MAC_PC,apparato.getMacPC()));
+        pc.getChildren().add(mac);
+
+        TreeItem<Nodo> mac2 = new TreeItem<>(new Voce(R.Etichette.MAC_VOIP,apparato.getMacVOIP()));
+        pc.getChildren().add(mac2);
+
+        TreeItem<Nodo> password = new TreeItem<>(new Voce(R.Etichette.PASSWORD,apparato.getPassword()));
+        pc.getChildren().add(password);
+
+        Node immagineAccount = new ImageView(new Image(R.Icona.UTILIZZATORE,20,20,true,true));
+        DatiUtilizzatore datiUtilizzatore = (DatiUtilizzatore) dati.get(DatiUtilizzatore.NOME_TABELLA);
+        Utilizzatore utente = datiUtilizzatore.info(apparato.getUtente());
+        if(utente != null){
+            TreeItem<Nodo> nodoUtilizzatore = new TreeItem<>(utente,immagineAccount);
+            pc.getChildren().add(nodoUtilizzatore);
+            nodoUtilizzatore.getChildren().add(new TreeItem<>(new Voce(R.Etichette.ACCOUNT,utente.getAccount())));
+            nodoUtilizzatore.getChildren().add(new TreeItem<>(new Voce(R.Etichette.MAIL,utente.getMail())));
+
+        }
+
+        TreeItem<Nodo> nodoSwitch = nodoConnessioneSwitch(apparato);
+        pc.getChildren().add(nodoSwitch);
+        
+        HardwareApparato hwApp = new HardwareApparato(apparato.getNome(),dati);
+        Node immagineHW = new ImageView(new Image(R.Icona.HW,20,20,true,true));
+        TreeItem<Nodo> nodoHW = new TreeItem<>(hwApp,immagineHW);
+        pc.getChildren().add(nodoHW);
+        
+        for(Hardware hw : hwApp.getHardware()){
+            TreeItem<Nodo> componente = new TreeItem<>(hw);
+            nodoHW.getChildren().add(componente);
+        }
+        	
+
+        SoftwareApparato swApp = new SoftwareApparato(apparato.getNome(),dati);
+        Node immagineSW = new ImageView(new Image(R.Icona.SW,20,20,true,true));
+        TreeItem<Nodo> nodoSW = new TreeItem<>(swApp,immagineSW);
+        pc.getChildren().add(nodoSW);
+
+        for(Software sw : swApp.getSoftware()){
+            TreeItem<Nodo> applicazione = new TreeItem<>(sw);
+            nodoSW.getChildren().add(applicazione);
+        }
+
+        pc.setExpanded(false);
+        return pc;
+	}
+
+	/**
+	 * Crea un nodo di una lista ad albero che rappresenta una connessione allo switch.
+	 * 
+	 * @param apparato
+	 * @return
+	 */
+	private static TreeItem<Nodo> nodoConnessioneSwitch(Apparato apparato){
+		DatiConnessioneSwitch datiSw = (DatiConnessioneSwitch)dati.get(DatiConnessioneSwitch.NOME_TABELLA);
+        Node immagineSw = new ImageView(new Image(R.Icona.SWITCH,20,20,true,true));
+        ConnessioneSwitch _switch = datiSw.creaSwitch(apparato.getNome());
+        TreeItem<Nodo> nodoSwitch = new TreeItem<>(_switch,immagineSw);
+        
+        if(!_switch.getNome().equals(R.ChiaviDati.NESSUN_SWITCH))
+        	nodoSwitch.getChildren().add(new TreeItem<>(new Voce(R.Etichette.PORTA,_switch.getPorta())));
+        return nodoSwitch;
+	}
+
+
+	public static void creaListaSwitch(TreeItem<Nodo> rete) {
+		if(rete != null){
+            rete.getChildren().clear();
+            DatiSwitch datiSw = (DatiSwitch)dati.get(DatiSwitch.NOME_TABELLA);
+            for(String nomeSw: datiSw.listaOrdinata(0)) {
+            	Switch sw = new Switch(nomeSw,dati);
+            	Node immagineSw = new ImageView(new Image(R.Icona.SWITCH,35,35,true,true));
+                TreeItem<Nodo> nodoSwitch = new TreeItem<>(sw,immagineSw);
+                rete.getChildren().add(nodoSwitch);
+                for(Apparato apparato: sw.getApparati()) {
+                	nodoSwitch.getChildren().add(nodoApparato(apparato));
+                }
+            }
+		}
 	}
     
 }

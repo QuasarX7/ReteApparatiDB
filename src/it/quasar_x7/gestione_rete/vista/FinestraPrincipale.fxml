@@ -104,7 +104,15 @@
             </top>
 <left><Accordion fx:id="pannelloLaterale" BorderPane.alignment="CENTER">
 <panes>
-    <TitledPane fx:id="pannelloListaHost" text="Lista Host" BorderPane.alignment="CENTER">
+                  <TitledPane fx:id="pannelloListaSwitch" animated="false" text="Switch">
+                     <font>
+                        <Font name="Arial Black" size="13.0" />
+                     </font>
+                     <content>
+                        <TreeView fx:id="listaSwitch" prefHeight="200.0" prefWidth="200.0" showRoot="false" />
+                     </content>
+                  </TitledPane>
+    <TitledPane fx:id="pannelloListaHost" text="Rete" BorderPane.alignment="CENTER">
 <content><TreeView fx:id="listaApparati" onMouseClicked="#cliccaPanelloListaApparati" prefHeight="633.0" prefWidth="420.0" BorderPane.alignment="CENTER">
 <contextMenu><ContextMenu fx:id="menuPannello">
   <items>
