@@ -109,29 +109,40 @@
                         <Font name="Arial Black" size="13.0" />
                      </font>
                      <content>
-                        <TreeView fx:id="listaSwitch" prefHeight="200.0" prefWidth="200.0" showRoot="false" />
+                        <TreeView fx:id="listaSwitch" onMouseClicked="#visualizzaMenuListaSwitch" prefHeight="200.0" prefWidth="200.0" showRoot="false" />
                      </content>
                   </TitledPane>
     <TitledPane fx:id="pannelloListaHost" text="Rete" BorderPane.alignment="CENTER">
-<content><TreeView fx:id="listaApparati" onMouseClicked="#cliccaPanelloListaApparati" prefHeight="633.0" prefWidth="420.0" BorderPane.alignment="CENTER">
-<contextMenu><ContextMenu fx:id="menuPannello">
-  <items>
-                                    <MenuItem mnemonicParsing="false" style="-fx-text-fill: black; -fx-font-family: &quot;Arial Black&quot;;" text="NODO" />
-    <MenuItem mnemonicParsing="false" onAction="#menuAggiungi" text="Aggiungi">
-<graphic><ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+<content><TreeView fx:id="listaApparati" onMouseClicked="#visualizzaMenuListaRete" prefHeight="633.0" prefWidth="420.0" BorderPane.alignment="CENTER" />
+</content>
+<font>
+<Font name="Arial Black" size="13.0" />
+</font>
+    </TitledPane>
+</panes>
+               <contextMenu>
+                  <ContextMenu fx:id="menuPannello">
+<items>
+                        <MenuItem mnemonicParsing="false" style="-fx-text-fill: black; -fx-font-family: &quot;Arial Black&quot;;" text="NODO" />
+<MenuItem mnemonicParsing="false" onAction="#menuAggiungi" text="Aggiungi">
+<graphic>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
 <image>
 <Image url="@../Risorse/aggiungi2.png" />
-</image></ImageView>
-</graphic></MenuItem>
-                                    <MenuItem mnemonicParsing="false" onAction="#menuWizard" text="Wizard">
-                                       <graphic>
-                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../Risorse/aggiungi2.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                    </MenuItem><MenuItem mnemonicParsing="false" onAction="#menuModifica" text="Modifica">
+</image>
+                              </ImageView>
+</graphic>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#menuWizard" text="Wizard">
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Risorse/aggiungi2.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#menuModifica" text="Modifica">
 <graphic>
 <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
 <image>
@@ -139,7 +150,8 @@
 </image>
 </ImageView>
 </graphic>
-</MenuItem><MenuItem mnemonicParsing="false" onAction="#menuElimina" text="Elimina">
+</MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#menuElimina" text="Elimina">
 <graphic>
 <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
 <image>
@@ -148,15 +160,9 @@
 </ImageView>
 </graphic>
 </MenuItem>
-  </items>
+</items>
 </ContextMenu>
-</contextMenu></TreeView>
-</content>
-<font>
-<Font name="Arial Black" size="13.0" />
-</font>
-    </TitledPane>
-</panes></Accordion>
+               </contextMenu></Accordion>
 </left>
 <center><VBox prefHeight="633.0" prefWidth="603.0" BorderPane.alignment="CENTER">
 <children><HBox prefHeight="56.0" prefWidth="537.0">

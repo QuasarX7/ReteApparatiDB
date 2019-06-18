@@ -89,13 +89,17 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
+import javafx.util.Callback;
 
 /**
  *
@@ -1585,6 +1589,59 @@ public class Programma extends Application {
                 }
             }
 		}
+	}
+
+
+
+
+	
+
+
+	/**
+	 * Inizializza l'aspetto della lista ad albero.
+	 * 
+	 * @param rete
+	 * @param lista
+	 * @param datiStato
+	 */
+	public static void aspettoListaAlbero(TreeItem<Nodo> rete, TreeView<Nodo> lista, DatiStato datiStato) {
+		Callback<TreeView<Nodo>, TreeCell<Nodo>> costruzioneListaAlbero = tv -> new TreeCell<Nodo>() {
+	            @Override
+	            protected void updateItem(Nodo item, boolean empty) {
+	                super.updateItem(item, empty);
+	                if (empty || item == null) {
+	                    setGraphic(null);
+	                    setText(null);
+	                } else {
+	                    setText(getItem() == null ? "" : getItem().toString());
+	                    setGraphic(getTreeItem().getGraphic());
+	                    if(item instanceof Apparato){
+	                        setFont(Font.font("Arial Black", 16));
+	                        String stato = ((Apparato)item).getStato();
+	                        if(stato != null){
+	                            //colora gli apparari in base allo stato gli apparati
+	                            String colore = datiStato.colore(stato);
+	                            if(colore != null){
+	                                setStyle(String.format("-fx-text-fill: %s;",colore));
+	                                return;
+	                            }
+	                        }
+	                        setStyle("-fx-text-fill: black;");
+	
+	                    }else if(item instanceof Rete || item instanceof Ufficio || item instanceof Responsabile || item instanceof Switch){
+	                        setFont(Font.font("Arial Black", 12));
+	                    }else if(item instanceof ConnessioneSwitch || item instanceof Utilizzatore || item instanceof SoftwareApparato || item instanceof HardwareApparato){
+	                        setFont(Font.font("Arial", FontWeight.BOLD, 12));
+	                        
+	                    }else{
+	                        setFont(Font.font("Arial Narrow",12));
+	                    }
+	                }
+	            }
+	    };
+	    
+	    lista.setCellFactory(costruzioneListaAlbero);
+	    lista.setRoot(rete);
 	}
     
 }

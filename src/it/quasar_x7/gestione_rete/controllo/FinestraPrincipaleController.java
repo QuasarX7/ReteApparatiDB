@@ -182,49 +182,15 @@ public class FinestraPrincipaleController implements Initializable {
         listaApparati.setShowRoot(false);
         this.listaRicercaInfo.setShowRoot(false);
         // modalità di costruzione dell'albero
-        Callback<TreeView<Nodo>, TreeCell<Nodo>> costruzioneListaAlbero = tv -> new TreeCell<Nodo>() {
-                @Override
-                protected void updateItem(Nodo item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (empty || item == null) {
-                        setGraphic(null);
-                        setText(null);
-                    } else {
-                        setText(getItem() == null ? "" : getItem().toString());
-                        setGraphic(getTreeItem().getGraphic());
-                        if(item instanceof Apparato){
-                            setFont(Font.font("Arial Black", 16));
-                            String stato = ((Apparato)item).getStato();
-                            if(stato != null){
-                                //colora gli apparari in base allo stato gli apparati
-                                String colore = datiStato.colore(stato);
-                                if(colore != null){
-                                    setStyle(String.format("-fx-text-fill: %s;",colore));
-                                    return;
-                                }
-                            }
-                            setStyle("-fx-text-fill: black;");
-
-                        }else if(item instanceof Rete || item instanceof Ufficio || item instanceof Responsabile){
-                            setFont(Font.font("Arial Black", 12));
-                        }else if(item instanceof ConnessioneSwitch || item instanceof Utilizzatore || item instanceof SoftwareApparato || item instanceof HardwareApparato){
-                            setFont(Font.font("Arial", FontWeight.BOLD, 12));
-                            
-                        }else{
-                            setFont(Font.font("Arial Narrow",12));
-                        }
-                    }
-                }
-        };
-        listaApparati.setCellFactory(costruzioneListaAlbero);
-        listaApparati.setRoot(rete);
-        Programma.creaListaApparato(rete,datiApparato.listaApparati());
         
-        listaSwitch.setRoot(reteSwitch);
+        Programma.aspettoListaAlbero(rete,listaApparati,datiStato);
+        Programma.creaListaApparato(rete,datiApparato.listaApparati());
+       
+        Programma.aspettoListaAlbero(reteSwitch,listaSwitch,datiStato);
         Programma.creaListaSwitch(reteSwitch);
         
-        listaRicercaInfo.setRoot(reteSelezionata);
-        listaRicercaInfo.setCellFactory(costruzioneListaAlbero);
+        Programma.aspettoListaAlbero(reteSelezionata,listaRicercaInfo,datiStato);
+        
     }   
     
     
@@ -517,13 +483,27 @@ public class FinestraPrincipaleController implements Initializable {
         }
     }
     
-    
+    /**
+     * Permette la visualizzazione del menu di modifica della lista ad albero.
+     * 
+     * @param event clic mouse sul pannello ad albero laterale
+     */
     @FXML
-    private void cliccaPanelloListaApparati(MouseEvent event){
+    private void visualizzaMenuListaRete(MouseEvent event){
         if(event.getEventType().equals(MouseEvent.MOUSE_CLICKED)){
             visualizzaMenu(event);
             aggiornaListaInfo(event,listaApparati);
-            aggiornaListaRicercaInfo(event);
+            aggiornaListaRicercaInfo(event,listaApparati);
+            event.consume();
+        }
+    }
+    
+    @FXML
+    private void visualizzaMenuListaSwitch(MouseEvent event){
+        if(event.getEventType().equals(MouseEvent.MOUSE_CLICKED)){
+            visualizzaMenu(event);
+            aggiornaListaInfo(event,listaSwitch);
+            aggiornaListaRicercaInfo(event,listaSwitch);
             event.consume();
         }
     }
@@ -548,13 +528,14 @@ public class FinestraPrincipaleController implements Initializable {
         }
     }
     /**
-     * Aggiorna l'elenco ad albero della "listaRicercsInfo" con un elemento selezionato dal pannello "listaApparati".
+     * Aggiorna l'elenco ad albero della "listaRicercaInfo" con un elemento selezionato dal pannello "lista".
      * @param event 
+     * @param lista
      */
-    private void aggiornaListaRicercaInfo(MouseEvent event){
+    private void aggiornaListaRicercaInfo(MouseEvent event,TreeView<Nodo> lista){
         if(event.getButton().equals(MouseButton.PRIMARY)){
-            listaRicercaInfo.getRoot().getChildren().clear();
-            TreeItem<Nodo> nodo = listaApparati.getSelectionModel().getSelectedItem();
+        	listaRicercaInfo.getRoot().getChildren().clear();
+            TreeItem<Nodo> nodo = lista.getSelectionModel().getSelectedItem();
             if(nodo != null){
                 reteSelezionata.getChildren().clear();
                 reteSelezionata.getChildren().add(Programma.copia(nodo));
@@ -564,7 +545,7 @@ public class FinestraPrincipaleController implements Initializable {
     }
     
     private void selezionaMenuAlbero(Event event,AzioneMenu azione) {
-    	TreeItem<Nodo> nodo = listaApparati.getSelectionModel().getSelectedItem();
+    	TreeItem<Nodo> nodo = ((TreeView<Nodo>)event.getSource()).getSelectionModel().getSelectedItem();
         if(nodo != null){
             if(nodo.getValue() instanceof Apparato){
                 azione.apparato((Apparato) nodo.getValue());
