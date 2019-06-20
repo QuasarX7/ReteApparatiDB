@@ -2,6 +2,7 @@ package it.quasar_x7.gestione_rete.Dati;
 
 import it.quasar_x7.gestione_rete.modello.Apparato;
 import it.quasar_x7.gestione_rete.modello.ConnessioneSwitch;
+import it.quasar_x7.gestione_rete.modello.Switch;
 import it.quasar_x7.gestione_rete.programma.R;
 import it.quasar_x7.java.BaseDati.EccezioneBaseDati;
 import it.quasar_x7.java.BaseDati.Relazione;
@@ -18,9 +19,9 @@ import java.util.logging.Logger;
 public class DatiConnessioneSwitch extends DatiDB{
     
     public static final String NOME_TABELLA              = "connessione_switch";
-    protected static final String VOCE_HOST              = "apparato";
-    protected static final String VOCE_SWITCH            = "switch";
-    protected static final String VOCE_PORTA             = "porta";
+    public static final String VOCE_HOST              = "apparato";
+    public static final String VOCE_SWITCH            = "switch";
+    public static final String VOCE_PORTA             = "porta";
 
     public DatiConnessioneSwitch() {
         try {
@@ -56,7 +57,8 @@ public class DatiConnessioneSwitch extends DatiDB{
 		return ricercaOrdinata(VOCE_SWITCH, nomeSwitch, VOCE_HOST);
 		
 	}
-    
+
+	
     
     
     

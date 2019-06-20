@@ -28,6 +28,7 @@ import it.quasar_x7.gestione_rete.modello.Responsabile;
 import it.quasar_x7.gestione_rete.modello.Rete;
 import it.quasar_x7.gestione_rete.modello.Software;
 import it.quasar_x7.gestione_rete.modello.SoftwareApparato;
+import it.quasar_x7.gestione_rete.modello.Switch;
 import it.quasar_x7.gestione_rete.modello.ConnessioneSwitch;
 import it.quasar_x7.gestione_rete.programma.Programma;
 import static it.quasar_x7.gestione_rete.programma.Programma.dati;
@@ -49,6 +50,8 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.TreeSet;
+
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -92,7 +95,8 @@ public class FinestraPrincipaleController implements Initializable {
         public void software(SoftwareApparato nodoPadre,Software nodo){}
         public void hardware(HardwareApparato nodoPadre,Hardware nodo){}
         public void utilizzatore(Utilizzatore nodo){}
-        public void switchRete(Apparato nodoPadre,ConnessioneSwitch nodo){}
+        public void connessioneSwitch(Apparato nodoPadre,ConnessioneSwitch nodo){}
+        public void switchRete(Switch nodo){}
 	}
 	
     static public TreeItem<Nodo> rete = new TreeItem<> (new Nodo("Lista apparati"));
@@ -155,6 +159,8 @@ public class FinestraPrincipaleController implements Initializable {
     private final  DatiSoftwareApparato datiSoftwareApparato = (DatiSoftwareApparato)dati.get(DatiSoftwareApparato.NOME_TABELLA);
     private final  DatiHardwareApparato datiHardwareApparato = (DatiHardwareApparato)dati.get(DatiHardwareApparato.NOME_TABELLA);
     private final  DatiUtilizzatore datiUtilizzatore = (DatiUtilizzatore)dati.get(DatiUtilizzatore.NOME_TABELLA);
+
+	private TreeView<Nodo> listaSelezionata = null;
     
     
     /**
@@ -544,43 +550,47 @@ public class FinestraPrincipaleController implements Initializable {
         }
     }
     
-    private void selezionaMenuAlbero(Event event,AzioneMenu azione) {
-    	TreeItem<Nodo> nodo = ((TreeView<Nodo>)event.getSource()).getSelectionModel().getSelectedItem();
-        if(nodo != null){
-            if(nodo.getValue() instanceof Apparato){
-                azione.apparato((Apparato) nodo.getValue());
-            }else if(nodo.getValue() instanceof Ufficio){
-            	azione.locale((Ufficio) nodo.getValue());
-            }else if(nodo.getValue() instanceof Rete){
-            	azione.rete((Rete) nodo.getValue());
-            }else if(nodo.getValue() instanceof Responsabile) {
-            	azione.responsabile((Responsabile) nodo.getValue());
-            }else if(nodo.getValue() instanceof SoftwareApparato) {
-            	azione.listaSoftware((SoftwareApparato) nodo.getValue());
-            }else if(nodo.getValue() instanceof HardwareApparato) {
-            	azione.listaHardware((HardwareApparato) nodo.getValue());
-            }else if(nodo.getValue() instanceof Hardware) {
-            	azione.hardware((HardwareApparato)nodo.getParent().getValue(),(Hardware) nodo.getValue());
-            }else if(nodo.getValue() instanceof Software) {
-            	azione.software((SoftwareApparato)nodo.getParent().getValue(),(Software) nodo.getValue());
-            }else if(nodo.getValue() instanceof Utilizzatore) {
-            	azione.utilizzatore((Utilizzatore) nodo.getValue());
-            }else if(nodo.getValue() instanceof ConnessioneSwitch) {
-            	azione.switchRete((Apparato)nodo.getParent().getValue(),(ConnessioneSwitch) nodo.getValue());
-            
-            }else if(nodo.getValue() instanceof Voce) {
-            	azione.info((Voce)nodo.getValue());
-            }
-            
-        }
+    private void selezionaMenuAlbero(AzioneMenu azione) {
+    	if(listaSelezionata != null) {
+	    	TreeItem<Nodo> nodo = listaSelezionata.getSelectionModel().getSelectedItem();
+	        if(nodo != null){
+	            if(nodo.getValue() instanceof Apparato){
+	                azione.apparato((Apparato) nodo.getValue());
+	            }else if(nodo.getValue() instanceof Ufficio){
+	            	azione.locale((Ufficio) nodo.getValue());
+	            }else if(nodo.getValue() instanceof Rete){
+	            	azione.rete((Rete) nodo.getValue());
+	            }else if(nodo.getValue() instanceof Responsabile) {
+	            	azione.responsabile((Responsabile) nodo.getValue());
+	            }else if(nodo.getValue() instanceof SoftwareApparato) {
+	            	azione.listaSoftware((SoftwareApparato) nodo.getValue());
+	            }else if(nodo.getValue() instanceof HardwareApparato) {
+	            	azione.listaHardware((HardwareApparato) nodo.getValue());
+	            }else if(nodo.getValue() instanceof Hardware) {
+	            	azione.hardware((HardwareApparato)nodo.getParent().getValue(),(Hardware) nodo.getValue());
+	            }else if(nodo.getValue() instanceof Software) {
+	            	azione.software((SoftwareApparato)nodo.getParent().getValue(),(Software) nodo.getValue());
+	            }else if(nodo.getValue() instanceof Utilizzatore) {
+	            	azione.utilizzatore((Utilizzatore) nodo.getValue());
+	            }else if(nodo.getValue() instanceof ConnessioneSwitch) {
+	            	azione.connessioneSwitch((Apparato)nodo.getParent().getValue(),(ConnessioneSwitch) nodo.getValue());
+	            }else if(nodo.getValue() instanceof Switch) {
+	            	azione.switchRete((Switch) nodo.getValue());
+	            
+	            }else if(nodo.getValue() instanceof Voce) {
+	            	azione.info((Voce)nodo.getValue());
+	            }
+	            
+	        }
+    	}
     }
     
     
     private void visualizzaMenu(MouseEvent event){
         if((event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) || event.getButton().equals(MouseButton.SECONDARY) ){
             if(event.getSource() instanceof TreeView){
-                
-                selezionaMenuAlbero(event, new AzioneMenu(){
+            	listaSelezionata  = (TreeView<Nodo>) event.getSource();
+                selezionaMenuAlbero(new AzioneMenu(){
 
                 	final int TITOLO_MENU = 0;
                 	final int VOCE_AGGIUNGI = 1;
@@ -671,7 +681,12 @@ public class FinestraPrincipaleController implements Initializable {
     				}
     				
     				@Override
-    				public void switchRete(Apparato nodoPadre,ConnessioneSwitch nodo) {
+    				public void connessioneSwitch(Apparato nodoPadre,ConnessioneSwitch nodo) {
+    					inizializzaVoci(R.Etichette.SWITCH,nodo);
+    				}
+    				
+    				@Override
+    				public void switchRete(Switch nodo) {
     					inizializzaVoci(R.Etichette.SWITCH,nodo);
     				}
     				
@@ -701,7 +716,7 @@ public class FinestraPrincipaleController implements Initializable {
             elencoInfo.getItems().clear();
             listaRicercaInfo.getRoot().getChildren().clear();
             
-            selezionaMenuAlbero(event, new AzioneMenu(){
+            selezionaMenuAlbero(new AzioneMenu(){
 
 				@Override
 				public void apparato(Apparato nodo) {
@@ -739,8 +754,27 @@ public class FinestraPrincipaleController implements Initializable {
 				}
 				
 				@Override
-				public void switchRete(Apparato nodoPadre,ConnessioneSwitch nodo) {
+				public void connessioneSwitch(Apparato nodoPadre,ConnessioneSwitch nodo) {
 					associaSwitch(nodoPadre,nodo);
+				}
+				
+				@Override
+				public void switchRete(Switch nodo) {
+					Finestra.finestraInput(
+							this,
+							R.Domanda.INPUT_SWITCH,
+							new Codice() {
+								@Override
+								public boolean esegui(String risposta) {
+									if(risposta != null)
+										if(risposta.length() > 0) {
+											boolean conferma = datiSwitch.aggiungi(new Object[] {risposta});
+											Programma.aggiornaListeNodi();
+											return conferma;
+										}
+									return false;
+								}
+							});
 				}
 
 			});
@@ -776,7 +810,7 @@ public class FinestraPrincipaleController implements Initializable {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
         	elencoInfo.getItems().clear();
             listaRicercaInfo.getRoot().getChildren().clear();
-            selezionaMenuAlbero(event, new AzioneMenu(){
+            selezionaMenuAlbero(new AzioneMenu(){
 
 				@Override
 				public void listaSoftware(SoftwareApparato nodo) {
@@ -809,7 +843,7 @@ public class FinestraPrincipaleController implements Initializable {
             elencoInfo.getItems().clear();
             listaRicercaInfo.getRoot().getChildren().clear();
             
-            selezionaMenuAlbero(event, new AzioneMenu(){
+            selezionaMenuAlbero(new AzioneMenu(){
 
 				@Override
 				public void apparato(Apparato nodo) {
@@ -894,8 +928,30 @@ public class FinestraPrincipaleController implements Initializable {
 				}
 				
 				@Override
-				public void switchRete(Apparato nodoPadre,ConnessioneSwitch nodo) {
+				public void connessioneSwitch(Apparato nodoPadre,ConnessioneSwitch nodo) {
 					associaSwitch(nodoPadre,nodo);
+				}
+				
+				@Override
+				public void switchRete(Switch nodo) {
+					Finestra.finestraInput(
+							this,
+							R.Domanda.INPUT_SWITCH,
+							nodo.getNome(),
+							new Codice() {
+								@Override
+								public boolean esegui(String risposta) {
+									if(risposta != null)
+										if(risposta.length() > 0) {
+											datiSwitch.elimina(new Object[] {nodo.getNome()});
+											datiSwitchApparato.aggiorna(DatiConnessioneSwitch.VOCE_SWITCH, nodo.getNome(), risposta);
+											datiSwitch.aggiungi(new Object[] {risposta});
+											Programma.aggiornaListeNodi();
+											return true;
+										}
+									return false;
+								}
+							});
 				}
 
 			});
@@ -909,7 +965,7 @@ public class FinestraPrincipaleController implements Initializable {
             elencoInfo.getItems().clear();
             listaRicercaInfo.getRoot().getChildren().clear();
             
-            selezionaMenuAlbero(event, new AzioneMenu(){
+            selezionaMenuAlbero(new AzioneMenu(){
 
 				@Override
 				public void apparato(Apparato nodo) {
@@ -920,7 +976,7 @@ public class FinestraPrincipaleController implements Initializable {
 								@Override
 								public void esegui() {
 				                	datiApparato.elimina(new Object[] {nodo.getNome()});
-				                	Programma.aggiornaListaApparati();
+				                	Programma.aggiornaListeNodi();
 								}
 							}
 					);
@@ -937,7 +993,7 @@ public class FinestraPrincipaleController implements Initializable {
 									datiPosizione.elimina(new Object[] {nodo.getNome()});
 				                	datiApparato.aggiorna(DatiApparato.VOCE_TABELLA_POSIZIONE, nodo.getNome(), "");
 						            
-				                	Programma.aggiornaListaApparati();// aggiorna lista laterale ad albero
+				                	Programma.aggiornaListeNodi();// aggiorna lista laterale ad albero
 								}
 					});
 				}
@@ -953,7 +1009,7 @@ public class FinestraPrincipaleController implements Initializable {
 									datiRete.elimina(new Object[] {nodo.getNome()});
 				                	datiApparato.aggiorna(DatiApparato.VOCE_TABELLA_WG, nodo.getNome(), "");
 						            
-				                	Programma.aggiornaListaApparati();// aggiorna lista laterale ad albero
+				                	Programma.aggiornaListeNodi();// aggiorna lista laterale ad albero
 								}
 					});
 				}
@@ -969,7 +1025,7 @@ public class FinestraPrincipaleController implements Initializable {
 									datiResponsabile.elimina(new Object[] {nodo.getNome()});
 				                	datiPosizione.aggiorna(DatiPosizione.VOCE_TABELLA_RESPONSABILE, nodo.getNome(), "");
 						            
-				                	Programma.aggiornaListaApparati();// aggiorna lista laterale ad albero
+				                	Programma.aggiornaListeNodi();// aggiorna lista laterale ad albero
 								}
 					});
 				}
@@ -984,7 +1040,7 @@ public class FinestraPrincipaleController implements Initializable {
 									@Override
 									public void esegui() {
 										datiHardwareApparato.elimina(new Object[]{nodoPadre.apparato(),nodo.getNome(),nodo.getModello(),nodo.getMatricola()});
-							            Programma.aggiornaListaApparati();// aggiorna lista laterale ad albero
+							            Programma.aggiornaListeNodi();// aggiorna lista laterale ad albero
 									}
 						});
 	                }
@@ -1000,7 +1056,7 @@ public class FinestraPrincipaleController implements Initializable {
 									@Override
 									public void esegui() {
 										datiSoftwareApparato.elimina(new Object[]{nodoPadre.apparato(),nodo.getNome(),nodo.getLicenza()});
-							            Programma.aggiornaListaApparati();// aggiorna lista laterale ad albero
+							            Programma.aggiornaListeNodi();// aggiorna lista laterale ad albero
 									}
 						});
 	                }
@@ -1016,14 +1072,14 @@ public class FinestraPrincipaleController implements Initializable {
 									@Override
 									public void esegui() {
 										datiApparato.aggiorna(DatiApparato.VOCE_TABELLA_UTENTE, nodo.getAccount(), "");
-							            Programma.aggiornaListaApparati();// aggiorna lista laterale ad albero
+							            Programma.aggiornaListeNodi();// aggiorna lista laterale ad albero
 									}
 						});
 	                }
 				}
 				
 				@Override
-				public void switchRete(Apparato nodoPadre,ConnessioneSwitch nodo) {
+				public void connessioneSwitch(Apparato nodoPadre,ConnessioneSwitch nodo) {
 					if(nodo != null && nodoPadre != null) {
 						Finestra.finestraConferma(
 								this, 
@@ -1033,7 +1089,27 @@ public class FinestraPrincipaleController implements Initializable {
 									public void esegui() {
 										datiSwitchApparato.elimina(new Object[] {nodoPadre.getNome()});
 										datiApparato.aggiorna(DatiApparato.VOCE_TABELLA_SWITCH, nodo.getNome(), "");
-							            Programma.aggiornaListaApparati();// aggiorna lista laterale ad albero
+							            Programma.aggiornaListeNodi();// aggiorna lista laterale ad albero
+									}
+						});
+	                }
+				}
+				
+				@Override
+				public void switchRete(Switch nodo) {
+					if(nodo != null) {
+						Finestra.finestraConferma(
+								this, 
+								String.format(R.Domanda.CONFERMA_ELIMINAZIONE,nodo.toString()), 
+								new ConfermaController.Codice() {
+									@Override
+									public void esegui() {
+										datiSwitch.elimina(new Object[] {nodo.getNome()});
+										TreeSet<String>nomiApparati = datiSwitchApparato.ricercaOrdinata(1, nodo.getNome(), 0);
+										for(String apparato: nomiApparati) {
+											datiSwitchApparato.elimina(new Object[] {apparato,nodo.getNome()});
+										}
+										Programma.aggiornaListeNodi();// aggiorna liste laterali ad albero
 									}
 						});
 	                }

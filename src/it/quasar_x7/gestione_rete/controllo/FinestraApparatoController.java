@@ -1,6 +1,7 @@
 package it.quasar_x7.gestione_rete.controllo;
 
 import it.quasar_x7.gestione_rete.Dati.DatiApparato;
+import it.quasar_x7.gestione_rete.Dati.DatiConnessioneSwitch;
 import it.quasar_x7.gestione_rete.Dati.DatiHardwareApparato;
 import it.quasar_x7.gestione_rete.Dati.DatiPosizione;
 import it.quasar_x7.gestione_rete.Dati.DatiRete;
@@ -12,6 +13,7 @@ import it.quasar_x7.gestione_rete.Dati.DatiTipoApparato;
 import it.quasar_x7.gestione_rete.Dati.DatiUtilizzatore;
 import it.quasar_x7.gestione_rete.modello.Hardware;
 import it.quasar_x7.gestione_rete.modello.Software;
+import it.quasar_x7.gestione_rete.modello.Switch;
 import it.quasar_x7.gestione_rete.modello.Utilizzatore;
 import it.quasar_x7.gestione_rete.programma.Programma;
 import static it.quasar_x7.gestione_rete.programma.Programma.dati;
@@ -145,6 +147,7 @@ public class FinestraApparatoController implements Initializable {
     protected DatiRete datiRete = (DatiRete)dati.get(DatiRete.NOME_TABELLA);
     protected DatiStato datiStato = (DatiStato)dati.get(DatiStato.NOME_TABELLA);
     protected DatiSwitch datiSwitch = (DatiSwitch)dati.get(DatiSwitch.NOME_TABELLA);
+    protected DatiConnessioneSwitch datiConnessioneSwitch = (DatiConnessioneSwitch)dati.get(DatiConnessioneSwitch.NOME_TABELLA);
     protected DatiSoftwareApparato datiSoftwareApparato = (DatiSoftwareApparato)dati.get(DatiSoftwareApparato.NOME_TABELLA);
     protected DatiHardwareApparato datiHardwareApparato = (DatiHardwareApparato)dati.get(DatiHardwareApparato.NOME_TABELLA);
     
@@ -299,6 +302,7 @@ public class FinestraApparatoController implements Initializable {
             if(input != null){ // modalità modifica
             	modificaSW();
             	modificaHW();
+            	modificaSwitch();
                 if(datiApparato.modifica(new Object[]{input[0]},record)){
                 	aggiornaTabella(record);
                 	aggiornaPannelloAlbero();
@@ -352,6 +356,7 @@ public class FinestraApparatoController implements Initializable {
     private void aggiornaPannelloAlbero() {
     	if(FinestraPrincipaleController.rete != null){
             Programma.creaListaApparato(FinestraPrincipaleController.rete,datiApparato.listaApparati());
+            Programma.creaListaSwitch(FinestraPrincipaleController.reteSwitch);
         }
     }
     
@@ -394,6 +399,16 @@ public class FinestraApparatoController implements Initializable {
     					new Object[]{nome.getText(),hw.getNome(),hw.getModello(),hw.getMatricola()}
     			);
     		}
+    	}
+    }
+    
+    /**
+     * Aggiorna il cambiamento del nome dell'apparato anche all'eventuale svwitch associato.
+     */
+    private void modificaSwitch(){
+    	if(!input[0].equals(nome.getText())) {
+    		datiConnessioneSwitch.aggiorna(DatiConnessioneSwitch.VOCE_HOST, input[0], nome.getText());
+    		
     	}
     }
 

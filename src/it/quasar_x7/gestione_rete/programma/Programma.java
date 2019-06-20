@@ -32,6 +32,7 @@ import it.quasar_x7.gestione_rete.controllo.FinestraHardwareApparatoController;
 import it.quasar_x7.gestione_rete.controllo.FinestraHardwareController;
 import it.quasar_x7.gestione_rete.controllo.FinestraPosizioneController;
 import static it.quasar_x7.gestione_rete.controllo.FinestraPrincipaleController.rete;
+import static it.quasar_x7.gestione_rete.controllo.FinestraPrincipaleController.reteSwitch;
 import static it.quasar_x7.gestione_rete.programma.Programma.dati;
 
 import it.quasar_x7.gestione_rete.controllo.FinestraResponsabileController;
@@ -1172,10 +1173,10 @@ public class Programma extends Application {
                     public void esci() {
                         if(modifica){
                             visualizzaTabella.accept(event, DatiDB.stampaChiave(db,vecchiValori));
-                            Programma.aggiornaListaApparati();
+                            Programma.aggiornaListeNodi();
                         }else if(aggiungi){
                             visualizzaTabella.accept(event,null);
-                            Programma.aggiornaListaApparati();
+                            Programma.aggiornaListeNodi();
                         }else{
                             Finestra.finestraAvviso(controller, String.format(R.Messaggi.ERRORE_SALVATAGGIO,DatiDB.stampaChiave(db, vecchiValori),DatiDB.stampa(nuoviValori))); 
                                                 
@@ -1201,9 +1202,11 @@ public class Programma extends Application {
     }
 
     
-    public static void aggiornaListaApparati(){
+    public static void aggiornaListeNodi(){
         DatiApparato datiApparato = (DatiApparato) dati.get(DatiApparato.NOME_TABELLA);
         Programma.creaListaApparato(rete,datiApparato.listaApparati());
+        Programma.creaListaSwitch(reteSwitch);
+        
     }
     
     /**
@@ -1609,6 +1612,7 @@ public class Programma extends Application {
 	            @Override
 	            protected void updateItem(Nodo item, boolean empty) {
 	                super.updateItem(item, empty);
+	                setStyle("-fx-text-fill: black;");
 	                if (empty || item == null) {
 	                    setGraphic(null);
 	                    setText(null);
@@ -1626,8 +1630,6 @@ public class Programma extends Application {
 	                                return;
 	                            }
 	                        }
-	                        setStyle("-fx-text-fill: black;");
-	
 	                    }else if(item instanceof Rete || item instanceof Ufficio || item instanceof Responsabile || item instanceof Switch){
 	                        setFont(Font.font("Arial Black", 12));
 	                    }else if(item instanceof ConnessioneSwitch || item instanceof Utilizzatore || item instanceof SoftwareApparato || item instanceof HardwareApparato){

@@ -180,6 +180,8 @@ public class Apparato extends Nodo{
         }
         return true;
     }
+
+	
     
     
     

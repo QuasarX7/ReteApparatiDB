@@ -100,7 +100,7 @@ public class FinestraSoftwareApparatoController implements Initializable {
     private void chiusuraSenzaSalvare(ActionEvent event) {
         if(event.getEventType().equals(ActionEvent.ACTION)){
             Programma.chiusuraFinestra(this, scenaCorrente);
-            Programma.aggiornaListaApparati();
+            Programma.aggiornaListeNodi();
             finestraApparato = null;
             apparato = null;
             software = null;

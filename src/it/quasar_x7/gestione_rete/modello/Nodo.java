@@ -58,6 +58,24 @@ public class Nodo implements Cloneable{
         return testo;
     }
     
+    protected TextFlow voceInfo(String infoNome, String infoValore1, String infoValore2){
+        final String separatore = "\t ";
+        
+        TextFlow testo = new TextFlow();
+        
+        Text etichetta = new Text(infoNome+separatore);
+        etichetta.setFont(Font.font("Arial black", 13));
+        
+        Text valore1 = new Text(String.format("«%s»",infoValore1));
+        valore1.setFont(Font.font("Arial", 13));
+        
+        Text valore2 = new Text(String.format("«%s»",infoValore2));
+        valore2.setFont(Font.font("Arial", 13));
+        
+        testo.getChildren().addAll(etichetta,valore1,new Text(separatore),valore2);
+        return testo;
+    }
+    
     @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();

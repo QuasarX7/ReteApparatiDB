@@ -33,7 +33,6 @@ public class ConnessioneSwitch extends Nodo{
     
     @Override
     public ArrayList<TextFlow> info(){
-        final String separatore = ":\t ";
         ArrayList<TextFlow> lista = new ArrayList<>();
         lista.add(voceInfo(R.Etichette.SWITCH,getNome()));
         lista.add(voceInfo(R.Etichette.PORTA,getPorta()));

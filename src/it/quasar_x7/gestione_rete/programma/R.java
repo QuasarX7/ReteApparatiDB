@@ -226,6 +226,7 @@ public class R {
 		public static final String CONFERMA_ELIMINAZIONE_RESPONSABILE = "Sei sicuro di voler eliminare il responsabile `%s`?";
 		public static final String CONFERMA_ELIMINAZIONE_RETE = "Sei sicuro di voler eliminare la rete `%s`?";
 		public static final String CONFERMA_ELIMINAZIONE = "Sei sicuro di voler eliminare `%s`?";
+		public static final String INPUT_SWITCH = "Switch:";
         
     }
     
