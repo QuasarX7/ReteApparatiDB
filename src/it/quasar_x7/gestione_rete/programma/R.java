@@ -17,7 +17,11 @@ public class R {
         static public final String ACCOUNT = "ACCOUNT";
         static public final String IP = "IP";
         static public final String APPARATO = "APPARATO";
-        
+        static public final String MAC = "MAC";
+		public static final String SW = "NOME SOFTWARE";
+		public static final String HW = "MODELLO HARDWARE";
+		public static final String POSIZIONE = "POSIZIONE";
+		public static final String RESPONSABILE = "RESPONSABILE";
         
     }
   

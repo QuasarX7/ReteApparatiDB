@@ -183,13 +183,13 @@
 <Insets top="20.0" />
 </HBox.margin></Button>
 </children></HBox><HBox prefHeight="536.0" prefWidth="667.0">
-<children><ListView fx:id="elencoInfo" prefHeight="536.0" prefWidth="381.0">
-<VBox.margin>
-<Insets left="5.0" right="5.0" top="20.0" />
-</VBox.margin></ListView><TreeView fx:id="listaRicercaInfo" onMouseClicked="#cliccaPanelloRicercaListaApparati" prefHeight="536.0" prefWidth="271.0">
+<children><TreeView fx:id="listaRicercaInfo" onMouseClicked="#cliccaPanelloRicercaListaApparati" prefHeight="536.0" prefWidth="271.0">
 <HBox.margin>
 <Insets left="5.0" />
-</HBox.margin></TreeView>
+</HBox.margin></TreeView><ListView fx:id="elencoInfo" prefHeight="536.0" prefWidth="381.0">
+<VBox.margin>
+<Insets left="5.0" right="5.0" top="20.0" />
+</VBox.margin></ListView>
 </children></HBox>
 </children></VBox>
 </center>

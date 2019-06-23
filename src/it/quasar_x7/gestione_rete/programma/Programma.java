@@ -943,31 +943,77 @@ public class Programma extends Application {
         
         for(TreeItem<Nodo> dominio : rete.getChildren()){
             for(TreeItem<Nodo> responsabile : dominio.getChildren()){
-                for(TreeItem<Nodo> posizione : responsabile.getChildren()){
-                    for(TreeItem<Nodo> host : posizione.getChildren()){
-                        if(host.getValue() instanceof Apparato){
-                            Apparato apparato = (Apparato) host.getValue();
-                            
-                            if(tipoRicerca.equals(R.TipoRicerca.NOMINATIVO)){
-                                String nominativo = ((DatiUtilizzatore)(dati.get(DatiUtilizzatore.NOME_TABELLA))).trovaNominativo( apparato.getUtente());
-                                if(nominativo.contains(valore.toLowerCase()) || nominativo.contains(valore.toUpperCase()))
-                                    risultato.getChildren().add(Programma.copia(host));
-                                
-                            }else if(tipoRicerca.equals(R.TipoRicerca.ACCOUNT)){
-                                if(apparato.getUtente().equals(valore))
-                                    risultato.getChildren().add(Programma.copia(host));
-                                
-                            }else if(tipoRicerca.equals(R.TipoRicerca.IP)){
-                                if(apparato.getIp().equals(valore))
-                                    risultato.getChildren().add(Programma.copia(host));
-                                
-                            }else if(tipoRicerca.equals(R.TipoRicerca.APPARATO)){
-                                if(apparato.getNome().equals(valore))
-                                    risultato.getChildren().add(Programma.copia(host));
-                            }
-                        }
-                    }
-                }
+            	if(tipoRicerca.equals(R.TipoRicerca.RESPONSABILE)){
+            		if(responsabile.getValue() instanceof Responsabile) {
+                        Responsabile capo = (Responsabile) responsabile.getValue();
+                        if(capo.getNome().toLowerCase().equals(valore.toLowerCase()))
+                        	risultato.getChildren().add(Programma.copia(responsabile));
+            		}
+            	}else {
+	                for(TreeItem<Nodo> posizione : responsabile.getChildren()){
+	                    for(TreeItem<Nodo> host : posizione.getChildren()){
+	                        if(host.getValue() instanceof Apparato){
+	                            Apparato apparato = (Apparato) host.getValue();
+	                            
+	                            if(tipoRicerca.equals(R.TipoRicerca.NOMINATIVO)){
+	                                String nominativo = ((DatiUtilizzatore)(dati.get(DatiUtilizzatore.NOME_TABELLA))).trovaNominativo( apparato.getUtente());
+	                                if(nominativo.toLowerCase().contains(valore.toLowerCase()))
+	                                    risultato.getChildren().add(Programma.copia(host));
+	                                
+	                            }else if(tipoRicerca.equals(R.TipoRicerca.ACCOUNT)){
+	                                if(apparato.getUtente().equals(valore))
+	                                    risultato.getChildren().add(Programma.copia(host));
+	                                
+	                            }else if(tipoRicerca.equals(R.TipoRicerca.IP)){
+	                                if(apparato.getIp().equals(valore))
+	                                    risultato.getChildren().add(Programma.copia(host));
+	                                
+	                            }else if(tipoRicerca.equals(R.TipoRicerca.APPARATO)){
+	                                if(apparato.getNome().equals(valore))
+	                                    risultato.getChildren().add(Programma.copia(host));
+	                                
+	                            }else if(tipoRicerca.equals(R.TipoRicerca.POSIZIONE)){
+	                                if(apparato.getPosizione().equals(valore))
+	                                    risultato.getChildren().add(Programma.copia(host));
+	                                
+	                            }else if(tipoRicerca.equals(R.TipoRicerca.MAC)){
+	                                if(apparato.getMacPC().equals(valore) || apparato.getMacVOIP().equals(valore))
+	                                    risultato.getChildren().add(Programma.copia(host));
+	                            
+	                            }else if(tipoRicerca.equals(R.TipoRicerca.SW)){
+	                            	for(TreeItem<Nodo> nodo : host.getChildren()){
+	                            		if(nodo.getValue() instanceof SoftwareApparato) {
+	                            			for(TreeItem<Nodo> sw:nodo.getChildren()) {
+	                            				if(sw.getValue() instanceof Software) {
+	                            					String nome = ((Software)sw.getValue()).getNome().toLowerCase();
+	                            					if(nome.equals(valore.toLowerCase())) {
+	                            						risultato.getChildren().add(Programma.copia(host));
+	                            						break;
+	                            					}
+	                            				}
+	                            			}
+	                            		}
+	                            	}
+	                            
+	                            }else if(tipoRicerca.equals(R.TipoRicerca.HW)){
+	                            	for(TreeItem<Nodo> nodo : host.getChildren()){
+	                            		if(nodo.getValue() instanceof HardwareApparato) {
+	                            			for(TreeItem<Nodo> hw: nodo.getChildren()) {
+	                            				if(hw.getValue() instanceof Hardware) {
+	                            					String modello = ((Hardware)hw.getValue()).getModello().toLowerCase();
+	                            					if(modello.equals(valore.toLowerCase())) {
+	                            						risultato.getChildren().add(Programma.copia(host));
+	                            						break;
+	                            					}
+	                            				}
+	                            			}
+	                            		}
+	                            	}
+	                            }
+	                        }
+	                    }
+	                }
+            	}
             }
         }
         return risultato;

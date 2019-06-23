@@ -4,12 +4,14 @@ import it.quasar_x7.gestione_rete.Dati.DatiApparato;
 import it.quasar_x7.gestione_rete.Dati.DatiCasaHardware;
 import it.quasar_x7.gestione_rete.Dati.DatiCasaSoftware;
 import it.quasar_x7.gestione_rete.Dati.DatiConnessioneSwitch;
+import it.quasar_x7.gestione_rete.Dati.DatiHardware;
 import it.quasar_x7.gestione_rete.Dati.DatiHardwareApparato;
 import it.quasar_x7.gestione_rete.Dati.DatiLogin;
 import it.quasar_x7.gestione_rete.Dati.DatiPosizione;
 import it.quasar_x7.gestione_rete.Dati.DatiResponsabileSito;
 import it.quasar_x7.gestione_rete.Dati.DatiRete;
 import it.quasar_x7.gestione_rete.Dati.DatiRuolo;
+import it.quasar_x7.gestione_rete.Dati.DatiSoftware;
 import it.quasar_x7.gestione_rete.Dati.DatiSoftwareApparato;
 import it.quasar_x7.gestione_rete.Dati.DatiStato;
 import it.quasar_x7.gestione_rete.Dati.DatiSwitch;
@@ -38,6 +40,7 @@ import it.quasar_x7.java.BaseDati.EccezioneBaseDati;
 import it.quasar_x7.java.utile.DataOraria;
 import it.quasar_x7.javafx.CampoTesto;
 import it.quasar_x7.javafx.Finestra;
+import it.quasar_x7.javafx.Maschera;
 import it.quasar_x7.javafx.TipoFile;
 import it.quasar_x7.javafx.finestre.controllo.ConfermaController;
 import it.quasar_x7.javafx.finestre.controllo.InputController;
@@ -141,6 +144,9 @@ public class FinestraPrincipaleController implements Initializable {
     
     @FXML
     private ChoiceBox<String> menuTipoRicerca;
+    
+
+	private TreeView<Nodo> listaSelezionata = null;
 
     private final  DatiTipoApparato datiTipoApparato = (DatiTipoApparato) dati.get(DatiTipoApparato.NOME_TABELLA);
     private final  DatiLogin datiLogin = (DatiLogin) dati.get(DatiLogin.NOME_TABELLA);
@@ -160,7 +166,6 @@ public class FinestraPrincipaleController implements Initializable {
     private final  DatiHardwareApparato datiHardwareApparato = (DatiHardwareApparato)dati.get(DatiHardwareApparato.NOME_TABELLA);
     private final  DatiUtilizzatore datiUtilizzatore = (DatiUtilizzatore)dati.get(DatiUtilizzatore.NOME_TABELLA);
 
-	private TreeView<Nodo> listaSelezionata = null;
     
     
     /**
@@ -172,7 +177,12 @@ public class FinestraPrincipaleController implements Initializable {
         menuTipoRicerca.getItems().add(R.TipoRicerca.NOMINATIVO);
         menuTipoRicerca.getItems().add(R.TipoRicerca.ACCOUNT);
         menuTipoRicerca.getItems().add(R.TipoRicerca.IP);
+        menuTipoRicerca.getItems().add(R.TipoRicerca.MAC);
         menuTipoRicerca.getItems().add(R.TipoRicerca.APPARATO);
+        menuTipoRicerca.getItems().add(R.TipoRicerca.SW);
+        menuTipoRicerca.getItems().add(R.TipoRicerca.HW);
+        menuTipoRicerca.getItems().add(R.TipoRicerca.POSIZIONE);
+        menuTipoRicerca.getItems().add(R.TipoRicerca.RESPONSABILE);
         
         pannelloLaterale.setExpandedPane(pannelloListaHost);
         pannelloListaHost.setExpanded(true);
@@ -1283,7 +1293,7 @@ public class FinestraPrincipaleController implements Initializable {
         if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
             if(menuTipoRicerca.getValue() != null){
                 String tipoRicerca = menuTipoRicerca.getValue();
-                    
+                CampoTesto.inizializzaCampo(compoRicerca);
                 if(tipoRicerca.equals(R.TipoRicerca.NOMINATIVO)){
                     CampoTesto.autoCompletamento(
                             compoRicerca, 
@@ -1297,12 +1307,42 @@ public class FinestraPrincipaleController implements Initializable {
                 }else if(tipoRicerca.equals(R.TipoRicerca.IP)){
                     CampoTesto.indirizzoIP(compoRicerca);
                     
+                }else if(tipoRicerca.equals(R.TipoRicerca.MAC)){
+                    CampoTesto.indirizzoMAC(compoRicerca);
+                    
+                    
+                }else if(tipoRicerca.equals(R.TipoRicerca.POSIZIONE)){
+                	CampoTesto.autoCompletamento(
+                            compoRicerca, 
+                            ((DatiPosizione)dati.get(DatiPosizione.NOME_TABELLA)).lista()
+                    );
+                    
+                    
+                }else if(tipoRicerca.equals(R.TipoRicerca.RESPONSABILE)){
+                	CampoTesto.autoCompletamento(
+                            compoRicerca, 
+                            ((DatiResponsabileSito)dati.get(DatiResponsabileSito.NOME_TABELLA)).lista()
+                    );
+                    
+                    
                 }else if(tipoRicerca.equals(R.TipoRicerca.APPARATO)){
                     CampoTesto.autoCompletamento(
                             compoRicerca, 
                             ((DatiApparato)dati.get(DatiApparato.NOME_TABELLA)).nomiApparati()
                     );
                     
+                }else if(tipoRicerca.equals(R.TipoRicerca.SW)){
+                    CampoTesto.autoCompletamento(
+                            compoRicerca, 
+                            ((DatiSoftware)dati.get(DatiSoftware.NOME_TABELLA)).listaNomi()
+                    );
+                    
+                }else if(tipoRicerca.equals(R.TipoRicerca.HW)){
+                    final int MODELLI = 2;
+                	CampoTesto.autoCompletamento(
+                            compoRicerca, 
+                            ((DatiHardware)dati.get(DatiHardware.NOME_TABELLA)).listaOrdinata(MODELLI)
+                    );
                 }
             }
         }
