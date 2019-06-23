@@ -196,7 +196,7 @@ public class FinestraPrincipaleController implements Initializable {
         );
         
         listaApparati.setShowRoot(false);
-        this.listaRicercaInfo.setShowRoot(false);
+        listaRicercaInfo.setShowRoot(false);
         // modalità di costruzione dell'albero
         
         Programma.aspettoListaAlbero(rete,listaApparati,datiStato);
@@ -524,9 +524,14 @@ public class FinestraPrincipaleController implements Initializable {
         }
     }
     
+    /**
+     * 
+     * @param event clic mouse sul pannello 'listaRicercaInfo'
+     */
     @FXML
     private void cliccaPanelloRicercaListaApparati(MouseEvent event){
         if(event.getEventType().equals(MouseEvent.MOUSE_CLICKED)){
+        	visualizzaMenu(event);
             aggiornaListaInfo(event,listaRicercaInfo);
             event.consume();
         }
@@ -724,7 +729,8 @@ public class FinestraPrincipaleController implements Initializable {
     private void menuAggiungi(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
             elencoInfo.getItems().clear();
-            listaRicercaInfo.getRoot().getChildren().clear();
+            if(!listaSelezionata.equals(listaRicercaInfo))
+            	listaRicercaInfo.getRoot().getChildren().clear();
             
             selezionaMenuAlbero(new AzioneMenu(){
 
@@ -792,7 +798,7 @@ public class FinestraPrincipaleController implements Initializable {
     }
     
     private void associaSwitch(Apparato nodoPadre,ConnessioneSwitch nodo) {
-    	if(nodo != null){
+    	if(nodo != null && nodoPadre != null){
             FinestraSwitchController.scenaCorrente = Finestra.scenaCorrente();
             FinestraSwitchController.input = new String[] {nodoPadre.getNome(), nodo.getNome(), nodo.getPorta()};
             Finestra.caricaFinestra(this, R.FXML.FINESTRA_SWITCH);
@@ -819,7 +825,8 @@ public class FinestraPrincipaleController implements Initializable {
     private void menuWizard(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
         	elencoInfo.getItems().clear();
-            listaRicercaInfo.getRoot().getChildren().clear();
+        	if(!listaSelezionata.equals(listaRicercaInfo))
+            	listaRicercaInfo.getRoot().getChildren().clear();
             selezionaMenuAlbero(new AzioneMenu(){
 
 				@Override
@@ -851,7 +858,8 @@ public class FinestraPrincipaleController implements Initializable {
     private void menuModifica(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
             elencoInfo.getItems().clear();
-            listaRicercaInfo.getRoot().getChildren().clear();
+            if(!listaSelezionata.equals(listaRicercaInfo))
+            	listaRicercaInfo.getRoot().getChildren().clear();
             
             selezionaMenuAlbero(new AzioneMenu(){
 
@@ -973,7 +981,8 @@ public class FinestraPrincipaleController implements Initializable {
     private void menuElimina(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
             elencoInfo.getItems().clear();
-            listaRicercaInfo.getRoot().getChildren().clear();
+            if(!listaSelezionata.equals(listaRicercaInfo))
+            	listaRicercaInfo.getRoot().getChildren().clear();
             
             selezionaMenuAlbero(new AzioneMenu(){
 
