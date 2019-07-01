@@ -87,6 +87,12 @@
                                         <MenuItem mnemonicParsing="false" onAction="#apriGestioneUtenti" text="Gestione utenti" />
                                     </items>
                                 </Menu>
+                              <Menu mnemonicParsing="false" text="Intervento">
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#aggiungiNuovoIntervento" text="Aggiungi nuovo intervento" />
+                                    <MenuItem mnemonicParsing="false" onAction="#apriListaInterventi" text="Lista interventi" />
+                                 </items>
+                              </Menu>
                             </menus>
                         </MenuBar>
                         <Button layoutX="700.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#chiusuraSenzaSalvare" prefHeight="28.0" prefWidth="35.0" style="-fx-background-color: red; -fx-border-color: red;" text="X" textFill="WHITE" BorderPane.alignment="CENTER">

@@ -468,11 +468,27 @@ public class FinestraPrincipaleController implements Initializable {
     }
     
     @FXML
+    private void aggiungiNuovoIntervento(ActionEvent event) {
+        if (event.getEventType().equals(ActionEvent.ACTION)) {
+            FinestraInterventoController.scenaCorrente = Finestra.scenaCorrente();
+            Finestra.caricaFinestra(this, R.FXML.FINESTRA_INTERVENTO);
+        }
+    }
+    
+    @FXML
     private void apriListaReti(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
             Programma.apriListaReti(this);
         }
     }
+    
+    @FXML
+    private void apriListaInterventi(ActionEvent event) {
+        if (event.getEventType().equals(ActionEvent.ACTION)) {
+            //Programma.apriListaReti(this);
+        }
+    }
+    
     
     /**
      * Apre la finestra che associa un apparato ad un dato software precedentemente inserito.

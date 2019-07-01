@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="534.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.quasar_x7.gestione_rete.controllo.FinestraInterventoController">
+    <stylesheets>
+        <URL value="@stile.css" />
+    </stylesheets>
+<children><Button focusTraversable="false" layoutX="700.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#chiusuraSenzaSalvare" prefHeight="28.0" prefWidth="35.0" style="-fx-background-color: red; -fx-border-color: red;" text="X" textFill="WHITE" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
+<font>
+<Font name="Arial Black" size="12.0" />
+</font>
+</Button><Label alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="51.0" layoutY="1.0" prefHeight="37.0" prefWidth="508.0" text="Intervento">
+<font>
+<Font name="Arial Black" size="24.0" />
+</font>
+</Label><GridPane layoutX="191.5" layoutY="-50.0" prefHeight="389.0" prefWidth="595.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="52.0">
+<children><TextField fx:id="ticket" layoutX="310.0" layoutY="128.0" prefHeight="30.0" prefWidth="391.0" GridPane.columnIndex="1">
+<font>
+<Font name="Arial Black" size="13.0" />
+</font>
+<GridPane.margin>
+<Insets right="50.0" />
+</GridPane.margin>
+</TextField>
+<Label focusTraversable="false" layoutX="206.0" layoutY="131.0" text="Apparato" GridPane.rowIndex="2">
+<font>
+<Font name="Arial Black" size="14.0" />
+</font>
+</Label><Label focusTraversable="false" layoutX="206.0" layoutY="131.0" style="-fx-text-fill: orange;" text="Ticket">
+<font>
+<Font name="Arial Black" size="14.0" />
+</font>
+</Label>
+<Label focusTraversable="false" layoutX="206.0" layoutY="131.0" text="Esito" GridPane.rowIndex="5">
+<font>
+<Font name="Arial Black" size="14.0" />
+</font>
+</Label>
+<HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+<children>
+<ChoiceBox fx:id="menuApparato" prefHeight="27.0" prefWidth="336.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+<HBox.margin>
+<Insets top="7.0" />
+</HBox.margin>
+</ChoiceBox>
+</children>
+</HBox>
+            <Label focusTraversable="false" text="Data" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Arial Black" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="data" prefHeight="30.0" prefWidth="260.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Arial Black" size="13.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets right="300.0" />
+               </GridPane.margin>
+            </TextField>
+            <ChoiceBox fx:id="menuEsito" prefHeight="27.0" prefWidth="202.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextArea fx:id="richiesta" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets top="5.0" />
+               </GridPane.margin>
+            </TextArea>
+            <TextArea fx:id="intervento" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets top="5.0" />
+               </GridPane.margin>
+            </TextArea>
+            <Label focusTraversable="false" text="Richiesta" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Arial Black" size="14.0" />
+               </font>
+            </Label>
+            <Label focusTraversable="false" text="Intervento" GridPane.rowIndex="4">
+               <font>
+                  <Font name="Arial Black" size="14.0" />
+               </font>
+            </Label>
+</children>
+<columnConstraints>
+<ColumnConstraints hgrow="SOMETIMES" maxWidth="166.0" minWidth="10.0" prefWidth="101.0" />
+<ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="-Infinity" prefWidth="494.0" />
+</columnConstraints>
+<rowConstraints>
+<RowConstraints maxHeight="94.0" minHeight="8.0" prefHeight="19.0" vgrow="SOMETIMES" />
+<RowConstraints maxHeight="88.0" minHeight="2.0" prefHeight="39.0" vgrow="SOMETIMES" />
+<RowConstraints maxHeight="119.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+<RowConstraints maxHeight="203.0" minHeight="10.0" prefHeight="122.0" vgrow="SOMETIMES" />
+<RowConstraints maxHeight="121.0" minHeight="10.0" prefHeight="121.0" vgrow="SOMETIMES" />
+<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+</rowConstraints>
+</GridPane><Button layoutX="354.0" layoutY="266.0" mnemonicParsing="false" onAction="#salva" prefHeight="39.0" prefWidth="206.0" text="Ok" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="50.0">
+<font>
+<Font name="Arial Black" size="18.0" />
+</font>
+</Button>
+</children>
+</AnchorPane>

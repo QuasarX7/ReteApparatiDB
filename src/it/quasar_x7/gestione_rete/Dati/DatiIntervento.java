@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 import it.quasar_x7.java.BaseDati.EccezioneBaseDati;
 import it.quasar_x7.java.BaseDati.Relazione;
 
-public class Intervento extends DatiDB {
+public class DatiIntervento extends DatiDB {
 	
 	public static final String NOME_TABELLA    = "intervento";
     
@@ -18,7 +18,7 @@ public class Intervento extends DatiDB {
     protected static final String VOCE_TABELLA_ESITO   = "esito";
     
     
-    public Intervento() {
+    public DatiIntervento() {
         try {
             tabella = new Relazione(NOME_TABELLA);
             tabella.creaAttributo(VOCE_TABELLA_TIKET, TESTO, "", Relazione.CHIAVE);
