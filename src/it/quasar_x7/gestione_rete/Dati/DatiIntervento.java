@@ -22,13 +22,13 @@ public class DatiIntervento extends DatiDB {
         try {
             tabella = new Relazione(NOME_TABELLA);
             tabella.creaAttributo(VOCE_TABELLA_TIKET, TESTO, "", Relazione.CHIAVE);
-            tabella.creaAttributo(VOCE_TABELLA_DATA,  DATA, null, Relazione.NO_CHIAVE);
+            tabella.creaAttributo(VOCE_TABELLA_DATA,  TESTO, "", Relazione.NO_CHIAVE);
             tabella.creaAttributo(VOCE_TABELLA_APPARATO,  TESTO, "", Relazione.NO_CHIAVE);
             tabella.creaAttributo(VOCE_TABELLA_MOTIVO,  TESTO, "", Relazione.NO_CHIAVE);
             tabella.creaAttributo(VOCE_TABELLA_ATTIVITA_SVOLTA,  TESTO, "", Relazione.NO_CHIAVE);
             tabella.creaAttributo(VOCE_TABELLA_ESITO, TESTO, "", Relazione.NO_CHIAVE);
         } catch (EccezioneBaseDati ex) {
-            Logger.getLogger(DatiGrado.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DatiIntervento.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }

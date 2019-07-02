@@ -485,7 +485,7 @@ public class FinestraPrincipaleController implements Initializable {
     @FXML
     private void apriListaInterventi(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
-            //Programma.apriListaReti(this);
+            Programma.apriListaInterventi(this);
         }
     }
     

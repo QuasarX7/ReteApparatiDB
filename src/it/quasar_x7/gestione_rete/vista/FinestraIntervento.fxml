@@ -70,11 +70,17 @@
                <GridPane.margin>
                   <Insets top="5.0" />
                </GridPane.margin>
+               <font>
+                  <Font name="Arial Black" size="13.0" />
+               </font>
             </TextArea>
             <TextArea fx:id="intervento" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets top="5.0" />
                </GridPane.margin>
+               <font>
+                  <Font name="Arial Black" size="13.0" />
+               </font>
             </TextArea>
             <Label focusTraversable="false" text="Richiesta" GridPane.rowIndex="3">
                <font>

@@ -159,7 +159,12 @@ public class R {
         public static final String COGNOME = "Cognome";
         public static final String APPARATO = "Apparato";
 		public static final String PREDEFINITO = "Predefinito";
-        
+		public static final String TICKET = "Ticket";
+		public static final String DATA = "Data";
+		public static final String RICHIESTA = "Richiesta";
+		public static final String INTERVENTO = "Intervento";
+		public static final String ESITO = "Esito";
+		public static final String FINESTRA_INTERVENTO = "Lista Interventi";
         
         
         

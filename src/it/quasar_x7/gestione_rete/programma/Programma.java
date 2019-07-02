@@ -10,6 +10,7 @@ import it.quasar_x7.gestione_rete.Dati.DatiGrado;
 import it.quasar_x7.gestione_rete.Dati.DatiHardware;
 import it.quasar_x7.gestione_rete.Dati.DatiHardwareApparato;
 import it.quasar_x7.gestione_rete.Dati.DatiImpostazioni;
+import it.quasar_x7.gestione_rete.Dati.DatiIntervento;
 import it.quasar_x7.gestione_rete.Dati.DatiLista;
 import it.quasar_x7.gestione_rete.Dati.DatiLogin;
 import it.quasar_x7.gestione_rete.Dati.DatiPosizione;
@@ -30,7 +31,10 @@ import it.quasar_x7.gestione_rete.controllo.FinestraApparatoController;
 import it.quasar_x7.gestione_rete.controllo.FinestraGradoController;
 import it.quasar_x7.gestione_rete.controllo.FinestraHardwareApparatoController;
 import it.quasar_x7.gestione_rete.controllo.FinestraHardwareController;
+import it.quasar_x7.gestione_rete.controllo.FinestraInterventoController;
 import it.quasar_x7.gestione_rete.controllo.FinestraPosizioneController;
+import it.quasar_x7.gestione_rete.controllo.FinestraPrincipaleController;
+
 import static it.quasar_x7.gestione_rete.controllo.FinestraPrincipaleController.rete;
 import static it.quasar_x7.gestione_rete.controllo.FinestraPrincipaleController.reteSwitch;
 import static it.quasar_x7.gestione_rete.programma.Programma.dati;
@@ -134,6 +138,7 @@ public class Programma extends Application {
         dati.put(DatiHardwareApparato.NOME_TABELLA, new DatiHardwareApparato());
         dati.put(DatiConnessioneSwitch.NOME_TABELLA, new DatiConnessioneSwitch());
         dati.put(DatiImpostazioni.NOME_TABELLA, new DatiImpostazioni());
+        dati.put(DatiIntervento.NOME_TABELLA, new DatiIntervento());
     }
 
     
@@ -686,6 +691,57 @@ public class Programma extends Application {
         );
         
     }
+    
+    public static void apriListaInterventi(Object controller) {
+    	
+    	DatiIntervento datiIntervento = (DatiIntervento)dati.get(DatiIntervento.NOME_TABELLA);
+    	
+    	ArrayList<Integer> dim = new ArrayList<>();
+        dim.add(200);
+        dim.add(100);
+        dim.add(150);
+        dim.add(300);
+        dim.add(300);
+        dim.add(150);
+        
+        ArrayList<String> colonne = new ArrayList<>();
+        colonne.add(R.Etichette.TICKET);
+        colonne.add(R.Etichette.DATA);
+        colonne.add(R.Etichette.APPARATO);
+        colonne.add(R.Etichette.RICHIESTA);
+        colonne.add(R.Etichette.INTERVENTO);
+        colonne.add(R.Etichette.ESITO);
+        
+        Finestra.finestraTabella(
+                controller, 
+                R.Etichette.FINESTRA_INTERVENTO, 
+                colonne, 
+                dim, 
+                datiIntervento.tabella(), 
+                false, 
+                new TabellaController.Codice(){
+                    @Override
+                    public void aggiungi(TabellaController delega) {
+                        FinestraInterventoController.scenaCorrente = Finestra.scenaCorrente();
+                        FinestraInterventoController.tabella = delega;
+                        Finestra.caricaFinestra(this, R.FXML.FINESTRA_INTERVENTO);
+                        
+                    }
+
+                    @Override
+                    public boolean elimina(TabellaController delega, String primaCella) {
+                        return eliminaRiga(datiIntervento,this,delega);
+                    }
+
+                    @Override
+                    public void modifica(TabellaController delega, String primaCella) {
+                        FinestraInterventoController.input = delega.rigaSelezionata();
+                        aggiungi(delega);
+                    }
+                
+                }
+        );
+	}
     
     public static void apriListaUtilizzatori(Object controller) {
        
@@ -1691,5 +1747,13 @@ public class Programma extends Application {
 	    lista.setCellFactory(costruzioneListaAlbero);
 	    lista.setRoot(rete);
 	}
+
+
+
+
+
+
+
+	
     
 }

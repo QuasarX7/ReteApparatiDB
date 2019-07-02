@@ -1,14 +1,24 @@
 package it.quasar_x7.gestione_rete.controllo;
 
+import it.quasar_x7.gestione_rete.Dati.DatiApparato;
 import it.quasar_x7.gestione_rete.Dati.DatiIntervento;
+import it.quasar_x7.gestione_rete.Dati.DatiUtilizzatore;
+import it.quasar_x7.gestione_rete.modello.Utilizzatore;
 import it.quasar_x7.gestione_rete.programma.Programma;
 import static it.quasar_x7.gestione_rete.programma.Programma.dati;
 import it.quasar_x7.gestione_rete.programma.R;
+import it.quasar_x7.java.utile.Colore;
+import it.quasar_x7.java.utile.DataOraria;
+import it.quasar_x7.java.utile.Errore;
 import it.quasar_x7.javafx.CampoTesto;
 import it.quasar_x7.javafx.finestre.controllo.TabellaController;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.TreeSet;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,6 +26,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 
 /**
  * FXML Controller class
@@ -41,22 +52,49 @@ public class FinestraInterventoController  implements Initializable {
     private TextArea intervento;
 
     @FXML
-    private ChoiceBox<?> menuEsito;
+    private ChoiceBox<String> menuEsito;
 
     @FXML
-    private ChoiceBox<?> menuApparato;
+    private ChoiceBox<String> menuApparato;
     
     protected DatiIntervento datiIntervento = (DatiIntervento) dati.get(DatiIntervento.NOME_TABELLA);
+    protected DatiApparato datiApparato = (DatiApparato) dati.get(DatiApparato.NOME_TABELLA);
     
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+    	CampoTesto.data(data);
+    	TreeSet<String> host = datiApparato.listaOrdinata(0);
+        if(host != null)
+            menuApparato.getItems().addAll(host);
         
-       
+        menuEsito.getItems().addAll("POSITIVO","NEGATIVO","SOSPESO","");
+        
         if(input != null) {
-        	
+        	if(input[0] != null)
+                ticket.setText(input[0]);
+            
+            if(input[1] != null) {
+            	try {
+	            	new DataOraria(input[1]);//verifica correttezza input
+	                data.setText(input[1]);
+            	}catch(Errore e) {
+            	}
+            }
+            
+            if(input[2] != null)
+                menuApparato.setValue(input[2]);
+            
+            if(input[3] != null)
+                richiesta.setText(input[3]);
+            
+            if(input[4] != null)
+                intervento.setText(input[4]);
+            
+            if(input[5] != null)
+                menuEsito.setValue(input[5]);
         }
             
         
@@ -74,38 +112,39 @@ public class FinestraInterventoController  implements Initializable {
 
     @FXML
     protected void salva(ActionEvent event) {
-    	/*
-        Integer indice = null;
-        try{
-            indice = new Integer(id.getText());
-        }catch(NumberFormatException e){}
-        
+    	
         
         Object[] record = new Object[]{
-            nome.getText(),
-            ruolo.getValue(),
-            sigla.getText(),
-            indice
+            ticket.getText(),
+            data.getText(),
+            menuApparato.getValue() != null ? menuApparato.getValue() : "",
+            richiesta.getText(),
+            intervento.getText(),
+            menuEsito.getValue() != null ? menuEsito.getValue() : "",
         };
         Programma.salva(
                 this, 
-                !nome.getText().isEmpty(), 
-                datiGrado, 
+                !ticket.getText().isEmpty(), 
+                datiIntervento, 
                 input, 
                 record, 
                 event, 
                 // metodo di creazione della finestra a tabella
                 (ActionEvent evento, String chiave) -> {
                     if(tabella != null){
+                    	ArrayList<String> riga = new ArrayList<>();
+                    	for(Object s: record)
+                    		riga.add((String)s);
+                        
                         if(chiave != null)
-                            tabella.modificaRiga(chiave,converti(record));
+                            tabella.modificaRiga(chiave,riga);
                         else
-                            tabella.aggiungiRiga(converti(record));
+                            tabella.aggiungiRiga(riga);
                     }
                     chiusuraSenzaSalvare(evento);
                 }
         );
-        */
+       
     }
     
    
