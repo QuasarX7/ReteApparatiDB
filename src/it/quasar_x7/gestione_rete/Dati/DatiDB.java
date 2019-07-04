@@ -323,16 +323,16 @@ public abstract class DatiDB implements Dati {
         ArrayList<String> lista =  new ArrayList<>();
         try {
             db.connetti();
-            ArrayList<Object[]> gradi = db.vediTutteLeTuple(tabella);
-            if(gradi != null)
-                for(Object[] record : gradi){
+            ArrayList<Object[]> elementi = db.vediTutteLeTuple(tabella);
+            if(elementi != null)
+                for(Object[] record : elementi){
                     if(record != null)
                         if(record[indice] != null)
                             lista.add(record[indice].toString());
                 }
             db.chiudi();
         } catch (EccezioneBaseDati ex) {
-            Logger.getLogger(DatiGrado.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DatiDB.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lista;
     }
@@ -447,7 +447,7 @@ public abstract class DatiDB implements Dati {
             );
             db.chiudi();
         } catch (EccezioneBaseDati ex) {
-            Logger.getLogger(DatiApparato.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DatiDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
         return true;

@@ -110,6 +110,14 @@
             </top>
 <left><Accordion fx:id="pannelloLaterale" BorderPane.alignment="CENTER">
 <panes>
+                  <TitledPane fx:id="pannelloListaHelpDesk" text="HelpDesk">
+                     <font>
+                        <Font name="Arial Black" size="13.0" />
+                     </font>
+                     <content>
+                        <ListView fx:id="listaHelpDesk" prefHeight="200.0" prefWidth="200.0" />
+                     </content>
+                  </TitledPane>
                   <TitledPane fx:id="pannelloListaSwitch" animated="false" text="Switch">
                      <font>
                         <Font name="Arial Black" size="13.0" />

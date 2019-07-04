@@ -6,6 +6,7 @@ import it.quasar_x7.gestione_rete.Dati.DatiCasaSoftware;
 import it.quasar_x7.gestione_rete.Dati.DatiConnessioneSwitch;
 import it.quasar_x7.gestione_rete.Dati.DatiHardware;
 import it.quasar_x7.gestione_rete.Dati.DatiHardwareApparato;
+import it.quasar_x7.gestione_rete.Dati.DatiIntervento;
 import it.quasar_x7.gestione_rete.Dati.DatiLogin;
 import it.quasar_x7.gestione_rete.Dati.DatiPosizione;
 import it.quasar_x7.gestione_rete.Dati.DatiResponsabileSito;
@@ -22,6 +23,7 @@ import it.quasar_x7.gestione_rete.Dati.DatiUtilizzatore;
 import it.quasar_x7.gestione_rete.modello.Apparato;
 import it.quasar_x7.gestione_rete.modello.Hardware;
 import it.quasar_x7.gestione_rete.modello.HardwareApparato;
+import it.quasar_x7.gestione_rete.modello.Intervento;
 import it.quasar_x7.gestione_rete.modello.Ufficio;
 import it.quasar_x7.gestione_rete.modello.Utilizzatore;
 import it.quasar_x7.gestione_rete.modello.Voce;
@@ -56,6 +58,8 @@ import java.util.ResourceBundle;
 import java.util.TreeSet;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -108,6 +112,8 @@ public class FinestraPrincipaleController implements Initializable {
     
     static public TreeItem<Nodo> reteSwitch = new TreeItem<> (new Nodo("Lista switch"));
     
+    public static ObservableList<Intervento> listaInterventi = FXCollections.observableArrayList();
+    
     @FXML
     private Label titolo;
     
@@ -120,6 +126,12 @@ public class FinestraPrincipaleController implements Initializable {
     @FXML
     private TreeView<Nodo> listaSwitch;
     
+    @FXML
+    private TitledPane pannelloListaHelpDesk;
+
+    @FXML
+    private ListView<Intervento> listaHelpDesk;
+
     
     
     @FXML
@@ -165,6 +177,7 @@ public class FinestraPrincipaleController implements Initializable {
     private final  DatiSoftwareApparato datiSoftwareApparato = (DatiSoftwareApparato)dati.get(DatiSoftwareApparato.NOME_TABELLA);
     private final  DatiHardwareApparato datiHardwareApparato = (DatiHardwareApparato)dati.get(DatiHardwareApparato.NOME_TABELLA);
     private final  DatiUtilizzatore datiUtilizzatore = (DatiUtilizzatore)dati.get(DatiUtilizzatore.NOME_TABELLA);
+    private final  DatiIntervento datiIntervento = (DatiIntervento)dati.get(DatiIntervento.NOME_TABELLA);
 
     
     
@@ -207,8 +220,13 @@ public class FinestraPrincipaleController implements Initializable {
         
         Programma.aspettoListaAlbero(reteSelezionata,listaRicercaInfo,datiStato);
         
+        crealistaHelpDesk();
+        listaHelpDesk.setItems(listaInterventi);
     }   
     
+    private void crealistaHelpDesk() {
+    	listaInterventi.addAll(datiIntervento.listaHelpDesk());
+    }
     
     @FXML
     private void creaNuovoApparato(ActionEvent event) {
