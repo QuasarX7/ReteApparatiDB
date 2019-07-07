@@ -86,6 +86,7 @@ public class FinestraPrincipaleController implements Initializable {
         public void rete(Rete nodo){}
         public void responsabile(Responsabile nodo){}
         public void info(Voce nodo){}
+        public void listaVuota(){}
         public void listaSoftware(SoftwareApparato nodo){}
         public void listaHardware(HardwareApparato nodo){}
         public void software(SoftwareApparato nodoPadre,Software nodo){}
@@ -598,6 +599,11 @@ public class FinestraPrincipaleController implements Initializable {
         }
     }
     
+    /**
+     * Esegue un azione menu prevista dalla selezione.
+     * 
+     * @param azione
+     */
     private void selezionaMenuAlbero(AzioneMenu azione) {
     	if(listaSelezionata != null) {
 	    	TreeItem<Nodo> nodo = listaSelezionata.getSelectionModel().getSelectedItem();
@@ -631,6 +637,8 @@ public class FinestraPrincipaleController implements Initializable {
 	            	azione.info((Voce)nodo.getValue());
 	            }
 	            
+	        }else {
+	        	azione.listaVuota();
 	        }
     	}
     }
@@ -653,7 +661,6 @@ public class FinestraPrincipaleController implements Initializable {
                 	final int VOCE_ELIMINA  = 4;
                 	
                 	private void inizializzaVoci(String tipoNodo,Nodo nodo) {
-                		
                 		
                 		menuPannello.getItems().get(TITOLO_MENU).setText(tipoNodo.toUpperCase());
                 		
@@ -689,7 +696,7 @@ public class FinestraPrincipaleController implements Initializable {
                 	}
     				@Override
     				public void apparato(Apparato nodo) {
-    					inizializzaVoci("Apparato", nodo);
+    					inizializzaVoci(R.Etichette.APPARATO, nodo);
     				}
 
     				@Override
@@ -759,9 +766,28 @@ public class FinestraPrincipaleController implements Initializable {
 						menuPannello.getItems().get(VOCE_MODIFICA).setVisible(false);
 						menuPannello.getItems().get(VOCE_ELIMINA).setVisible(false);
 					}
-    				
+					
+					@Override
+					public void listaVuota() {
+						String titolo = "";
+						if(listaApparati.equals(listaSelezionata)) {
+							titolo = R.Etichette.APPARATO;
+						}else if(listaSwitch.equals(listaSelezionata)) {
+							titolo = R.Etichette.SWITCH;
+						}else if(listaHelpDesk.equals(listaSelezionata)) {
+							titolo = R.Etichette.INTERVENTO;
+						}
+					    menuPannello.getItems().get(TITOLO_MENU).setText(titolo);
+						
+						menuPannello.getItems().get(TITOLO_MENU).setVisible(true);
+						menuPannello.getItems().get(VOCE_AGGIUNGI).setVisible(true);
+						menuPannello.getItems().get(VOCE_WIZARD).setVisible(false);
+						menuPannello.getItems().get(VOCE_MODIFICA).setVisible(false);
+						menuPannello.getItems().get(VOCE_ELIMINA).setVisible(false);
+					}
                 });
                 
+                //visualizza anche quando si fa doppio clic...
                 menuPannello.show((Node) event.getSource(), event.getScreenX(), event.getScreenY());
             }
         }
@@ -839,26 +865,35 @@ public class FinestraPrincipaleController implements Initializable {
 				
 				@Override
 				public void helpDesk(Intervento nodo) {
-					creaNuovoIntervento(nodo);
+					creaNuovoIntervento();
+				}
+				
+				@Override
+				public void listaVuota() {
+					if(listaApparati.equals(listaSelezionata)) {
+						creaNuovoApparato(event);
+					}else if(listaSwitch.equals(listaSelezionata)) {
+						associaSwitch(null,null);
+					}else if(listaHelpDesk.equals(listaSelezionata)) {
+						creaNuovoIntervento();
+					}
 				}
 
 			});
         }
     }
     
-    private void creaNuovoIntervento(Intervento nodo) {
-    	if(nodo != null){
-            FinestraInterventoController.scenaCorrente = Finestra.scenaCorrente();
-            Finestra.caricaFinestra(this, R.FXML.FINESTRA_INTERVENTO);
-        }
+    private void creaNuovoIntervento() {
+    	FinestraInterventoController.scenaCorrente = Finestra.scenaCorrente();
+        Finestra.caricaFinestra(this, R.FXML.FINESTRA_INTERVENTO);
     }
     
     private void associaSwitch(Apparato nodoPadre,ConnessioneSwitch nodo) {
     	if(nodo != null && nodoPadre != null){
-            FinestraSwitchController.scenaCorrente = Finestra.scenaCorrente();
-            FinestraSwitchController.input = new String[] {nodoPadre.getNome(), nodo.getNome(), nodo.getPorta()};
-            Finestra.caricaFinestra(this, R.FXML.FINESTRA_SWITCH);
+    		FinestraSwitchController.input = new String[] {nodoPadre.getNome(), nodo.getNome(), nodo.getPorta()};
         }
+    	FinestraSwitchController.scenaCorrente = Finestra.scenaCorrente();
+        Finestra.caricaFinestra(this, R.FXML.FINESTRA_SWITCH);
     }
     
     private void ceaNuovoHardwareApparato(HardwareApparato nodo) {
@@ -1040,7 +1075,7 @@ public class FinestraPrincipaleController implements Initializable {
 	                			nodo.getEsito()
 	                	};
 	                }
-					creaNuovoIntervento(nodo);
+					creaNuovoIntervento();
 				}
 
 			});
