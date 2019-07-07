@@ -40,10 +40,8 @@ import it.quasar_x7.gestione_rete.programma.R;
 import it.quasar_x7.controllo.FinestraGestioneUtentiController;
 import it.quasar_x7.java.BaseDati.EccezioneBaseDati;
 import it.quasar_x7.java.utile.DataOraria;
-import it.quasar_x7.java.utile.Errore;
 import it.quasar_x7.javafx.CampoTesto;
 import it.quasar_x7.javafx.Finestra;
-import it.quasar_x7.javafx.Maschera;
 import it.quasar_x7.javafx.TipoFile;
 import it.quasar_x7.javafx.finestre.controllo.ConfermaController;
 import it.quasar_x7.javafx.finestre.controllo.InputController;
@@ -54,16 +52,12 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.TreeSet;
 
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -72,19 +66,13 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
-import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextFlow;
-import javafx.util.Callback;
-
 /**
  * Classe che implementa il comportamento della 'FinestraPrincipale,fxml' .
  *
@@ -134,8 +122,6 @@ public class FinestraPrincipaleController implements Initializable {
 
     @FXML
     private TreeView<Nodo> listaHelpDesk;
-
-    
     
     @FXML
     private TitledPane pannelloListaHost;
@@ -1247,7 +1233,6 @@ public class FinestraPrincipaleController implements Initializable {
     @FXML
     private void caricaFile(ActionEvent event){
         if (event.getEventType().equals(ActionEvent.ACTION)) {
-            final Object finestraPrincipale = this;
             Finestra.finestraCaricaFile(
                     this, 
                     TipoFile.XLS,
