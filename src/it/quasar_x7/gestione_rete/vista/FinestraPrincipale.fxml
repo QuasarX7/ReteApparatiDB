@@ -115,7 +115,7 @@
                         <Font name="Arial Black" size="13.0" />
                      </font>
                      <content>
-                        <ListView fx:id="listaHelpDesk" prefHeight="200.0" prefWidth="200.0" />
+                        <TreeView fx:id="listaHelpDesk" onMouseClicked="#visualizzaMenuListaHelpDesk" prefHeight="200.0" prefWidth="200.0" />
                      </content>
                   </TitledPane>
                   <TitledPane fx:id="pannelloListaSwitch" animated="false" text="Switch">

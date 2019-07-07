@@ -36,6 +36,7 @@ import it.quasar_x7.gestione_rete.controllo.FinestraPosizioneController;
 import it.quasar_x7.gestione_rete.controllo.FinestraPrincipaleController;
 
 import static it.quasar_x7.gestione_rete.controllo.FinestraPrincipaleController.rete;
+import static it.quasar_x7.gestione_rete.controllo.FinestraPrincipaleController.reteInterventi;
 import static it.quasar_x7.gestione_rete.controllo.FinestraPrincipaleController.reteSwitch;
 import static it.quasar_x7.gestione_rete.programma.Programma.dati;
 
@@ -47,6 +48,7 @@ import it.quasar_x7.gestione_rete.controllo.FinestraUtilizzatoreController;
 import it.quasar_x7.gestione_rete.modello.Apparato;
 import it.quasar_x7.gestione_rete.modello.Hardware;
 import it.quasar_x7.gestione_rete.modello.HardwareApparato;
+import it.quasar_x7.gestione_rete.modello.Intervento;
 import it.quasar_x7.gestione_rete.modello.Nodo;
 import it.quasar_x7.gestione_rete.modello.Responsabile;
 import it.quasar_x7.gestione_rete.modello.Rete;
@@ -62,6 +64,7 @@ import it.quasar_x7.java.BaseDati.EccezioneBaseDati;
 import it.quasar_x7.java.utile.CellaPDF;
 import it.quasar_x7.java.utile.DataOraria;
 import it.quasar_x7.java.utile.FilePDF;
+import it.quasar_x7.javafx.CampoTesto.Colore;
 import it.quasar_x7.javafx.Finestra;
 import it.quasar_x7.javafx.finestre.controllo.BarraProgressiController;
 import it.quasar_x7.javafx.finestre.controllo.ConfermaController;
@@ -1308,7 +1311,7 @@ public class Programma extends Application {
         DatiApparato datiApparato = (DatiApparato) dati.get(DatiApparato.NOME_TABELLA);
         Programma.creaListaApparato(rete,datiApparato.listaApparati());
         Programma.creaListaSwitch(reteSwitch);
-        
+        Programma.crealistaHelpDesk(reteInterventi);
     }
     
     /**
@@ -1696,6 +1699,26 @@ public class Programma extends Application {
 		}
 	}
 
+	
+	public static void crealistaHelpDesk(TreeItem<Nodo> listaInterventi) {
+		if(listaInterventi != null){
+			listaInterventi.getChildren().clear();
+			DatiApparato datiApparato = (DatiApparato)dati.get(DatiApparato.NOME_TABELLA);
+			DatiIntervento datiHelpDesk = (DatiIntervento)dati.get(DatiIntervento.NOME_TABELLA);
+            for( Intervento helpDesk: datiHelpDesk.listaHelpDesk()) {
+            	Node immagine = new ImageView(new Image(R.Icona.HELPDESK,20,20,true,true));
+                TreeItem<Nodo> nodo = new TreeItem<>(helpDesk,immagine);
+                nodo.getChildren().add(new TreeItem<>(new Voce(R.Etichette.RICHIESTA,helpDesk.getMotivo())));
+                nodo.getChildren().add(new TreeItem<>(new Voce(R.Etichette.INTERVENTO,helpDesk.getAzione())));
+                Apparato apparato = datiApparato.info(helpDesk.getApparato());
+                if(apparato != null)
+                	nodo.getChildren().add(nodoApparato(apparato));
+                nodo.getChildren().add(new TreeItem<>(new Voce(R.Etichette.ESITO,helpDesk.getEsito())));
+                listaInterventi.getChildren().add(nodo);
+                
+            }
+		}
+	}
 
 
 
@@ -1732,10 +1755,21 @@ public class Programma extends Application {
 	                                return;
 	                            }
 	                        }
-	                    }else if(item instanceof Rete || item instanceof Ufficio || item instanceof Responsabile || item instanceof Switch){
+	                    }else if(item instanceof Rete || item instanceof Ufficio || item instanceof Responsabile || item instanceof Switch ){
 	                        setFont(Font.font("Arial Black", 12));
-	                    }else if(item instanceof ConnessioneSwitch || item instanceof Utilizzatore || item instanceof SoftwareApparato || item instanceof HardwareApparato){
+	                    }else if(item instanceof ConnessioneSwitch || item instanceof Utilizzatore || item instanceof SoftwareApparato || item instanceof HardwareApparato || item instanceof Intervento){
 	                        setFont(Font.font("Arial", FontWeight.BOLD, 12));
+	                        
+	                      //colora gli interventi di 'help desk' in base all'esito
+	                        if(item instanceof Intervento) {
+	                        	String colore = Colore.ARANCIONE;
+	                        	if(((Intervento) item).getEsito().equals(R.Esito.POSITIVO)){
+	                        		colore = Colore.VERDE;
+	                        	}else if(((Intervento) item).getEsito().equals(R.Esito.NEGATIVO)){
+	                        		colore = Colore.ROSSO;
+	                        	}
+	                        	setStyle(colore);
+	                        }
 	                        
 	                    }else{
 	                        setFont(Font.font("Arial Narrow",12));
@@ -1747,6 +1781,14 @@ public class Programma extends Application {
 	    lista.setCellFactory(costruzioneListaAlbero);
 	    lista.setRoot(rete);
 	}
+
+
+
+
+
+
+
+	
 
 
 

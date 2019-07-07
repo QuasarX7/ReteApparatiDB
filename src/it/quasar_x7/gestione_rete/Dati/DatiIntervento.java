@@ -53,7 +53,8 @@ public class DatiIntervento extends DatiDB {
      	                		   data,
      	                		   (String)record[2],
      	                		   (String)record[3],
-     	                		   (String)record[4]
+     	                		   (String)record[4],
+     	                		   (String)record[5]
      	                    );
                 			lista.add(intervento);
                 		}catch(Errore e) {

@@ -40,6 +40,7 @@ import it.quasar_x7.gestione_rete.programma.R;
 import it.quasar_x7.controllo.FinestraGestioneUtentiController;
 import it.quasar_x7.java.BaseDati.EccezioneBaseDati;
 import it.quasar_x7.java.utile.DataOraria;
+import it.quasar_x7.java.utile.Errore;
 import it.quasar_x7.javafx.CampoTesto;
 import it.quasar_x7.javafx.Finestra;
 import it.quasar_x7.javafx.Maschera;
@@ -104,6 +105,7 @@ public class FinestraPrincipaleController implements Initializable {
         public void utilizzatore(Utilizzatore nodo){}
         public void connessioneSwitch(Apparato nodoPadre,ConnessioneSwitch nodo){}
         public void switchRete(Switch nodo){}
+        public void helpDesk(Intervento nodo){}
 	}
 	
     static public TreeItem<Nodo> rete = new TreeItem<> (new Nodo("Lista apparati"));
@@ -112,8 +114,9 @@ public class FinestraPrincipaleController implements Initializable {
     
     static public TreeItem<Nodo> reteSwitch = new TreeItem<> (new Nodo("Lista switch"));
     
-    public static ObservableList<Intervento> listaInterventi = FXCollections.observableArrayList();
+    static public TreeItem<Nodo> reteInterventi = new TreeItem<> (new Nodo("Lista interventi"));
     
+     
     @FXML
     private Label titolo;
     
@@ -130,7 +133,7 @@ public class FinestraPrincipaleController implements Initializable {
     private TitledPane pannelloListaHelpDesk;
 
     @FXML
-    private ListView<Intervento> listaHelpDesk;
+    private TreeView<Nodo> listaHelpDesk;
 
     
     
@@ -208,6 +211,7 @@ public class FinestraPrincipaleController implements Initializable {
                 )
         );
         
+        listaHelpDesk.setShowRoot(false);
         listaApparati.setShowRoot(false);
         listaRicercaInfo.setShowRoot(false);
         // modalità di costruzione dell'albero
@@ -218,15 +222,14 @@ public class FinestraPrincipaleController implements Initializable {
         Programma.aspettoListaAlbero(reteSwitch,listaSwitch,datiStato);
         Programma.creaListaSwitch(reteSwitch);
         
+        Programma.aspettoListaAlbero(reteInterventi,listaHelpDesk,datiStato);
+        Programma.crealistaHelpDesk(reteInterventi);
+        
         Programma.aspettoListaAlbero(reteSelezionata,listaRicercaInfo,datiStato);
         
-        crealistaHelpDesk();
-        listaHelpDesk.setItems(listaInterventi);
     }   
     
-    private void crealistaHelpDesk() {
-    	listaInterventi.addAll(datiIntervento.listaHelpDesk());
-    }
+    
     
     @FXML
     private void creaNuovoApparato(ActionEvent event) {
@@ -549,6 +552,16 @@ public class FinestraPrincipaleController implements Initializable {
     }
     
     @FXML
+    private void visualizzaMenuListaHelpDesk(MouseEvent event){
+        if(event.getEventType().equals(MouseEvent.MOUSE_CLICKED)){
+        	visualizzaMenu(event);
+            aggiornaListaInfo(event,listaHelpDesk);
+            aggiornaListaRicercaInfo(event,listaHelpDesk);
+            event.consume();
+        }
+    }
+    
+    @FXML
     private void visualizzaMenuListaSwitch(MouseEvent event){
         if(event.getEventType().equals(MouseEvent.MOUSE_CLICKED)){
             visualizzaMenu(event);
@@ -623,6 +636,8 @@ public class FinestraPrincipaleController implements Initializable {
 	            	azione.utilizzatore((Utilizzatore) nodo.getValue());
 	            }else if(nodo.getValue() instanceof ConnessioneSwitch) {
 	            	azione.connessioneSwitch((Apparato)nodo.getParent().getValue(),(ConnessioneSwitch) nodo.getValue());
+	            }else if(nodo.getValue() instanceof Intervento) {
+	            	azione.helpDesk((Intervento) nodo.getValue());
 	            }else if(nodo.getValue() instanceof Switch) {
 	            	azione.switchRete((Switch) nodo.getValue());
 	            
@@ -634,7 +649,11 @@ public class FinestraPrincipaleController implements Initializable {
     	}
     }
     
-    
+    /**
+     * Permette di inizializzare la vista del menu, a seconda del tipo di nodo selezionato.
+     * Questo metodo è permette anche di inizializzare la variabile 'listaSelezionata'.
+     * @param event
+     */
     private void visualizzaMenu(MouseEvent event){
         if((event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) || event.getButton().equals(MouseButton.SECONDARY) ){
             if(event.getSource() instanceof TreeView){
@@ -739,6 +758,11 @@ public class FinestraPrincipaleController implements Initializable {
     					inizializzaVoci(R.Etichette.SWITCH,nodo);
     				}
     				
+    				@Override
+    				public void helpDesk(Intervento nodo) {
+    					inizializzaVoci(R.Etichette.INTERVENTO,nodo);
+    				}
+    				
 					@Override
 					public void info(Voce nodo) {
 						menuPannello.getItems().get(TITOLO_MENU).setText(nodo.getNome());
@@ -826,8 +850,20 @@ public class FinestraPrincipaleController implements Initializable {
 								}
 							});
 				}
+				
+				@Override
+				public void helpDesk(Intervento nodo) {
+					creaNuovoIntervento(nodo);
+				}
 
 			});
+        }
+    }
+    
+    private void creaNuovoIntervento(Intervento nodo) {
+    	if(nodo != null){
+            FinestraInterventoController.scenaCorrente = Finestra.scenaCorrente();
+            Finestra.caricaFinestra(this, R.FXML.FINESTRA_INTERVENTO);
         }
     }
     
@@ -1005,6 +1041,21 @@ public class FinestraPrincipaleController implements Initializable {
 								}
 							});
 				}
+				
+				@Override
+				public void helpDesk(Intervento nodo) {
+					if(nodo != null) {
+	                	FinestraInterventoController.input = new String[] {
+	                			nodo.getNome(),
+	                			nodo.getData() != null ? nodo.getData().stampaGiorno('/') : null,
+	                			nodo.getApparato(),
+	                			nodo.getMotivo(),
+	                			nodo.getAzione(),
+	                			nodo.getEsito()
+	                	};
+	                }
+					creaNuovoIntervento(nodo);
+				}
 
 			});
             
@@ -1162,6 +1213,22 @@ public class FinestraPrincipaleController implements Initializable {
 										for(String apparato: nomiApparati) {
 											datiSwitchApparato.elimina(new Object[] {apparato,nodo.getNome()});
 										}
+										Programma.aggiornaListeNodi();// aggiorna liste laterali ad albero
+									}
+						});
+	                }
+				}
+				
+				@Override
+				public void helpDesk(Intervento nodo) {
+					if(nodo != null) {
+						Finestra.finestraConferma(
+								this, 
+								String.format(R.Domanda.CONFERMA_ELIMINAZIONE,nodo.toString()), 
+								new ConfermaController.Codice() {
+									@Override
+									public void esegui() {
+										datiIntervento.elimina(new Object[] {nodo.getNome()});
 										Programma.aggiornaListeNodi();// aggiorna liste laterali ad albero
 									}
 						});

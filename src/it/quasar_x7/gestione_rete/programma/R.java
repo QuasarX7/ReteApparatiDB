@@ -84,6 +84,8 @@ public class R {
         public static final String UTILIZZATORE  = PATH + "utilizzatore.png";
         public static final String SWITCH = PATH + "switch.png";
         public static final String POSIZIONE = PATH + "posizione.png";
+
+		public static final String HELPDESK = PATH + "modifica.png";
     
     }
     
@@ -189,6 +191,12 @@ public class R {
     public class Conferma{
         public static final String SI = "Sì";
         public static final String NO = "No";
+    }
+    
+    public class Esito{
+        public static final String POSITIVO = "Positivo";
+        public static final String NEGATIVO = "Negativo";
+        public static final String SOSPESO  = "Da definire";
     }
     
     public class Messaggi{

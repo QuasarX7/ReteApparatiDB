@@ -14,14 +14,16 @@ import javafx.beans.property.StringProperty;
 public class Intervento extends Nodo{
 
     private ObjectProperty<DataOraria> data = null;
+    private StringProperty apparato = null;
     private StringProperty motivo = null;
     private StringProperty azione = null;
     private StringProperty esito = null;
     
     
-    public Intervento(String ticket, DataOraria data, String motivo,String azione,String esito) {
+    public Intervento(String ticket, DataOraria data, String apparato,String motivo,String azione,String esito) {
         super(ticket);
         this.data = new SimpleObjectProperty<DataOraria>(data);
+        this.apparato = new SimpleStringProperty(apparato);
         this.motivo = new SimpleStringProperty(motivo);
         this.azione = new SimpleStringProperty(azione);
         this.esito = new SimpleStringProperty(esito);
@@ -31,8 +33,12 @@ public class Intervento extends Nodo{
 		return data.get();
 	}
 
-	public String getMotivo() {
+    public String getMotivo() {
 		return motivo.get();
+	}
+    
+    public String getApparato() {
+		return apparato.get();
 	}
 	
 	public String getAzione() {

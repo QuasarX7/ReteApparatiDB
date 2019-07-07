@@ -66,11 +66,12 @@ public class FinestraInterventoController  implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     	CampoTesto.data(data);
+    	data.setText(new DataOraria().stampaGiorno('/'));
     	TreeSet<String> host = datiApparato.listaOrdinata(0);
         if(host != null)
             menuApparato.getItems().addAll(host);
-        
-        menuEsito.getItems().addAll("POSITIVO","NEGATIVO","SOSPESO","");
+       
+        menuEsito.getItems().addAll(R.Esito.POSITIVO,R.Esito.NEGATIVO,R.Esito.SOSPESO);
         
         if(input != null) {
         	if(input[0] != null)
@@ -104,6 +105,7 @@ public class FinestraInterventoController  implements Initializable {
     @FXML
     protected void chiusuraSenzaSalvare(ActionEvent event) {
         Programma.chiusuraFinestra(this, scenaCorrente);
+        Programma.aggiornaListeNodi();
         input = null;
         tabella = null;
     }
