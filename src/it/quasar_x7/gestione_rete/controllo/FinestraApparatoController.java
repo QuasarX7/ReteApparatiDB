@@ -111,6 +111,9 @@ public class FinestraApparatoController implements Initializable {
     private TextField sigillo;
     
     @FXML
+    private TextField scheda;
+    
+    @FXML
     private TextField password;
     
     @FXML
@@ -156,9 +159,10 @@ public class FinestraApparatoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        CampoTesto.soloCaratteri(nome, 30, "@.\\-_òàùèéìç1234567890");
+        CampoTesto.soloCaratteri(nome, 30, " @.\\-_òàùèéìç1234567890");
         CampoTesto.indirizzoIP(ip);
         CampoTesto.soloNumeri(sigillo, 5);
+        CampoTesto.soloNumeri(scheda, 5);
         final Maschera indirizzoMAC = new Maschera(Maschera.MAC, '_');
         CampoTesto.aggiungiMascheraInput(macPC, indirizzoMAC);
         CampoTesto.aggiungiMascheraInput(macVOIP,indirizzoMAC);

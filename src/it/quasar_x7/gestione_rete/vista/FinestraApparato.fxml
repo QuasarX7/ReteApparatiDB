@@ -206,12 +206,12 @@
                         <Insets right="250.0" />
                     </GridPane.margin>
                 </TextField>
-                <Label focusTraversable="false" layoutX="492.0" layoutY="103.0" text="Rete" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                <Label focusTraversable="false" layoutX="492.0" layoutY="103.0" text="Rete" GridPane.columnIndex="2" GridPane.rowIndex="2">
                     <font>
                         <Font name="Arial Black" size="14.0" />
                     </font>
                 </Label>
-                <Label focusTraversable="false" layoutX="492.0" layoutY="148.0" text="Posizione" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                <Label focusTraversable="false" layoutX="492.0" layoutY="148.0" text="Posizione" GridPane.columnIndex="2" GridPane.rowIndex="3">
                     <font>
                         <Font name="Arial Black" size="14.0" />
                     </font>
@@ -223,7 +223,7 @@
                 </ChoiceBox>
                 <Button layoutX="408.0" layoutY="98.0" mnemonicParsing="false" onAction="#aggiungiNuovoTipoApparato" prefHeight="20.0" prefWidth="43.0" AnchorPane.leftAnchor="415.0" AnchorPane.topAnchor="95.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <graphic>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../Risorse/aggiungi.png" />
                             </image>
@@ -239,7 +239,7 @@
                 <ChoiceBox fx:id="utilizzatore" layoutX="90.0" layoutY="146.0" onMousePressed="#aggiornaUtilizzatore" prefHeight="27.0" prefWidth="324.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <Button layoutX="415.0" layoutY="142.0" mnemonicParsing="false" onAction="#aggiungiNuovoUtilizzatore" prefHeight="20.0" prefWidth="43.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <graphic>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../Risorse/aggiungi.png" />
                             </image>
@@ -249,15 +249,15 @@
                         <Insets left="330.0" />
                     </GridPane.margin>
                 </Button>
-                <ChoiceBox fx:id="rete" layoutX="595.0" layoutY="103.0" onMousePressed="#aggiornaRete" prefHeight="27.0" prefWidth="303.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                <ChoiceBox fx:id="rete" layoutX="595.0" layoutY="103.0" onMousePressed="#aggiornaRete" prefHeight="27.0" prefWidth="303.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                     <HBox.margin>
                         <Insets top="7.0" />
                     </HBox.margin>
                 </ChoiceBox>
-                <ChoiceBox fx:id="posizione" layoutX="595.0" layoutY="146.0" onMousePressed="#aggiornaPosizione" prefHeight="27.0" prefWidth="303.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                <Button layoutX="909.0" layoutY="99.0" mnemonicParsing="false" onAction="#aggiungiNuovaRete" prefHeight="20.0" prefWidth="43.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                <ChoiceBox fx:id="posizione" layoutX="595.0" layoutY="146.0" onMousePressed="#aggiornaPosizione" prefHeight="27.0" prefWidth="303.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                <Button layoutX="909.0" layoutY="99.0" mnemonicParsing="false" onAction="#aggiungiNuovaRete" prefHeight="20.0" prefWidth="43.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                     <graphic>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../Risorse/aggiungi.png" />
                             </image>
@@ -270,9 +270,9 @@
                         <Insets left="310.0" />
                     </GridPane.margin>
                 </Button>
-                <Button layoutX="909.0" layoutY="142.0" mnemonicParsing="false" onAction="#aggiungiNuovaPosizione" prefHeight="20.0" prefWidth="43.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                <Button layoutX="909.0" layoutY="142.0" mnemonicParsing="false" onAction="#aggiungiNuovaPosizione" prefHeight="20.0" prefWidth="43.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
                     <graphic>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../Risorse/aggiungi.png" />
                             </image>
@@ -298,7 +298,7 @@
 </font>
 </Label><ChoiceBox fx:id="stato" layoutX="90.0" layoutY="146.0" onMousePressed="#aggiornaStato" prefHeight="27.0" prefWidth="324.0" GridPane.columnIndex="1" GridPane.rowIndex="6" /><Button layoutX="415.0" layoutY="142.0" mnemonicParsing="false" onAction="#aggiungiNuovoStato" prefHeight="20.0" prefWidth="43.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
 <graphic>
-<ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+<ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
 <image>
 <Image url="@../Risorse/aggiungi.png" />
 </image>
@@ -329,10 +329,23 @@
 <font>
 <Font name="Arial Black" size="14.0" />
 </font>
-</Label><CheckBox fx:id="internet" alignment="CENTER" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="Accesso Internet" textFill="#8aee11" GridPane.columnIndex="3" GridPane.rowIndex="3">
+</Label><CheckBox fx:id="internet" alignment="CENTER" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="Accesso Internet" textFill="#8aee11" GridPane.columnIndex="3" GridPane.rowIndex="5">
 <font>
 <Font name="Arial Black" size="14.0" />
 </font></CheckBox>
+            <Label focusTraversable="false" text="n° Scheda" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Arial Black" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="scheda" prefHeight="30.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Arial Black" size="13.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets right="250.0" />
+               </GridPane.margin>
+            </TextField>
             </children>
         </GridPane>
     </children>

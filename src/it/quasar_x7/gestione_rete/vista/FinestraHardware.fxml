@@ -30,7 +30,7 @@
 </ChoiceBox>
 <Button mnemonicParsing="false" onAction="#aggiungiNuovoTipo" prefHeight="20.0" prefWidth="43.0">
 <graphic>
-<ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+<ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
 <image>
 <Image url="@../Risorse/aggiungi.png" />
 </image>
@@ -50,7 +50,7 @@
 </ChoiceBox>
 <Button mnemonicParsing="false" onAction="#aggiungiCasa" prefHeight="20.0" prefWidth="43.0">
 <graphic>
-<ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+<ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
 <image>
 <Image url="@../Risorse/aggiungi.png" />
 </image>
@@ -129,7 +129,7 @@
 <Insets top="7.0" />
 </HBox.margin></ChoiceBox><Button mnemonicParsing="false" onAction="#aggiungiStato" prefHeight="20.0" prefWidth="43.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
 <graphic>
-<ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+<ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
 <image>
 <Image url="@../Risorse/aggiungi.png" />
 </image>

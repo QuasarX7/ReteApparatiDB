@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="314.0" prefWidth="616.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="it.quasar_x7.gestione_rete.controllo.FinestraResponsabileController">
+<AnchorPane id="AnchorPane" prefHeight="314.0" prefWidth="616.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.quasar_x7.gestione_rete.controllo.FinestraResponsabileController">
     <stylesheets>
         <URL value="@stile.css" />
     </stylesheets>
@@ -63,7 +63,7 @@
 </ChoiceBox>
 <Button mnemonicParsing="false" onAction="#aggiungiNuovoGrado" prefHeight="20.0" prefWidth="43.0">
 <graphic>
-<ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+<ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
 <image>
 <Image url="@../Risorse/aggiungi.png" />
 </image>
