@@ -52,6 +52,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.TreeSet;
 
@@ -61,6 +63,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ContextMenu;
@@ -70,6 +77,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.TextFlow;
@@ -147,6 +156,15 @@ public class FinestraPrincipaleController implements Initializable {
     @FXML
     private ChoiceBox<String> menuTipoRicerca;
     
+    @FXML
+    private BarChart<String, Long> diagramma;
+
+    @FXML
+    private CategoryAxis diagrammaGruppoApparati;
+
+    @FXML
+    private NumberAxis diagrammaNumeroApparati;
+    
 
 	private TreeView<Nodo> listaSelezionata = null;
 
@@ -214,8 +232,46 @@ public class FinestraPrincipaleController implements Initializable {
         
         Programma.aspettoListaAlbero(reteSelezionata,listaRicercaInfo,datiStato);
         
-    }   
+        creaDiagramma();
+        visualizzaDiagramma(true);
+    }  
     
+    private void creaDiagramma() {
+    	diagramma.setTitle(R.Etichette.DIAGRAMMA);
+    	diagrammaGruppoApparati.setLabel(R.Etichette.POSIZIONE);       
+    	diagrammaNumeroApparati.setLabel(R.Etichette.FINESTRA_LISTA_APPARATI);
+    	
+    	
+    	HashMap<String, HashMap<String, HashMap<String, ArrayList<Apparato>>>> lista = datiApparato.listaApparati();
+    	
+    	for(String nomeDominio : lista.keySet()){
+            HashMap<String,HashMap<String, ArrayList<Apparato>>> dominio = lista.get(nomeDominio);
+            XYChart.Series<String,Long> serie = new Series<String, Long>();
+        	serie.setName(nomeDominio);
+            
+            if(dominio != null){
+                for(String nomeResponsabile : dominio.keySet()){
+                	HashMap<String, ArrayList<Apparato>> responsabile = dominio.get(nomeResponsabile);
+                    long nApparati = 0;
+                	for(String nomeUfficio : responsabile.keySet()){
+                    	ArrayList<Apparato> ufficio = responsabile.get(nomeUfficio);
+                    	nApparati +=ufficio.size();
+                    }
+                	serie.getData().add(new XYChart.Data<String, Long>(nomeResponsabile, nApparati));
+                    
+                    
+                }
+            }
+            diagramma.getData().add(serie);
+        
+        }
+    	
+    }
+    
+    private void visualizzaDiagramma(boolean vedi) {
+    	elencoInfo.setVisible(!vedi);
+        listaRicercaInfo.setVisible(!vedi);
+    }
     
     
     @FXML
@@ -225,6 +281,8 @@ public class FinestraPrincipaleController implements Initializable {
             Finestra.caricaFinestra(this, R.FXML.FINESTRA_APPARATO);
         }
     }
+    
+    
 
     @FXML
     private void apriListaApparati(ActionEvent event) {
@@ -578,6 +636,7 @@ public class FinestraPrincipaleController implements Initializable {
             if(nodo != null){
                 Nodo selezione = nodo.getValue();
                 elencoInfo.getItems().addAll(selezione.info());
+                visualizzaDiagramma(false);
             }
             
         }
@@ -607,7 +666,8 @@ public class FinestraPrincipaleController implements Initializable {
     private void selezionaMenuAlbero(AzioneMenu azione) {
     	if(listaSelezionata != null) {
 	    	TreeItem<Nodo> nodo = listaSelezionata.getSelectionModel().getSelectedItem();
-	        if(nodo != null){
+	    	
+	    	if(nodo != null){
 	            if(nodo.getValue() instanceof Apparato){
 	                azione.apparato((Apparato) nodo.getValue());
 	            }else if(nodo.getValue() instanceof Ufficio){
@@ -799,6 +859,7 @@ public class FinestraPrincipaleController implements Initializable {
     private void menuAggiungi(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
             elencoInfo.getItems().clear();
+            visualizzaDiagramma(true);
             if(!listaSelezionata.equals(listaRicercaInfo))
             	listaRicercaInfo.getRoot().getChildren().clear();
             
@@ -916,6 +977,7 @@ public class FinestraPrincipaleController implements Initializable {
     private void menuWizard(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
         	elencoInfo.getItems().clear();
+        	visualizzaDiagramma(true);
         	if(!listaSelezionata.equals(listaRicercaInfo))
             	listaRicercaInfo.getRoot().getChildren().clear();
             selezionaMenuAlbero(new AzioneMenu(){
@@ -949,6 +1011,7 @@ public class FinestraPrincipaleController implements Initializable {
     private void menuModifica(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
             elencoInfo.getItems().clear();
+            visualizzaDiagramma(true);
             if(!listaSelezionata.equals(listaRicercaInfo))
             	listaRicercaInfo.getRoot().getChildren().clear();
             
@@ -1087,6 +1150,7 @@ public class FinestraPrincipaleController implements Initializable {
     private void menuElimina(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
             elencoInfo.getItems().clear();
+            visualizzaDiagramma(true);
             if(!listaSelezionata.equals(listaRicercaInfo))
             	listaRicercaInfo.getRoot().getChildren().clear();
             
@@ -1407,6 +1471,7 @@ public class FinestraPrincipaleController implements Initializable {
                     nodo.setExpanded(true);
                     reteSelezionata.getChildren().clear();
                     elencoInfo.getItems().clear();
+                    visualizzaDiagramma(false);
                     reteSelezionata.getChildren().add(nodo);
                 }
             }

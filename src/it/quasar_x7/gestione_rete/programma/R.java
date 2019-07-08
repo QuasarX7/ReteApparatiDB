@@ -167,6 +167,7 @@ public class R {
 		public static final String INTERVENTO = "Intervento";
 		public static final String ESITO = "Esito";
 		public static final String FINESTRA_INTERVENTO = "Lista Interventi";
+		public static final String DIAGRAMMA = "Distribuzione Apparati";
         
         
         
