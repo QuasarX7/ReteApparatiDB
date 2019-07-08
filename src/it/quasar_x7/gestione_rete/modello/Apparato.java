@@ -28,12 +28,13 @@ public class Apparato extends Nodo{
     private final StringProperty utente;
     private final BooleanProperty internet;
     private final IntegerProperty sigillo;
+    private final IntegerProperty scheda;
     private final StringProperty password;
     private final StringProperty stato;
     
    
     
-    public Apparato(String nome,String tipo,String gruppo,String ip,String macPC,String macVOIP,String posizione,String utente, boolean internet, int sigillo,String password,String stato) {
+    public Apparato(String nome,String tipo,String gruppo,String ip,String macPC,String macVOIP,String posizione,String utente, boolean internet, int sigillo,int scheda,String password,String stato) {
         super(nome);
         this.tipo = new SimpleStringProperty(tipo);
         this.gruppo = new SimpleStringProperty(gruppo);
@@ -44,6 +45,7 @@ public class Apparato extends Nodo{
         this.utente = new SimpleStringProperty(utente);
         this.internet = new SimpleBooleanProperty(internet);
         this.sigillo = new SimpleIntegerProperty(sigillo);
+        this.scheda = new SimpleIntegerProperty(scheda);
         this.password = new SimpleStringProperty(password);
         this.stato = new SimpleStringProperty(stato);
     }
@@ -86,6 +88,10 @@ public class Apparato extends Nodo{
         return sigillo.get();
     }
     
+    public int getScheda() {
+        return scheda.get();
+    }
+    
     public String getPassword() {
         return password.get();
     }
@@ -110,6 +116,7 @@ public class Apparato extends Nodo{
         lista.add(voceInfo(R.Etichette.ACCOUNT,getUtente()));
         lista.add(voceInfo(R.Etichette.INTERNET,getInternet() ? R.Conferma.SI : R.Conferma.NO ));
         lista.add(voceInfo(R.Etichette.SIGILLO,getSigillo()+""));
+        lista.add(voceInfo(R.Etichette.SCHEDA,getScheda()+""));
         lista.add(voceInfo(R.Etichette.PASSWORD,getPassword()));
         lista.add(voceInfo(R.Etichette.STATO,getStato()));
         
@@ -170,6 +177,9 @@ public class Apparato extends Nodo{
             return false;
         }
         if (!Objects.equals(this.sigillo.get(), other.sigillo.get())) {
+            return false;
+        }
+        if (!Objects.equals(this.scheda.get(), other.scheda.get())) {
             return false;
         }
         if (!Objects.equals(this.password.get(), other.password.get())) {

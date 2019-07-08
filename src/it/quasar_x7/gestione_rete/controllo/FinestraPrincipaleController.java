@@ -1030,6 +1030,7 @@ public class FinestraPrincipaleController implements Initializable {
                         nodo.getUtente(),
                         nodo.getInternet() == null ? null : nodo.getInternet() == true ? R.Conferma.SI : R.Conferma.NO,
                         String.valueOf(nodo.getSigillo()),
+                        String.valueOf(nodo.getScheda()),
                         nodo.getPassword(),
                         nodo.getStato()
                     };

@@ -28,6 +28,7 @@ public class DatiApparato extends DatiDB{
     public static final String VOCE_TABELLA_SWITCH      	= "switch";
     protected static final String VOCE_TABELLA_INTERNET    	= "internet";
     protected static final String VOCE_TABELLA_SIGILLO     	= "sigillo";
+    protected static final String VOCE_TABELLA_SCHEDA     	= "scheda";
     protected static final String VOCE_TABELLA_PASSWORD    	= "password";
     public static final String VOCE_TABELLA_STATO       	= "stato";
 
@@ -44,11 +45,12 @@ public class DatiApparato extends DatiDB{
             tabella.creaAttributo(VOCE_TABELLA_MAC_VOIP, TESTO, "", Relazione.NO_CHIAVE);
             tabella.creaAttributo(VOCE_TABELLA_POSIZIONE, TESTO, null, Relazione.NO_CHIAVE); // *
             tabella.creaAttributo(VOCE_TABELLA_UTENTE, TESTO, null, Relazione.NO_CHIAVE);    // *
-            //tabella.creaAttributo(VOCE_TABELLA_SWITCH, TESTO, null, Relazione.NO_CHIAVE);    // *
             tabella.creaAttributo(VOCE_TABELLA_INTERNET, BOOLEANO, null, Relazione.NO_CHIAVE);
             tabella.creaAttributo(VOCE_TABELLA_SIGILLO, INTERO, null, Relazione.NO_CHIAVE);
+            tabella.creaAttributo(VOCE_TABELLA_SCHEDA, INTERO, null, Relazione.NO_CHIAVE);
             tabella.creaAttributo(VOCE_TABELLA_PASSWORD, TESTO, "", Relazione.NO_CHIAVE);
             tabella.creaAttributo(VOCE_TABELLA_STATO, TESTO, null, Relazione.NO_CHIAVE);     // *
+                
         } catch (EccezioneBaseDati ex) {
             Logger.getLogger(DatiApparato.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -80,8 +82,9 @@ public class DatiApparato extends DatiDB{
                             (String)record[7],   // utilizzatore
                             (Boolean)record[8],  // accesso internet
                             (Integer)record[9], // sigillo
-                            (String)record[10],  // password
-                            (String)record[11]   // stato
+                            (Integer)record[10], // scheda
+                            (String)record[11],  // password
+                            (String)record[12]   // stato
                     );
                     
                     String workgroup =   
@@ -158,8 +161,9 @@ public class DatiApparato extends DatiDB{
                         (String)record[7],  // utilizzatore
                         (Boolean)record[8], // internet
                         (Integer)record[9], // sigillo
-                        (String)record[10], // password
-                        (String)record[11]  // stato
+                        (Integer)record[10], // scheda
+                        (String)record[11], // password
+                        (String)record[12]  // stato
                 );
         } catch (EccezioneBaseDati ex) {
             Logger.getLogger(DatiApparato.class.getName()).log(Level.SEVERE, null, ex);

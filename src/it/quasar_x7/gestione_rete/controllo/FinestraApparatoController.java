@@ -228,10 +228,13 @@ public class FinestraApparatoController implements Initializable {
                 sigillo.setText(input[9]);
             
             if(input[10] != null)
-                password.setText(input[10]);
+                scheda.setText(input[10]);
             
             if(input[11] != null)
-                stato.setValue(input[11]);
+                password.setText(input[11]);
+            
+            if(input[12] != null)
+                stato.setValue(input[12]);
             
             aggiornaTabellaSW();
             aggiornaTabellaHW();
@@ -299,6 +302,7 @@ public class FinestraApparatoController implements Initializable {
                 //_switch.getValue() != null ? _switch.getValue() : "",
                 internet.isSelected(),
                 sigillo.getText(),
+                scheda.getText(),
                 password.getText(),
                 stato.getValue() != null ? stato.getValue() : ""
             };

@@ -155,6 +155,7 @@ public class R {
         public static final String NOME = "Nome";
         public static final String INTERNET = "Internet";
         public static final String SIGILLO = "Sigillo";
+        public static final String SCHEDA = "Scheda";
         public static final String GATEWAY = "Gateway";
         public static final String NOME_RESPONSABILE = "Nome Resp.";
         public static final String GRADO = "Grado/Qualifica";
