@@ -1,6 +1,5 @@
 package it.quasar_x7.gestione_rete.modello;
 
-import it.quasar_x7.gestione_rete.programma.R;
 import java.util.ArrayList;
 import java.util.Objects;
 import javafx.beans.property.SimpleStringProperty;

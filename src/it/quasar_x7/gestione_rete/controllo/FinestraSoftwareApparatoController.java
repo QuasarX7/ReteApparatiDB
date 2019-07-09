@@ -16,7 +16,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 /**

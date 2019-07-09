@@ -1,18 +1,15 @@
 package it.quasar_x7.gestione_rete.controllo;
 
 import it.quasar_x7.gestione_rete.Dati.DatiCasaSoftware;
-import it.quasar_x7.gestione_rete.Dati.DatiDB;
 import it.quasar_x7.gestione_rete.Dati.DatiSoftware;
 import it.quasar_x7.gestione_rete.Dati.DatiTipoSoftware;
 import it.quasar_x7.gestione_rete.programma.Programma;
 import static it.quasar_x7.gestione_rete.programma.Programma.dati;
 import it.quasar_x7.gestione_rete.programma.R;
-import it.quasar_x7.javafx.Finestra;
 import it.quasar_x7.javafx.finestre.controllo.TabellaController;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.function.BiConsumer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -96,43 +93,53 @@ public class FinestraSoftwareController implements Initializable {
 
     @FXML
     protected void chiusuraSenzaSalvare(ActionEvent event) {
-        Programma.chiusuraFinestra(this, scenaCorrente);
-        input = null;
-        tabella= null;
+    	if(event.getEventType().equals(ActionEvent.ACTION)){
+	        Programma.chiusuraFinestra(this, scenaCorrente);
+	        input = null;
+	        tabella= null;
+    	}
     }
 
     @FXML
     protected void aggiornaMenuTipo(MouseEvent event) {
-        menuTipo.getItems().clear();
-        menuTipo.getItems().addAll(datiTipoSoftware.lista());
+    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        menuTipo.getItems().clear();
+	        menuTipo.getItems().addAll(datiTipoSoftware.lista());
+    	}
     }
 
     @FXML
     protected void aggiungiNuovoTipo(ActionEvent event) {
-        Programma.apriSempliceLista(
-                this,
-                datiTipoSoftware,
-                R.Etichette.FINESTRA_LISTA_TIPO_SW,
-                R.Etichette.TIPO_SW,
-                R.Messaggi.SOSTITUZIONE_TIPO_SW
-        );
+    	if(event.getEventType().equals(ActionEvent.ACTION)){
+	        Programma.apriSempliceLista(
+	                this,
+	                datiTipoSoftware,
+	                R.Etichette.FINESTRA_LISTA_TIPO_SW,
+	                R.Etichette.TIPO_SW,
+	                R.Messaggi.SOSTITUZIONE_TIPO_SW
+	        );
+    	}
     }
 
     @FXML
     protected void aggiornaMenuCasa(MouseEvent event) {
-        menuCasa.getItems().clear();
-        menuCasa.getItems().addAll(datiCasaSoftware.lista());
+    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        menuCasa.getItems().clear();
+	        menuCasa.getItems().addAll(datiCasaSoftware.lista());
+    	}
     }
 
     @FXML
     protected void aggiungiCasa(ActionEvent event) {
-        Programma.apriSempliceLista(
-                this,
-                datiCasaSoftware,
-                    R.Etichette.FINESTRA_LISTA_CASA_SW,
-                R.Etichette.TIPO_SW,
-                R.Messaggi.SOSTITUZIONE_CASA_SW
-        );
+    	if(event.getEventType().equals(ActionEvent.ACTION)){
+	        Programma.apriSempliceLista(
+	                this,
+	                datiCasaSoftware,
+	                    R.Etichette.FINESTRA_LISTA_CASA_SW,
+	                R.Etichette.TIPO_SW,
+	                R.Messaggi.SOSTITUZIONE_CASA_SW
+	        );
+    	}
     }
 
     @FXML

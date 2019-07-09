@@ -2,7 +2,6 @@ package it.quasar_x7.gestione_rete.Dati;
 
 import it.quasar_x7.java.BaseDati.EccezioneBaseDati;
 import it.quasar_x7.java.BaseDati.Relazione;
-import it.quasar_x7.javafx.finestre.modello.VoceListaColore;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;

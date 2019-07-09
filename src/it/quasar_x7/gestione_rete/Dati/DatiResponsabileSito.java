@@ -1,6 +1,6 @@
 package it.quasar_x7.gestione_rete.Dati;
 
-import static it.quasar_x7.gestione_rete.Dati.DatiDB.TESTO;
+
 import it.quasar_x7.java.BaseDati.EccezioneBaseDati;
 import it.quasar_x7.java.BaseDati.Relazione;
 import java.util.ArrayList;

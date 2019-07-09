@@ -1,11 +1,7 @@
 package it.quasar_x7.gestione_rete.controllo;
 
 import it.quasar_x7.gestione_rete.Dati.DatiApparato;
-import it.quasar_x7.gestione_rete.Dati.DatiDB;
 import it.quasar_x7.gestione_rete.Dati.DatiHardware;
-import it.quasar_x7.gestione_rete.Dati.DatiHardwareApparato;
-import it.quasar_x7.gestione_rete.Dati.DatiSoftware;
-import it.quasar_x7.gestione_rete.Dati.DatiSoftwareApparato;
 import it.quasar_x7.gestione_rete.programma.Programma;
 import static it.quasar_x7.gestione_rete.programma.Programma.dati;
 import it.quasar_x7.gestione_rete.programma.R;
@@ -18,7 +14,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -51,7 +46,6 @@ public class FinestraHardwareApparatoController implements Initializable {
     private ChoiceBox<String> nomeApparato;
     
     private final DatiHardware datiHW = (DatiHardware)dati.get(DatiHardware.NOME_TABELLA);
-    private final DatiHardwareApparato datiHardwareApparato = (DatiHardwareApparato)dati.get(DatiHardwareApparato.NOME_TABELLA);
     private final DatiApparato datiApparato = (DatiApparato)dati.get(DatiApparato.NOME_TABELLA);
     
     

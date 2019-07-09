@@ -14,8 +14,7 @@ import javafx.scene.text.TextFlow;
 public class Responsabile extends Nodo{
     
     private StringProperty nominativo = null;
-private StringProperty _nome = null;
-
+    
     
     public Responsabile(String responsabile,String nominativo) {
         super(responsabile);

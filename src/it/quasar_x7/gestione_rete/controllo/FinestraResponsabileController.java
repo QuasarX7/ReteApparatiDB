@@ -1,15 +1,12 @@
 package it.quasar_x7.gestione_rete.controllo;
 
-import it.quasar_x7.gestione_rete.Dati.DatiApparato;
 import it.quasar_x7.gestione_rete.Dati.DatiDB;
 import it.quasar_x7.gestione_rete.Dati.DatiGrado;
 import it.quasar_x7.gestione_rete.Dati.DatiPosizione;
 import it.quasar_x7.gestione_rete.Dati.DatiResponsabileSito;
 import it.quasar_x7.gestione_rete.programma.Programma;
 import static it.quasar_x7.gestione_rete.programma.Programma.dati;
-import it.quasar_x7.gestione_rete.programma.R;
 import it.quasar_x7.javafx.CampoTesto;
-import it.quasar_x7.javafx.Finestra;
 import it.quasar_x7.javafx.finestre.controllo.TabellaController;
 import java.net.URL;
 import java.util.ArrayList;
@@ -73,7 +70,7 @@ public class FinestraResponsabileController implements Initializable {
     }    
 
     @FXML
-    void salva(ActionEvent event) {
+    private void salva(ActionEvent event) {
         if(event.getEventType().equals(ActionEvent.ACTION)){
         
             Programma.salva(
@@ -124,21 +121,27 @@ public class FinestraResponsabileController implements Initializable {
     }
 
     @FXML
-    void aggiornaGrado(MouseEvent event) {
-        grado.getItems().clear();
-        grado.getItems().addAll(datiGrado.lista(true));
+    private void aggiornaGrado(MouseEvent event) {
+    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        grado.getItems().clear();
+	        grado.getItems().addAll(datiGrado.lista(true));
+    	}
     }
 
     @FXML
-    void aggiungiNuovoGrado(ActionEvent event) {
-        Programma.listaGradi(this);
+    private void aggiungiNuovoGrado(ActionEvent event) {
+    	if(event.getEventType().equals(ActionEvent.ACTION)){
+    		Programma.listaGradi(this);
+    	}
     }
 
     @FXML
-    void chiusuraSenzaSalvare(ActionEvent event) {
-        Programma.chiusuraFinestra(this, scenaCorrente);
-        input = null;
-        tabella= null;
+    private void chiusuraSenzaSalvare(ActionEvent event) {
+    	if(event.getEventType().equals(ActionEvent.ACTION)){
+	        Programma.chiusuraFinestra(this, scenaCorrente);
+	        input = null;
+	        tabella= null;
+    	}
     }
  
 }

@@ -5,7 +5,6 @@ import it.quasar_x7.gestione_rete.Dati.DatiConnessioneSwitch;
 import it.quasar_x7.gestione_rete.Dati.DatiHardwareApparato;
 import it.quasar_x7.gestione_rete.Dati.DatiPosizione;
 import it.quasar_x7.gestione_rete.Dati.DatiRete;
-import it.quasar_x7.gestione_rete.Dati.DatiSoftware;
 import it.quasar_x7.gestione_rete.Dati.DatiSoftwareApparato;
 import it.quasar_x7.gestione_rete.Dati.DatiStato;
 import it.quasar_x7.gestione_rete.Dati.DatiSwitch;
@@ -13,7 +12,6 @@ import it.quasar_x7.gestione_rete.Dati.DatiTipoApparato;
 import it.quasar_x7.gestione_rete.Dati.DatiUtilizzatore;
 import it.quasar_x7.gestione_rete.modello.Hardware;
 import it.quasar_x7.gestione_rete.modello.Software;
-import it.quasar_x7.gestione_rete.modello.Switch;
 import it.quasar_x7.gestione_rete.modello.Utilizzatore;
 import it.quasar_x7.gestione_rete.programma.Programma;
 import static it.quasar_x7.gestione_rete.programma.Programma.dati;
@@ -281,68 +279,72 @@ public class FinestraApparatoController implements Initializable {
 
     @FXML
     private void chiusuraSenzaSalvare(ActionEvent event) {
-        Programma.chiusuraFinestra(this, scenaCorrente);
-        input = null;
-        tabella = null;
+    	if(event.getEventType().equals(ActionEvent.ACTION)){
+	        Programma.chiusuraFinestra(this, scenaCorrente);
+	        input = null;
+	        tabella = null;
+    	}
     }
 
     @FXML
     private void salva(ActionEvent event) {
-        if(!nome.getText().isEmpty()){
-           
-            Object[] record = new Object[]{
-                nome.getText(),
-                tipo.getValue() != null ? tipo.getValue() : "",
-                rete.getValue() != null ? rete.getValue() : "",
-                ip.getText(),
-                macPC.getText(),
-                macVOIP.getText(),
-                posizione.getValue() != null ? posizione.getValue() : "",
-                utilizzatore.getValue() != null ? utilizzatore.getValue().getAccount() : "",
-                //_switch.getValue() != null ? _switch.getValue() : "",
-                internet.isSelected(),
-                sigillo.getText(),
-                scheda.getText(),
-                password.getText(),
-                stato.getValue() != null ? stato.getValue() : ""
-            };
-            
-            if(input != null){ // modalità modifica
-            	modificaSW();
-            	modificaHW();
-            	modificaSwitch();
-                if(datiApparato.modifica(new Object[]{input[0]},record)){
-                	aggiornaTabella(record);
-                	aggiornaPannelloAlbero();
-                    chiusuraSenzaSalvare(event);
-                }else{
-                    Finestra.finestraAvviso(
-                            this, 
-                            String.format(R.Messaggi.ERRORE_DUPLICAZIONE,input[0])
-                    ); 
-                }
-            }else{ // modalità aggiunta
-                if(!datiApparato.aggiungi(record)){
-                    Finestra.finestraAvviso(
-                            this, 
-                            String.format(
-                                    R.Messaggi.ERRORE_SALVATAGGIO,
-                                    nome.getText(),
-                                    DatiApparato.stampa(record)
-                            )
-                    );
-                }else{
-                	aggiornaTabella(record);
-                	aggiornaPannelloAlbero();
-                    chiusuraSenzaSalvare(event);
-                }
-                
-            }
-            
-            
-        }else{
-            Finestra.finestraAvviso(this,R.Messaggi.ERRORE_CAMPI_FONDAMENTALI);
-        }
+    	if(event.getEventType().equals(ActionEvent.ACTION)){
+	        if(!nome.getText().isEmpty()){
+	           
+	            Object[] record = new Object[]{
+	                nome.getText(),
+	                tipo.getValue() != null ? tipo.getValue() : "",
+	                rete.getValue() != null ? rete.getValue() : "",
+	                ip.getText(),
+	                macPC.getText(),
+	                macVOIP.getText(),
+	                posizione.getValue() != null ? posizione.getValue() : "",
+	                utilizzatore.getValue() != null ? utilizzatore.getValue().getAccount() : "",
+	                //_switch.getValue() != null ? _switch.getValue() : "",
+	                internet.isSelected(),
+	                sigillo.getText(),
+	                scheda.getText(),
+	                password.getText(),
+	                stato.getValue() != null ? stato.getValue() : ""
+	            };
+	            
+	            if(input != null){ // modalità modifica
+	            	modificaSW();
+	            	modificaHW();
+	            	modificaSwitch();
+	                if(datiApparato.modifica(new Object[]{input[0]},record)){
+	                	aggiornaTabella(record);
+	                	aggiornaPannelloAlbero();
+	                    chiusuraSenzaSalvare(event);
+	                }else{
+	                    Finestra.finestraAvviso(
+	                            this, 
+	                            String.format(R.Messaggi.ERRORE_DUPLICAZIONE,input[0])
+	                    ); 
+	                }
+	            }else{ // modalità aggiunta
+	                if(!datiApparato.aggiungi(record)){
+	                    Finestra.finestraAvviso(
+	                            this, 
+	                            String.format(
+	                                    R.Messaggi.ERRORE_SALVATAGGIO,
+	                                    nome.getText(),
+	                                    DatiApparato.stampa(record)
+	                            )
+	                    );
+	                }else{
+	                	aggiornaTabella(record);
+	                	aggiornaPannelloAlbero();
+	                    chiusuraSenzaSalvare(event);
+	                }
+	                
+	            }
+	            
+	            
+	        }else{
+	            Finestra.finestraAvviso(this,R.Messaggi.ERRORE_CAMPI_FONDAMENTALI);
+	        }
+    	}
     }
     
     /**
@@ -430,81 +432,101 @@ public class FinestraApparatoController implements Initializable {
 
     @FXML
     private void aggiungiNuovoTipoApparato(ActionEvent event) {
-        Programma.apriSempliceLista(
-                this,
-                datiTipoApparato,
-                R.Etichette.FINESTRA_LISTA_TIPO_APPARATO,
-                R.Etichette.TIPO_APPARATO,
-                R.Messaggi.SOSTITUZIONE_TIPO_APPARATO
-        );
+    	if(event.getEventType().equals(ActionEvent.ACTION)){
+	        Programma.apriSempliceLista(
+	                this,
+	                datiTipoApparato,
+	                R.Etichette.FINESTRA_LISTA_TIPO_APPARATO,
+	                R.Etichette.TIPO_APPARATO,
+	                R.Messaggi.SOSTITUZIONE_TIPO_APPARATO
+	        );
+    	}
     }
     
     @FXML
     private void aggiungiNuovoSwitch(ActionEvent event) {
-        Programma.apriListaConnessioniSwitch(this);
+    	if(event.getEventType().equals(ActionEvent.ACTION)){
+    		Programma.apriListaConnessioniSwitch(this);
+    	}
     }
     
     @FXML
     private void aggiungiNuovoStato(ActionEvent event) {
-        Programma.apriListaStato(
-                this,
-                datiStato,
-                datiStato.lista(),
-                R.Etichette.FINESTRA_LISTA_STATO,
-                R.Etichette.TIPO_STATO,
-                R.Messaggi.SOSTITUZIONE_STATO
-        );
+    	if(event.getEventType().equals(ActionEvent.ACTION)){
+	        Programma.apriListaStato(
+	                this,
+	                datiStato,
+	                datiStato.lista(),
+	                R.Etichette.FINESTRA_LISTA_STATO,
+	                R.Etichette.TIPO_STATO,
+	                R.Messaggi.SOSTITUZIONE_STATO
+	        );
+    	}
     }
 
     @FXML
     private void aggiornaUtilizzatore(MouseEvent event) {
-        utilizzatore.getItems().clear();
-        ArrayList<Utilizzatore> utilizzatori = datiUtilizzatore.lista();
-        if(utilizzatori != null)
-            utilizzatore.getItems().addAll(utilizzatori);
+    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        utilizzatore.getItems().clear();
+	        ArrayList<Utilizzatore> utilizzatori = datiUtilizzatore.lista();
+	        if(utilizzatori != null)
+	            utilizzatore.getItems().addAll(utilizzatori);
+    	}
     }
     
 
     
     @FXML
     private void aggiornaStato(MouseEvent event) {
-        stato.getItems().clear();
-        ArrayList<String> stati = datiStato.listaSemplice();
-        if(stati != null)
-            stato.getItems().addAll(stati);
+    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        stato.getItems().clear();
+	        ArrayList<String> stati = datiStato.listaSemplice();
+	        if(stati != null)
+	            stato.getItems().addAll(stati);
+    	}
     }
 
     @FXML
     private void aggiungiNuovoUtilizzatore(ActionEvent event) {
-        Programma.apriListaUtilizzatori(this);
+    	if(event.getEventType().equals(ActionEvent.ACTION)){
+    		Programma.apriListaUtilizzatori(this);
+    	}
     }
 
     @FXML
     private void aggiornaRete(MouseEvent event) {
-        rete.getItems().clear();
-        ArrayList<String> reti = datiRete.lista();
-        if(reti != null)
-            rete.getItems().addAll(reti);
+    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        rete.getItems().clear();
+	        ArrayList<String> reti = datiRete.lista();
+	        if(reti != null)
+	            rete.getItems().addAll(reti);
+    	}
         
     }
 
     @FXML
     private void aggiornaPosizione(MouseEvent event) {
-        posizione.getItems().clear();
-        ArrayList<String> posizioni = datiPosizione.lista();
-        if(posizioni != null)
-            posizione.getItems().addAll(posizioni);
+    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        posizione.getItems().clear();
+	        ArrayList<String> posizioni = datiPosizione.lista();
+	        if(posizioni != null)
+	            posizione.getItems().addAll(posizioni);
+    	}
         
     }
 
     @FXML
     private void aggiungiNuovaRete(ActionEvent event) {
-        Programma.apriListaReti(this);
+    	if(event.getEventType().equals(ActionEvent.ACTION)){
+    		Programma.apriListaReti(this);
+    	}
     }
 
     @FXML
     private void aggiungiNuovaPosizione(ActionEvent event) {
-        Programma.apriListaPosizione(this);
+    	if(event.getEventType().equals(ActionEvent.ACTION)){
+    		Programma.apriListaPosizione(this);
+    	}
     }
     
     @FXML

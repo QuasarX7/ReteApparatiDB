@@ -77,8 +77,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.TextFlow;
@@ -184,7 +182,6 @@ public class FinestraPrincipaleController implements Initializable {
     private final  DatiResponsabileSito datiResponsabile = (DatiResponsabileSito)dati.get(DatiResponsabileSito.NOME_TABELLA);
     private final  DatiSoftwareApparato datiSoftwareApparato = (DatiSoftwareApparato)dati.get(DatiSoftwareApparato.NOME_TABELLA);
     private final  DatiHardwareApparato datiHardwareApparato = (DatiHardwareApparato)dati.get(DatiHardwareApparato.NOME_TABELLA);
-    private final  DatiUtilizzatore datiUtilizzatore = (DatiUtilizzatore)dati.get(DatiUtilizzatore.NOME_TABELLA);
     private final  DatiIntervento datiIntervento = (DatiIntervento)dati.get(DatiIntervento.NOME_TABELLA);
 
     
@@ -194,7 +191,7 @@ public class FinestraPrincipaleController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+    	
         menuTipoRicerca.getItems().add(R.TipoRicerca.NOMINATIVO);
         menuTipoRicerca.getItems().add(R.TipoRicerca.ACCOUNT);
         menuTipoRicerca.getItems().add(R.TipoRicerca.IP);
@@ -354,13 +351,6 @@ public class FinestraPrincipaleController implements Initializable {
         }
     }
 
-    @FXML
-    private void apriListaPosizioneMilitare(ActionEvent event) {
-        if (event.getEventType().equals(ActionEvent.ACTION)) {
-            Programma.apriListaPosizione(this);
-        }
-    }
-    
     @FXML
     private void apriListaHardware(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {

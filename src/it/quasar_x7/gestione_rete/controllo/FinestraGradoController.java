@@ -70,61 +70,68 @@ public class FinestraGradoController  implements Initializable {
     
     @FXML
     protected void aggiornaRuolo(MouseEvent event) {
-        ruolo.getItems().clear();
-        ruolo.getItems().addAll(datiRuolo.lista());
+    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        ruolo.getItems().clear();
+	        ruolo.getItems().addAll(datiRuolo.lista());
+    	}
     }
 
     @FXML
     protected void chiusuraSenzaSalvare(ActionEvent event) {
-        Programma.chiusuraFinestra(this, scenaCorrente);
-        input = null;
-        tabella = null;
+    	if(event.getEventType().equals(ActionEvent.ACTION)){
+	        Programma.chiusuraFinestra(this, scenaCorrente);
+	        input = null;
+	        tabella = null;
+    	}
     }
 
     @FXML
     protected void aggiungiRuolo(ActionEvent event) {
-        
-        Programma.apriSempliceLista(
-                this,
-                datiRuolo,
-                R.Etichette.FINESTRA_LISTA_CATEGORIA_GRADO,
-                R.Etichette.RUOLO,
-                R.Messaggi.SOSTITUZIONE_RUOLO
-        );
+    	if(event.getEventType().equals(ActionEvent.ACTION)){
+	        Programma.apriSempliceLista(
+	                this,
+	                datiRuolo,
+	                R.Etichette.FINESTRA_LISTA_CATEGORIA_GRADO,
+	                R.Etichette.RUOLO,
+	                R.Messaggi.SOSTITUZIONE_RUOLO
+	        );
+    	}
     }
 
     @FXML
     protected void salva(ActionEvent event) {
-        Integer indice = null;
-        try{
-            indice = new Integer(id.getText());
-        }catch(NumberFormatException e){}
-        
-        
-        Object[] record = new Object[]{
-            nome.getText(),
-            ruolo.getValue(),
-            sigla.getText(),
-            indice
-        };
-        Programma.salva(
-                this, 
-                !nome.getText().isEmpty(), 
-                datiGrado, 
-                input, 
-                record, 
-                event, 
-                // metodo di creazione della finestra a tabella
-                (ActionEvent evento, String chiave) -> {
-                    if(tabella != null){
-                        if(chiave != null)
-                            tabella.modificaRiga(chiave,converti(record));
-                        else
-                            tabella.aggiungiRiga(converti(record));
-                    }
-                    chiusuraSenzaSalvare(evento);
-                }
-        );
+    	if(event.getEventType().equals(ActionEvent.ACTION)){
+	        Integer indice = null;
+	        try{
+	            indice = new Integer(id.getText());
+	        }catch(NumberFormatException e){}
+	        
+	        
+	        Object[] record = new Object[]{
+	            nome.getText(),
+	            ruolo.getValue(),
+	            sigla.getText(),
+	            indice
+	        };
+	        Programma.salva(
+	                this, 
+	                !nome.getText().isEmpty(), 
+	                datiGrado, 
+	                input, 
+	                record, 
+	                event, 
+	                // metodo di creazione della finestra a tabella
+	                (ActionEvent evento, String chiave) -> {
+	                    if(tabella != null){
+	                        if(chiave != null)
+	                            tabella.modificaRiga(chiave,converti(record));
+	                        else
+	                            tabella.aggiungiRiga(converti(record));
+	                    }
+	                    chiusuraSenzaSalvare(evento);
+	                }
+	        );
+    	}
     }
     
     private ArrayList<String> converti(Object[] record){

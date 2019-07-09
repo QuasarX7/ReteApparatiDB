@@ -5,8 +5,6 @@ import it.quasar_x7.java.BaseDati.AccessoFileExcel;
 import it.quasar_x7.java.BaseDati.AccessoSQLite;
 import it.quasar_x7.java.BaseDati.Attributo;
 import it.quasar_x7.java.BaseDati.DatoBooleano;
-import it.quasar_x7.java.BaseDati.DatoData;
-import it.quasar_x7.java.BaseDati.DatoDataOraria;
 import it.quasar_x7.java.BaseDati.DatoInteroCorto;
 import it.quasar_x7.java.BaseDati.DatoTesto;
 import it.quasar_x7.java.BaseDati.Dominio;

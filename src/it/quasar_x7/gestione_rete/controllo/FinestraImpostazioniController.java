@@ -132,35 +132,38 @@ public class FinestraImpostazioniController  implements Initializable {
 
     @FXML
     protected void chiusuraSenzaSalvare(ActionEvent event) {
-        Programma.chiusuraFinestra(this, scenaCorrente);
-        input = null;
+    	if(event.getEventType().equals(ActionEvent.ACTION)){
+	        Programma.chiusuraFinestra(this, scenaCorrente);
+	        input = null;
+    	}
     }
 
 
     @FXML
     protected void salva(ActionEvent event) {
-        
-    	if(selezionaFirma2Riga1.isSelected()) {
-    		datiImpostazioni.valore(DatiImpostazioni.FIRMA2,DatiImpostazioni.FIRMA_RIGA1);
-    	}else if(selezionaFirma2Riga2.isSelected()) { 
-    		datiImpostazioni.valore(DatiImpostazioni.FIRMA2,DatiImpostazioni.FIRMA_RIGA2);
-    	}else {
-    		datiImpostazioni.valore(DatiImpostazioni.FIRMA2,"");
+    	if(event.getEventType().equals(ActionEvent.ACTION)){
+	    	if(selezionaFirma2Riga1.isSelected()) {
+	    		datiImpostazioni.valore(DatiImpostazioni.FIRMA2,DatiImpostazioni.FIRMA_RIGA1);
+	    	}else if(selezionaFirma2Riga2.isSelected()) { 
+	    		datiImpostazioni.valore(DatiImpostazioni.FIRMA2,DatiImpostazioni.FIRMA_RIGA2);
+	    	}else {
+	    		datiImpostazioni.valore(DatiImpostazioni.FIRMA2,"");
+	    	}
+	    	datiImpostazioni.valore(DatiImpostazioni.INTESTAZIONE_ENTE,campoEnte.getText());
+	    	datiImpostazioni.valore(DatiImpostazioni.INTESTAZIONE_UFFICIO,campoUfficio.getText());
+	    	
+	    	datiImpostazioni.valore(DatiImpostazioni.FIRMA1_QUALIFICA1,campoFirma1Responsabile1.getText());
+	    	datiImpostazioni.valore(DatiImpostazioni.FIRMA1_NOME1,campoFirma1Nominativo1.getText());
+	    	datiImpostazioni.valore(DatiImpostazioni.FIRMA1_QUALIFICA2,campoFirma1Responsabile2.getText());
+	    	datiImpostazioni.valore(DatiImpostazioni.FIRMA1_NOME2,campoFirma1Nominativo2.getText());
+	    	
+	    	datiImpostazioni.valore(DatiImpostazioni.FIRMA2_QUALIFICA1,campoFirma2Responsabile1.getText());
+	    	datiImpostazioni.valore(DatiImpostazioni.FIRMA2_NOME1,campoFirma2Nominativo1.getText());
+	    	datiImpostazioni.valore(DatiImpostazioni.FIRMA2_QUALIFICA2,campoFirma2Responsabile2.getText());
+	    	datiImpostazioni.valore(DatiImpostazioni.FIRMA2_NOME2,campoFirma2Nominativo2.getText());
+	    	
+	    	chiusuraSenzaSalvare(event);
     	}
-    	datiImpostazioni.valore(DatiImpostazioni.INTESTAZIONE_ENTE,campoEnte.getText());
-    	datiImpostazioni.valore(DatiImpostazioni.INTESTAZIONE_UFFICIO,campoUfficio.getText());
-    	
-    	datiImpostazioni.valore(DatiImpostazioni.FIRMA1_QUALIFICA1,campoFirma1Responsabile1.getText());
-    	datiImpostazioni.valore(DatiImpostazioni.FIRMA1_NOME1,campoFirma1Nominativo1.getText());
-    	datiImpostazioni.valore(DatiImpostazioni.FIRMA1_QUALIFICA2,campoFirma1Responsabile2.getText());
-    	datiImpostazioni.valore(DatiImpostazioni.FIRMA1_NOME2,campoFirma1Nominativo2.getText());
-    	
-    	datiImpostazioni.valore(DatiImpostazioni.FIRMA2_QUALIFICA1,campoFirma2Responsabile1.getText());
-    	datiImpostazioni.valore(DatiImpostazioni.FIRMA2_NOME1,campoFirma2Nominativo1.getText());
-    	datiImpostazioni.valore(DatiImpostazioni.FIRMA2_QUALIFICA2,campoFirma2Responsabile2.getText());
-    	datiImpostazioni.valore(DatiImpostazioni.FIRMA2_NOME2,campoFirma2Nominativo2.getText());
-    	
-    	chiusuraSenzaSalvare(event);
     	
     }
     

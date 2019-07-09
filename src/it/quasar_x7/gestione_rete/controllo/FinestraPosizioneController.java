@@ -1,14 +1,11 @@
 package it.quasar_x7.gestione_rete.controllo;
 
 import it.quasar_x7.gestione_rete.Dati.DatiApparato;
-import it.quasar_x7.gestione_rete.Dati.DatiDB;
 import it.quasar_x7.gestione_rete.Dati.DatiPosizione;
 import it.quasar_x7.gestione_rete.Dati.DatiResponsabileSito;
 import it.quasar_x7.gestione_rete.programma.Programma;
 import static it.quasar_x7.gestione_rete.programma.Programma.dati;
-import it.quasar_x7.gestione_rete.programma.R;
 import it.quasar_x7.javafx.CampoTesto;
-import it.quasar_x7.javafx.Finestra;
 import it.quasar_x7.javafx.finestre.controllo.TabellaController;
 import java.net.URL;
 import java.util.ArrayList;

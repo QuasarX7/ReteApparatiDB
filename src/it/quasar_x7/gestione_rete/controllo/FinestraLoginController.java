@@ -1,7 +1,6 @@
 package it.quasar_x7.gestione_rete.controllo;
 
 import it.quasar_x7.gestione_rete.Dati.DatiLogin;
-import it.quasar_x7.gestione_rete.programma.Programma;
 import static it.quasar_x7.gestione_rete.programma.Programma.dati;
 import it.quasar_x7.gestione_rete.programma.R;
 import it.quasar_x7.controllo.FinestraGestioneUtentiController;
@@ -67,7 +66,7 @@ public class FinestraLoginController implements Initializable {
 	        if(utente != null){
 	            if(controlloPassword(campoPassword.getText(),utente)){
 	                FinestraGestioneUtentiController.utente = utente;
-	                Finestra.caricaFinestra(this, R.FXML.FINESTRA_PRINCIPALE);
+	                Finestra.finestraPrincipale = Finestra.caricaFinestra(this, R.FXML.FINESTRA_PRINCIPALE);
 	            }else{
 	            	Finestra.finestraAvviso(this, R.Messaggi.ERRORE_PASSWORD);
 	            }

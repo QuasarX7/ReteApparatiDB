@@ -7,7 +7,6 @@ import java.util.TreeSet;
 import it.quasar_x7.gestione_rete.Dati.DatiApparato;
 import it.quasar_x7.gestione_rete.Dati.DatiConnessioneSwitch;
 import it.quasar_x7.gestione_rete.Dati.DatiDB;
-import it.quasar_x7.gestione_rete.programma.R;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.text.Font;

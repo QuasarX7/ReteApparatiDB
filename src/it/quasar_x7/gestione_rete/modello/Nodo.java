@@ -4,12 +4,9 @@ import java.util.ArrayList;
 import java.util.Objects;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import javafx.util.Callback;
 
 /**
  * Rappesenta un generico elemento grafico della tabella ad albero degli apparati.

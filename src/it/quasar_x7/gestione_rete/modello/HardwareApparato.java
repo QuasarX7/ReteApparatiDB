@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 import it.quasar_x7.gestione_rete.Dati.DatiDB;
 import it.quasar_x7.gestione_rete.Dati.DatiHardwareApparato;
-import it.quasar_x7.gestione_rete.Dati.DatiSoftwareApparato;
 import it.quasar_x7.gestione_rete.programma.R;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

@@ -1,10 +1,8 @@
 package it.quasar_x7.gestione_rete.Dati;
 
 import it.quasar_x7.gestione_rete.modello.Software;
-import it.quasar_x7.java.BaseDati.AccessoSQLite;
 import it.quasar_x7.java.BaseDati.Attributo;
 import it.quasar_x7.java.BaseDati.DatoBooleano;
-import it.quasar_x7.java.BaseDati.DatoStringa;
 import it.quasar_x7.java.BaseDati.DatoTesto;
 import it.quasar_x7.java.BaseDati.EccezioneBaseDati;
 import it.quasar_x7.java.BaseDati.Relazione;

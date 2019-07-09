@@ -1,18 +1,14 @@
 package it.quasar_x7.gestione_rete.controllo;
  
-import it.quasar_x7.gestione_rete.Dati.DatiDB;
 import it.quasar_x7.gestione_rete.Dati.DatiGrado;
 import it.quasar_x7.gestione_rete.Dati.DatiUtilizzatore;
 import it.quasar_x7.gestione_rete.programma.Programma;
 import static it.quasar_x7.gestione_rete.programma.Programma.dati;
-import it.quasar_x7.gestione_rete.programma.R;
 import it.quasar_x7.javafx.CampoTesto;
-import it.quasar_x7.javafx.Finestra;
 import it.quasar_x7.javafx.finestre.controllo.TabellaController;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.function.BiConsumer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -92,22 +88,28 @@ public class FinestraUtilizzatoreController implements Initializable {
  
     @FXML
     void chiusuraSenzaSalvare(ActionEvent event) {
-        Programma.chiusuraFinestra(this, scenaCorrente);
-        input = null;
-        tabella = null;
+    	if(event.getEventType().equals(ActionEvent.ACTION)){
+	        Programma.chiusuraFinestra(this, scenaCorrente);
+	        input = null;
+	        tabella = null;
+    	}
          
     }
      
          
     @FXML
     protected void aggiornaGrado(MouseEvent event) {
-        grado.getItems().clear();
-        grado.getItems().addAll(datiGrado.lista(true));
+    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        grado.getItems().clear();
+	        grado.getItems().addAll(datiGrado.lista(true));
+    	}
     }
  
     @FXML
     protected void aggiungiNuovoGrado(ActionEvent event) {
-        Programma.listaGradi(this);
+    	if(event.getEventType().equals(ActionEvent.ACTION)){
+    		Programma.listaGradi(this);
+    	}
     }
  
     @FXML

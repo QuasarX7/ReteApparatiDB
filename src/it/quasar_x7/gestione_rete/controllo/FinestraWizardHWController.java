@@ -6,10 +6,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import it.quasar_x7.gestione_rete.Dati.DatiDB;
 import it.quasar_x7.gestione_rete.Dati.DatiHardware;
 import it.quasar_x7.gestione_rete.Dati.DatiHardwareApparato;
-import it.quasar_x7.gestione_rete.Dati.DatiSoftwareApparato;
 import it.quasar_x7.gestione_rete.programma.Programma;
 import it.quasar_x7.gestione_rete.programma.R;
 import it.quasar_x7.javafx.Finestra;

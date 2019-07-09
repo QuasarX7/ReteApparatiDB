@@ -114,66 +114,80 @@ public class FinestraHardwareController implements Initializable {
 
     @FXML
     protected void chiusuraSenzaSalvare(ActionEvent event) {
-        Programma.chiusuraFinestra(this, scenaCorrente);
-        input = null;
-        tabella= null;
+    	if(event.getEventType().equals(ActionEvent.ACTION)){
+	        Programma.chiusuraFinestra(this, scenaCorrente);
+	        input = null;
+	        tabella= null;
+    	}
     }
 
 
     @FXML
     protected void aggiungiNuovoTipo(ActionEvent event) {
-        Programma.apriSempliceLista(
-                this,
-                datiTipoHardware,
-                R.Etichette.FINESTRA_LISTA_TIPO_HW,
-                R.Etichette.TIPO_HW,
-                R.Messaggi.SOSTITUZIONE_TIPO_HW
-        );
+    	if(event.getEventType().equals(ActionEvent.ACTION)){
+	        Programma.apriSempliceLista(
+	                this,
+	                datiTipoHardware,
+	                R.Etichette.FINESTRA_LISTA_TIPO_HW,
+	                R.Etichette.TIPO_HW,
+	                R.Messaggi.SOSTITUZIONE_TIPO_HW
+	        );
+    	}
     }
     
     @FXML
     protected void aggiungiStato(ActionEvent event) {
-        Programma.apriListaStato(
-                this,
-                datiStato,
-                datiStato.lista(),
-                R.Etichette.FINESTRA_LISTA_STATO,
-                R.Etichette.TIPO_STATO,
-                R.Messaggi.SOSTITUZIONE_STATO
-        );
+    	if(event.getEventType().equals(ActionEvent.ACTION)){
+	        Programma.apriListaStato(
+	                this,
+	                datiStato,
+	                datiStato.lista(),
+	                R.Etichette.FINESTRA_LISTA_STATO,
+	                R.Etichette.TIPO_STATO,
+	                R.Messaggi.SOSTITUZIONE_STATO
+	        );
+    	}
     }
 
     @FXML
     protected void aggiungiCasa(ActionEvent event) {
-        Programma.apriSempliceLista(
-                this,
-                datiCasaHardware,
-                R.Etichette.FINESTRA_LISTA_CASA_HW,
-                R.Etichette.CASA_HW,
-                R.Messaggi.SOSTITUZIONE_CASA_HW
-        );
+    	if(event.getEventType().equals(ActionEvent.ACTION)){
+	        Programma.apriSempliceLista(
+	                this,
+	                datiCasaHardware,
+	                R.Etichette.FINESTRA_LISTA_CASA_HW,
+	                R.Etichette.CASA_HW,
+	                R.Messaggi.SOSTITUZIONE_CASA_HW
+	        );
+    	}
     }
     
     
     @FXML
     protected void aggiornaMenuTipo(MouseEvent event) {
-        menuTipo.getItems().clear();
-        menuTipo.getItems().addAll(datiTipoHardware.lista());
+    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        menuTipo.getItems().clear();
+	        menuTipo.getItems().addAll(datiTipoHardware.lista());
+    	}
     }
     
     @FXML
     protected void aggiornaMenuStato(MouseEvent event) {
-        ArrayList<String> lista = datiStato.listaSemplice();
-        if(lista != null){
-            menuStato.getItems().clear();
-            menuStato.getItems().addAll(lista);
-        }
+    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        ArrayList<String> lista = datiStato.listaSemplice();
+	        if(lista != null){
+	            menuStato.getItems().clear();
+	            menuStato.getItems().addAll(lista);
+	        }
+    	}
     }
 
     @FXML
     protected void aggiornaMenuCasa(MouseEvent event) {
-        menuCasa.getItems().clear();
-        menuCasa.getItems().addAll(datiCasaHardware.lista());
+    	if(event.getEventType().equals(MouseEvent.MOUSE_PRESSED)){
+	        menuCasa.getItems().clear();
+	        menuCasa.getItems().addAll(datiCasaHardware.lista());
+    	}
     }
 
     @FXML

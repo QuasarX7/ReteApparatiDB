@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import it.quasar_x7.gestione_rete.Dati.DatiDB;
-import it.quasar_x7.gestione_rete.Dati.DatiHardware;
-import it.quasar_x7.gestione_rete.Dati.DatiHardwareApparato;
 import it.quasar_x7.gestione_rete.Dati.DatiSoftware;
 import it.quasar_x7.gestione_rete.Dati.DatiSoftwareApparato;
 import it.quasar_x7.gestione_rete.modello.Software;
@@ -25,16 +23,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 
 

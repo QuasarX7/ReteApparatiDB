@@ -1,7 +1,6 @@
 package it.quasar_x7.gestione_rete.Dati;
 
 import it.quasar_x7.gestione_rete.modello.Apparato;
-import it.quasar_x7.gestione_rete.modello.Utilizzatore;
 import it.quasar_x7.gestione_rete.programma.R;
 import it.quasar_x7.java.BaseDati.EccezioneBaseDati;
 import it.quasar_x7.java.BaseDati.Relazione;
