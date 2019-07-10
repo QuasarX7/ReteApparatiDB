@@ -25,8 +25,7 @@ import javafx.scene.input.MouseEvent;
  */
 public class FinestraSoftwareApparatoController implements Initializable {
 
-    public static Scene scenaCorrente = null;
-
+    
     public static String apparato = null;
     public static String software = null;
     public static String licenza = null;
@@ -98,7 +97,7 @@ public class FinestraSoftwareApparatoController implements Initializable {
     @FXML
     private void chiusuraSenzaSalvare(ActionEvent event) {
         if(event.getEventType().equals(ActionEvent.ACTION)){
-            Programma.chiusuraFinestra(this, scenaCorrente);
+            Programma.chiusuraFinestra(this);
             Programma.aggiornaListeNodi();
             finestraApparato = null;
             apparato = null;

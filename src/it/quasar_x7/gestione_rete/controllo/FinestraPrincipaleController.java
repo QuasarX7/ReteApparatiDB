@@ -274,7 +274,6 @@ public class FinestraPrincipaleController implements Initializable {
     @FXML
     private void creaNuovoApparato(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
-            FinestraApparatoController.scenaCorrente = Finestra.scenaCorrente();
             Finestra.caricaFinestra(this, R.FXML.FINESTRA_APPARATO);
         }
     }
@@ -304,7 +303,6 @@ public class FinestraPrincipaleController implements Initializable {
     @FXML
     private void creaNuovoUtilizzatore(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
-            FinestraUtilizzatoreController.scenaCorrente = Finestra.scenaCorrente();
             Finestra.caricaFinestra(this, R.FXML.FINESTRA_UTILIZZATORE);
         }
     }
@@ -312,7 +310,6 @@ public class FinestraPrincipaleController implements Initializable {
     @FXML
     private void creaNuovoHardware(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
-            FinestraHardwareController.scenaCorrente = Finestra.scenaCorrente();
             Finestra.caricaFinestra(this, R.FXML.FINESTRA_HW);
         }
         
@@ -321,7 +318,6 @@ public class FinestraPrincipaleController implements Initializable {
     @FXML
     private void creaNuovaConnessioneSwitch(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
-            FinestraSwitchController.scenaCorrente = Finestra.scenaCorrente();
             Finestra.caricaFinestra(this, R.FXML.FINESTRA_SWITCH);
         }
     }
@@ -329,7 +325,6 @@ public class FinestraPrincipaleController implements Initializable {
     @FXML
     private void creaNuovoSoftware(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
-            FinestraSoftwareController.scenaCorrente = Finestra.scenaCorrente();
             Finestra.caricaFinestra(this, R.FXML.FINESTRA_SW);
         }
     }
@@ -492,7 +487,6 @@ public class FinestraPrincipaleController implements Initializable {
     @FXML
     private void creaNuovoResponsabile(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
-            FinestraResponsabileController.scenaCorrente = Finestra.scenaCorrente();
             Finestra.caricaFinestra(this, R.FXML.FINESTRA_RESPONSABILE);
         }
     }
@@ -509,7 +503,6 @@ public class FinestraPrincipaleController implements Initializable {
     @FXML
     private void creaNuovaPosizione(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
-            FinestraPosizioneController.scenaCorrente = Finestra.scenaCorrente();
             Finestra.caricaFinestra(this, R.FXML.FINESTRA_POSIZIONE);
         }
     }
@@ -518,7 +511,6 @@ public class FinestraPrincipaleController implements Initializable {
     @FXML
     private void aggiungiNuovaRete(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
-            FinestraReteController.scenaCorrente = Finestra.scenaCorrente();
             Finestra.caricaFinestra(this, R.FXML.FINESTRA_RETE);
         }
     }
@@ -526,7 +518,6 @@ public class FinestraPrincipaleController implements Initializable {
     @FXML
     private void aggiungiNuovoIntervento(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
-            FinestraInterventoController.scenaCorrente = Finestra.scenaCorrente();
             Finestra.caricaFinestra(this, R.FXML.FINESTRA_INTERVENTO);
         }
     }
@@ -554,8 +545,7 @@ public class FinestraPrincipaleController implements Initializable {
     @FXML
     private void associaSoftwareApparato(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
-        	FinestraSoftwareApparatoController.scenaCorrente = Finestra.scenaCorrente();
-            Finestra.caricaFinestra(this, R.FXML.FINESTRA_SW_APPARATO);
+        	Finestra.caricaFinestra(this, R.FXML.FINESTRA_SW_APPARATO);
         }
     }
     /**
@@ -566,8 +556,7 @@ public class FinestraPrincipaleController implements Initializable {
     @FXML
     private void associaHardwareApparato(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
-        	FinestraHardwareApparatoController.scenaCorrente = Finestra.scenaCorrente();
-            Finestra.caricaFinestra(this, R.FXML.FINESTRA_HW_APPARATO);
+        	Finestra.caricaFinestra(this, R.FXML.FINESTRA_HW_APPARATO);
         }
     }
     
@@ -935,21 +924,18 @@ public class FinestraPrincipaleController implements Initializable {
     }
     
     private void creaNuovoIntervento() {
-    	FinestraInterventoController.scenaCorrente = Finestra.scenaCorrente();
-        Finestra.caricaFinestra(this, R.FXML.FINESTRA_INTERVENTO);
+    	Finestra.caricaFinestra(this, R.FXML.FINESTRA_INTERVENTO);
     }
     
     private void associaSwitch(Apparato nodoPadre,ConnessioneSwitch nodo) {
     	if(nodo != null && nodoPadre != null){
     		FinestraSwitchController.input = new String[] {nodoPadre.getNome(), nodo.getNome(), nodo.getPorta()};
         }
-    	FinestraSwitchController.scenaCorrente = Finestra.scenaCorrente();
-        Finestra.caricaFinestra(this, R.FXML.FINESTRA_SWITCH);
+    	Finestra.caricaFinestra(this, R.FXML.FINESTRA_SWITCH);
     }
     
     private void ceaNuovoHardwareApparato(HardwareApparato nodo) {
     	if(nodo != null){
-            FinestraHardwareApparatoController.scenaCorrente = Finestra.scenaCorrente();
             FinestraHardwareApparatoController.apparato = nodo.getNome();
             Finestra.caricaFinestra(this, R.FXML.FINESTRA_HW_APPARATO);
         }
@@ -957,7 +943,6 @@ public class FinestraPrincipaleController implements Initializable {
     
     private void ceaNuovoSoftwareApparato(SoftwareApparato nodo) {
     	if(nodo != null){
-            FinestraSoftwareApparatoController.scenaCorrente = Finestra.scenaCorrente();
             FinestraSoftwareApparatoController.apparato = nodo.getNome();
             Finestra.caricaFinestra(this, R.FXML.FINESTRA_SW_APPARATO);
         }
@@ -975,7 +960,6 @@ public class FinestraPrincipaleController implements Initializable {
 				@Override
 				public void listaSoftware(SoftwareApparato nodo) {
 					if(nodo != null){
-		                FinestraWizardSWController.scenaCorrente = Finestra.scenaCorrente();
 		                FinestraWizardSWController.apparato = nodo.getNome();
 		                Finestra.caricaFinestra(this, R.FXML.FINESTRA_WIZARD_SW_APPARATO);
 		                
@@ -985,7 +969,6 @@ public class FinestraPrincipaleController implements Initializable {
 				@Override
 				public void listaHardware(HardwareApparato nodo) {
 					if(nodo != null){
-		                FinestraWizardHWController.scenaCorrente = Finestra.scenaCorrente();
 		                FinestraWizardHWController.apparato = nodo.getNome();
 		                Finestra.caricaFinestra(this, R.FXML.FINESTRA_WIZARD_HW_APPARATO);
 		                
@@ -1542,7 +1525,7 @@ public class FinestraPrincipaleController implements Initializable {
     @FXML
     private void creaFileSchedaApparato(ActionEvent event) {
         if(event.getEventType().equals(ActionEvent.ACTION)){
-        	//TODO...
+        	
         	Object finestraPrincipale = this;
         	Finestra.finestraInput(
 					this, 
@@ -1563,7 +1546,9 @@ public class FinestraPrincipaleController implements Initializable {
 							
 							// [*] 
 							// impostazioni per effettuare la successione due finestre dialogo
-							Finestra.vistaCorrente.setScene(InputController.scenaCorrente);
+Finestra.vistaCorrente.setScene(Finestra.finestraPrincipale);
+Finestra.eliminaUltimaFinestraRegistrata();
+Finestra.eliminaUltimaFinestraRegistrata();
 							InputController.verificaInput = false;
 							// [*]
 							
@@ -1629,8 +1614,7 @@ public class FinestraPrincipaleController implements Initializable {
     @FXML
     private void apriImpostazioniReportPDF(ActionEvent event) {
         if(event.getEventType().equals(ActionEvent.ACTION)){
-        	FinestraImpostazioniController.scenaCorrente = Finestra.scenaCorrente();
-            Finestra.caricaFinestra(this, R.FXML.FINESTRA_IMPOSTAZIONI);
+        	Finestra.caricaFinestra(this, R.FXML.FINESTRA_IMPOSTAZIONI);
         }
     }
 }

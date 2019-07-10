@@ -28,7 +28,6 @@ import javafx.scene.input.MouseEvent;
 public class FinestraSwitchController implements Initializable {
 
         
-    static public Scene scenaCorrente = null;
     static public String[] input = null;
     public static TabellaController tabella = null;
     
@@ -115,7 +114,7 @@ public class FinestraSwitchController implements Initializable {
     @FXML
     private void chiusuraSenzaSalvare(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
-            Programma.chiusuraFinestra(this, scenaCorrente);
+            Programma.chiusuraFinestra(this);
             input = null;
             tabella = null;
         }
@@ -136,7 +135,6 @@ public class FinestraSwitchController implements Initializable {
     @FXML
     private void aggiungiNuovoApparato(ActionEvent event) {
         if(event.getEventType().equals(ActionEvent.ACTION)){
-            FinestraApparatoController.scenaCorrente = Finestra.scenaCorrente();
             Finestra.caricaFinestra(this, R.FXML.FINESTRA_APPARATO);
         }
     }

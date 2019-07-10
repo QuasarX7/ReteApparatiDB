@@ -65,7 +65,6 @@ public class FinestraImpostazioniController  implements Initializable {
     @FXML
     private RadioButton selezionaFirma1Riga1;
     
-    public static Scene scenaCorrente = null;
     public static String[] input = null;
     
     protected DatiImpostazioni datiImpostazioni = (DatiImpostazioni) dati.get(DatiImpostazioni.NOME_TABELLA);
@@ -133,7 +132,7 @@ public class FinestraImpostazioniController  implements Initializable {
     @FXML
     protected void chiusuraSenzaSalvare(ActionEvent event) {
     	if(event.getEventType().equals(ActionEvent.ACTION)){
-	        Programma.chiusuraFinestra(this, scenaCorrente);
+	        Programma.chiusuraFinestra(this);
 	        input = null;
     	}
     }

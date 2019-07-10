@@ -23,8 +23,7 @@ import javafx.scene.input.MouseEvent;
  */
 public class FinestraHardwareApparatoController implements Initializable {
 
-    public static Scene scenaCorrente = null;
-
+    
     public static String apparato = null;
     public static String hardware = null;
     public static String modello = null;
@@ -97,7 +96,7 @@ public class FinestraHardwareApparatoController implements Initializable {
     @FXML
     private void chiusuraSenzaSalvare(ActionEvent event) {
         if(event.getEventType().equals(ActionEvent.ACTION)){
-            Programma.chiusuraFinestra(this, scenaCorrente);
+            Programma.chiusuraFinestra(this);
             Programma.aggiornaListeNodi();
             finestraApparato = null;
             apparato = null;

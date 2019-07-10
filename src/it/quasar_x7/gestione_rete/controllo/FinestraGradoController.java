@@ -27,7 +27,6 @@ import javafx.scene.input.MouseEvent;
 public class FinestraGradoController  implements Initializable {
 
     public static TabellaController tabella = null;
-    public static Scene scenaCorrente = null;
     public static String[] input = null;
    
     @FXML
@@ -79,7 +78,7 @@ public class FinestraGradoController  implements Initializable {
     @FXML
     protected void chiusuraSenzaSalvare(ActionEvent event) {
     	if(event.getEventType().equals(ActionEvent.ACTION)){
-	        Programma.chiusuraFinestra(this, scenaCorrente);
+	        Programma.chiusuraFinestra(this);
 	        input = null;
 	        tabella = null;
     	}

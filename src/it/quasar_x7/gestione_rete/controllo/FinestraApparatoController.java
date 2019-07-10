@@ -49,7 +49,7 @@ import javafx.scene.input.MouseEvent;
 public class FinestraApparatoController implements Initializable {
 
 	public static TabellaController tabella = null;
-    static public Scene scenaCorrente = null;
+    static public Scene scenaCorrentew = null;
     static public String[] input = null;
     
     public static ObservableList<Software> listaSW = FXCollections.observableArrayList();
@@ -280,7 +280,7 @@ public class FinestraApparatoController implements Initializable {
     @FXML
     private void chiusuraSenzaSalvare(ActionEvent event) {
     	if(event.getEventType().equals(ActionEvent.ACTION)){
-	        Programma.chiusuraFinestra(this, scenaCorrente);
+	        Programma.chiusuraFinestra(this);
 	        input = null;
 	        tabella = null;
     	}
@@ -555,7 +555,6 @@ public class FinestraApparatoController implements Initializable {
     private void menuAggiungiHW(ActionEvent event) {
         if(event.getEventType().equals(ActionEvent.ACTION)){
             if(!nome.getText().isEmpty()){
-		         FinestraHardwareApparatoController.scenaCorrente = Finestra.scenaCorrente();
 		         FinestraHardwareApparatoController.apparato = nome.getText();
 		         FinestraHardwareApparatoController.finestraApparato = this;
 		         Finestra.caricaFinestra(this, R.FXML.FINESTRA_HW_APPARATO);
@@ -569,7 +568,6 @@ public class FinestraApparatoController implements Initializable {
     private void menuWizardHW(ActionEvent event) {
         if(event.getEventType().equals(ActionEvent.ACTION)){
             if(!nome.getText().isEmpty()){
-                FinestraWizardHWController.scenaCorrente = Finestra.scenaCorrente();
                 FinestraWizardHWController.apparato = nome.getText();
 		        FinestraWizardHWController.finestraApparato = this;
                 Finestra.caricaFinestra(this, R.FXML.FINESTRA_WIZARD_HW_APPARATO);
@@ -584,7 +582,6 @@ public class FinestraApparatoController implements Initializable {
     private void menuWizardSW(ActionEvent event) {
         if(event.getEventType().equals(ActionEvent.ACTION)){
             if(!nome.getText().isEmpty()){
-                FinestraWizardSWController.scenaCorrente = Finestra.scenaCorrente();
                 FinestraWizardSWController.apparato = nome.getText();
 		        FinestraWizardSWController.finestraApparato = this;
                 Finestra.caricaFinestra(this, R.FXML.FINESTRA_WIZARD_SW_APPARATO);
@@ -599,7 +596,6 @@ public class FinestraApparatoController implements Initializable {
     private void menuModificaHW(ActionEvent event) {
         if(event.getEventType().equals(ActionEvent.ACTION)){
         	if(!nome.getText().isEmpty()){
-                FinestraHardwareApparatoController.scenaCorrente = Finestra.scenaCorrente();
                 FinestraHardwareApparatoController.apparato = nome.getText();
                 FinestraHardwareApparatoController.finestraApparato = this;
                 Hardware hw = tabellaHardware.getSelectionModel().getSelectedItem();
@@ -630,7 +626,6 @@ public class FinestraApparatoController implements Initializable {
     private void menuAggiungiSW(ActionEvent event) {
         if(event.getEventType().equals(ActionEvent.ACTION)){
             if(!nome.getText().isEmpty()){
-                FinestraSoftwareApparatoController.scenaCorrente = Finestra.scenaCorrente();
                 FinestraSoftwareApparatoController.apparato = nome.getText();
                 FinestraSoftwareApparatoController.finestraApparato = this;
                 Finestra.caricaFinestra(this, R.FXML.FINESTRA_SW_APPARATO);
@@ -644,7 +639,6 @@ public class FinestraApparatoController implements Initializable {
     private void menuModificaSW(ActionEvent event) {
         if(event.getEventType().equals(ActionEvent.ACTION)){
         	if(!nome.getText().isEmpty()){
-                FinestraSoftwareApparatoController.scenaCorrente = Finestra.scenaCorrente();
                 FinestraSoftwareApparatoController.apparato = nome.getText();
                 FinestraSoftwareApparatoController.finestraApparato = this;
                 Software sw = tabellaSoftware.getSelectionModel().getSelectedItem();

@@ -29,7 +29,6 @@ import javafx.scene.control.TextField;
 public class FinestraInterventoController  implements Initializable {
 
     public static TabellaController tabella = null;
-    public static Scene scenaCorrente = null;
     public static String[] input = null;
    
     @FXML
@@ -98,7 +97,7 @@ public class FinestraInterventoController  implements Initializable {
     @FXML
     protected void chiusuraSenzaSalvare(ActionEvent event) {
     	if(event.getEventType().equals(ActionEvent.ACTION)){
-	        Programma.chiusuraFinestra(this, scenaCorrente);
+	        Programma.chiusuraFinestra(this);
 	        Programma.aggiornaListeNodi();
 	        input = null;
 	        tabella = null;

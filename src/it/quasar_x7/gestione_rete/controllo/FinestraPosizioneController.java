@@ -25,7 +25,6 @@ import javafx.scene.input.MouseEvent;
  */
 public class FinestraPosizioneController implements Initializable {
 
-    static public Scene scenaCorrente = null;
     static public String[] input = null;
     public static TabellaController tabella = null;
     
@@ -116,7 +115,7 @@ public class FinestraPosizioneController implements Initializable {
     @FXML
     private void chiusuraSenzaSalvare(ActionEvent event) {
         if(event.getEventType().equals(ActionEvent.ACTION)){
-            Programma.chiusuraFinestra(this, scenaCorrente);
+            Programma.chiusuraFinestra(this);
             input = null;
             tabella= null;
         }

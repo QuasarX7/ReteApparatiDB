@@ -1,6 +1,7 @@
 package it.quasar_x7.gestione_rete.programma;
 
 import it.quasar_x7.gestione_rete.Dati.Dati;
+import it.quasar_x7.javafx.finestre.*;
 import it.quasar_x7.gestione_rete.Dati.DatiApparato;
 import it.quasar_x7.gestione_rete.Dati.DatiCasaHardware;
 import it.quasar_x7.gestione_rete.Dati.DatiCasaSoftware;
@@ -280,7 +281,6 @@ public class Programma extends Application {
                 new TabellaController.Codice(){
                     @Override
                     public void aggiungi(TabellaController delega) {
-                        FinestraGradoController.scenaCorrente = Finestra.scenaCorrente();
                         FinestraGradoController.tabella = delega;
                         Finestra.caricaFinestra(this, R.FXML.FINESTRA_GRADO);
                         
@@ -305,7 +305,6 @@ public class Programma extends Application {
                     public void modifica(TabellaController delega, String primaCella) {
                         FinestraGradoController.input = delega.rigaSelezionata();
                        
-                        FinestraGradoController.scenaCorrente = Finestra.scenaCorrente();
                         FinestraGradoController.tabella = delega;
                         Finestra.caricaFinestra(this, R.FXML.FINESTRA_GRADO);
                     }
@@ -343,7 +342,6 @@ public class Programma extends Application {
                 new TabellaController.Codice(){
                     @Override
                     public void aggiungi(TabellaController delega) {
-                        FinestraSoftwareController.scenaCorrente = Finestra.scenaCorrente();
                         FinestraSoftwareController.tabella = delega;
                         Finestra.caricaFinestra(this, R.FXML.FINESTRA_SW);
                     }
@@ -370,7 +368,6 @@ public class Programma extends Application {
                             };
                     }
                        
-                        FinestraSoftwareController.scenaCorrente = Finestra.scenaCorrente();
                         FinestraSoftwareController.tabella = delega;
                         Finestra.caricaFinestra(this, R.FXML.FINESTRA_SW);
                     }
@@ -422,7 +419,6 @@ public class Programma extends Application {
                 new TabellaController.Codice(){
                     @Override
                     public void aggiungi(TabellaController delega) {
-                        FinestraApparatoController.scenaCorrente = Finestra.scenaCorrente();
                         FinestraApparatoController.tabella = delega;
                         Finestra.caricaFinestra(this, R.FXML.FINESTRA_APPARATO);
                     }
@@ -439,7 +435,6 @@ public class Programma extends Application {
                             FinestraApparatoController.input = inputTab;
                         }
                        
-                        FinestraApparatoController.scenaCorrente = Finestra.scenaCorrente();
                         FinestraApparatoController.tabella = delega;
                         Finestra.caricaFinestra(this, R.FXML.FINESTRA_APPARATO);
                     }
@@ -476,7 +471,6 @@ public class Programma extends Application {
                 new TabellaController.Codice(){
                     @Override
                     public void aggiungi(TabellaController delega) {
-                        FinestraHardwareController.scenaCorrente = Finestra.scenaCorrente();
                         FinestraHardwareController.tabella = delega;
                         Finestra.caricaFinestra(this, R.FXML.FINESTRA_HW);
                     }
@@ -490,7 +484,6 @@ public class Programma extends Application {
                     public void modifica(TabellaController delega, String primaCella) {
                         FinestraHardwareController.input = delega.rigaSelezionata();
                        
-                        FinestraHardwareController.scenaCorrente = Finestra.scenaCorrente();
                         FinestraHardwareController.tabella = delega;
                         Finestra.caricaFinestra(this, R.FXML.FINESTRA_HW);
                     }
@@ -528,7 +521,6 @@ public class Programma extends Application {
                 new TabellaController.Codice(){
                     @Override
                     public void aggiungi(TabellaController delega) {
-                        FinestraReteController.scenaCorrente = Finestra.scenaCorrente();
                         FinestraReteController.tabella = delega;
                         Finestra.caricaFinestra(this, R.FXML.FINESTRA_RETE);
                     }
@@ -542,7 +534,6 @@ public class Programma extends Application {
                     public void modifica(TabellaController delega, String primaCella) {
                         FinestraReteController.input = delega.rigaSelezionata();
                        
-                        FinestraReteController.scenaCorrente = Finestra.scenaCorrente();
                         FinestraReteController.tabella = delega;
                         Finestra.caricaFinestra(this, R.FXML.FINESTRA_RETE);
                     }
@@ -570,7 +561,6 @@ public class Programma extends Application {
                 new TabellaController.Codice(){
                     @Override
                     public void aggiungi(TabellaController delega) {
-                        FinestraResponsabileController.scenaCorrente = Finestra.scenaCorrente();
                         FinestraResponsabileController.tabella = delega;
                         Finestra.caricaFinestra(this, R.FXML.FINESTRA_RESPONSABILE);
                         
@@ -585,7 +575,6 @@ public class Programma extends Application {
                     public void modifica(TabellaController delega, String primaCella) {
                         FinestraResponsabileController.input = delega.rigaSelezionata();
                        
-                        FinestraResponsabileController.scenaCorrente = Finestra.scenaCorrente();
                         FinestraResponsabileController.tabella = delega;
                         Finestra.caricaFinestra(this, R.FXML.FINESTRA_RESPONSABILE);
                     }
@@ -617,7 +606,6 @@ public class Programma extends Application {
                 new TabellaController.Codice(){
                     @Override
                     public void aggiungi(TabellaController delega) {
-                        FinestraPosizioneController.scenaCorrente = Finestra.scenaCorrente();
                         FinestraPosizioneController.tabella = delega;
                         Finestra.caricaFinestra(this, R.FXML.FINESTRA_POSIZIONE);
                     }
@@ -631,7 +619,6 @@ public class Programma extends Application {
                     public void modifica(TabellaController delega, String primaCella) {
                         FinestraPosizioneController.input = delega.rigaSelezionata();
                        
-                        FinestraPosizioneController.scenaCorrente = Finestra.scenaCorrente();
                         FinestraPosizioneController.tabella = delega;
                         Finestra.caricaFinestra(this, R.FXML.FINESTRA_POSIZIONE);
                     }
@@ -662,7 +649,6 @@ public class Programma extends Application {
                 new TabellaController.Codice(){
                     @Override
                     public void aggiungi(TabellaController delega) {
-                        FinestraSwitchController.scenaCorrente = Finestra.scenaCorrente();
                         FinestraSwitchController.tabella = delega;
                         Finestra.caricaFinestra(this, R.FXML.FINESTRA_SWITCH);
                     }
@@ -676,7 +662,6 @@ public class Programma extends Application {
                     public void modifica(TabellaController delega, String primaCella) {
                         FinestraSwitchController.input = delega.rigaSelezionata();
                        
-                        FinestraSwitchController.scenaCorrente = Finestra.scenaCorrente();
                         FinestraSwitchController.tabella = delega;
                         Finestra.caricaFinestra(this, R.FXML.FINESTRA_SWITCH);
                     }
@@ -716,7 +701,6 @@ public class Programma extends Application {
                 new TabellaController.Codice(){
                     @Override
                     public void aggiungi(TabellaController delega) {
-                        FinestraInterventoController.scenaCorrente = Finestra.scenaCorrente();
                         FinestraInterventoController.tabella = delega;
                         Finestra.caricaFinestra(this, R.FXML.FINESTRA_INTERVENTO);
                         
@@ -760,7 +744,6 @@ public class Programma extends Application {
                 new TabellaController.Codice(){
                     @Override
                     public void aggiungi(TabellaController delega) {
-                        FinestraUtilizzatoreController.scenaCorrente = Finestra.scenaCorrente();
                         FinestraUtilizzatoreController.tabella = delega;
                         Finestra.caricaFinestra(this, R.FXML.FINESTRA_UTILIZZATORE);
                         
@@ -775,7 +758,6 @@ public class Programma extends Application {
                     public void modifica(TabellaController delega, String primaCella) {
                         FinestraUtilizzatoreController.input = delega.rigaSelezionata();
                        
-                        FinestraUtilizzatoreController.scenaCorrente = Finestra.scenaCorrente();
                         FinestraUtilizzatoreController.tabella = delega;
                         Finestra.caricaFinestra(this, R.FXML.FINESTRA_UTILIZZATORE);
                     }
@@ -947,13 +929,8 @@ public class Programma extends Application {
      * @param controller
      * @param scenaCorrente 
      */
-    static public void chiusuraFinestra(Object controller,Scene scenaCorrente){
-        if(scenaCorrente != null)
-            Finestra.caricaFinestra(controller,scenaCorrente);
-        
-        else if(Finestra.finestraPrincipale != null)
-            Finestra.caricaFinestra(controller,Finestra.finestraPrincipale);
-        scenaCorrente = null;
+    static public void chiusuraFinestra(Object controller){
+        Finestra.ricaricaFinestra(controller);
     }
     
     /**
@@ -1466,7 +1443,7 @@ public class Programma extends Application {
 		
 		file.aggiungi(BARRA,FilePDF.HELVETICA,12,FilePDF.CORSIVO,FilePDF.ALLINEAMENTO_SINISTRA,FilePDF.NERO);
 		
-		file.aggiungi("\n\n\n ");
+		//file.aggiungi("\n\n\n ");
 		
 		ArrayList<CellaPDF> areaFirme = new ArrayList<CellaPDF>();
 		
@@ -1556,8 +1533,7 @@ public class Programma extends Application {
 
 
 	public static void apriFinestraNuovoHardware(Object finestra, String[] input) {
-		FinestraHardwareController.scenaCorrente = Finestra.scenaCorrente();
-        FinestraHardwareController.input = input;
+		FinestraHardwareController.input = input;
         Finestra.caricaFinestra(finestra, R.FXML.FINESTRA_HW);
 	}
 
