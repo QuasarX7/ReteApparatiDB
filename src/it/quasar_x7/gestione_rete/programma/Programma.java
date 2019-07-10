@@ -1470,17 +1470,37 @@ public class Programma extends Application {
 		
 		ArrayList<CellaPDF> areaFirme = new ArrayList<CellaPDF>();
 		
+		String titoloFirma1 = "", nomeFirma1 = "";
+		String riga = datiImpostazioni.valore(DatiImpostazioni.FIRMA1);
+		if(riga.equals(DatiImpostazioni.FIRMA_RIGA1)) {
+			titoloFirma1 = datiImpostazioni.valore(DatiImpostazioni.FIRMA1_QUALIFICA1);
+			nomeFirma1 = datiImpostazioni.valore(DatiImpostazioni.FIRMA1_NOME1);
+		}else if(riga.equals(DatiImpostazioni.FIRMA_RIGA2)) {
+			titoloFirma1 = datiImpostazioni.valore(DatiImpostazioni.FIRMA1_QUALIFICA2);
+			nomeFirma1 = datiImpostazioni.valore(DatiImpostazioni.FIRMA1_NOME2);
+		}
+		
+		String titoloFirma2 = "", nomeFirma2 = "";
+		riga = datiImpostazioni.valore(DatiImpostazioni.FIRMA2);
+		if(riga.equals(DatiImpostazioni.FIRMA_RIGA1)) {
+			titoloFirma2 = datiImpostazioni.valore(DatiImpostazioni.FIRMA2_QUALIFICA1);
+			nomeFirma2 = datiImpostazioni.valore(DatiImpostazioni.FIRMA2_NOME1);
+		}else if(riga.equals(DatiImpostazioni.FIRMA_RIGA2)) {
+			titoloFirma2 = datiImpostazioni.valore(DatiImpostazioni.FIRMA2_QUALIFICA2);
+			nomeFirma2 = datiImpostazioni.valore(DatiImpostazioni.FIRMA2_NOME2);
+		}
+		
 		areaFirme.add(new CellaPDF(" "));areaFirme.add(new CellaPDF(" "));
 		areaFirme.add(new CellaPDF(" "));areaFirme.add(new CellaPDF(" "));
-		areaFirme.add(new CellaPDF("IL CONTABILE NUCLEO TELEMATICO",10,FilePDF.TIMES, FilePDF.GROSSETTO,false,FilePDF.ALLINEAMENTO_CENTRO));
+		areaFirme.add(new CellaPDF(titoloFirma1,10,FilePDF.TIMES, FilePDF.GROSSETTO,false,FilePDF.ALLINEAMENTO_CENTRO));
 		areaFirme.add(new CellaPDF("L'UTILIZZATORE",10,FilePDF.TIMES, FilePDF.GROSSETTO,false,FilePDF.ALLINEAMENTO_CENTRO));
-		areaFirme.add(new CellaPDF("Serg. Magg. Pino QUERCIA",10,FilePDF.TIMES, FilePDF.CORSIVO,false,FilePDF.ALLINEAMENTO_CENTRO));
+		areaFirme.add(new CellaPDF(nomeFirma1,10,FilePDF.TIMES, FilePDF.CORSIVO,false,FilePDF.ALLINEAMENTO_CENTRO));
 		areaFirme.add(new CellaPDF(utilizzatore != null ? utilizzatore.getNome() : "" ,10,FilePDF.TIMES, FilePDF.CORSIVO,false,FilePDF.ALLINEAMENTO_CENTRO));
 		areaFirme.add(new CellaPDF(" "));areaFirme.add(new CellaPDF(" "));
 		areaFirme.add(new CellaPDF(" "));areaFirme.add(new CellaPDF(" "));
-		areaFirme.add(new CellaPDF("IL RESPONSABILE ALLA SICUREZZA ICT",10,FilePDF.TIMES, FilePDF.GROSSETTO,false,FilePDF.ALLINEAMENTO_CENTRO));
+		areaFirme.add(new CellaPDF(titoloFirma2,10,FilePDF.TIMES, FilePDF.GROSSETTO,false,FilePDF.ALLINEAMENTO_CENTRO));
 		areaFirme.add(new CellaPDF(" "));
-		areaFirme.add(new CellaPDF("Serg. Magg. Pino QUERCIA",10,FilePDF.TIMES, FilePDF.CORSIVO,false,FilePDF.ALLINEAMENTO_CENTRO));
+		areaFirme.add(new CellaPDF(nomeFirma2,10,FilePDF.TIMES, FilePDF.CORSIVO,false,FilePDF.ALLINEAMENTO_CENTRO));
 		areaFirme.add(new CellaPDF(" "));
 		
 		file.aggiungiTabella(areaFirme, new float[]{60,40});

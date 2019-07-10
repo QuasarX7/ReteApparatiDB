@@ -85,8 +85,8 @@ public class FinestraImpostazioniController  implements Initializable {
     	selezionaFirma2Riga1.setToggleGroup(firma2);
     	selezionaFirma2Riga2.setToggleGroup(firma2);
     
-    	inizializzaSelettori(selezionaFirma1Riga1, selezionaFirma1Riga2);
-    	inizializzaSelettori(selezionaFirma2Riga1, selezionaFirma2Riga2);
+    	inizializzaSelettori(selezionaFirma1Riga1, selezionaFirma1Riga2,DatiImpostazioni.FIRMA1);
+    	inizializzaSelettori(selezionaFirma2Riga1, selezionaFirma2Riga2,DatiImpostazioni.FIRMA2);
     	
     	
     	String ente = datiImpostazioni.valore(DatiImpostazioni.INTESTAZIONE_ENTE);
@@ -114,13 +114,13 @@ public class FinestraImpostazioniController  implements Initializable {
     } 
     
     
-    private void inizializzaSelettori(RadioButton selettore1,RadioButton selettore2) {
+    private void inizializzaSelettori(RadioButton selettore1,RadioButton selettore2,String firma) {
 
-    	String rigaFirma1 = datiImpostazioni.valore(DatiImpostazioni.FIRMA1);
-    	if(rigaFirma1.equals(DatiImpostazioni.FIRMA_RIGA1)){
+    	String rigaFirma = datiImpostazioni.valore(firma);
+    	if(rigaFirma.equals(DatiImpostazioni.FIRMA_RIGA1)){
     		selettore1.setSelected(true);
     		selettore2.setSelected(false);
-    	}else if(rigaFirma1.equals(DatiImpostazioni.FIRMA_RIGA2)){
+    	}else if(rigaFirma.equals(DatiImpostazioni.FIRMA_RIGA2)){
     		selettore2.setSelected(true);
     		selettore1.setSelected(false);
     	}else {
@@ -139,16 +139,22 @@ public class FinestraImpostazioniController  implements Initializable {
     }
 
 
+    private void salvaSelezioneFirma(RadioButton riga1,RadioButton riga2,String firma) {
+    	if(riga1.isSelected()) {
+    		datiImpostazioni.valore(firma,DatiImpostazioni.FIRMA_RIGA1);
+    	}else if(riga2.isSelected()) { 
+    		datiImpostazioni.valore(firma,DatiImpostazioni.FIRMA_RIGA2);
+    	}else {
+    		datiImpostazioni.valore(firma,"");
+    	}
+    }
+    
     @FXML
     protected void salva(ActionEvent event) {
     	if(event.getEventType().equals(ActionEvent.ACTION)){
-	    	if(selezionaFirma2Riga1.isSelected()) {
-	    		datiImpostazioni.valore(DatiImpostazioni.FIRMA2,DatiImpostazioni.FIRMA_RIGA1);
-	    	}else if(selezionaFirma2Riga2.isSelected()) { 
-	    		datiImpostazioni.valore(DatiImpostazioni.FIRMA2,DatiImpostazioni.FIRMA_RIGA2);
-	    	}else {
-	    		datiImpostazioni.valore(DatiImpostazioni.FIRMA2,"");
-	    	}
+    		salvaSelezioneFirma(selezionaFirma1Riga1, selezionaFirma1Riga2, DatiImpostazioni.FIRMA1);
+    		salvaSelezioneFirma(selezionaFirma2Riga1, selezionaFirma2Riga2, DatiImpostazioni.FIRMA2);
+	    	
 	    	datiImpostazioni.valore(DatiImpostazioni.INTESTAZIONE_ENTE,campoEnte.getText());
 	    	datiImpostazioni.valore(DatiImpostazioni.INTESTAZIONE_UFFICIO,campoUfficio.getText());
 	    	
