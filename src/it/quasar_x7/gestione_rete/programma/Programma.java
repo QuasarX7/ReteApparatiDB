@@ -1,7 +1,6 @@
 package it.quasar_x7.gestione_rete.programma;
 
 import it.quasar_x7.gestione_rete.Dati.Dati;
-import it.quasar_x7.javafx.finestre.*;
 import it.quasar_x7.gestione_rete.Dati.DatiApparato;
 import it.quasar_x7.gestione_rete.Dati.DatiCasaHardware;
 import it.quasar_x7.gestione_rete.Dati.DatiCasaSoftware;

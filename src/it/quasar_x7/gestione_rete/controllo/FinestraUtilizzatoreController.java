@@ -86,7 +86,7 @@ public class FinestraUtilizzatoreController implements Initializable {
     }   
  
     @FXML
-    void chiusuraSenzaSalvare(ActionEvent event) {
+    protected void chiusuraSenzaSalvare(ActionEvent event) {
     	if(event.getEventType().equals(ActionEvent.ACTION)){
 	        Programma.chiusuraFinestra(this);
 	        input = null;
