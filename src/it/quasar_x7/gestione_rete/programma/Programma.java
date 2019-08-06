@@ -1484,6 +1484,14 @@ public class Programma extends Application {
 		
 		tabellaInfo.add(new CellaPDF("Posizione:",FilePDF.GROSSETTO));
 		
+		// RETROPAGINA
+		String testo = datiImpostazioni.valore(DatiImpostazioni.TESTO_PAG);
+		if(testo.length() > 0) {
+			file.nuovaPagina();
+			file.aggiungiHTML(testo);
+			//file.aggiungi(testo,FilePDF.TIMES,10,FilePDF.NORMALE,FilePDF.ALLINEAMENTO_SINISTRA,FilePDF.NERO);
+		}
+		
     	file.chiudi();
     }
 

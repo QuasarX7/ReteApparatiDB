@@ -36,6 +36,8 @@ public static final String NOME_TABELLA    = "impostazioni";
     public static final String FIRMA_RIGA1 = "RIGA 1";
     public static final String FIRMA_RIGA2 = "RIGA 2";
     
+    public static final String TESTO_PAG = "TESTO PAG 2";
+    
     
     public DatiImpostazioni() {
         try {

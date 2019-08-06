@@ -1546,9 +1546,9 @@ public class FinestraPrincipaleController implements Initializable {
 							
 							// [*] 
 							// impostazioni per effettuare la successione due finestre dialogo
-Finestra.vistaCorrente.setScene(Finestra.finestraPrincipale);
-Finestra.eliminaUltimaFinestraRegistrata();
-Finestra.eliminaUltimaFinestraRegistrata();
+							Finestra.vistaCorrente.setScene(Finestra.finestraPrincipale);
+							Finestra.eliminaUltimaFinestraRegistrata();
+							Finestra.eliminaUltimaFinestraRegistrata();
 							InputController.verificaInput = false;
 							// [*]
 							

@@ -10,8 +10,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 
 /**
  * FXML Controller class
@@ -65,6 +69,14 @@ public class FinestraImpostazioniController  implements Initializable {
     @FXML
     private RadioButton selezionaFirma1Riga1;
     
+    @FXML
+    private TextArea testoRetropagina;
+    
+    @FXML
+    private WebView vistaTestoRetropagina;
+
+    private WebEngine webEngine;
+    
     public static String[] input = null;
     
     protected DatiImpostazioni datiImpostazioni = (DatiImpostazioni) dati.get(DatiImpostazioni.NOME_TABELLA);
@@ -110,6 +122,14 @@ public class FinestraImpostazioniController  implements Initializable {
     	campoFirma2Responsabile2.setText(firma2Qualifica2);
     	String firma2Nome2 = datiImpostazioni.valore(DatiImpostazioni.FIRMA2_NOME2);
     	campoFirma2Nominativo2.setText(firma2Nome2);
+    	
+    	String testoPag2 = datiImpostazioni.valore(DatiImpostazioni.TESTO_PAG);
+    	testoRetropagina.setText(testoPag2);
+    	
+    	webEngine = vistaTestoRetropagina.getEngine();
+        webEngine.loadContent(testoPag2);
+    	
+    	
     } 
     
     
@@ -137,7 +157,12 @@ public class FinestraImpostazioniController  implements Initializable {
     	}
     }
 
-
+    @FXML
+    private void aggiornaVistaPagina(KeyEvent event) {
+    	if(event.getEventType().equals(KeyEvent.KEY_RELEASED)){
+        	webEngine.loadContent(testoRetropagina.getText());
+    	}
+    }
     private void salvaSelezioneFirma(RadioButton riga1,RadioButton riga2,String firma) {
     	if(riga1.isSelected()) {
     		datiImpostazioni.valore(firma,DatiImpostazioni.FIRMA_RIGA1);
@@ -166,6 +191,8 @@ public class FinestraImpostazioniController  implements Initializable {
 	    	datiImpostazioni.valore(DatiImpostazioni.FIRMA2_NOME1,campoFirma2Nominativo1.getText());
 	    	datiImpostazioni.valore(DatiImpostazioni.FIRMA2_QUALIFICA2,campoFirma2Responsabile2.getText());
 	    	datiImpostazioni.valore(DatiImpostazioni.FIRMA2_NOME2,campoFirma2Nominativo2.getText());
+	    	
+	    	datiImpostazioni.valore(DatiImpostazioni.TESTO_PAG,testoRetropagina.getText());
 	    	
 	    	chiusuraSenzaSalvare(event);
     	}
