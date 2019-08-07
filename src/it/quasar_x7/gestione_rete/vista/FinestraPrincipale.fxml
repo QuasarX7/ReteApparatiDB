@@ -29,71 +29,78 @@
                                     <MenuItem mnemonicParsing="false" onAction="#apriImpostazioniReportPDF" text="Impostazioni Report in PDF" />
   </items>
 </Menu>
-                                <Menu mnemonicParsing="false" text="Apparato">
-                                    <items>
-                                        <MenuItem mnemonicParsing="false" onAction="#creaNuovoApparato" text="Nuovo apparato" />
-                                        <MenuItem mnemonicParsing="false" onAction="#apriListaApparati" text="Lista apparati" /><MenuItem mnemonicParsing="false" onAction="#apriListaTipoApparato" text="Lista tipo di apparato" />
-                                    </items>
-                                </Menu>
                               <Menu mnemonicParsing="false" text="Rete">
 <items>
 <MenuItem mnemonicParsing="false" onAction="#aggiungiNuovaRete" text="Aggiungi nuova rete" />
                                     <MenuItem mnemonicParsing="false" onAction="#apriListaReti" text="Lista rete" />
+                                      <Menu mnemonicParsing="false" text="Apparato">
+                                          <items>
+                                              <MenuItem mnemonicParsing="false" onAction="#creaNuovoApparato" text="Nuovo apparato" />
+                                              <MenuItem mnemonicParsing="false" onAction="#apriListaApparati" text="Lista apparati" />
+                                          <MenuItem mnemonicParsing="false" onAction="#apriListaTipoApparato" text="Lista tipo di apparato" />
+                                            <Menu mnemonicParsing="false" text="Hardware">
+                                                <items>
+                                                    <MenuItem mnemonicParsing="false" onAction="#creaNuovoHardware" text="Nuovo hardware" />
+                                                <MenuItem mnemonicParsing="false" onAction="#apriListaHardware" text="Lista hardware" />
+                                                <MenuItem mnemonicParsing="false" onAction="#listaCaseProdutriciHW" text="Case produtrici di hardware" />
+                                                <MenuItem mnemonicParsing="false" onAction="#listaTipoHardware" text="Tipo di hardware" />
+                                                <MenuItem mnemonicParsing="false" onAction="#associaHardwareApparato" text="Hardware dell'apparato" />
+                                                </items>
+                                            </Menu>
+                                            <Menu mnemonicParsing="false" text="Software">
+                                                <items>
+                                                    <MenuItem mnemonicParsing="false" onAction="#creaNuovoSoftware" text="Nuovo software" />
+                                                <MenuItem mnemonicParsing="false" onAction="#apriListaSoftware" text="Lista software" />
+                                                <MenuItem mnemonicParsing="false" onAction="#listaCaseProdutriciSW" text="Case produtrici del software" />
+                                                <MenuItem mnemonicParsing="false" onAction="#listaTipoSoftware" text="Tipo di software" />
+                                                <MenuItem mnemonicParsing="false" onAction="#associaSoftwareApparato" text="Software dell'apparato" />
+                                                </items>
+                                            </Menu>
+                                          </items>
+                                      </Menu>
+                                    <Menu mnemonicParsing="false" text="Responsabile">
+      <items>
+      <MenuItem mnemonicParsing="false" onAction="#creaNuovoResponsabile" text="Aggiungi responsabile sito" />
+                                          <MenuItem mnemonicParsing="false" onAction="#apriListaResponsabile" text="Lista Responsabili dei siti" />
+      </items>
+      </Menu>
+                                    <Menu mnemonicParsing="false" text="Posizione">
+      <items>
+                                          <MenuItem mnemonicParsing="false" onAction="#creaNuovaPosizione" text="Aggiungi posizione" />
+      <MenuItem mnemonicParsing="false" onAction="#apriListaPosizione" text="Lista posizione" />
+      </items>
+      </Menu>
+                                      <Menu mnemonicParsing="false" text="Utilizzatore">
+                                          <items>
+                                              <MenuItem mnemonicParsing="false" onAction="#creaNuovoUtilizzatore" text="Nuovo utente" />
+                                              <MenuItem mnemonicParsing="false" onAction="#apriListaUtilizzatori" text="Lista utenti" />
+                                              <Menu mnemonicParsing="false" text="Qualifica">
+                                                  <items>
+                                                      <MenuItem mnemonicParsing="false" onAction="#listaRuoli" text="Ruolo" />
+                                                      <MenuItem mnemonicParsing="false" onAction="#listaGradi" text="Gradi" />
+                                                  </items>
+                                              </Menu>
+                                          </items>
+                                      </Menu>
 </items>
-</Menu>
-                              <Menu mnemonicParsing="false" text="Responsabile">
-<items>
-<MenuItem mnemonicParsing="false" onAction="#creaNuovoResponsabile" text="Aggiungi responsabile sito" />
-                                    <MenuItem mnemonicParsing="false" onAction="#apriListaResponsabile" text="Lista Responsabili dei siti" />
-</items>
-</Menu>
-                              <Menu mnemonicParsing="false" text="Posizione">
-<items>
-                                    <MenuItem mnemonicParsing="false" onAction="#creaNuovaPosizione" text="Aggiungi posizione" />
-<MenuItem mnemonicParsing="false" onAction="#apriListaPosizione" text="Lista posizione" />
-</items>
-</Menu>
-                                <Menu mnemonicParsing="false" text="Utilizzatore">
-                                    <items>
-                                        <MenuItem mnemonicParsing="false" onAction="#creaNuovoUtilizzatore" text="Nuovo utente" />
-                                        <MenuItem mnemonicParsing="false" onAction="#apriListaUtilizzatori" text="Lista utenti" />
-                                        <Menu mnemonicParsing="false" text="Qualifica">
-                                            <items>
-                                                <MenuItem mnemonicParsing="false" onAction="#listaRuoli" text="Ruolo" />
-                                                <MenuItem mnemonicParsing="false" onAction="#listaGradi" text="Gradi" />
-                                            </items>
-                                        </Menu>
-                                    </items>
-                                </Menu>
-                                <Menu mnemonicParsing="false" text="Hardware">
-                                    <items>
-                                        <MenuItem mnemonicParsing="false" onAction="#creaNuovoHardware" text="Nuovo hardware" /><MenuItem mnemonicParsing="false" onAction="#apriListaHardware" text="Lista hardware" /><MenuItem mnemonicParsing="false" onAction="#listaCaseProdutriciHW" text="Case produtrici di hardware" /><MenuItem mnemonicParsing="false" onAction="#listaTipoHardware" text="Tipo di hardware" />
-                                    <MenuItem mnemonicParsing="false" onAction="#associaHardwareApparato" text="Hardware dell'apparato" />
-                                    </items>
-                                </Menu>
-                                <Menu mnemonicParsing="false" text="Software">
-                                    <items>
-                                        <MenuItem mnemonicParsing="false" onAction="#creaNuovoSoftware" text="Nuovo software" /><MenuItem mnemonicParsing="false" onAction="#apriListaSoftware" text="Lista software" /><MenuItem mnemonicParsing="false" onAction="#listaCaseProdutriciSW" text="Case produtrici del software" /><MenuItem mnemonicParsing="false" onAction="#listaTipoSoftware" text="Tipo di software" />
-                                    <MenuItem mnemonicParsing="false" onAction="#associaSoftwareApparato" text="Software dell'apparato" />
-                                    </items>
-                                </Menu><Menu mnemonicParsing="false" text="Switch">
+</Menu><Menu mnemonicParsing="false" text="Switch">
 <items>
 <MenuItem mnemonicParsing="false" onAction="#creaNuovaConnessioneSwitch" text="Nuova connessione switch" />
 <MenuItem mnemonicParsing="false" onAction="#apriListaSwitch" text="Lista switch" /><MenuItem mnemonicParsing="false" onAction="#apriListaConnessioniSwitch" text="Lista connessioni switch" />
 </items>
 </Menu>
-                                <Menu mnemonicParsing="false" text="Accesso">
-                                    <items>
-                                        <MenuItem mnemonicParsing="false" onAction="#modificaPassword" text="Cambia password" />
-                                        <MenuItem mnemonicParsing="false" onAction="#apriGestioneUtenti" text="Gestione utenti" />
-                                    </items>
-                                </Menu>
                               <Menu mnemonicParsing="false" text="Intervento">
                                  <items>
                                     <MenuItem mnemonicParsing="false" onAction="#aggiungiNuovoIntervento" text="Aggiungi nuovo intervento" />
                                     <MenuItem mnemonicParsing="false" onAction="#apriListaInterventi" text="Lista interventi" />
                                  </items>
                               </Menu>
+                                <Menu mnemonicParsing="false" text="Accesso">
+                                    <items>
+                                        <MenuItem mnemonicParsing="false" onAction="#modificaPassword" text="Cambia password" />
+                                        <MenuItem mnemonicParsing="false" onAction="#apriGestioneUtenti" text="Gestione utenti" />
+                                    </items>
+                                </Menu>
                             </menus>
                         </MenuBar>
                         <Button layoutX="700.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#chiusuraSenzaSalvare" prefHeight="28.0" prefWidth="35.0" style="-fx-background-color: red; -fx-border-color: red;" text="X" textFill="WHITE" BorderPane.alignment="CENTER">
