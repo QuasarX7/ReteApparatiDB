@@ -40,6 +40,9 @@ public class FinestraImpostazioniController  implements Initializable {
     private RadioButton selezionaFirma2Riga1;
     
     @FXML
+    private TextField campoLocalita;
+    
+    @FXML
     private TextField campoFirma1Nominativo2;
 
     @FXML
@@ -99,9 +102,14 @@ public class FinestraImpostazioniController  implements Initializable {
     	inizializzaSelettori(selezionaFirma1Riga1, selezionaFirma1Riga2,DatiImpostazioni.FIRMA1);
     	inizializzaSelettori(selezionaFirma2Riga1, selezionaFirma2Riga2,DatiImpostazioni.FIRMA2);
     	
+    	String logo = datiImpostazioni.valore(DatiImpostazioni.LOGO);
+    	campoSimbolo.setText(logo);
+    	
     	
     	String ente = datiImpostazioni.valore(DatiImpostazioni.INTESTAZIONE_ENTE);
     	campoEnte.setText(ente);
+    	String localita = datiImpostazioni.valore(DatiImpostazioni.INTESTAZIONE_LOCALITA);
+    	campoLocalita.setText(localita);
     	String ufficio = datiImpostazioni.valore(DatiImpostazioni.INTESTAZIONE_UFFICIO);
     	campoUfficio.setText(ufficio);
     	
@@ -163,6 +171,7 @@ public class FinestraImpostazioniController  implements Initializable {
         	webEngine.loadContent(testoRetropagina.getText());
     	}
     }
+    
     private void salvaSelezioneFirma(RadioButton riga1,RadioButton riga2,String firma) {
     	if(riga1.isSelected()) {
     		datiImpostazioni.valore(firma,DatiImpostazioni.FIRMA_RIGA1);
@@ -178,6 +187,10 @@ public class FinestraImpostazioniController  implements Initializable {
     	if(event.getEventType().equals(ActionEvent.ACTION)){
     		salvaSelezioneFirma(selezionaFirma1Riga1, selezionaFirma1Riga2, DatiImpostazioni.FIRMA1);
     		salvaSelezioneFirma(selezionaFirma2Riga1, selezionaFirma2Riga2, DatiImpostazioni.FIRMA2);
+	    	
+    		datiImpostazioni.valore(DatiImpostazioni.LOGO,campoSimbolo.getText());
+    		
+    		datiImpostazioni.valore(DatiImpostazioni.INTESTAZIONE_LOCALITA,campoLocalita.getText());
 	    	
 	    	datiImpostazioni.valore(DatiImpostazioni.INTESTAZIONE_ENTE,campoEnte.getText());
 	    	datiImpostazioni.valore(DatiImpostazioni.INTESTAZIONE_UFFICIO,campoUfficio.getText());

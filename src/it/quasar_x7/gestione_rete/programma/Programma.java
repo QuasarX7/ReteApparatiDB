@@ -1327,20 +1327,23 @@ public class Programma extends Application {
     
     
     public static void creaSchedaApparatoPDF(String nomeFile,String apparato) {
-    	
     	Apparato datiApparato = ((DatiApparato)dati.get(DatiApparato.NOME_TABELLA)).info(apparato);
     	
     	if(datiApparato == null)
     		return ; // chiudi 
     	
     	DatiImpostazioni datiImpostazioni  = ((DatiImpostazioni)dati.get(DatiImpostazioni.NOME_TABELLA));
-		
+    	
+    	final String localita = datiImpostazioni.valore(DatiImpostazioni.INTESTAZIONE_LOCALITA);
+    	
     	final String BARRA = "______________________________________________________________________________";
+    	
     	FilePDF file = new FilePDF(nomeFile);
+    	file.aggiungiImmagine(datiImpostazioni.valore(DatiImpostazioni.LOGO),40,40,FilePDF.ALLINEAMENTO_CENTRO);
     	file.aggiungi(datiImpostazioni.valore(DatiImpostazioni.INTESTAZIONE_ENTE),FilePDF.TIMES,18,FilePDF.GROSSETTO,FilePDF.ALLINEAMENTO_CENTRO,FilePDF.NERO);
     	file.aggiungi(datiImpostazioni.valore(DatiImpostazioni.INTESTAZIONE_UFFICIO),FilePDF.TIMES,12,FilePDF.CORSIVO,FilePDF.ALLINEAMENTO_CENTRO,FilePDF.NERO);
     	
-    	file.aggiungi(String.format("Caserta, %s", DataOraria.creaDataOggi().stampaGiorno('/')),FilePDF.TIMES_CORSIVO,12,FilePDF.CORSIVO,FilePDF.ALLINEAMENTO_DESTRA,FilePDF.NERO);
+    	file.aggiungi(String.format("%s, %s",localita, DataOraria.creaDataOggi().stampaGiorno('/')),FilePDF.TIMES_CORSIVO,12,FilePDF.CORSIVO,FilePDF.ALLINEAMENTO_DESTRA,FilePDF.NERO);
     	
     	file.aggiungi(String.format("\nSCHEDA APPARATO N° %d",888),FilePDF.HELVETICA_GROSSETTO,12,FilePDF.CORSIVO,FilePDF.ALLINEAMENTO_SINISTRA,FilePDF.NERO);
     	file.aggiungi(String.format("SIGILLO N° %d\n",datiApparato.getSigillo()),FilePDF.HELVETICA,12,FilePDF.CORSIVO,FilePDF.ALLINEAMENTO_SINISTRA,FilePDF.NERO);
@@ -1489,7 +1492,14 @@ public class Programma extends Application {
 		if(testo.length() > 0) {
 			file.nuovaPagina();
 			file.aggiungiHTML(testo);
-			//file.aggiungi(testo,FilePDF.TIMES,10,FilePDF.NORMALE,FilePDF.ALLINEAMENTO_SINISTRA,FilePDF.NERO);
+			ArrayList<CellaPDF> finePag = new ArrayList<CellaPDF>();
+			finePag.add(new CellaPDF(String.format("%s, %s",localita, DataOraria.creaDataOggi().stampaGiorno('/'))));
+			finePag.add(new CellaPDF("___________________________"));
+			finePag.add(new CellaPDF(" "));
+			finePag.add(new CellaPDF("Firma leggibile dell'UTENTE"));
+			
+			
+			file.aggiungiTabella(finePag, new float[]{60,40});
 		}
 		
     	file.chiudi();
