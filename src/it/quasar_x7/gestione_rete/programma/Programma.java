@@ -30,6 +30,7 @@ import it.quasar_x7.gestione_rete.controllo.FinestraLoginController;
 import it.quasar_x7.gestione_rete.controllo.FinestraApparatoController;
 import it.quasar_x7.gestione_rete.controllo.FinestraGradoController;
 import it.quasar_x7.gestione_rete.controllo.FinestraHardwareController;
+import it.quasar_x7.gestione_rete.controllo.FinestraImpostazioniController;
 import it.quasar_x7.gestione_rete.controllo.FinestraInterventoController;
 import it.quasar_x7.gestione_rete.controllo.FinestraPosizioneController;
 
@@ -1495,7 +1496,7 @@ public class Programma extends Application {
 		String testo = datiImpostazioni.valore(DatiImpostazioni.TESTO_PAG);
 		if(testo.length() > 0) {
 			file.nuovaPagina();
-			file.aggiungiHTML(testo);
+			file.aggiungiHTML(FinestraImpostazioniController.codificaHTML(testo));
 			ArrayList<CellaPDF> finePag = new ArrayList<CellaPDF>();
 			finePag.add(new CellaPDF(String.format("%s, %s",localita, DataOraria.creaDataOggi().stampaGiorno('/'))));
 			finePag.add(new CellaPDF("___________________________"));

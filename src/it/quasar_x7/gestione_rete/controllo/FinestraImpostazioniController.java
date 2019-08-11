@@ -142,7 +142,7 @@ public class FinestraImpostazioniController  implements Initializable {
     	testoRetropagina.setText(testoPag2);
     	
     	webEngine = vistaTestoRetropagina.getEngine();
-        webEngine.loadContent(testoPag2);
+        webEngine.loadContent(codificaHTML(testoPag2));
     	
     	
     } 
@@ -175,7 +175,7 @@ public class FinestraImpostazioniController  implements Initializable {
     @FXML
     private void aggiornaVistaPagina(KeyEvent event) {
     	if(event.getEventType().equals(KeyEvent.KEY_RELEASED)){
-        	webEngine.loadContent(testoRetropagina.getText());
+        	webEngine.loadContent(codificaHTML(testoRetropagina.getText()));
     	}
     }
     
@@ -219,7 +219,24 @@ public class FinestraImpostazioniController  implements Initializable {
     	
     }
     
-    
+    static public String codificaHTML(String testo) {
+    	final char percento = '%';
+    	return String.format(
+				"<div style=\"font-size: 14px; font-family: 'Times'; line-height:110%s; text-align: justify\">" + 
+						"<style type=\"text/css\">" + 
+							"li{" + 
+								"padding: 7px;" + 
+							"}" + 
+							"h3{" + 
+								"text-align:center;" + 
+							"}" + 
+						"</style>"
+				+ 		"%s" // <-- codice 'test'
+				+ "</div>"
+				+ "<br/>" 
+				,percento,testo
+		);
+    }
        
     
 }
