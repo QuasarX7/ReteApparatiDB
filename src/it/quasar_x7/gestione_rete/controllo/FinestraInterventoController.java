@@ -8,6 +8,7 @@ import it.quasar_x7.gestione_rete.programma.R;
 import it.quasar_x7.java.utile.DataOraria;
 import it.quasar_x7.java.utile.Errore;
 import it.quasar_x7.javafx.CampoTesto;
+import it.quasar_x7.javafx.Finestra;
 import it.quasar_x7.javafx.finestre.controllo.TabellaController;
 import java.net.URL;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -49,6 +51,10 @@ public class FinestraInterventoController  implements Initializable {
     @FXML
     private ChoiceBox<String> menuApparato;
     
+    @FXML
+    private Button pulsanteChiusura;
+
+    
     protected DatiIntervento datiIntervento = (DatiIntervento) dati.get(DatiIntervento.NOME_TABELLA);
     protected DatiApparato datiApparato = (DatiApparato) dati.get(DatiApparato.NOME_TABELLA);
     
@@ -57,6 +63,7 @@ public class FinestraInterventoController  implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+    	Finestra.infoFinestreAperte(pulsanteChiusura);
     	CampoTesto.data(data);
     	data.setText(new DataOraria().stampaGiorno('/'));
     	TreeSet<String> host = datiApparato.listaOrdinata(0);

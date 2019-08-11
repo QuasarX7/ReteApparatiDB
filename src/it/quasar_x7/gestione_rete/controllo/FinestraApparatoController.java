@@ -31,12 +31,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -140,6 +142,10 @@ public class FinestraApparatoController implements Initializable {
     @FXML
     private TextField nome;
     
+    @FXML
+    private Button pulsanteChiusura;
+    
+    
     protected DatiTipoApparato datiTipoApparato = (DatiTipoApparato) dati.get(DatiTipoApparato.NOME_TABELLA);
     protected DatiApparato datiApparato = (DatiApparato) dati.get(DatiApparato.NOME_TABELLA);
     
@@ -157,7 +163,8 @@ public class FinestraApparatoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        CampoTesto.soloCaratteri(nome, 30, " @.\\-_òàùèéìç1234567890");
+    	Finestra.infoFinestreAperte(pulsanteChiusura);
+    	CampoTesto.soloCaratteri(nome, 30, " @.\\-_òàùèéìç1234567890");
         CampoTesto.indirizzoIP(ip);
         CampoTesto.soloNumeri(sigillo, 5);
         CampoTesto.soloNumeri(scheda, 5);

@@ -69,12 +69,14 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.input.MouseButton;
@@ -163,6 +165,10 @@ public class FinestraPrincipaleController implements Initializable {
     @FXML
     private NumberAxis diagrammaNumeroApparati;
     
+    @FXML
+    private Button pulsanteChiusura;
+
+    
 
 	private TreeView<Nodo> listaSelezionata = null;
 
@@ -192,7 +198,9 @@ public class FinestraPrincipaleController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     	
-        menuTipoRicerca.getItems().add(R.TipoRicerca.NOMINATIVO);
+    	Finestra.infoFinestreAperte(pulsanteChiusura);
+    	
+    	menuTipoRicerca.getItems().add(R.TipoRicerca.NOMINATIVO);
         menuTipoRicerca.getItems().add(R.TipoRicerca.ACCOUNT);
         menuTipoRicerca.getItems().add(R.TipoRicerca.IP);
         menuTipoRicerca.getItems().add(R.TipoRicerca.MAC);

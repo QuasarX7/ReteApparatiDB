@@ -6,6 +6,7 @@ import it.quasar_x7.gestione_rete.Dati.DatiTipoSoftware;
 import it.quasar_x7.gestione_rete.programma.Programma;
 import static it.quasar_x7.gestione_rete.programma.Programma.dati;
 import it.quasar_x7.gestione_rete.programma.R;
+import it.quasar_x7.javafx.Finestra;
 import it.quasar_x7.javafx.finestre.controllo.TabellaController;
 import java.net.URL;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
@@ -49,6 +51,9 @@ public class FinestraSoftwareController implements Initializable {
     @FXML
     private CheckBox selezionaPredefinito;
     
+    @FXML
+    private Button pulsanteChiusura;
+
     
     protected DatiCasaSoftware datiCasaSoftware = (DatiCasaSoftware)dati.get(DatiCasaSoftware.NOME_TABELLA);
     protected DatiSoftware datiSoftware = (DatiSoftware) dati.get(DatiSoftware.NOME_TABELLA);
@@ -58,7 +63,7 @@ public class FinestraSoftwareController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    	
+    	Finestra.infoFinestreAperte(pulsanteChiusura);
     	if(input != null){
             if(input[0] != null){
                 versione.setText(input[0]);

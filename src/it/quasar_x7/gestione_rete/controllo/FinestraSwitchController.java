@@ -16,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -43,12 +44,16 @@ public class FinestraSwitchController implements Initializable {
     @FXML
     private TextField porta;
 
+    @FXML
+    private Button pulsanteChiusura;
+
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+    	Finestra.infoFinestreAperte(pulsanteChiusura);
         CampoTesto.aggiungiLimiteTesto(porta, 10);
         CampoTesto.maiuscolo(porta);
         

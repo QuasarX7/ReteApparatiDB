@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.input.MouseEvent;
 
@@ -41,6 +42,10 @@ public class FinestraSoftwareApparatoController implements Initializable {
     @FXML
     private ChoiceBox<String> nomeApparato;
     
+    @FXML
+    private Button pulsanteChiusura;
+
+    
     private final DatiSoftware datiSW = (DatiSoftware)dati.get(DatiSoftware.NOME_TABELLA);
     private final DatiSoftwareApparato datiSoftwareApparato = (DatiSoftwareApparato)dati.get(DatiSoftwareApparato.NOME_TABELLA);
     private final DatiApparato datiApparato = (DatiApparato)dati.get(DatiApparato.NOME_TABELLA);
@@ -51,7 +56,7 @@ public class FinestraSoftwareApparatoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        Finestra.infoFinestreAperte(pulsanteChiusura);
         aggiornaMenuNomeSoftware();
         aggiornaApparato();
         

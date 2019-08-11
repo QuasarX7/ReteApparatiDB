@@ -8,6 +8,7 @@ import it.quasar_x7.gestione_rete.Dati.DatiTipoHardware;
 import it.quasar_x7.gestione_rete.programma.Programma;
 import static it.quasar_x7.gestione_rete.programma.Programma.dati;
 import it.quasar_x7.gestione_rete.programma.R;
+import it.quasar_x7.javafx.Finestra;
 import it.quasar_x7.javafx.finestre.controllo.TabellaController;
 
 import java.net.URL;
@@ -17,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -57,6 +59,10 @@ public class FinestraHardwareController implements Initializable {
     @FXML
     private TextField matricola;
     
+    @FXML
+    private Button pulsanteChiusura;
+
+    
         
     protected DatiDB datiHardware = dati.get(DatiHardware.NOME_TABELLA);
     protected DatiTipoHardware datiTipoHardware = (DatiTipoHardware) dati.get(DatiTipoHardware.NOME_TABELLA);
@@ -69,6 +75,7 @@ public class FinestraHardwareController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+    	Finestra.infoFinestreAperte(pulsanteChiusura);
         if(input != null){
             if(input[0] != null){
                 String[] lista = DatiHardware.marcaMatricola(input[0]);

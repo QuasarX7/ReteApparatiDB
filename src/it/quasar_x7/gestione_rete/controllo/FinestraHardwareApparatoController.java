@@ -13,7 +13,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -44,6 +46,9 @@ public class FinestraHardwareApparatoController implements Initializable {
     @FXML
     private ChoiceBox<String> nomeApparato;
     
+    @FXML
+    private Button pulsanteChiusura;
+    
     private final DatiHardware datiHW = (DatiHardware)dati.get(DatiHardware.NOME_TABELLA);
     private final DatiApparato datiApparato = (DatiApparato)dati.get(DatiApparato.NOME_TABELLA);
     
@@ -54,7 +59,9 @@ public class FinestraHardwareApparatoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        aggiornaMenuNomeHardware();
+    	Finestra.infoFinestreAperte(pulsanteChiusura);
+    	
+    	aggiornaMenuNomeHardware();
         
         aggiornaApparato();
         if(apparato != null) {

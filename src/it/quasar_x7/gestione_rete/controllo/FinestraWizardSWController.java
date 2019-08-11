@@ -23,6 +23,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -63,6 +64,10 @@ import javafx.util.Callback;
 
 	    @FXML
 	    private TableView<Software> tabella;
+	    
+	    @FXML
+	    private Button pulsanteChiusura;
+
 
 	    /**
 	     * Initializes the controller class.
@@ -76,7 +81,7 @@ import javafx.util.Callback;
 	    
 	   
 	    private void inizializzaColonnaPredefinito() {
-	    	
+	    	Finestra.infoFinestreAperte(pulsanteChiusura);
 	    	colonnaPredefinito.setCellValueFactory(new Callback<CellDataFeatures<Software, Boolean>, ObservableValue<Boolean>>() {
 	 
 	            @Override

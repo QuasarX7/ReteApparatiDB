@@ -2,6 +2,8 @@ package it.quasar_x7.gestione_rete.controllo;
 
 import it.quasar_x7.gestione_rete.Dati.DatiImpostazioni;
 import it.quasar_x7.gestione_rete.programma.Programma;
+import it.quasar_x7.javafx.Finestra;
+
 import static it.quasar_x7.gestione_rete.programma.Programma.dati;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -9,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -77,6 +80,10 @@ public class FinestraImpostazioniController  implements Initializable {
     
     @FXML
     private WebView vistaTestoRetropagina;
+    
+    @FXML
+    private Button pulsanteChiusura;
+
 
     private WebEngine webEngine;
     
@@ -90,7 +97,7 @@ public class FinestraImpostazioniController  implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    	
+    	Finestra.infoFinestreAperte(pulsanteChiusura);
     	ToggleGroup firma1 = new ToggleGroup();
     	selezionaFirma1Riga1.setToggleGroup(firma1);
     	selezionaFirma1Riga2.setToggleGroup(firma1);

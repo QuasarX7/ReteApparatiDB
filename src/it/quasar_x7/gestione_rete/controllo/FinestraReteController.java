@@ -7,6 +7,7 @@ import it.quasar_x7.gestione_rete.programma.Programma;
 import static it.quasar_x7.gestione_rete.programma.Programma.dati;
 import it.quasar_x7.gestione_rete.programma.R;
 import it.quasar_x7.javafx.CampoTesto;
+import it.quasar_x7.javafx.Finestra;
 import it.quasar_x7.javafx.finestre.controllo.TabellaController;
 import java.net.URL;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -44,6 +46,10 @@ public class FinestraReteController implements Initializable {
 
     @FXML
     private TextField dominio;
+    
+    @FXML
+    private Button pulsanteChiusura;
+
 
     protected DatiTipoRete datiTipoRete = (DatiTipoRete) dati.get(DatiTipoRete.NOME_TABELLA);
     protected DatiRete datiRete = (DatiRete) dati.get(DatiRete.NOME_TABELLA);
@@ -56,7 +62,7 @@ public class FinestraReteController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        Finestra.infoFinestreAperte(pulsanteChiusura);
         CampoTesto.minuscolo(dominio);
         CampoTesto.soloCaratteri(dominio, 60, ".1234567890@òàèéìç\\_\\-ù");
         CampoTesto.indirizzoIP(netmask);

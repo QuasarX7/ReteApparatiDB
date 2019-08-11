@@ -14,6 +14,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.PasswordField;
 
@@ -33,7 +34,9 @@ public class FinestraLoginController implements Initializable {
     @FXML
     private PasswordField campoPassword;
 
-    
+    @FXML
+    private Button pulsanteChiusura;
+
     
     /**
      * Metodo di inizializzazione della classe.
@@ -43,6 +46,7 @@ public class FinestraLoginController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+    	Finestra.infoFinestreAperte(pulsanteChiusura);
         caricaDatiUtente();
     }
 

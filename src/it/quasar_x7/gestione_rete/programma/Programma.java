@@ -86,8 +86,10 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
@@ -1246,9 +1248,11 @@ public class Programma extends Application {
                         if(modifica){
                             visualizzaTabella.accept(event, DatiDB.stampaChiave(db,vecchiValori));
                             Programma.aggiornaListeNodi();
+                            Programma.chiusuraFinestra(controller);
                         }else if(aggiungi){
                             visualizzaTabella.accept(event,null);
                             Programma.aggiornaListeNodi();
+                            Programma.chiusuraFinestra(controller);
                         }else{
                             Finestra.finestraAvviso(controller, String.format(R.Messaggi.ERRORE_SALVATAGGIO,DatiDB.stampaChiave(db, vecchiValori),DatiDB.stampa(nuoviValori))); 
                                                 
@@ -1785,6 +1789,11 @@ public class Programma extends Application {
 	    lista.setCellFactory(costruzioneListaAlbero);
 	    lista.setRoot(rete);
 	}
+
+
+
+
+
 
 
 

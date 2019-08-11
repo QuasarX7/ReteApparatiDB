@@ -168,7 +168,7 @@ import javafx.scene.input.MouseEvent;
 	    @FXML
 	    private CheckBox selezionaMouse;
 
-    @FXML
+        @FXML
 	    private CheckBox selezionaHDD;
 
 	    @FXML
@@ -192,13 +192,17 @@ import javafx.scene.input.MouseEvent;
 
 	    @FXML
 	    private CheckBox selezionaTastiera;
+	    
+	    @FXML
+	    private Button pulsanteChiusura;
+
 
 	    /**
 	     * Initializes the controller class.
 	     */
 	    @Override
 	    public void initialize(URL url, ResourceBundle rb) {
-	    	
+	    	Finestra.infoFinestreAperte(pulsanteChiusura);
 			inizializzaRigaTabella(selezionaUnitaCentrale, true, menuModelloUnitaCentrale, menuMatricolaUnitaCentrale,pulsanteUnitaCentrale);
 			inizializzaRigaTabella(selezionaSchedaMadre, false, menuModelloSchedaMadre, menuMatricolaSchedaMadre,pulsanteSchedaMadre);
 			inizializzaRigaTabella(selezionaProcessore, true, menuModelloProcessore, menuMatricolaProcessore,pulsanteProcessore);

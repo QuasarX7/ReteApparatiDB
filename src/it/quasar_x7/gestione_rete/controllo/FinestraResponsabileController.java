@@ -7,6 +7,7 @@ import it.quasar_x7.gestione_rete.Dati.DatiResponsabileSito;
 import it.quasar_x7.gestione_rete.programma.Programma;
 import static it.quasar_x7.gestione_rete.programma.Programma.dati;
 import it.quasar_x7.javafx.CampoTesto;
+import it.quasar_x7.javafx.Finestra;
 import it.quasar_x7.javafx.finestre.controllo.TabellaController;
 import java.net.URL;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -42,6 +44,10 @@ public class FinestraResponsabileController implements Initializable {
     @FXML
     private TextField responsabile;
     
+    @FXML
+    private Button pulsanteChiusura;
+
+    
     protected DatiGrado datiGrado = (DatiGrado) dati.get(DatiGrado.NOME_TABELLA);
     protected DatiDB datiResponsabileSito = dati.get(DatiResponsabileSito.NOME_TABELLA);
     /**
@@ -49,6 +55,7 @@ public class FinestraResponsabileController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+    	Finestra.infoFinestreAperte(pulsanteChiusura);
         grado.getItems().addAll(datiGrado.lista(true));
         CampoTesto.maiuscolo(cognome);
         CampoTesto.soloCaratteri(cognome, 40, " '");
