@@ -140,7 +140,7 @@ public class FinestraSoftwareController implements Initializable {
 	                this,
 	                datiCasaSoftware,
 	                    R.Etichette.FINESTRA_LISTA_CASA_SW,
-	                R.Etichette.TIPO_SW,
+	                R.Etichette.CASA_SW,
 	                R.Messaggi.SOSTITUZIONE_CASA_SW
 	        );
     	}

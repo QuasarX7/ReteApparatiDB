@@ -105,6 +105,8 @@ public abstract class DatiDB implements Dati {
                        for(Object voce:record){
                            if(voce != null)
                                 riga.add(voce.toString());
+                           else
+                        	   riga.add(null);
                        }
                        tab.add(riga);
                     }
