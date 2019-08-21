@@ -161,8 +161,9 @@ import javafx.util.Callback;
 	        tabella.setItems(listaSW);
 	    }
 	    
-	    public void aggiornaTabellaSW(){
+	    public static void aggiornaTabellaSW(){
 	        listaSW.clear();
+	        DatiSoftware datiSoftware = (DatiSoftware) dati.get(DatiSoftware.NOME_TABELLA);
 	        ArrayList<Software> lista = datiSoftware.listaSoftware();
 	        
 	        if(lista != null) {
@@ -179,6 +180,49 @@ import javafx.util.Callback;
                 Programma.aggiornaListeNodi();
 	            finestraApparato = null;
 	            apparato = null;
+	        }
+	    }
+	    
+	    
+	    @FXML
+	    private void menuAggiungiSW(ActionEvent event) {
+	        if(event.getEventType().equals(ActionEvent.ACTION)){
+                FinestraSoftwareController.finestraWizard = this;
+                Finestra.caricaFinestra(this, R.FXML.FINESTRA_SW);
+	            
+	        }
+	    }
+	    
+	    @FXML
+	    private void menuModificaSW(ActionEvent event) {
+	        if(event.getEventType().equals(ActionEvent.ACTION)){
+	        	    FinestraSoftwareController.finestraWizard = this;
+	                Software sw = tabella.getSelectionModel().getSelectedItem();
+	                if(sw != null) {
+	                	FinestraSoftwareController.input = new String[] {
+	                			sw.getNome(),
+	                			sw.getTipo(),
+	                			sw.getCasa(),
+	                			sw.getLicenza(),
+	                			sw.getNote(),
+	                			sw.getPredefinito() ? "true" : "false"
+	                	}; 
+	                	FinestraSoftwareApparatoController.licenza = sw.getLicenza();
+	                	
+	                }
+	                Finestra.caricaFinestra(this, R.FXML.FINESTRA_SW);
+	            
+	        }
+	    }
+
+	    @FXML
+	    private void menuEliminaSW(ActionEvent event) {
+	        if(event.getEventType().equals(ActionEvent.ACTION)){
+	        	Software sw = tabella.getSelectionModel().getSelectedItem();
+	            if(sw != null) {
+	            	datiSoftware.elimina(new Object[]{sw.getNome(),sw.getLicenza()});
+	            }
+	            aggiornaTabellaSW();
 	        }
 	    }
 	    

@@ -31,6 +31,7 @@ public class FinestraSoftwareController implements Initializable {
 
     public static String[] input = null;
     public static TabellaController tabella= null;
+	public static FinestraWizardSWController finestraWizard=null;
 
             
     @FXML
@@ -101,6 +102,7 @@ public class FinestraSoftwareController implements Initializable {
 	        Programma.chiusuraFinestra(this);
 	        input = null;
 	        tabella= null;
+	        finestraWizard=null;
     	}
     }
 
@@ -181,6 +183,7 @@ public class FinestraSoftwareController implements Initializable {
                             else
                                 tabella.aggiungiRiga(riga);
                         }
+                         finestraWizard.aggiornaTabellaSW();
                         chiusuraSenzaSalvare(evento);
                     }
             );

@@ -37,6 +37,7 @@ import it.quasar_x7.gestione_rete.controllo.FinestraPosizioneController;
 import static it.quasar_x7.gestione_rete.controllo.FinestraPrincipaleController.rete;
 import static it.quasar_x7.gestione_rete.controllo.FinestraPrincipaleController.reteInterventi;
 import static it.quasar_x7.gestione_rete.controllo.FinestraPrincipaleController.reteSwitch;
+import static it.quasar_x7.gestione_rete.programma.Programma.dati;
 
 import it.quasar_x7.gestione_rete.controllo.FinestraResponsabileController;
 import it.quasar_x7.gestione_rete.controllo.FinestraReteController;
@@ -69,6 +70,8 @@ import it.quasar_x7.javafx.finestre.controllo.ListaController.Codice;
 import it.quasar_x7.javafx.finestre.controllo.TabellaController;
 import it.quasar_x7.javafx.finestre.modello.VoceListaColore;
 import it.quasar_x7.javafx.finestre.modello.VoceSempliceLista;
+import it.quasar_x7.modello.LivelloAccesso;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -235,7 +238,42 @@ public class Programma extends Application {
         return true;
     }
     
-    public static void creaDB(){
+    /**
+	 * Permette il caricamento di una finestra solo agli utenti che non siano "OSSERVATORE"
+	 * @param FXML
+	 * @param amministratore  true quando si limità l'accesso solo all'aministratore
+	 */
+	public static void autorizzaCaricamentoFinestra(Object controller, String FXML,boolean amministratore) {
+		String livello = livelloAccesso();
+		boolean autorizzazione = !amministratore ? !livello.equals(LivelloAccesso.OSSERVATORE) : livello.equals(LivelloAccesso.AMMINISTRATORE);
+		if(autorizzazione) 
+			Finestra.caricaFinestra(controller, FXML);
+		else
+			Finestra.finestraAvviso(controller, String.format(R.Messaggi.ERRORE_AUTORIZZAZIONE,livello));
+	}
+
+
+
+    /**
+     * Verifica il livello di autorizzazione dell'utente.
+     * 
+     * @return è una stringa che può assumere i seguenti valori: 
+     * LivelloAccesso.AMMINISTRATORE, LivelloAccesso.OPERATORE, LivelloAccesso.OSSERVATORE 
+     * oppure essere una stringa vuota ""
+     */
+    public static String livelloAccesso() {
+    	DatiLogin datiLogin = (DatiLogin) dati.get(DatiLogin.NOME_TABELLA);
+    	String livello = datiLogin.livello(FinestraGestioneUtentiController.utente);
+    	if(livello != null) {
+    		return livello;
+    	}
+    	return "";
+    }
+
+
+
+
+	public static void creaDB(){
         try {
             for(String chiave:dati.keySet()){
                 dati.get(chiave).creaTabella();
@@ -284,23 +322,27 @@ public class Programma extends Application {
                     @Override
                     public void aggiungi(TabellaController delega) {
                         FinestraGradoController.tabella = delega;
-                        Finestra.caricaFinestra(this, R.FXML.FINESTRA_GRADO);
+                        autorizzaCaricamentoFinestra(this, R.FXML.FINESTRA_GRADO,false);
                         
                     }
 
                     @Override
                     public boolean elimina(TabellaController delega, String primaCella) {
-                        String[] riga = delega.rigaSelezionata();
-                        if(riga != null){
-                            if(riga[0] != null){
-                                if( !datiGrado.elimina(new Object[]{riga[0]}) ){
-                                    Finestra.finestraAvviso(this, String.format(R.Messaggi.ERRORE_ELIMINAZIONE_RIGA,riga[0]));
-                                    return false;
-                                }
-                                return true;
-                            }
-                        }
-                        return false;
+                    	String livello = Programma.livelloAccesso();
+                    	if(!livello.equals(LivelloAccesso.OPERATORE)) {
+	                    	String[] riga = delega.rigaSelezionata();
+	                        if(riga != null){
+	                            if(riga[0] != null){
+	                                if( !datiGrado.elimina(new Object[]{riga[0]}) ){
+	                                    Finestra.finestraAvviso(this, String.format(R.Messaggi.ERRORE_ELIMINAZIONE_RIGA,riga[0]));
+	                                    return false;
+	                                }
+	                                return true;
+	                            }
+	                        }
+	                        return false;
+                    	}
+                    	return false;
                     }
 
                     @Override
@@ -308,7 +350,7 @@ public class Programma extends Application {
                         FinestraGradoController.input = delega.rigaSelezionata();
                        
                         FinestraGradoController.tabella = delega;
-                        Finestra.caricaFinestra(this, R.FXML.FINESTRA_GRADO);
+                        autorizzaCaricamentoFinestra(this, R.FXML.FINESTRA_GRADO,false);
                     }
                    
                 }
@@ -345,12 +387,12 @@ public class Programma extends Application {
                     @Override
                     public void aggiungi(TabellaController delega) {
                         FinestraSoftwareController.tabella = delega;
-                        Finestra.caricaFinestra(this, R.FXML.FINESTRA_SW);
+                        autorizzaCaricamentoFinestra(this, R.FXML.FINESTRA_SW,false);
                     }
 
                     @Override
                     public boolean elimina(TabellaController delega, String primaCella) {
-                        return eliminaRiga(datiSoftware,this,delega);
+                    	return eliminaRiga(datiSoftware,this,delega);
                     }
 
                     @Override
@@ -368,10 +410,10 @@ public class Programma extends Application {
                                 inputTab[3],
                                 inputTab[4]
                             };
-                    }
+                        }
                        
                         FinestraSoftwareController.tabella = delega;
-                        Finestra.caricaFinestra(this, R.FXML.FINESTRA_SW);
+                        autorizzaCaricamentoFinestra(this, R.FXML.FINESTRA_SW,false);
                     }
 
                 }
@@ -422,12 +464,13 @@ public class Programma extends Application {
                     @Override
                     public void aggiungi(TabellaController delega) {
                         FinestraApparatoController.tabella = delega;
-                        Finestra.caricaFinestra(this, R.FXML.FINESTRA_APPARATO);
+                        autorizzaCaricamentoFinestra(this, R.FXML.FINESTRA_APPARATO,false);
                     }
 
                     @Override
                     public boolean elimina(TabellaController delega, String primaCella) {
-                        return eliminaRiga(datiApparati,this,delega);
+                    	return eliminaRiga(datiApparati,this,delega);
+                    	
                     }
 
                     @Override
@@ -438,7 +481,7 @@ public class Programma extends Application {
                         }
                        
                         FinestraApparatoController.tabella = delega;
-                        Finestra.caricaFinestra(this, R.FXML.FINESTRA_APPARATO);
+                        autorizzaCaricamentoFinestra(this, R.FXML.FINESTRA_APPARATO,false);
                     }
 
                 }
@@ -474,12 +517,12 @@ public class Programma extends Application {
                     @Override
                     public void aggiungi(TabellaController delega) {
                         FinestraHardwareController.tabella = delega;
-                        Finestra.caricaFinestra(this, R.FXML.FINESTRA_HW);
+                        autorizzaCaricamentoFinestra(this, R.FXML.FINESTRA_HW,false);
                     }
 
                     @Override
                     public boolean elimina(TabellaController delega, String primaCella) {
-                        return eliminaRiga(datiHardware,this,delega);
+                    	return eliminaRiga(datiHardware,this,delega);
                     }
 
                     @Override
@@ -487,7 +530,7 @@ public class Programma extends Application {
                         FinestraHardwareController.input = delega.rigaSelezionata();
                        
                         FinestraHardwareController.tabella = delega;
-                        Finestra.caricaFinestra(this, R.FXML.FINESTRA_HW);
+                        autorizzaCaricamentoFinestra(this, R.FXML.FINESTRA_HW,false);
                     }
 
                 }
@@ -524,12 +567,13 @@ public class Programma extends Application {
                     @Override
                     public void aggiungi(TabellaController delega) {
                         FinestraReteController.tabella = delega;
-                        Finestra.caricaFinestra(this, R.FXML.FINESTRA_RETE);
+                        autorizzaCaricamentoFinestra(this, R.FXML.FINESTRA_RETE,false);
                     }
 
                     @Override
                     public boolean elimina(TabellaController delega, String primaCella) {
-                        return eliminaRiga(datiRete,this,delega);
+                    	return eliminaRiga(datiRete,this,delega);
+                    	
                     }
 
                     @Override
@@ -537,7 +581,7 @@ public class Programma extends Application {
                         FinestraReteController.input = delega.rigaSelezionata();
                        
                         FinestraReteController.tabella = delega;
-                        Finestra.caricaFinestra(this, R.FXML.FINESTRA_RETE);
+                        autorizzaCaricamentoFinestra(this, R.FXML.FINESTRA_RETE,false);
                     }
 
                 }
@@ -564,13 +608,14 @@ public class Programma extends Application {
                     @Override
                     public void aggiungi(TabellaController delega) {
                         FinestraResponsabileController.tabella = delega;
-                        Finestra.caricaFinestra(this, R.FXML.FINESTRA_RESPONSABILE);
+                        autorizzaCaricamentoFinestra(this, R.FXML.FINESTRA_RESPONSABILE,false);
                         
                     }
 
                     @Override
                     public boolean elimina(TabellaController delega, String primaCella) {
-                        return eliminaRiga(datiResponsabileSito,this,delega);
+                    	return eliminaRiga(datiResponsabileSito,this,delega);
+                    	
                     }
 
                     @Override
@@ -578,7 +623,7 @@ public class Programma extends Application {
                         FinestraResponsabileController.input = delega.rigaSelezionata();
                        
                         FinestraResponsabileController.tabella = delega;
-                        Finestra.caricaFinestra(this, R.FXML.FINESTRA_RESPONSABILE);
+                        autorizzaCaricamentoFinestra(this, R.FXML.FINESTRA_RESPONSABILE,false);
                     }
                   
                 }
@@ -609,12 +654,13 @@ public class Programma extends Application {
                     @Override
                     public void aggiungi(TabellaController delega) {
                         FinestraPosizioneController.tabella = delega;
-                        Finestra.caricaFinestra(this, R.FXML.FINESTRA_POSIZIONE);
+                        autorizzaCaricamentoFinestra(this, R.FXML.FINESTRA_POSIZIONE,false);
                     }
 
                     @Override
                     public boolean elimina(TabellaController delega, String primaCella) {
-                        return eliminaRiga(datiPosizione,this,delega);
+                    	return eliminaRiga(datiPosizione,this,delega);
+                    	
                     }
 
                     @Override
@@ -622,7 +668,7 @@ public class Programma extends Application {
                         FinestraPosizioneController.input = delega.rigaSelezionata();
                        
                         FinestraPosizioneController.tabella = delega;
-                        Finestra.caricaFinestra(this, R.FXML.FINESTRA_POSIZIONE);
+                        autorizzaCaricamentoFinestra(this, R.FXML.FINESTRA_POSIZIONE,false);
                     }
                   
                 }
@@ -652,12 +698,13 @@ public class Programma extends Application {
                     @Override
                     public void aggiungi(TabellaController delega) {
                         FinestraSwitchController.tabella = delega;
-                        Finestra.caricaFinestra(this, R.FXML.FINESTRA_SWITCH);
+                        autorizzaCaricamentoFinestra(this, R.FXML.FINESTRA_SWITCH,false);
                     }
 
                     @Override
                     public boolean elimina(TabellaController delega, String primaCella) {
-                        return eliminaRiga(datiSwitch,this,delega);
+                    	return eliminaRiga(datiSwitch,this,delega);
+                    	
                     }
 
                     @Override
@@ -665,7 +712,7 @@ public class Programma extends Application {
                         FinestraSwitchController.input = delega.rigaSelezionata();
                        
                         FinestraSwitchController.tabella = delega;
-                        Finestra.caricaFinestra(this, R.FXML.FINESTRA_SWITCH);
+                        autorizzaCaricamentoFinestra(this, R.FXML.FINESTRA_SWITCH,false);
                     }
                   
                 }
@@ -704,13 +751,14 @@ public class Programma extends Application {
                     @Override
                     public void aggiungi(TabellaController delega) {
                         FinestraInterventoController.tabella = delega;
-                        Finestra.caricaFinestra(this, R.FXML.FINESTRA_INTERVENTO);
+                        autorizzaCaricamentoFinestra(this, R.FXML.FINESTRA_INTERVENTO,false);
                         
                     }
 
                     @Override
                     public boolean elimina(TabellaController delega, String primaCella) {
-                        return eliminaRiga(datiIntervento,this,delega);
+                    	return eliminaRiga(datiIntervento,this,delega);
+                    	
                     }
 
                     @Override
@@ -747,13 +795,14 @@ public class Programma extends Application {
                     @Override
                     public void aggiungi(TabellaController delega) {
                         FinestraUtilizzatoreController.tabella = delega;
-                        Finestra.caricaFinestra(this, R.FXML.FINESTRA_UTILIZZATORE);
+                        autorizzaCaricamentoFinestra(this, R.FXML.FINESTRA_UTILIZZATORE,false);
                         
                     }
 
                     @Override
                     public boolean elimina(TabellaController delega, String primaCella) {
-                        return eliminaRiga(datiUtilizzatore,this,delega);
+                    	return eliminaRiga(datiUtilizzatore,this,delega);
+                    	
                     }
 
                     @Override
@@ -761,7 +810,7 @@ public class Programma extends Application {
                         FinestraUtilizzatoreController.input = delega.rigaSelezionata();
                        
                         FinestraUtilizzatoreController.tabella = delega;
-                        Finestra.caricaFinestra(this, R.FXML.FINESTRA_UTILIZZATORE);
+                        autorizzaCaricamentoFinestra(this, R.FXML.FINESTRA_UTILIZZATORE,false);
                     }
                 
                 }
@@ -770,20 +819,23 @@ public class Programma extends Application {
     
     
     static private boolean eliminaRiga(DatiDB db,Object controller,TabellaController delega){
-        int riga = delega.indiceRigaSelezionata();
-        if(riga >= 0){
-            if( !db.elimina(riga) ){
-                Finestra.finestraAvviso(
-                        controller, 
-                        String.format(
-                                R.Messaggi.ERRORE_ELIMINAZIONE_RIGA,
-                                delega.rigaSelezionata()[0]
-                        )
-                );
-                return false;
-            }
-            return true;
-        }
+    	String livello = Programma.livelloAccesso();
+    	if(!livello.equals(LivelloAccesso.OSSERVATORE)) {
+	    	int riga = delega.indiceRigaSelezionata();
+	        if(riga >= 0){
+	            if( !db.elimina(riga) ){
+	                Finestra.finestraAvviso(
+	                        controller, 
+	                        String.format(
+	                                R.Messaggi.ERRORE_ELIMINAZIONE_RIGA,
+	                                delega.rigaSelezionata()[0]
+	                        )
+	                );
+	                return false;
+	            }
+	            return true;
+	        }
+    	}
         return false;
     }
     
@@ -807,54 +859,62 @@ public class Programma extends Application {
             }
         }
 
-        Finestra.finestraListaSempice(
-                controller,
-                titolo,
-                db.lista(),
-                new Codice() {
-                    @Override
-                    public void aggiungiRiga(ObservableList<VoceSempliceLista> lista) {
-                        Finestra.finestraInput(
-                                this,
-                                domandaAggiungiInput,
-                                db.lista(),
-                                (String risposta) -> {
-                                    if(db.aggiungi(new Object[]{risposta})){
-                                        lista.add(new VoceSempliceLista(risposta));
-                                        return true;
-                                    }
-                                    return false;
-                                }
-                        );
-                    }
-
-                    @Override
-                    public boolean eliminaRiga(String riga) {
-                        return db.elimina(new Object[]{riga});
-                    }
-
-                    @Override
-                    public void modifica(String riga,int id, ObservableList<VoceSempliceLista> lista) {
-
-                        Finestra.finestraInput(
-                                this,
-                                String.format(domandaModificaInput,riga),
-                                riga,
-                                (String risposta) -> {
-                                    if(db.elimina(new Object[]{riga})){
-                                        lista.remove(id);
-                                        if(db.aggiungi(new Object[]{risposta})){
-                                            lista.add(new VoceSempliceLista(risposta));
-                                            return true;
-                                        }
-                                    }
-                                    return false;
-                                }
-                        );
-
-                    }
-                }
-        );
+        String livello = Programma.livelloAccesso();
+        
+    	if(!livello.equals(LivelloAccesso.OPERATORE))
+	        Finestra.finestraListaSempice(
+	                controller,
+	                titolo,
+	                db.lista(),
+	                new Codice() {
+	                    @Override
+	                    public void aggiungiRiga(ObservableList<VoceSempliceLista> lista) {
+	                        
+	                    	Finestra.finestraInput(
+	                                this,
+	                                domandaAggiungiInput,
+	                                db.lista(),
+	                                (String risposta) -> {
+	                                    if(db.aggiungi(new Object[]{risposta})){
+	                                        lista.add(new VoceSempliceLista(risposta));
+	                                        return true;
+	                                    }
+	                                    return false;
+	                                }
+	                        );
+	                    }
+	
+	                    @Override
+	                    public boolean eliminaRiga(String riga) {
+	                        return db.elimina(new Object[]{riga});
+	                        
+	                    }
+	
+	                    @Override
+	                    public void modifica(String riga,int id, ObservableList<VoceSempliceLista> lista) {
+	
+	                        Finestra.finestraInput(
+	                                this,
+	                                String.format(domandaModificaInput,riga),
+	                                riga,
+	                                (String risposta) -> {
+	                                    if(db.elimina(new Object[]{riga})){
+	                                        lista.remove(id);
+	                                        if(db.aggiungi(new Object[]{risposta})){
+	                                            lista.add(new VoceSempliceLista(risposta));
+	                                            return true;
+	                                        }
+	                                    }
+	                                    return false;
+	                                }
+	                        );
+	
+	                    }
+	                }
+	        );
+    	else
+    		Finestra.finestraAvviso(controller, String.format(R.Messaggi.ERRORE_AUTORIZZAZIONE,livello));
+    		
         
     }
     
@@ -870,58 +930,65 @@ public class Programma extends Application {
             }
         }
 
-        Finestra.finestraListaColorata(
-                controller,
-                titolo,
-                lista,
-                new Codice() {
-                    @Override
-                    public void aggiungiRiga(ObservableList<VoceSempliceLista> lista) {
-                        Finestra.finestraInputColore(
-                                this,
-                                domandaAggiungiInput,
-                                (String risposta) -> {
-                                    VoceListaColore voce = new VoceListaColore(risposta);
-                                    if(db.aggiungi(new Object[]{voce.getVoce(),VoceListaColore.coloreWeb(voce.getColore())})){
-                                        if(lista != null){
-                                            lista.add(voce);
-                                            return true;
-                                        }
-                                    }
-                                    return false;
-                                }
-                        );
-                    }
-
-                    @Override
-                    public boolean eliminaRiga(String riga) {
-                        String stato = (String)VoceListaColore.estraiInfo(riga)[1];
-                        return db.elimina(new Object[]{stato});
-                    }
-
-                    @Override
-                    public void modifica(String riga,int id, ObservableList<VoceSempliceLista> lista) {
-                        String stato = (String)VoceListaColore.estraiInfo(riga)[1];
-                        Finestra.finestraInputColore(
-                                this,
-                                String.format(domandaModificaInput,stato),
-                                riga, // contiene i valori iniziali di input (colore e stringa stato)
-                                (String risposta) -> {
-                                    VoceListaColore voce = new VoceListaColore(risposta);
-                                    if(db.elimina(new Object[]{stato})){
-                                        lista.remove(id);
-                                        if(db.aggiungi(new Object[]{voce.getVoce(),VoceListaColore.coloreWeb(voce.getColore())})){
-                                            lista.add(voce);
-                                            return true;
-                                        }
-                                    }
-                                    return false;
-                                }
-                        );
-
-                    }
-                }
-        );
+        String livello = Programma.livelloAccesso();
+        
+    	if(!livello.equals(LivelloAccesso.OPERATORE))
+	        
+	        Finestra.finestraListaColorata(
+	                controller,
+	                titolo,
+	                lista,
+	                new Codice() {
+	                    @Override
+	                    public void aggiungiRiga(ObservableList<VoceSempliceLista> lista) {
+	                        Finestra.finestraInputColore(
+	                                this,
+	                                domandaAggiungiInput,
+	                                (String risposta) -> {
+	                                    VoceListaColore voce = new VoceListaColore(risposta);
+	                                    if(db.aggiungi(new Object[]{voce.getVoce(),VoceListaColore.coloreWeb(voce.getColore())})){
+	                                        if(lista != null){
+	                                            lista.add(voce);
+	                                            return true;
+	                                        }
+	                                    }
+	                                    return false;
+	                                }
+	                        );
+	                    }
+	
+	                    @Override
+	                    public boolean eliminaRiga(String riga) {
+	                        String stato = (String)VoceListaColore.estraiInfo(riga)[1];
+	                        return db.elimina(new Object[]{stato});
+	                    }
+	
+	                    @Override
+	                    public void modifica(String riga,int id, ObservableList<VoceSempliceLista> lista) {
+	                        String stato = (String)VoceListaColore.estraiInfo(riga)[1];
+	                        Finestra.finestraInputColore(
+	                                this,
+	                                String.format(domandaModificaInput,stato),
+	                                riga, // contiene i valori iniziali di input (colore e stringa stato)
+	                                (String risposta) -> {
+	                                    VoceListaColore voce = new VoceListaColore(risposta);
+	                                    if(db.elimina(new Object[]{stato})){
+	                                        lista.remove(id);
+	                                        if(db.aggiungi(new Object[]{voce.getVoce(),VoceListaColore.coloreWeb(voce.getColore())})){
+	                                            lista.add(voce);
+	                                            return true;
+	                                        }
+	                                    }
+	                                    return false;
+	                                }
+	                        );
+	
+	                    }
+	                }
+	        );
+    	else
+    		Finestra.finestraAvviso(controller, String.format(R.Messaggi.ERRORE_AUTORIZZAZIONE,livello));
+		
     }
 
     
@@ -1531,12 +1598,7 @@ public class Programma extends Application {
 		
 	}
 
-
-
-
-
-
-
+	
 	public static void aggiornaMenuMatricolaHW(String nomeHardware, String nomeModello,ChoiceBox<String> listaMatricole) {
 		listaMatricole.getItems().clear();
         if(nomeHardware != null && nomeModello != null){
@@ -1548,21 +1610,10 @@ public class Programma extends Application {
 		
 	}
 
-
-
-
-
-
-
 	public static void apriFinestraNuovoHardware(Object finestra, String[] input) {
 		FinestraHardwareController.input = input;
         Finestra.caricaFinestra(finestra, R.FXML.FINESTRA_HW);
 	}
-
-
-
-
-
 
 	/**
 	 * Permette di salvare un nuovo componente hw di un apparato.
@@ -1606,9 +1657,6 @@ public class Programma extends Application {
             );
         return false;
 	}
-
-
-
 
 	/**
 	 * Crea un nodo di una lista ad albero che rappresenta un apparato.
@@ -1730,10 +1778,6 @@ public class Programma extends Application {
 	}
 
 
-
-	
-
-
 	/**
 	 * Inizializza l'aspetto della lista ad albero.
 	 * 
@@ -1790,26 +1834,5 @@ public class Programma extends Application {
 	    lista.setCellFactory(costruzioneListaAlbero);
 	    lista.setRoot(rete);
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-	
-
-
-
-
-
-
-
-	
     
 }

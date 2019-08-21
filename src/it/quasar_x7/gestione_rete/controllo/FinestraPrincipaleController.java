@@ -46,6 +46,7 @@ import it.quasar_x7.javafx.TipoFile;
 import it.quasar_x7.javafx.finestre.controllo.ConfermaController;
 import it.quasar_x7.javafx.finestre.controllo.InputController;
 import it.quasar_x7.javafx.finestre.controllo.InputController.Codice;
+import it.quasar_x7.modello.LivelloAccesso;
 
 import java.awt.Desktop;
 import java.io.File;
@@ -278,11 +279,14 @@ public class FinestraPrincipaleController implements Initializable {
         listaRicercaInfo.setVisible(!vedi);
     }
     
-    
+    /**
+     * Crea nuovo apparato dal menu principale.
+     * @param event
+     */
     @FXML
     private void creaNuovoApparato(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
-            Finestra.caricaFinestra(this, R.FXML.FINESTRA_APPARATO);
+        	Programma.autorizzaCaricamentoFinestra(this,R.FXML.FINESTRA_APPARATO,false);
         }
     }
     
@@ -308,32 +312,49 @@ public class FinestraPrincipaleController implements Initializable {
         }
     }
 
+    /**
+     * Crea nuovo utilizzatore apparato dal menu principale.
+     * @param event
+     */
     @FXML
     private void creaNuovoUtilizzatore(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
-            Finestra.caricaFinestra(this, R.FXML.FINESTRA_UTILIZZATORE);
+        	Programma.autorizzaCaricamentoFinestra(this,R.FXML.FINESTRA_UTILIZZATORE,false);
         }
     }
 
+    /**
+     * Crea nuovo hardware dal menu principale.
+     * @param event
+     */
     @FXML
     private void creaNuovoHardware(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
-            Finestra.caricaFinestra(this, R.FXML.FINESTRA_HW);
+        	Programma.autorizzaCaricamentoFinestra(this,R.FXML.FINESTRA_HW,false);
         }
         
     }
 
+    /**
+     * Crea nuova connessione switch
+     * @param event
+     */
     @FXML
     private void creaNuovaConnessioneSwitch(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
-            Finestra.caricaFinestra(this, R.FXML.FINESTRA_SWITCH);
+        	Programma.autorizzaCaricamentoFinestra(this,R.FXML.FINESTRA_SWITCH,false);
         }
     }
+
     
+    /**
+     * Crea nuovo software dal menu principale.
+     * @param event
+     */
     @FXML
     private void creaNuovoSoftware(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
-            Finestra.caricaFinestra(this, R.FXML.FINESTRA_SW);
+        	Programma.autorizzaCaricamentoFinestra(this,R.FXML.FINESTRA_SW,false);
         }
     }
 
@@ -491,11 +512,14 @@ public class FinestraPrincipaleController implements Initializable {
         }
     }
     
-    
+    /**
+     * Crea nuovo responsabile del sito tramite il menu principale
+     * @param event
+     */
     @FXML
     private void creaNuovoResponsabile(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
-            Finestra.caricaFinestra(this, R.FXML.FINESTRA_RESPONSABILE);
+        	Programma.autorizzaCaricamentoFinestra(this,R.FXML.FINESTRA_RESPONSABILE,false);
         }
     }
     
@@ -507,26 +531,37 @@ public class FinestraPrincipaleController implements Initializable {
         }
     }
     
-    
+    /**
+     * Crea la posizione del sito tramite il menu principale
+     * @param event
+     */
     @FXML
     private void creaNuovaPosizione(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
-            Finestra.caricaFinestra(this, R.FXML.FINESTRA_POSIZIONE);
+        	Programma.autorizzaCaricamentoFinestra(this,R.FXML.FINESTRA_POSIZIONE,false);
         }
     }
     
     
+    /**
+     * Aggiungi nuova rete dal menu principale.
+     * @param event
+     */
     @FXML
     private void aggiungiNuovaRete(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
-            Finestra.caricaFinestra(this, R.FXML.FINESTRA_RETE);
+        	Programma.autorizzaCaricamentoFinestra(this,R.FXML.FINESTRA_RETE,false);
         }
     }
     
+    /**
+     * Aggiungi nuovo intervento helpdesk tramite il menu principale
+     * @param event
+     */
     @FXML
     private void aggiungiNuovoIntervento(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
-            Finestra.caricaFinestra(this, R.FXML.FINESTRA_INTERVENTO);
+        	Programma.autorizzaCaricamentoFinestra(this,R.FXML.FINESTRA_INTERVENTO,false);
         }
     }
     
@@ -553,7 +588,7 @@ public class FinestraPrincipaleController implements Initializable {
     @FXML
     private void associaSoftwareApparato(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
-        	Finestra.caricaFinestra(this, R.FXML.FINESTRA_SW_APPARATO);
+        	Programma.autorizzaCaricamentoFinestra(this,R.FXML.FINESTRA_SW_APPARATO,false);
         }
     }
     /**
@@ -564,7 +599,7 @@ public class FinestraPrincipaleController implements Initializable {
     @FXML
     private void associaHardwareApparato(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
-        	Finestra.caricaFinestra(this, R.FXML.FINESTRA_HW_APPARATO);
+        	Programma.autorizzaCaricamentoFinestra(this,R.FXML.FINESTRA_HW_APPARATO,false);
         }
     }
     
@@ -845,89 +880,95 @@ public class FinestraPrincipaleController implements Initializable {
     @FXML
     private void menuAggiungi(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
-            elencoInfo.getItems().clear();
-            visualizzaDiagramma(true);
-            if(!listaSelezionata.equals(listaRicercaInfo))
-            	listaRicercaInfo.getRoot().getChildren().clear();
-            
-            selezionaMenuAlbero(new AzioneMenu(){
-
-				@Override
-				public void apparato(Apparato nodo) {
-					creaNuovoApparato(event);
-				}
-
-				@Override
-				public void locale(Ufficio nodo) {
-					creaNuovaPosizione(event);
-				}
-
-				@Override
-				public void rete(Rete nodo) {
-					aggiungiNuovaRete(event);
-				}
-
-				@Override
-				public void responsabile(Responsabile nodo) {
-					creaNuovoResponsabile(event);
-				}
-				
-				@Override
-				public void listaSoftware(SoftwareApparato nodo) {
-					ceaNuovoSoftwareApparato(nodo);
-				}
-				
-				@Override
-				public void listaHardware(HardwareApparato nodo) {
-					ceaNuovoHardwareApparato(nodo);
-				}
-				
-				@Override
-				public void utilizzatore(Utilizzatore nodo) {
-					creaNuovoUtilizzatore(event);
-				}
-				
-				@Override
-				public void connessioneSwitch(Apparato nodoPadre,ConnessioneSwitch nodo) {
-					associaSwitch(nodoPadre,nodo);
-				}
-				
-				@Override
-				public void switchRete(Switch nodo) {
-					Finestra.finestraInput(
-							this,
-							R.Domanda.INPUT_SWITCH,
-							new Codice() {
-								@Override
-								public boolean esegui(String risposta) {
-									if(risposta != null)
-										if(risposta.length() > 0) {
-											boolean conferma = datiSwitch.aggiungi(new Object[] {risposta});
-											Programma.aggiornaListeNodi();
-											return conferma;
-										}
-									return false;
-								}
-							});
-				}
-				
-				@Override
-				public void helpDesk(Intervento nodo) {
-					creaNuovoIntervento();
-				}
-				
-				@Override
-				public void listaVuota() {
-					if(listaApparati.equals(listaSelezionata)) {
+        	String livello = Programma.livelloAccesso();
+        	if(!livello.equals(LivelloAccesso.OSSERVATORE)) {
+	        
+	            elencoInfo.getItems().clear();
+	            visualizzaDiagramma(true);
+	            if(!listaSelezionata.equals(listaRicercaInfo))
+	            	listaRicercaInfo.getRoot().getChildren().clear();
+	            
+	            selezionaMenuAlbero(new AzioneMenu(){
+	
+					@Override
+					public void apparato(Apparato nodo) {
 						creaNuovoApparato(event);
-					}else if(listaSwitch.equals(listaSelezionata)) {
-						associaSwitch(null,null);
-					}else if(listaHelpDesk.equals(listaSelezionata)) {
+					}
+	
+					@Override
+					public void locale(Ufficio nodo) {
+						creaNuovaPosizione(event);
+					}
+	
+					@Override
+					public void rete(Rete nodo) {
+						aggiungiNuovaRete(event);
+					}
+	
+					@Override
+					public void responsabile(Responsabile nodo) {
+						creaNuovoResponsabile(event);
+					}
+					
+					@Override
+					public void listaSoftware(SoftwareApparato nodo) {
+						ceaNuovoSoftwareApparato(nodo);
+					}
+					
+					@Override
+					public void listaHardware(HardwareApparato nodo) {
+						ceaNuovoHardwareApparato(nodo);
+					}
+					
+					@Override
+					public void utilizzatore(Utilizzatore nodo) {
+						creaNuovoUtilizzatore(event);
+					}
+					
+					@Override
+					public void connessioneSwitch(Apparato nodoPadre,ConnessioneSwitch nodo) {
+						associaSwitch(nodoPadre,nodo);
+					}
+					
+					@Override
+					public void switchRete(Switch nodo) {
+						Finestra.finestraInput(
+								this,
+								R.Domanda.INPUT_SWITCH,
+								new Codice() {
+									@Override
+									public boolean esegui(String risposta) {
+										if(risposta != null)
+											if(risposta.length() > 0) {
+												boolean conferma = datiSwitch.aggiungi(new Object[] {risposta});
+												Programma.aggiornaListeNodi();
+												return conferma;
+											}
+										return false;
+									}
+								});
+					}
+					
+					@Override
+					public void helpDesk(Intervento nodo) {
 						creaNuovoIntervento();
 					}
-				}
+					
+					@Override
+					public void listaVuota() {
+						if(listaApparati.equals(listaSelezionata)) {
+							creaNuovoApparato(event);
+						}else if(listaSwitch.equals(listaSelezionata)) {
+							associaSwitch(null,null);
+						}else if(listaHelpDesk.equals(listaSelezionata)) {
+							creaNuovoIntervento();
+						}
+					}
+	
+				});
+        	}else
+        		Finestra.finestraAvviso(this, String.format(R.Messaggi.ERRORE_AUTORIZZAZIONE,livello));
 
-			});
         }
     }
     
@@ -959,30 +1000,36 @@ public class FinestraPrincipaleController implements Initializable {
     @FXML
     private void menuWizard(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
-        	elencoInfo.getItems().clear();
-        	visualizzaDiagramma(true);
-        	if(!listaSelezionata.equals(listaRicercaInfo))
-            	listaRicercaInfo.getRoot().getChildren().clear();
-            selezionaMenuAlbero(new AzioneMenu(){
+        	String livello = Programma.livelloAccesso();
+        	if(!livello.equals(LivelloAccesso.OSSERVATORE)) {
+	        
+	        	elencoInfo.getItems().clear();
+	        	visualizzaDiagramma(true);
+	        	if(!listaSelezionata.equals(listaRicercaInfo))
+	            	listaRicercaInfo.getRoot().getChildren().clear();
+	            selezionaMenuAlbero(new AzioneMenu(){
+	
+					@Override
+					public void listaSoftware(SoftwareApparato nodo) {
+						if(nodo != null){
+			                FinestraWizardSWController.apparato = nodo.getNome();
+			                Finestra.caricaFinestra(this, R.FXML.FINESTRA_WIZARD_SW_APPARATO);
+			                
+			            }
+					}
+					
+					@Override
+					public void listaHardware(HardwareApparato nodo) {
+						if(nodo != null){
+			                FinestraWizardHWController.apparato = nodo.getNome();
+			                Finestra.caricaFinestra(this, R.FXML.FINESTRA_WIZARD_HW_APPARATO);
+			                
+			            }
+					}
+	            });
+        	}else
+        		Finestra.finestraAvviso(this, String.format(R.Messaggi.ERRORE_AUTORIZZAZIONE,livello));
 
-				@Override
-				public void listaSoftware(SoftwareApparato nodo) {
-					if(nodo != null){
-		                FinestraWizardSWController.apparato = nodo.getNome();
-		                Finestra.caricaFinestra(this, R.FXML.FINESTRA_WIZARD_SW_APPARATO);
-		                
-		            }
-				}
-				
-				@Override
-				public void listaHardware(HardwareApparato nodo) {
-					if(nodo != null){
-		                FinestraWizardHWController.apparato = nodo.getNome();
-		                Finestra.caricaFinestra(this, R.FXML.FINESTRA_WIZARD_HW_APPARATO);
-		                
-		            }
-				}
-            });
         }
     }
     
@@ -991,139 +1038,145 @@ public class FinestraPrincipaleController implements Initializable {
     @FXML
     private void menuModifica(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
-            elencoInfo.getItems().clear();
-            visualizzaDiagramma(true);
-            if(!listaSelezionata.equals(listaRicercaInfo))
-            	listaRicercaInfo.getRoot().getChildren().clear();
-            
-            selezionaMenuAlbero(new AzioneMenu(){
-
-				@Override
-				public void apparato(Apparato nodo) {
-					FinestraApparatoController.input = new String[]{
-                        nodo.getNome(),
-                        nodo.getTipo(),
-                        nodo.getGruppo(),
-                        nodo.getIp(),
-                        nodo.getMacPC(),
-                        nodo.getMacVOIP(),
-                        nodo.getPosizione(),
-                        nodo.getUtente(),
-                        nodo.getInternet() == null ? null : nodo.getInternet() == true ? R.Conferma.SI : R.Conferma.NO,
-                        String.valueOf(nodo.getSigillo()),
-                        String.valueOf(nodo.getScheda()),
-                        nodo.getPassword(),
-                        nodo.getStato()
-                    };
-                    creaNuovoApparato(event);
-				}
-	
-				@Override
-				public void locale(Ufficio nodo) {
-					FinestraPosizioneController.input = new String[]{
-                        nodo.getNome(),
-                        nodo.getResponsabile()
-                    };
-                    creaNuovaPosizione(event);
-				}
-	
-				@Override
-				public void rete(Rete nodo) {
-					if(!nodo.equals(Rete.STANDALONE)){
-                        FinestraReteController.input = new String[]{
-                            nodo.getNome(),
-                            nodo.getDominio(),
-                            nodo.getTipo(),
-                            nodo.getGateway(),
-                            nodo.getNetmask()
-                        };
-                        aggiungiNuovaRete(event);
-                    }
-				}
-	
-				@Override
-				public void responsabile(Responsabile nodo) {
-					FinestraResponsabileController.input = new String[] {
-                			nodo.getNome(),//responsabile (nome incarico)
-                			nodo.getNominativo()
-                	};
-                	creaNuovoResponsabile(event);
-				}
-				
-				@Override
-				public void hardware(HardwareApparato nodoPadre,Hardware nodo) {
-					if(nodo != null && nodoPadre != null) {
-	                	FinestraHardwareApparatoController.hardware = nodo.getNome();
-	                	FinestraHardwareApparatoController.modello = nodo.getModello();
-	                	FinestraHardwareApparatoController.matricola = nodo.getMatricola();
-	                }
-					ceaNuovoHardwareApparato(nodoPadre);
-				}
-				
-				@Override
-				public void software(SoftwareApparato nodoPadre,Software nodo) {
-					if(nodo != null && nodoPadre != null) {
-	                	FinestraSoftwareApparatoController.software = nodo.getNome();
-	                	FinestraSoftwareApparatoController.licenza = nodo.getLicenza();
-	                }
-					ceaNuovoSoftwareApparato(nodoPadre);
-				}
-				
-				@Override
-				public void utilizzatore(Utilizzatore nodo) {
-					if(nodo != null) {
-	                	FinestraUtilizzatoreController.input = new String[] {
-	                			nodo.getAccount(),
-	                			nodo.getNome(),
-	                			nodo.getMail()
-	                	};
-	                }
-					creaNuovoUtilizzatore(event);
-				}
-				
-				@Override
-				public void connessioneSwitch(Apparato nodoPadre,ConnessioneSwitch nodo) {
-					associaSwitch(nodoPadre,nodo);
-				}
-				
-				@Override
-				public void switchRete(Switch nodo) {
-					Finestra.finestraInput(
-							this,
-							R.Domanda.INPUT_SWITCH,
-							nodo.getNome(),
-							new Codice() {
-								@Override
-								public boolean esegui(String risposta) {
-									if(risposta != null)
-										if(risposta.length() > 0) {
-											datiSwitch.elimina(new Object[] {nodo.getNome()});
-											datiSwitchApparato.aggiorna(DatiConnessioneSwitch.VOCE_SWITCH, nodo.getNome(), risposta);
-											datiSwitch.aggiungi(new Object[] {risposta});
-											Programma.aggiornaListeNodi();
-											return true;
-										}
-									return false;
-								}
-							});
-				}
-				
-				@Override
-				public void helpDesk(Intervento nodo) {
-					if(nodo != null) {
-	                	FinestraInterventoController.input = new String[] {
-	                			nodo.getNome(),
-	                			nodo.getData() != null ? nodo.getData().stampaGiorno('/') : null,
-	                			nodo.getApparato(),
-	                			nodo.getMotivo(),
-	                			nodo.getAzione(),
-	                			nodo.getEsito()
-	                	};
-	                }
-					creaNuovoIntervento();
-				}
-
-			});
+        	String livello = Programma.livelloAccesso();
+        	if(!livello.equals(LivelloAccesso.OSSERVATORE)) {
+	        
+		        elencoInfo.getItems().clear();
+		        visualizzaDiagramma(true);
+		        if(!listaSelezionata.equals(listaRicercaInfo))
+		        	listaRicercaInfo.getRoot().getChildren().clear();
+		        
+		        selezionaMenuAlbero(new AzioneMenu(){
+		
+					@Override
+					public void apparato(Apparato nodo) {
+						FinestraApparatoController.input = new String[]{
+		                    nodo.getNome(),
+		                    nodo.getTipo(),
+		                    nodo.getGruppo(),
+		                    nodo.getIp(),
+		                    nodo.getMacPC(),
+		                    nodo.getMacVOIP(),
+		                    nodo.getPosizione(),
+		                    nodo.getUtente(),
+		                    nodo.getInternet() == null ? null : nodo.getInternet() == true ? R.Conferma.SI : R.Conferma.NO,
+		                    String.valueOf(nodo.getSigillo()),
+		                    String.valueOf(nodo.getScheda()),
+		                    nodo.getPassword(),
+		                    nodo.getStato()
+		                };
+		                creaNuovoApparato(event);
+					}
+		
+					@Override
+					public void locale(Ufficio nodo) {
+						FinestraPosizioneController.input = new String[]{
+		                    nodo.getNome(),
+		                    nodo.getResponsabile()
+		                };
+		                creaNuovaPosizione(event);
+					}
+		
+					@Override
+					public void rete(Rete nodo) {
+						if(!nodo.equals(Rete.STANDALONE)){
+		                    FinestraReteController.input = new String[]{
+		                        nodo.getNome(),
+		                        nodo.getDominio(),
+		                        nodo.getTipo(),
+		                        nodo.getGateway(),
+		                        nodo.getNetmask()
+		                    };
+		                    aggiungiNuovaRete(event);
+		                }
+					}
+		
+					@Override
+					public void responsabile(Responsabile nodo) {
+						FinestraResponsabileController.input = new String[] {
+		            			nodo.getNome(),//responsabile (nome incarico)
+		            			nodo.getNominativo()
+		            	};
+		            	creaNuovoResponsabile(event);
+					}
+					
+					@Override
+					public void hardware(HardwareApparato nodoPadre,Hardware nodo) {
+						if(nodo != null && nodoPadre != null) {
+		                	FinestraHardwareApparatoController.hardware = nodo.getNome();
+		                	FinestraHardwareApparatoController.modello = nodo.getModello();
+		                	FinestraHardwareApparatoController.matricola = nodo.getMatricola();
+		                }
+						ceaNuovoHardwareApparato(nodoPadre);
+					}
+					
+					@Override
+					public void software(SoftwareApparato nodoPadre,Software nodo) {
+						if(nodo != null && nodoPadre != null) {
+		                	FinestraSoftwareApparatoController.software = nodo.getNome();
+		                	FinestraSoftwareApparatoController.licenza = nodo.getLicenza();
+		                }
+						ceaNuovoSoftwareApparato(nodoPadre);
+					}
+					
+					@Override
+					public void utilizzatore(Utilizzatore nodo) {
+						if(nodo != null) {
+		                	FinestraUtilizzatoreController.input = new String[] {
+		                			nodo.getAccount(),
+		                			nodo.getNome(),
+		                			nodo.getMail()
+		                	};
+		                }
+						creaNuovoUtilizzatore(event);
+					}
+					
+					@Override
+					public void connessioneSwitch(Apparato nodoPadre,ConnessioneSwitch nodo) {
+						associaSwitch(nodoPadre,nodo);
+					}
+					
+					@Override
+					public void switchRete(Switch nodo) {
+						Finestra.finestraInput(
+								this,
+								R.Domanda.INPUT_SWITCH,
+								nodo.getNome(),
+								new Codice() {
+									@Override
+									public boolean esegui(String risposta) {
+										if(risposta != null)
+											if(risposta.length() > 0) {
+												datiSwitch.elimina(new Object[] {nodo.getNome()});
+												datiSwitchApparato.aggiorna(DatiConnessioneSwitch.VOCE_SWITCH, nodo.getNome(), risposta);
+												datiSwitch.aggiungi(new Object[] {risposta});
+												Programma.aggiornaListeNodi();
+												return true;
+											}
+										return false;
+									}
+								});
+					}
+					
+					@Override
+					public void helpDesk(Intervento nodo) {
+						if(nodo != null) {
+		                	FinestraInterventoController.input = new String[] {
+		                			nodo.getNome(),
+		                			nodo.getData() != null ? nodo.getData().stampaGiorno('/') : null,
+		                			nodo.getApparato(),
+		                			nodo.getMotivo(),
+		                			nodo.getAzione(),
+		                			nodo.getEsito()
+		                	};
+		                }
+						creaNuovoIntervento();
+					}
+		
+				});
+        	}else {
+        		Finestra.finestraAvviso(this, String.format(R.Messaggi.ERRORE_AUTORIZZAZIONE,livello));
+        	}
             
         }
     }
@@ -1131,178 +1184,183 @@ public class FinestraPrincipaleController implements Initializable {
     @FXML
     private void menuElimina(ActionEvent event) {
         if (event.getEventType().equals(ActionEvent.ACTION)) {
-            elencoInfo.getItems().clear();
-            visualizzaDiagramma(true);
-            if(!listaSelezionata.equals(listaRicercaInfo))
-            	listaRicercaInfo.getRoot().getChildren().clear();
-            
-            selezionaMenuAlbero(new AzioneMenu(){
-
-				@Override
-				public void apparato(Apparato nodo) {
-					Finestra.finestraConferma(
-							this, 
-							String.format(R.Domanda.CONFERMA_ELIMINAZIONE_APPARATO,nodo.getNome()), 
-							new ConfermaController.Codice() {
-								@Override
-								public void esegui() {
-				                	datiApparato.elimina(new Object[] {nodo.getNome()});
-				                	Programma.aggiornaListeNodi();
-								}
-							}
-					);
-				}
+        	String livello = Programma.livelloAccesso();
+        	if(!livello.equals(LivelloAccesso.OSSERVATORE)) {
+	            elencoInfo.getItems().clear();
+	            visualizzaDiagramma(true);
+	            if(!listaSelezionata.equals(listaRicercaInfo))
+	            	listaRicercaInfo.getRoot().getChildren().clear();
+	            
+	            selezionaMenuAlbero(new AzioneMenu(){
 	
-				@Override
-				public void locale(Ufficio nodo) {
-					Finestra.finestraConferma(
-							this, 
-							String.format(R.Domanda.CONFERMA_ELIMINAZIONE_UFFICIO, nodo.getNome()), 
-							new ConfermaController.Codice() {
-								@Override
-								public void esegui() {
-									datiPosizione.elimina(new Object[] {nodo.getNome()});
-				                	datiApparato.aggiorna(DatiApparato.VOCE_TABELLA_POSIZIONE, nodo.getNome(), "");
-						            
-				                	Programma.aggiornaListeNodi();// aggiorna lista laterale ad albero
+					@Override
+					public void apparato(Apparato nodo) {
+						Finestra.finestraConferma(
+								this, 
+								String.format(R.Domanda.CONFERMA_ELIMINAZIONE_APPARATO,nodo.getNome()), 
+								new ConfermaController.Codice() {
+									@Override
+									public void esegui() {
+					                	datiApparato.elimina(new Object[] {nodo.getNome()});
+					                	Programma.aggiornaListeNodi();
+									}
 								}
-					});
-				}
-	
-				@Override
-				public void rete(Rete nodo) {
-					Finestra.finestraConferma(
-							this, 
-							String.format(R.Domanda.CONFERMA_ELIMINAZIONE_RETE,nodo.getNome()), 
-							new ConfermaController.Codice() {
-								@Override
-								public void esegui() {
-									datiRete.elimina(new Object[] {nodo.getNome()});
-				                	datiApparato.aggiorna(DatiApparato.VOCE_TABELLA_WG, nodo.getNome(), "");
-						            
-				                	Programma.aggiornaListeNodi();// aggiorna lista laterale ad albero
-								}
-					});
-				}
-	
-				@Override
-				public void responsabile(Responsabile nodo) {
-					Finestra.finestraConferma(
-							this, 
-							String.format(R.Domanda.CONFERMA_ELIMINAZIONE_RESPONSABILE,nodo.getNome()), 
-							new ConfermaController.Codice() {
-								@Override
-								public void esegui() {
-									datiResponsabile.elimina(new Object[] {nodo.getNome()});
-				                	datiPosizione.aggiorna(DatiPosizione.VOCE_TABELLA_RESPONSABILE, nodo.getNome(), "");
-						            
-				                	Programma.aggiornaListeNodi();// aggiorna lista laterale ad albero
-								}
-					});
-				}
-				
-				@Override
-				public void hardware(HardwareApparato nodoPadre,Hardware nodo) {
-					if(nodo != null && nodoPadre != null) {
+						);
+					}
+		
+					@Override
+					public void locale(Ufficio nodo) {
 						Finestra.finestraConferma(
 								this, 
-								String.format(R.Domanda.CONFERMA_ELIMINAZIONE,nodo.toString()), 
+								String.format(R.Domanda.CONFERMA_ELIMINAZIONE_UFFICIO, nodo.getNome()), 
 								new ConfermaController.Codice() {
 									@Override
 									public void esegui() {
-										datiHardwareApparato.elimina(new Object[]{nodoPadre.apparato(),nodo.getNome(),nodo.getModello(),nodo.getMatricola()});
-							            Programma.aggiornaListeNodi();// aggiorna lista laterale ad albero
+										datiPosizione.elimina(new Object[] {nodo.getNome()});
+					                	datiApparato.aggiorna(DatiApparato.VOCE_TABELLA_POSIZIONE, nodo.getNome(), "");
+							            
+					                	Programma.aggiornaListeNodi();// aggiorna lista laterale ad albero
 									}
 						});
-	                }
-				}
-				
-				@Override
-				public void software(SoftwareApparato nodoPadre,Software nodo) {
-					if(nodo != null && nodoPadre != null) {
+					}
+		
+					@Override
+					public void rete(Rete nodo) {
 						Finestra.finestraConferma(
 								this, 
-								String.format(R.Domanda.CONFERMA_ELIMINAZIONE,nodo.toString()), 
+								String.format(R.Domanda.CONFERMA_ELIMINAZIONE_RETE,nodo.getNome()), 
 								new ConfermaController.Codice() {
 									@Override
 									public void esegui() {
-										datiSoftwareApparato.elimina(new Object[]{nodoPadre.apparato(),nodo.getNome(),nodo.getLicenza()});
-							            Programma.aggiornaListeNodi();// aggiorna lista laterale ad albero
+										datiRete.elimina(new Object[] {nodo.getNome()});
+					                	datiApparato.aggiorna(DatiApparato.VOCE_TABELLA_WG, nodo.getNome(), "");
+							            
+					                	Programma.aggiornaListeNodi();// aggiorna lista laterale ad albero
 									}
 						});
-	                }
-				}
-
-				@Override
-				public void utilizzatore(Utilizzatore nodo) {
-					if(nodo != null) {
+					}
+		
+					@Override
+					public void responsabile(Responsabile nodo) {
 						Finestra.finestraConferma(
 								this, 
-								String.format(R.Domanda.CONFERMA_ELIMINAZIONE,nodo.toString()), 
+								String.format(R.Domanda.CONFERMA_ELIMINAZIONE_RESPONSABILE,nodo.getNome()), 
 								new ConfermaController.Codice() {
 									@Override
 									public void esegui() {
-										datiApparato.aggiorna(DatiApparato.VOCE_TABELLA_UTENTE, nodo.getAccount(), "");
-							            Programma.aggiornaListeNodi();// aggiorna lista laterale ad albero
+										datiResponsabile.elimina(new Object[] {nodo.getNome()});
+					                	datiPosizione.aggiorna(DatiPosizione.VOCE_TABELLA_RESPONSABILE, nodo.getNome(), "");
+							            
+					                	Programma.aggiornaListeNodi();// aggiorna lista laterale ad albero
 									}
 						});
-	                }
-				}
-				
-				@Override
-				public void connessioneSwitch(Apparato nodoPadre,ConnessioneSwitch nodo) {
-					if(nodo != null && nodoPadre != null) {
-						Finestra.finestraConferma(
-								this, 
-								String.format(R.Domanda.CONFERMA_ELIMINAZIONE,nodo.toString()), 
-								new ConfermaController.Codice() {
-									@Override
-									public void esegui() {
-										datiSwitchApparato.elimina(new Object[] {nodoPadre.getNome()});
-										datiApparato.aggiorna(DatiApparato.VOCE_TABELLA_SWITCH, nodo.getNome(), "");
-							            Programma.aggiornaListeNodi();// aggiorna lista laterale ad albero
-									}
-						});
-	                }
-				}
-				
-				@Override
-				public void switchRete(Switch nodo) {
-					if(nodo != null) {
-						Finestra.finestraConferma(
-								this, 
-								String.format(R.Domanda.CONFERMA_ELIMINAZIONE,nodo.toString()), 
-								new ConfermaController.Codice() {
-									@Override
-									public void esegui() {
-										datiSwitch.elimina(new Object[] {nodo.getNome()});
-										TreeSet<String>nomiApparati = datiSwitchApparato.ricercaOrdinata(1, nodo.getNome(), 0);
-										for(String apparato: nomiApparati) {
-											datiSwitchApparato.elimina(new Object[] {apparato,nodo.getNome()});
+					}
+					
+					@Override
+					public void hardware(HardwareApparato nodoPadre,Hardware nodo) {
+						if(nodo != null && nodoPadre != null) {
+							Finestra.finestraConferma(
+									this, 
+									String.format(R.Domanda.CONFERMA_ELIMINAZIONE,nodo.toString()), 
+									new ConfermaController.Codice() {
+										@Override
+										public void esegui() {
+											datiHardwareApparato.elimina(new Object[]{nodoPadre.apparato(),nodo.getNome(),nodo.getModello(),nodo.getMatricola()});
+								            Programma.aggiornaListeNodi();// aggiorna lista laterale ad albero
 										}
-										Programma.aggiornaListeNodi();// aggiorna liste laterali ad albero
-									}
-						});
-	                }
-				}
-				
-				@Override
-				public void helpDesk(Intervento nodo) {
-					if(nodo != null) {
-						Finestra.finestraConferma(
-								this, 
-								String.format(R.Domanda.CONFERMA_ELIMINAZIONE,nodo.toString()), 
-								new ConfermaController.Codice() {
-									@Override
-									public void esegui() {
-										datiIntervento.elimina(new Object[] {nodo.getNome()});
-										Programma.aggiornaListeNodi();// aggiorna liste laterali ad albero
-									}
-						});
-	                }
-				}
-				
-			});
+							});
+		                }
+					}
+					
+					@Override
+					public void software(SoftwareApparato nodoPadre,Software nodo) {
+						if(nodo != null && nodoPadre != null) {
+							Finestra.finestraConferma(
+									this, 
+									String.format(R.Domanda.CONFERMA_ELIMINAZIONE,nodo.toString()), 
+									new ConfermaController.Codice() {
+										@Override
+										public void esegui() {
+											datiSoftwareApparato.elimina(new Object[]{nodoPadre.apparato(),nodo.getNome(),nodo.getLicenza()});
+								            Programma.aggiornaListeNodi();// aggiorna lista laterale ad albero
+										}
+							});
+		                }
+					}
+	
+					@Override
+					public void utilizzatore(Utilizzatore nodo) {
+						if(nodo != null) {
+							Finestra.finestraConferma(
+									this, 
+									String.format(R.Domanda.CONFERMA_ELIMINAZIONE,nodo.toString()), 
+									new ConfermaController.Codice() {
+										@Override
+										public void esegui() {
+											datiApparato.aggiorna(DatiApparato.VOCE_TABELLA_UTENTE, nodo.getAccount(), "");
+								            Programma.aggiornaListeNodi();// aggiorna lista laterale ad albero
+										}
+							});
+		                }
+					}
+					
+					@Override
+					public void connessioneSwitch(Apparato nodoPadre,ConnessioneSwitch nodo) {
+						if(nodo != null && nodoPadre != null) {
+							Finestra.finestraConferma(
+									this, 
+									String.format(R.Domanda.CONFERMA_ELIMINAZIONE,nodo.toString()), 
+									new ConfermaController.Codice() {
+										@Override
+										public void esegui() {
+											datiSwitchApparato.elimina(new Object[] {nodoPadre.getNome()});
+											datiApparato.aggiorna(DatiApparato.VOCE_TABELLA_SWITCH, nodo.getNome(), "");
+								            Programma.aggiornaListeNodi();// aggiorna lista laterale ad albero
+										}
+							});
+		                }
+					}
+					
+					@Override
+					public void switchRete(Switch nodo) {
+						if(nodo != null) {
+							Finestra.finestraConferma(
+									this, 
+									String.format(R.Domanda.CONFERMA_ELIMINAZIONE,nodo.toString()), 
+									new ConfermaController.Codice() {
+										@Override
+										public void esegui() {
+											datiSwitch.elimina(new Object[] {nodo.getNome()});
+											TreeSet<String>nomiApparati = datiSwitchApparato.ricercaOrdinata(1, nodo.getNome(), 0);
+											for(String apparato: nomiApparati) {
+												datiSwitchApparato.elimina(new Object[] {apparato,nodo.getNome()});
+											}
+											Programma.aggiornaListeNodi();// aggiorna liste laterali ad albero
+										}
+							});
+		                }
+					}
+					
+					@Override
+					public void helpDesk(Intervento nodo) {
+						if(nodo != null) {
+							Finestra.finestraConferma(
+									this, 
+									String.format(R.Domanda.CONFERMA_ELIMINAZIONE,nodo.toString()), 
+									new ConfermaController.Codice() {
+										@Override
+										public void esegui() {
+											datiIntervento.elimina(new Object[] {nodo.getNome()});
+											Programma.aggiornaListeNodi();// aggiorna liste laterali ad albero
+										}
+							});
+		                }
+					}
+					
+				});
+        	}else {
+        		Finestra.finestraAvviso(this, String.format(R.Messaggi.ERRORE_AUTORIZZAZIONE,livello));
+        	}
         }
     }
 
@@ -1310,79 +1368,89 @@ public class FinestraPrincipaleController implements Initializable {
     private String voce(String tipo,String nome){
         return String.format("%s: [%s]", tipo,nome);
     }
+    
 
+    /**
+     * Effettua l'importazione dei dati dal file "excel" di backup.
+     * 
+     * @param event
+     */
     @FXML
     private void caricaFile(ActionEvent event){
         if (event.getEventType().equals(ActionEvent.ACTION)) {
-            Finestra.finestraCaricaFile(
-                    this, 
-                    TipoFile.XLS,
-                    (Path path) -> {
-                        
-                        return new Task() {
-                            @Override
-                            protected  Object call() throws Exception {
-                                String info = "Inizio caricamento...";
-                                String infoErrore = "";
-                                updateMessage(info);
-                                File file = path.toFile();
-                                if(file != null){
-                                    if(file.exists()){
-                                        int i=0;
-                                        for(String chiave: dati.keySet()){
-                                            if(dati.get(chiave).esiste()){
-                                                String messaggio = String.format("formattazione tabella\t `%s`\t", chiave);
-                                                if(dati.get(chiave).elimataTuttiRecord())
-                                                    messaggio += "OK";
-                                                else
-                                                    messaggio += "Errore";
-                                                info = messaggio +"\n"+ info;
-                                                updateMessage(info);
-                                                messaggio = String.format("caricamento tabella\t`%s`\t", chiave);
-                                                if(dati.get(chiave).carica(file)) // crea tabella nel file
-                                                    messaggio += "OK";
-                                                else{
-                                                    messaggio += "Errore";
-                                                    if(infoErrore.isEmpty())
-                                                        infoErrore = "AVVISO!!!!!:\nSi sono verificati gravi errore nelle caricamento delle seguenti tabelle:\n";
-                                                    infoErrore += String.format("-> «%s»\n", chiave);
-                                                }
-                                                info = messaggio +"\n"+ info;
-                                            }
-                                            if(++i != dati.keySet().size()){
-                                                updateMessage(info);
-                                            } else{
-                                                if(!infoErrore.isEmpty()){
-                                                    updateMessage(infoErrore);
-                                                    for(int k=0; k < 20; k++){
-                                                        Thread.sleep(1000);
-                                                        updateMessage(String.format("..chiusura tra %s\n%s",""+(20-k),infoErrore));
-                                                    }
-                                                }
-                                            }
-                                            updateProgress(i, dati.keySet().size());
-                                            
-                                        }
-                                        
-                                        Programma.creaListaApparato(rete,datiApparato.listaApparati());
-                                        
-                                        
-                                        
-                                    }else{
-                                        info = "Errore: file `"+file.getAbsolutePath() + "` non trovato!!! \n";
-                                        updateMessage(info);
-                                        for(int i=0; i < 10; i++){
-                                            Thread.sleep(1000);
-                                            updateMessage(String.format("%s\n\nChiusura tra %s",info,""+(10-i)));
-                                        }
-                                    }
-                                    
-                                }
-                                return true;
-                            }
-                        };
-                    }
-            );
+        	String livello = Programma.livelloAccesso();
+        	if(livello.equals(LivelloAccesso.AMMINISTRATORE))
+	            Finestra.finestraCaricaFile(
+	                    this, 
+	                    TipoFile.XLS,
+	                    (Path path) -> {
+	                        
+	                        return new Task() {
+	                            @Override
+	                            protected  Object call() throws Exception {
+	                                String info = "Inizio caricamento...";
+	                                String infoErrore = "";
+	                                updateMessage(info);
+	                                File file = path.toFile();
+	                                if(file != null){
+	                                    if(file.exists()){
+	                                        int i=0;
+	                                        for(String chiave: dati.keySet()){
+	                                            if(dati.get(chiave).esiste()){
+	                                                String messaggio = String.format("formattazione tabella\t `%s`\t", chiave);
+	                                                if(dati.get(chiave).elimataTuttiRecord())
+	                                                    messaggio += "OK";
+	                                                else
+	                                                    messaggio += "Errore";
+	                                                info = messaggio +"\n"+ info;
+	                                                updateMessage(info);
+	                                                messaggio = String.format("caricamento tabella\t`%s`\t", chiave);
+	                                                if(dati.get(chiave).carica(file)) // crea tabella nel file
+	                                                    messaggio += "OK";
+	                                                else{
+	                                                    messaggio += "Errore";
+	                                                    if(infoErrore.isEmpty())
+	                                                        infoErrore = "AVVISO!!!!!:\nSi sono verificati gravi errore nelle caricamento delle seguenti tabelle:\n";
+	                                                    infoErrore += String.format("-> «%s»\n", chiave);
+	                                                }
+	                                                info = messaggio +"\n"+ info;
+	                                            }
+	                                            if(++i != dati.keySet().size()){
+	                                                updateMessage(info);
+	                                            } else{
+	                                                if(!infoErrore.isEmpty()){
+	                                                    updateMessage(infoErrore);
+	                                                    for(int k=0; k < 20; k++){
+	                                                        Thread.sleep(1000);
+	                                                        updateMessage(String.format("..chiusura tra %s\n%s",""+(20-k),infoErrore));
+	                                                    }
+	                                                }
+	                                            }
+	                                            updateProgress(i, dati.keySet().size());
+	                                            
+	                                        }
+	                                        
+	                                        Programma.creaListaApparato(rete,datiApparato.listaApparati());
+	                                        
+	                                        
+	                                        
+	                                    }else{
+	                                        info = "Errore: file `"+file.getAbsolutePath() + "` non trovato!!! \n";
+	                                        updateMessage(info);
+	                                        for(int i=0; i < 10; i++){
+	                                            Thread.sleep(1000);
+	                                            updateMessage(String.format("%s\n\nChiusura tra %s",info,""+(10-i)));
+	                                        }
+	                                    }
+	                                    
+	                                }
+	                                return true;
+	                            }
+	                        };
+	                    }
+	            );
+        	else
+        		Finestra.finestraAvviso(this, String.format(R.Messaggi.ERRORE_AUTORIZZAZIONE,livello));
         }
     }
     
@@ -1622,7 +1690,7 @@ public class FinestraPrincipaleController implements Initializable {
     @FXML
     private void apriImpostazioniReportPDF(ActionEvent event) {
         if(event.getEventType().equals(ActionEvent.ACTION)){
-        	Finestra.caricaFinestra(this, R.FXML.FINESTRA_IMPOSTAZIONI);
+        	Programma.autorizzaCaricamentoFinestra(this,R.FXML.FINESTRA_IMPOSTAZIONI,false);
         }
     }
 }
