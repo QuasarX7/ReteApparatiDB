@@ -1403,7 +1403,6 @@ public class Programma extends Application {
     	
     	if(datiApparato == null)
     		return ; // chiudi 
-    	
     	DatiImpostazioni datiImpostazioni  = ((DatiImpostazioni)dati.get(DatiImpostazioni.NOME_TABELLA));
     	
     	final String localita = datiImpostazioni.valore(DatiImpostazioni.INTESTAZIONE_LOCALITA);
@@ -1518,7 +1517,6 @@ public class Programma extends Application {
 		file.aggiungi(BARRA,FilePDF.HELVETICA,12,FilePDF.CORSIVO,FilePDF.ALLINEAMENTO_SINISTRA,FilePDF.NERO);
 		
 		//file.aggiungi("\n\n\n ");
-		
 		ArrayList<CellaPDF> areaFirme = new ArrayList<CellaPDF>();
 		
 		String titoloFirma1 = "", nomeFirma1 = "";
@@ -1540,7 +1538,6 @@ public class Programma extends Application {
 			titoloFirma2 = datiImpostazioni.valore(DatiImpostazioni.FIRMA2_QUALIFICA2);
 			nomeFirma2 = datiImpostazioni.valore(DatiImpostazioni.FIRMA2_NOME2);
 		}
-		
 		areaFirme.add(new CellaPDF(" "));areaFirme.add(new CellaPDF(" "));
 		areaFirme.add(new CellaPDF(" "));areaFirme.add(new CellaPDF(" "));
 		areaFirme.add(new CellaPDF(titoloFirma1,10,FilePDF.TIMES, FilePDF.GROSSETTO,false,FilePDF.ALLINEAMENTO_CENTRO));
@@ -1555,8 +1552,6 @@ public class Programma extends Application {
 		areaFirme.add(new CellaPDF(" "));
 		
 		file.aggiungiTabella(areaFirme, new float[]{60,40});
-		
-		
 		tabellaInfo.add(new CellaPDF("Posizione:",FilePDF.GROSSETTO));
 		
 		// RETROPAGINA
@@ -1570,10 +1565,8 @@ public class Programma extends Application {
 			finePag.add(new CellaPDF(" "));
 			finePag.add(new CellaPDF("Firma leggibile dell'UTENTE"));
 			
-			
 			file.aggiungiTabella(finePag, new float[]{60,40});
 		}
-		
     	file.chiudi();
     }
 

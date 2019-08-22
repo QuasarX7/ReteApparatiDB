@@ -2,6 +2,7 @@ package it.quasar_x7.gestione_rete.controllo;
 
 import it.quasar_x7.gestione_rete.Dati.DatiImpostazioni;
 import it.quasar_x7.gestione_rete.programma.Programma;
+import it.quasar_x7.java.utile.FilePDF;
 import it.quasar_x7.javafx.Finestra;
 
 import static it.quasar_x7.gestione_rete.programma.Programma.dati;
@@ -220,9 +221,9 @@ public class FinestraImpostazioniController  implements Initializable {
     }
     
     static public String codificaHTML(String testo) {
-    	final char percento = '%';
+    	final String percento = "%";
     	return String.format(
-				"<div style=\"font-size: 14px; font-family: 'Times'; line-height:110%s; text-align: justify\">" + 
+				"<div style=\"font-size: 14px; font-family: \"Times New Roman\", \"Times-Roman\",\"Times\", serif; line-height:110%s; text-align: justify\">" + 
 						"<style type=\"text/css\">" + 
 							"li{" + 
 								"padding: 7px;" + 
